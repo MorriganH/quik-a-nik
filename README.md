@@ -5,17 +5,19 @@
 
 ## Frontend
 
-- cd frontend/
+- `cd frontend/`
 
 ### To run in browser
 
-- npm run web
+- `npm run web`
 
 ### To run on mobile
 
-- npx expo start --tunnel
+- `npx expo start --tunnel`
+If you are on android, download the Expo Go app
+Scan the QR code to veiw your app
 
 ## Backend
 
-- cd backend/
-- npm start
+- `cd backend/`
+- `npm start`
