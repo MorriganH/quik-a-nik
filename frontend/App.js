@@ -11,10 +11,10 @@ import * as Device from "expo-device";
 
 export default function App() {
   let device;
-  if (Device.osName === "Windows" || Device.osName === "Mac OS") {
+  if (Device.brand === null) {
     device = "web";
   }
-  if (Device.osName === "Android") {
+  if (Device.brand !== null) {
     device = "mobile";
   }
 

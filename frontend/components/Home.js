@@ -20,9 +20,9 @@ export default function Home(props) {
         source={require("../assets/Juniper_Twitter_Art.webp")}
       />
 
-      <Text>Running on {Device.osName}</Text>
-      {Device.osName === "Android" && <Android />}
-      {(Device.osName === "Windows" || Device.osName === "Mac OS") && <Web />}
+      <Text>Running on {Device.brand}</Text>
+      {Device.brand === null && <Web />}
+      {Device.brand  !== null && <Android />}
 
       <Button onPress={() => viewSwitcher("PRODUCTS")} title="RENDER PRODUCTS" ></Button>
       <Button onPress={() => viewSwitcher("MAP")} title="RENDER MAP" ></Button>
