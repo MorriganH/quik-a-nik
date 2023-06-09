@@ -3,12 +3,21 @@ import { StyleSheet, Text, View, Image, Button } from "react-native";
 import styles from "./styles";
 import Home from "./components/Home";
 import Map from "./components/Map";
+import WebMap from "./components/WebMap";
+import ProductList from "./components/ProductList";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import ProductList from "./components/ProductList";
+import * as Device from "expo-device";
 
 export default function App() {
-  // console.log(process.env)
+  let device;
+  if (Device.osName === "Windows" || Device.osName === "Mac OS") {
+    device = "web";
+  }
+  if (Device.osName === "Android") {
+    device = "mobile";
+  }
+
   const [products, setProducts] = useState([]);
   const [viewHistory, setViewHistory] = useState(["HOME"]);
   //variables
@@ -56,7 +65,8 @@ export default function App() {
         ></Home>
       )}
       {view === "PRODUCTS" && <ProductList products={products}></ProductList>}
-      {view === "MAP" && <Map></Map>}
+      {view === "MAP" && device === "web" && <WebMap />}
+      {view === "MAP" && device === "mobile" && <Map />}
       <StatusBar style="auto" />
     </View>
   );
