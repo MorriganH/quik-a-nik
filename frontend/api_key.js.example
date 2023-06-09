@@ -1,0 +1,2 @@
+const key = 'key';
+export default key;

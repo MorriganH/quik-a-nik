@@ -5,7 +5,6 @@ import Android from "./Android";
 import Web from "./Web";
 import styles from "../styles";
 
-
 export default function Home(props) {
   const {setViewHistory, back, transition } = props;
 
@@ -23,9 +22,10 @@ export default function Home(props) {
 
       <Text>Running on {Device.osName}</Text>
       {Device.osName === "Android" && <Android />}
-      {(Device.osName === "Windows" || Device.osName === "iOS") && <Web />}
+      {(Device.osName === "Windows" || Device.osName === "Mac OS") && <Web />}
 
       <Button onPress={() => viewSwitcher("PRODUCTS")} title="RENDER PRODUCTS" ></Button>
+      <Button onPress={() => viewSwitcher("MAP")} title="RENDER MAP" ></Button>
    
     </>
   );
