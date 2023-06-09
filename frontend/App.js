@@ -15,7 +15,7 @@ export default function App() {
       />
       <Text>Running on {Device.osName}</Text>
       {Device.osName === 'Android' && <Android />}
-      {Device.osName === 'Windows' || Device.osName === 'iOS' && <Web />}
+      {Device.osName === 'Windows' || Device.osName === 'Mac OS' && <Web />}
       <StatusBar style="auto" />
     </View>
   );
