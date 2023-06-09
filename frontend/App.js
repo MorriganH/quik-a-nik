@@ -50,7 +50,7 @@ export default function App() {
       .get("http://localhost:3000/products")
       .then(prods => setProducts(prods.data.products));
   }, []);
-  console.log(products);
+  // console.log(products);
 
   //App return
   return (

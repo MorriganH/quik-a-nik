@@ -1,9 +1,9 @@
-import { useState, useCallback } from "react";
+
+import React, { useState, useCallback, useEffect } from "react";
 import { Text, StyleSheet } from "react-native";
-import MapView from "react-native-maps";
-import * as Device from "expo-device";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import key from "../api_key";
+import * as Location from 'expo-location'
 
 const containerStyle = {
   width: "400px",
@@ -16,16 +16,40 @@ const center = {
 };
 
 export default function WebMap() {
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null)
+
+  useEffect(() => {
+    (async () => {
+      
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
+  let text = 'Waiting..';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
+  
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: key,
   });
-
+  
   const [map, setMap] = useState(null);
-
-  const onLoad = useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(center);
+  
+  const onLoad = useCallback(async function callback(map) {
+    await location;
+    const bounds = new window.google.maps.LatLngBounds({lat: location.coords.latitude, lng: location.coords.longitude});
     map.fitBounds(bounds);
 
     setMap(map);
@@ -35,17 +59,23 @@ export default function WebMap() {
     setMap(null);
   }, []);
 
+  const onDragEnd = event => {
+    // event.nativeEvent.coordinate
+    console.log(event.domEvent)
+  }
+
   return isLoaded ? (
-    <GoogleMap
+    location &&
+    (<GoogleMap
       mapContainerStyle={containerStyle}
-      center={center}
-      zoom={10}
+      center={{lat: location.coords.latitude, lng: location.coords.longitude}}
+      zoom={12}
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
       {/* Child components, such as markers, info windows, etc. */}
-      <></>
-    </GoogleMap>
+      <><Marker position={{lat: location.coords.latitude, lng: location.coords.longitude}} draggable onDragEnd={() => console.log(this.status)} /></>
+    </GoogleMap>)
   ) : (
     <></>
   );
