@@ -22,8 +22,10 @@ app.use(cors());
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const productsRouter = require("./routes/products");
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/products", productsRouter);
 
 module.exports = app;
