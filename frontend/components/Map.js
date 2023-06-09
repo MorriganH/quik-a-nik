@@ -8,36 +8,40 @@ import * as Location from "expo-location";
 
 
 export default function Map() {
-
+  
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
+  // grab device location using expo-location
   useEffect(() => {
     (async () => {
       
       let { status } = await Location.requestForegroundPermissionsAsync();
+
+      // if location permission not granted by user, return error
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
         return;
       }
 
+      // Capture current location
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
     })();
   }, []);
 
   let text = 'Waiting..';
+  // save either error message or JSON location data (in string format) in 'text' variable
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
     text = JSON.stringify(location);
   }
 
-  console.log(location);
-
   return (
-    
-    <MapView
+    // short circuit statement triggers re-render of component once location available (truthy)
+    location &&
+    (<MapView
       style={styles.map}
       provider="google"
       googleMapsApiKey={key}
@@ -45,10 +49,10 @@ export default function Map() {
       initialRegion={{
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+        latitudeDelta: 0.0115,
+        longitudeDelta: 0.0055,
       }}
-    />
+    />)
   );
 }
 
