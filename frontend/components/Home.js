@@ -5,6 +5,7 @@ import Android from "./Android";
 import Web from "./Web";
 import styles from "../styles";
 
+
 export default function Home(props) {
   const {setViewHistory, back, transition } = props;
 
@@ -24,7 +25,7 @@ export default function Home(props) {
       {Device.osName === "Android" && <Android />}
       {(Device.osName === "Windows" || Device.osName === "iOS") && <Web />}
 
-      <Button onPress={() => viewSwitcher("TEST")} title="RENDER TEST" ></Button>
+      <Button onPress={() => viewSwitcher("PRODUCTS")} title="RENDER PRODUCTS" ></Button>
    
     </>
   );
