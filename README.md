@@ -1,7 +1,8 @@
 # Instructions
 
 - `npm install` in both frontend and backend
-- create .env and copy .env.example into it. Ensure `DB_USER` and `DB_PASS` are accurate for your system
+- in server, create .env and copy .env.example into it. Ensure `DB_USER` and `DB_PASS` are accurate for your system
+- in frontend, create .env and copy .env.example into it. Replace `key` with your Google Maps API key
 
 ## Frontend
 
