@@ -1,27 +1,39 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image, Button } from "react-native";
-import * as Device from 'expo-device';
 import styles from "./styles";
-import Android from "./components/android";
-import Web from "./components/web";
-
+import Home from "./components/Home";
+import { useState } from "react";
 
 export default function App() {
   
+  const [viewHistory, setViewHistory] = useState(["HOME"]);
+  const view = viewHistory[viewHistory.length - 1]
+  console.log("Current view: ", view);
+
+  const transition = function (newView, replace) {
+    const oldHistory = [...viewHistory];
+
+    // to be used if we have transitions...
+    if (replace) {
+      oldHistory.pop();
+    }
+
+    setViewHistory([...oldHistory, newView]);
+  };
+
+  const back = function () {
+    const oldHistory = [...viewHistory];
+    if (oldHistory.length !== 1) {
+      oldHistory.pop();
+    }
+    setViewHistory(oldHistory);
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.bigText}>Juniper Xenoblade</Text>
-      <Image
-        style={styles.logo}
-        source={require("./assets/Juniper_Twitter_Art.webp")}
-      />
-
-      <Text>Running on {Device.osName}</Text>
-      {Device.osName === 'Android' && <Android />}
-      {Device.osName === 'Windows' || Device.osName === 'Mac OS' && <Web />}
+      {view === "HOME" && <Home transition={transition} back={back} view={view} setViewHistory={setViewHistory}></Home>}
+      {view === "TEST" && <Button onPress={back} title="Take me back!"> </Button>}
       <StatusBar style="auto" />
     </View>
   );
 }
-

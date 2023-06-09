@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const products = require("../db/queries/products");
 
-router.get("/test", function(req, res) {
-  res.json({ msg: "Products test route." });
-});
+// router.get("/test", function(req, res) {
+//   res.json({ msg: "Products test route." });
+// });
 
 
 /* GET products listing. */
