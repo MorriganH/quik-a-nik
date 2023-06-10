@@ -4,6 +4,8 @@ import styles from "./styles";
 import Home from "./components/Home";
 import Map from "./components/Map";
 import WebMap from "./components/WebMap";
+import Cart from "./components/Cart";
+
 import ProductList from "./components/ProductList";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -20,9 +22,13 @@ export default function App() {
     device = "mobile";
   }
 
+  //States
+  const [cart, setCart] = useState([])
   const [products, setProducts] = useState([]);
   const [viewHistory, setViewHistory] = useState(["HOME"]);
   const [filter, setFilter] = useState(null);
+
+
   //variables
   const view = viewHistory[viewHistory.length - 1];
   console.log("Current view: ", view);
@@ -53,7 +59,7 @@ export default function App() {
       .get("http://localhost:3000/products")
       .then((prods) => setProducts(prods.data.products));
   }, []);
-  console.log(products);
+  // console.log(products);
 
   //App return
   return (
@@ -72,11 +78,13 @@ export default function App() {
           back={back}
           view={view}
           setViewHistory={setViewHistory}
+ 
         ></Home>
       )}
-      {view === "PRODUCTS" && <ProductList products={products}></ProductList>}
+      {view === "PRODUCTS" && <ProductList cart={cart} setCart={setCart} products={products}></ProductList>}
       {view === "MAP" && device === "web" && <WebMap />}
       {view === "MAP" && device === "mobile" && <Map />}
+      {view === "CART" && device === "web" && <Cart cart={cart} />}
       <StatusBar style="auto" />
     </View>
   );

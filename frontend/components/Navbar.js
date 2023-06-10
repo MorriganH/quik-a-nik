@@ -77,7 +77,7 @@ export default function Navbar(props) {
       paddingVertical: 10,
       display: "flex",
       flexDirection: "row",
-      flex: 1,
+      // flex: 1,
       justifyContent: "space-evenly",
       alignItems: "center",
       // backgroundColor: "white",
