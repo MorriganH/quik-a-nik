@@ -48,7 +48,8 @@ export default function App() {
   useEffect(() => {
     axios
       .get("http://localhost:3000/products")
-      .then(prods => setProducts(prods.data.products));
+      .then(prods => setProducts(prods.data.products))
+      .catch(error => console.log("New error caught: ", error))
   }, []);
   console.log(products);
 
