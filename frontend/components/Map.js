@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { Text, StyleSheet } from "react-native";
-import MapView from "react-native-maps";
+import MapView, { Marker } from 'react-native-maps';
 import * as Device from "expo-device";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import key from "../api_key";
@@ -39,7 +39,8 @@ export default function Map() {
   }
 
   return (
-    // short circuit statement triggers re-render of component once location available (truthy)
+    
+    // short circuit triggers re-render of component once location truthy
     location &&
     (<MapView
       style={styles.map}
@@ -52,11 +53,25 @@ export default function Map() {
         latitudeDelta: 0.0115,
         longitudeDelta: 0.0055,
       }}
-    />)
+    >
+      <Marker
+        coordinate={{
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        }}
+      />
+      </MapView>)
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+
   map: {
     width: "100%",
     height: "100%",
