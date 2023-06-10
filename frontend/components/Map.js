@@ -1,12 +1,18 @@
 import { useState, useCallback, useEffect } from "react";
-import { Text, StyleSheet, View, TextInput } from "react-native";
+import { Text, StyleSheet, View, TextInput, Pressable } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Device from "expo-device";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
+import Stripe from "./Stripe";
 
-export default function Map() {
+export default function Map(props) {
+
+  let view = null;
+
+  const {transition, viewHistory, setViewHistory} = props;
+
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [markerPosition, setMarkerPosition] = useState(null);
@@ -40,11 +46,13 @@ export default function Map() {
   //Set new markerPosition state onPress of map
   const handlePress = (event) => {
     setMarkerPosition(event.nativeEvent.coordinate);
-    // console.log("event: ", event);
-    // console.log("nativeEvent: ",event.nativeEvent);
-    // console.log("nativeEvent.coordinate: ",event.nativeEvent.coordinate);
-    console.log("markerPosition: ", markerPosition);
+    console.log("markerPosition: ", markerPosition); // TEST CODE - logging marker position coordinates
   };
+
+  const viewSwitcher = function (newView) {
+    transition(newView);
+  };
+
 
   return (
     // short circuit triggers re-render of component once location truthy
@@ -75,6 +83,9 @@ export default function Map() {
           numberOfLines={5}
           maxLength={255}
         />
+        <Pressable style={styles.checkoutButton} onPress={() => viewSwitcher("STRIPE")}>
+          <Text>Proceed to Payment Details</Text>
+        </Pressable>
       </View>
     )
   );
@@ -91,8 +102,8 @@ const styles = StyleSheet.create({
   map: {
     minWidth: "90%",
     minHeight: "50%",
-    borderRadius: 10,  //Not working at all
-    borderWidth: 1,    //Not working at all
+    borderRadius: 10, //Not working at all
+    borderWidth: 1, //Not working at all
   },
 
   locationDetailsInput: {
@@ -101,5 +112,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     padding: 10,
+  },
+
+  checkoutButton: {
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: "pink",
   },
 });
