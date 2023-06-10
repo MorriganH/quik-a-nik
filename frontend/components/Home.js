@@ -24,8 +24,7 @@ export default function Home(props) {
       {Device.brand === null && <Web />}
       {Device.brand  !== null && <Android />}
 
-      <Button onPress={() => viewSwitcher("PRODUCTS")} title="RENDER PRODUCTS" ></Button>
-      <Button onPress={() => viewSwitcher("MAP")} title="RENDER MAP" ></Button>
+
    
     </>
   );
