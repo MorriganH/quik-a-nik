@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
@@ -16,6 +17,9 @@ const styles = StyleSheet.create({
   bigText: {
     fontSize: 40,
   },
+  
+
 });
+
 
 export default styles;

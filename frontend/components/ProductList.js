@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, Image, Button } from "react-native";
-import Product from "./Product";
+import ProductListItem from "./ProductListItem";
 
 
 
@@ -10,7 +10,9 @@ const {products} = props
 
 const productArr = products.map(product => {
   
-  return(<Product product={product} key={product.id} ></Product>)
+  return(
+  
+  <ProductListItem product={product} key={product.id} ></ProductListItem>)
 
 })
 
