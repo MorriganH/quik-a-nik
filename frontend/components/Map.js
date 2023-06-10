@@ -11,6 +11,8 @@ export default function Map() {
   
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [markerPosition, setMarkerPosition] = useState(null);
+
 
   // grab device location using expo-location
   useEffect(() => {
@@ -27,6 +29,7 @@ export default function Map() {
       // Capture current location
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      setMarkerPosition(location.coords);
     })();
   }, []);
 
@@ -36,6 +39,10 @@ export default function Map() {
     text = errorMsg;
   } else if (location) {
     text = JSON.stringify(location);
+  }
+
+  const handlePress = (event) => {
+    setMarkerPosition(event.nativeEvent.coordinate);
   }
 
   return (
@@ -53,14 +60,12 @@ export default function Map() {
         latitudeDelta: 0.0115,
         longitudeDelta: 0.0055,
       }}
+      onPress={handlePress}
     >
       <Marker
-        coordinate={{
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-        }}
+        coordinate={markerPosition}
       />
-      </MapView>)
+    </MapView>)
   );
 }
 
