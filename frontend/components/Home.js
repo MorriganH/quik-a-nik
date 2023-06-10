@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { StyleSheet, Text, View, Image, Button } from "react-native";
+import { StyleSheet, Text, View, Image, Button, Pressable } from "react-native";
 import * as Device from "expo-device";
 import Android from "./Android";
 import Web from "./Web";
@@ -14,6 +14,12 @@ export default function Home(props) {
 
   return (
     <>
+      <Pressable
+          style={styles.button}
+          onPress={() => viewSwitcher("PRODUCTS")}
+        >
+          <Text>Products</Text>
+        </Pressable>
       <Text style={styles.bigText}>Juniper Xenoblade</Text>
       <Image
         style={styles.logo}
@@ -22,7 +28,7 @@ export default function Home(props) {
 
       <Text>Running on {Device.brand}</Text>
       {Device.brand === null && <Web />}
-      {Device.brand  !== null && <Android />}
+      {Device.brand !== null && <Android />}
 
 
    
