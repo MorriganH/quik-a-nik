@@ -16,16 +16,18 @@ app.use(
     name: "session",
     keys: ["123", "456", "789"],
   })
-);
-app.use(express.static(path.join(__dirname, "public")));
-app.use(cors());
-
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
-const productsRouter = require("./routes/products");
-
+  );
+  app.use(express.static(path.join(__dirname, "public")));
+  app.use(cors());
+  
+  const indexRouter = require("./routes/index");
+  const usersRouter = require("./routes/users");
+  const productsRouter = require("./routes/products");
+  const mobileCheckout = require("./routes/mobile-checkout");
+  
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);
+app.use('/mobile-checkout', mobileCheckout);
 
 module.exports = app;
