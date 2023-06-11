@@ -1,9 +1,8 @@
-
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { Text, StyleSheet } from "react-native";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import key from "../api_key";
-import * as Location from 'expo-location'
+import * as Location from "expo-location";
 
 const containerStyle = {
   width: "400px",
@@ -16,67 +15,60 @@ const center = {
 };
 
 export default function WebMap() {
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null)
+  const [location, setLocation] = useState({});
+  const [markerPos, setMarkerPos] = useState(location);
+  console.log(markerPos)
+
+  const { isLoaded, loadError } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: key,
+  });
 
   useEffect(() => {
     (async () => {
-      
       let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
         return;
       }
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      setMarkerPos(location)
     })();
   }, []);
 
-  let text = 'Waiting..';
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
-  }
-  
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: key,
-  });
-  
-  const [map, setMap] = useState(null);
-  
-  const onLoad = useCallback(async function callback(map) {
-    await location;
-    const bounds = new window.google.maps.LatLngBounds({lat: location.coords.latitude, lng: location.coords.longitude});
-    map.fitBounds(bounds);
+  const updateMarker = ev => {
+    const oldMarkerPos = { ...markerPos };
+    setMarkerPos(oldMarkerPos, oldMarkerPos.coords.latitude = ev.latLng.lat(), oldMarkerPos.coords.longitude = ev.latLng.lng())
+  };
 
-    setMap(map);
-  }, []);
-
-  const onUnmount = useCallback(function callback(map) {
-    setMap(null);
-  }, []);
-
-  const onDragEnd = event => {
-    // event.nativeEvent.coordinate
-    console.log(event.domEvent)
+  if (loadError) {
+    return <Text>Map cannot be loaded</Text>;
   }
 
   return isLoaded ? (
-    location &&
-    (<GoogleMap
+    <GoogleMap
       mapContainerStyle={containerStyle}
-      center={{lat: location.coords.latitude, lng: location.coords.longitude}}
-      zoom={12}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
+      center={{ lat: location.coords.latitude, lng: location.coords.longitude }}
+      zoom={13}
+      onClick={ev => {
+        updateMarker(ev)
+      }}
     >
-      {/* Child components, such as markers, info windows, etc. */}
-      <><Marker position={{lat: location.coords.latitude, lng: location.coords.longitude}} draggable onDragEnd={() => console.log(this.status)} /></>
-    </GoogleMap>)
+      <Marker
+        position={{
+          lat: markerPos.coords.latitude,
+          lng: markerPos.coords.longitude,
+        }}
+        
+        draggable
+        onDragEnd={ev => {
+          updateMarker(ev)
+        }}
+      />
+    </GoogleMap>
   ) : (
-    <></>
+    <Text>Loading</Text>
   );
 }
