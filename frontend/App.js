@@ -17,16 +17,19 @@ import Web from "./components/Web";
 import Android from "./components/Android";
 import OrderList from "./components/OrderList";
 import ProductListItem from "./components/ProductListItem";
+import stateManager from "./hooks/stateManager";
 
 
 
 
 export default function App() {
 
+  const {state} = stateManager()
+
   const device = Platform.OS;
   
   //useState
-  const [isLoading, setIsLoading] = useState(true)
+  // const [isLoading, setIsLoading] = useState(true)
   // const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
   const [viewHistory, setViewHistory] = useState(["HOME"]);
@@ -47,7 +50,7 @@ export default function App() {
   
   const Stack = createNativeStackNavigator();
    
-  // if (isLoading) {
+  // if (state.isLoading) {
   //   return <View className="App"><Text>Loading... </Text></View>;
   // }
     return (

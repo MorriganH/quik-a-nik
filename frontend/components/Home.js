@@ -3,9 +3,13 @@ import { StyleSheet, Text, View, Image, Button, Pressable, Platform  } from "rea
 import * as Device from "expo-device";
 import Android from "./Android";
 import Web from "./Web";
+import stateManager from "../hooks/stateManager";
+
 
 export default function Home({navigation, route}) {
 const device = Platform.OS
+
+const {state} = stateManager()
 
   
 
@@ -18,6 +22,7 @@ const device = Platform.OS
 
 
   return (
+
     <>
       <Text style={styles.bigText}>Juniper Xenoblade</Text>
       <Image
