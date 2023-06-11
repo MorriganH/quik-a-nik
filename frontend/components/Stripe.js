@@ -5,16 +5,16 @@ import * as Device from "expo-device";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
-import { CardField, useStripe } from "@stripe/stripe-react-native";
+import { StripeProvider, CardField, useStripe } from "@stripe/stripe-react-native";
 
 export default function Stripe() {
   return (
-
-    
-    <View style={styles.container}>
-        <Text> Test stripe page? </Text>
+    <StripeProvider
+      publishableKey="pk_test_51NDgmwLv74N28uF2MxWf6liIv4DqMJcIagTtcT1BAymIJEkX1gaky4i9nLLfmfALffHmN32aiXmRrSiPAcmn0wOP00ONBP6Dfx"
+    >
+      <View style={styles.container}>
         <CardField
-          postalCodeEnabled={true}
+          postalCodeEnabled={false}
           placeholders={{
             number: "4242 4242 4242 4242",
           }}
@@ -23,8 +23,8 @@ export default function Stripe() {
             textColor: "#000000",
           }}
           style={{
-            width: "100%",
-            height: 50,
+            minWidth: "90%",
+            minHeight: 50,
             marginVertical: 30,
           }}
           onCardChange={(cardDetails) => {
@@ -35,13 +35,14 @@ export default function Stripe() {
           }}
         />
       </View>
-
+    </StripeProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    midWidth: "100%",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F5FCFF",

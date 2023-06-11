@@ -9,7 +9,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import * as Device from "expo-device";
 import Stripe from "./components/Stripe";
-import { StripeProvider } from "@stripe/stripe-react-native";
 
 export default function App() {
   let device;
@@ -58,11 +57,6 @@ export default function App() {
   //App return
   return (
 
-    <StripeProvider
-      publishableKey="pk_test_51NDgmwLv74N28uF2mIdIFKFUrZwHKfWUM4hWPUKUWoklWLq4RUD2YYIBkjSWftEFPdrkXzhfym0zYh2H98u7Atan00PKp1jbjr"
-      // urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
-      // merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}" // required for Apple Pay
-    >
     <View style={styles.container}>
       {view === "HOME" && (
         <Home
@@ -85,6 +79,5 @@ export default function App() {
       )}
       <StatusBar style="auto" />
     </View>
-    </StripeProvider>
   );
 }
