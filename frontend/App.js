@@ -63,39 +63,40 @@ export default function App() {
   // console.log(products);
 
   //App return
-  return (
-    <View>
-      {device !== "web" && <Navigator></Navigator>}
-      {device === "web" && (
-        <View style={styles.container}>
-          <Navbar
-            products={products}
-            transition={transition}
-            back={back}
-            view={view}
-            setViewHistory={setViewHistory}
-          />
-          {view === "HOME" && (
-            <Home
-              products={products}
-              transition={transition}
-              back={back}
-              view={view}
-              setViewHistory={setViewHistory}
-            ></Home>
-          )}
-          {view === "PRODUCTS" && (
-            <ProductList
-              cart={cart}
-              setCart={setCart}
-              products={products}
-            ></ProductList>
-          )}
-          {view === "MAP" && device === "web" && <WebMap />}
-          {view === "CART" && device === "web" && <Cart cart={cart} />}
-          <StatusBar style="auto" />
-        </View>
-      )}
-    </View>
-  );
+
+  // if (device !== "web") {
+    return <Navigator products={products}></Navigator>;
+  // }
+  // if (device === "web") {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Navbar
+  //         products={products}
+  //         transition={transition}
+  //         back={back}
+  //         view={view}
+  //         setViewHistory={setViewHistory}
+  //       />
+  //       {view === "HOME" && (
+  //         <Home
+  //           products={products}
+  //           transition={transition}
+  //           back={back}
+  //           view={view}
+  //           setViewHistory={setViewHistory}
+  //         ></Home>
+  //       )}
+  //       {view === "ProductList" && (
+  //         <ProductList
+  //           cart={cart}
+  //           setCart={setCart}
+  //           products={products}
+  //         ></ProductList>
+  //       )}
+  //       {view === "MAP" && <WebMap />}
+  //       {view === "CART" && <Cart cart={cart} />}
+  //       <StatusBar style="auto" />
+  //     </View>
+    // );
+  // }
 }

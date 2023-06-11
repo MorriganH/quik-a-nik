@@ -3,6 +3,9 @@ import { createAppContainer } from "react-navigation";
 import Home from "../components/Home";
 import ProductList from "../components/ProductList";
 import Cart from "../components/Cart";
+import Android from "../components/Android";
+import OrderList from "../components/OrderList";
+import Web from "../components/Web";
 
 const screens = {
   Home: {
@@ -13,6 +16,15 @@ const screens = {
   },
   Cart: {
     screen: Cart,
+  },
+  Android: {
+    screen: Android,
+  },
+  OrderList: {
+    screen: OrderList,
+  },
+  Web: {
+    screen: Web,
   },
 };
 

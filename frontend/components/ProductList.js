@@ -3,8 +3,9 @@ import { StyleSheet, Text, View, Image, Button, Platform } from "react-native";
 import ProductListItem from "./ProductListItem";
 
 export default function ProductList(props) {
-  const { products, setCart, cart } = props;
   const device = Platform.OS;
+  
+  const { products, setCart, cart } = props;
   console.log(device);
 
   const productArr = products.map((product) => {
