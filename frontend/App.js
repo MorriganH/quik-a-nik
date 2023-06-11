@@ -66,7 +66,7 @@ export default function App() {
           setViewHistory={setViewHistory}
         ></Home>
       )}
-      {view === "STRIPE" && <Stripe/>}
+      {view === "STRIPE" && <Stripe />}
       {view === "PRODUCTS" && <ProductList products={products}></ProductList>}
       {view === "MAP" && device === "web" && <WebMap />}
       {view === "MAP" && device === "mobile" && (

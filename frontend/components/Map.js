@@ -1,21 +1,25 @@
 import { useState, useCallback, useEffect } from "react";
 import { Text, StyleSheet, View, TextInput, Pressable } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import * as Device from "expo-device";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+//import * as Device from "expo-device";
+//import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
-import Stripe from "./Stripe";
+//import Stripe from "./Stripe";
 
 export default function Map(props) {
-
   let view = null;
 
-  const {transition, viewHistory, setViewHistory} = props;
+  const {
+    transition,
+    viewHistory,
+    setViewHistory
+  } = props;
 
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [markerPosition, setMarkerPosition] = useState(null);
+  const [locationDetails, setLocationDetails] = useState(''); 
 
   // grab device location using expo-location
   useEffect(() => {
@@ -53,7 +57,6 @@ export default function Map(props) {
     transition(newView);
   };
 
-
   return (
     // short circuit triggers re-render of component once location truthy
 
@@ -80,10 +83,15 @@ export default function Map(props) {
           placeholder="Location Details"
           editable
           multiline
+          onChangeText={(text) => setLocationDetails(text)}
+          value={locationDetails}
           numberOfLines={5}
           maxLength={255}
         />
-        <Pressable style={styles.checkoutButton} onPress={() => viewSwitcher("STRIPE")}>
+        <Pressable
+          style={styles.checkoutButton}
+          onPress={() => viewSwitcher("STRIPE")}
+        >
           <Text>Proceed to Payment Details</Text>
         </Pressable>
       </View>
