@@ -9,11 +9,6 @@ const containerStyle = {
   height: "400px",
 };
 
-const center = {
-  lat: -3.745,
-  lng: -38.523,
-};
-
 export default function WebMap() {
   const [location, setLocation] = useState({});
   const [markerPos, setMarkerPos] = useState(location);
