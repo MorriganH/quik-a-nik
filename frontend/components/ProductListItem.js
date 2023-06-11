@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, Button } from "react-native";
 
 export default function ProductListItem(props) {
-  const { product, cart, setCart } = props;
+  const { product, cart, setCart } = route.params;
 
 
   const addItem = function (item) {
@@ -15,6 +15,7 @@ export default function ProductListItem(props) {
       //I have a feeling this is bad practice need to review (but it works)
       cart[index].qty++;
     }
+    console.log(cart)
   };
   return (
     <View style={style.prod} >

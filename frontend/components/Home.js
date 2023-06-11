@@ -7,15 +7,15 @@ import Web from "./Web";
 export default function Home({navigation, route}) {
 const device = Platform.OS
 
-  const { products, cart, setCart} = route.params;
+  
 
   const viewSwitcher = function(newView) {
     // {device !== "web" && navigation.navigate(newView), products}
     // {device === "web" && transition(newView)} 
-    navigation.navigate(newView, { products: products, cart: cart, setCart}) 
+    navigation.navigate(newView) 
     
   }
-  console.log(products)
+
 
   return (
     <>
@@ -33,6 +33,11 @@ const device = Platform.OS
           style={styles.button}
           onPress={() => viewSwitcher("ProductList")}
           title="Mix & Match"
+      />  
+      <Button
+          style={styles.button}
+          onPress={() => viewSwitcher("Cart")}
+          title="Cart"
       />  
         
       <Pressable

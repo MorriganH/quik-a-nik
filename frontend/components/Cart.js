@@ -1,12 +1,15 @@
 import { StyleSheet, Text, View, Image, Button } from "react-native";
+import stateManager from "../hooks/stateManager";
 
-export default function Cart(props) {
-  const { cart } = props;
+
+export default function Cart() {
+
+  const { state } = stateManager();
 
   let subTotal = 0;
 
   
-  const cartItems = cart.map((item) => {
+  const cartItems = state.cart.map((item) => {
     const price = (item.price_cents / 100 )* item.qty
     subTotal += Number(price)
     return (
@@ -23,7 +26,7 @@ export default function Cart(props) {
   const total = subTotal * tax
 
 
-  console.log(cart);
+  console.log(state.cart);
 
   return(
 <View>

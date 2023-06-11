@@ -16,53 +16,64 @@ import Navbar from "./components/Navbar";
 import Web from "./components/Web";
 import Android from "./components/Android";
 import OrderList from "./components/OrderList";
-import { render } from "react-dom";
+import ProductListItem from "./components/ProductListItem";
+
+
+
 
 export default function App() {
 
   const device = Platform.OS;
   
-  //States
+  //useState
   const [isLoading, setIsLoading] = useState(true)
-  const [cart, setCart] = useState([]);
+  // const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
   const [viewHistory, setViewHistory] = useState(["HOME"]);
   const [filter, setFilter] = useState(null);
+  //useEffect
+  // useEffect(() => {
+  //   axios
+  //   .get("http://localhost:3000/products")
+  //   .then((prods) => {
+  //     setProducts(prods.data.products)
+  //     setIsLoading(false)
+  //   });
+  // }, []);
+
   
-  console.log("BEFORE CALL:", products);
-  useEffect(() => {
-    axios
-    .get("http://localhost:3000/products")
-    .then((prods) => {
-      setProducts(prods.data.products)
-      setIsLoading(false)
-    });
-  }, []);
   
-  console.log("AFTER CALL:", products);
   //App return
   
   const Stack = createNativeStackNavigator();
    
-  if (isLoading) {
-    return <View className="App">Loading...</View>;
-  }
+  // if (isLoading) {
+  //   return <View className="App"><Text>Loading... </Text></View>;
+  // }
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home" screenOptions={{}}>
+        <Stack.Navigator initialRouteName="Home" screenOptions={{headerRight: () => (
+          <Button title="Cart" onPress={() => navigation.navigate("Cart")}/>
+        )}}>
           <Stack.Screen
             name="Home"
             component={Home}
-            initialParams={{ products: products, cart: cart, setCart: setCart }}
+            
             />
           <Stack.Screen name="Web" component={Web} />
           <Stack.Screen
             name="ProductList"
             component={ProductList}
-            products={products}
+            
+            />
+          <Stack.Screen
+            name="ProductListItem"
+            component={ProductListItem}
+            
             />
           <Stack.Screen name="Android" component={Android} />
           <Stack.Screen name="OrderList" component={OrderList} />
+          <Stack.Screen name="Cart" component={Cart} />
         </Stack.Navigator>
       </NavigationContainer>
     );
