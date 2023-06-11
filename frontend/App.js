@@ -1,17 +1,22 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image, Button, Platform } from "react-native";
 import styles from "./styles";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+
 import Home from "./components/Home";
 import Map from "./components/Map";
 import WebMap from "./components/WebMap";
 import Cart from "./components/Cart";
-
 import ProductList from "./components/ProductList";
-import { useState, useEffect } from "react";
-import axios from "axios";
 import * as Device from "expo-device";
 import Navbar from "./components/Navbar";
-import Navigator from "./routes/homeStack";
+import Web from "./components/Web";
+import Android from "./components/Android";
+import OrderList from "./components/OrderList";
+
 
 export default function App() {
   // let device;
@@ -32,26 +37,26 @@ export default function App() {
 
   //variables
 
-  const view = viewHistory[viewHistory.length - 1];
-  console.log("Current view: ", view);
+  // const view = viewHistory[viewHistory.length - 1];
+  // console.log("Current view: ", view);
 
-  const transition = function (newView, replace) {
-    const oldHistory = [...viewHistory];
+  // const transition = function (newView, replace) {
+  //   const oldHistory = [...viewHistory];
 
-    if (replace) {
-      oldHistory.pop();
-    }
+  //   if (replace) {
+  //     oldHistory.pop();
+  //   }
 
-    setViewHistory([...oldHistory, newView]);
-  };
+  //   setViewHistory([...oldHistory, newView]);
+  // };
 
-  const back = function () {
-    const oldHistory = [...viewHistory];
-    if (oldHistory.length !== 1) {
-      oldHistory.pop();
-    }
-    setViewHistory(oldHistory);
-  };
+  // const back = function () {
+  //   const oldHistory = [...viewHistory];
+  //   if (oldHistory.length !== 1) {
+  //     oldHistory.pop();
+  //   }
+  //   setViewHistory(oldHistory);
+  // };
 
   //useEffects
   //axios request to get all products
@@ -64,8 +69,64 @@ export default function App() {
 
   //App return
 
+
+
+  const Stack = createNativeStackNavigator()
+
+  return(
+    <NavigationContainer>
+
+    <Stack.Navigator
+    initialRouteName="Home"
+    screenOptions={{}}
+    >
+  <Stack.Screen
+    name="Home"
+    component={Home}
+    />
+  <Stack.Screen
+    name="Web"
+    component={Web}
+    />
+  <Stack.Screen
+    name="ProductList"
+    component={ProductList}
+    />
+  <Stack.Screen
+    name="Android"
+    component={Android}
+    />
+  <Stack.Screen
+    name="OrderList"
+    component={OrderList}
+    />
+  
+  
+  
+    </Stack.Navigator>
+    </NavigationContainer>
+  
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // if (device !== "web") {
-    return <Navigator products={products}></Navigator>;
+    // return <HomeStack products={products}></HomeStack>;
   // }
   // if (device === "web") {
   //   return (
