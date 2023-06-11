@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Image, Button, Platform } from "react-native";
 import ProductListItem from "./ProductListItem";
+import axios from "axios";
 
-export default function ProductList(props) {
+export default function ProductList({ route, navigation }) {
   const device = Platform.OS;
-  
-  const { products, setCart, cart } = props;
-  console.log(device);
+
+  // const [products, setProducts] = useState([]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:3000/products")
+  //     .then((prods) => setProducts(prods.data.products));
+  // }, []);
+
+  const { cart, setCart, products } = route.params;
+  console.log(products);
 
   const productArr = products.map((product) => {
     return (
@@ -39,7 +48,5 @@ const style = StyleSheet.create({
     flexWrap: "wrap",
     flex: 2,
   },
-  mobile: {
-
-  },
+  mobile: {},
 });

@@ -16,25 +16,86 @@ import Navbar from "./components/Navbar";
 import Web from "./components/Web";
 import Android from "./components/Android";
 import OrderList from "./components/OrderList";
-
+import { render } from "react-dom";
 
 export default function App() {
-  // let device;
-  // if (Device.brand === null) {
-  //   device = "web";
-  // }
-  // if (Device.brand !== null) {
-  //   device = "mobile";
-  // }
 
   const device = Platform.OS;
-
+  
   //States
+  const [isLoading, setIsLoading] = useState(true)
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
   const [viewHistory, setViewHistory] = useState(["HOME"]);
   const [filter, setFilter] = useState(null);
+  
+  console.log("BEFORE CALL:", products);
+  useEffect(() => {
+    axios
+    .get("http://localhost:3000/products")
+    .then((prods) => {
+      setProducts(prods.data.products)
+      setIsLoading(false)
+    });
+  }, []);
+  
+  console.log("AFTER CALL:", products);
+  //App return
+  
+  const Stack = createNativeStackNavigator();
+   
+  if (isLoading) {
+    return <View className="App">Loading...</View>;
+  }
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home" screenOptions={{}}>
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            initialParams={{ products: products, cart: cart, setCart: setCart }}
+            />
+          <Stack.Screen name="Web" component={Web} />
+          <Stack.Screen
+            name="ProductList"
+            component={ProductList}
+            products={products}
+            />
+          <Stack.Screen name="Android" component={Android} />
+          <Stack.Screen name="OrderList" component={OrderList} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /////////////OLD LOGIC//////////////
   //variables
 
   // const view = viewHistory[viewHistory.length - 1];
@@ -60,78 +121,16 @@ export default function App() {
 
   //useEffects
   //axios request to get all products
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/products")
-      .then((prods) => setProducts(prods.data.products));
-  }, []);
-  // console.log(products);
-
-  //App return
 
 
-
-  const Stack = createNativeStackNavigator()
-
-  return(
-    <NavigationContainer>
-
-    <Stack.Navigator
-    initialRouteName="Home"
-    screenOptions={{}}
-    >
-  <Stack.Screen
-    name="Home"
-    component={Home}
-    />
-  <Stack.Screen
-    name="Web"
-    component={Web}
-    />
-  <Stack.Screen
-    name="ProductList"
-    component={ProductList}
-    />
-  <Stack.Screen
-    name="Android"
-    component={Android}
-    />
-  <Stack.Screen
-    name="OrderList"
-    component={OrderList}
-    />
   
-  
-  
-    </Stack.Navigator>
-    </NavigationContainer>
-  
-  )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   // if (device !== "web") {
     // return <HomeStack products={products}></HomeStack>;
-  // }
-  // if (device === "web") {
-  //   return (
-  //     <View style={styles.container}>
-  //       <Navbar
+    // }
+    // if (device === "web") {
+      //   return (
+        //     <View style={styles.container}>
+        //       <Navbar
   //         products={products}
   //         transition={transition}
   //         back={back}
@@ -158,6 +157,6 @@ export default function App() {
   //       {view === "CART" && <Cart cart={cart} />}
   //       <StatusBar style="auto" />
   //     </View>
-    // );
+  // );
   // }
 }
