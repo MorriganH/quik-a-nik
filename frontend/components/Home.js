@@ -16,7 +16,16 @@ const device = Platform.OS
 const { cart, products } = useSelector((state) => state.reducer);
 const dispatch = useDispatch();
 
-  
+  const filter = function(path, view){
+    axios
+    .get(`http://localhost:3000/products/${path}`)
+    .then((prods) => {
+      dispatch(setProducts(prods.data.products))
+    }).then(viewSwitcher(view)).catch(err => {
+      console.log(err);
+      
+    });
+  }
 
   const viewSwitcher = function(newView) {
     // {device !== "web" && navigation.navigate(newView), products}
@@ -52,8 +61,13 @@ const dispatch = useDispatch();
 
       <Button
           style={styles.button}
-          onPress={() => viewSwitcher("ProductList")}
+          onPress={() => filter("","ProductList")}
           title="Mix & Match"
+      />  
+      <Button
+          style={styles.button}
+          onPress={() => filter("deluxe","ProductList")}
+          title="Deluxe Products"
       />  
       <Button
           style={styles.button}

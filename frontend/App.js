@@ -36,6 +36,7 @@ export default function App() {
   // }
   return (
     <Provider store={Store}>
+
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Home"

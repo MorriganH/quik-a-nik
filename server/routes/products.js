@@ -15,4 +15,12 @@ router.get("/", function (req, res, next) {
   });
 });
 
+
+router.get("/deluxe", function (req, res, next) {
+  products.getDeluxeProducts().then(data => {
+    console.log(data);
+    res.json({ products: data });
+  });
+});
+
 module.exports = router;
