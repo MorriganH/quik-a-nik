@@ -7,6 +7,7 @@ import stateManager from "../hooks/stateManager";
 import {useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addItem, setProducts } from "../redux/actions";
+import styles from '../styles/home'
 
 
 
@@ -48,7 +49,7 @@ const dispatch = useDispatch();
 
   return (
 
-    <>
+    <View style={styles.container}>
       <Text style={styles.bigText}>Juniper Xenoblade</Text>
       <Image
         style={styles.logo}
@@ -103,33 +104,6 @@ const dispatch = useDispatch();
         </Pressable>
 
    
-    </>
+    </View>
   );
   }
-  const styles = StyleSheet.create({
-    webNavBar: {
-      display: "flex",
-      justifyContent: "space-evenly",
-      alignItems: "center",
-      backgroundColor: "white",
-      borderRadius: 3,
-      height: 50,
-      shadowColor: "grey",
-      width: "70%",
-      shadowOffset: { width: 6, height: 6 },
-      shadowRadius: 10,
-      position: "fixed",
-      top: 20,
-    },
-  
-    button: {
-      backgroundColor: "white",
-      // border: "solid",
-      padding: 5,
-      margin: 5,
-    },
-    logo: {
-      width: 200,
-      height: 200,
-    },
-})

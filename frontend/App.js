@@ -38,6 +38,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Home"
+          style={styles.webNavBar} // not working
           screenOptions={({navigation}) => ({
             headerRight: () => (
               <Button

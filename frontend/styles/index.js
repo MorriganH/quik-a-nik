@@ -1,25 +1,20 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  container: {
+  webNavBar: {
     display: "flex",
-    flex: 1,
-    backgroundColor: "#fff",
+    justifyContent: "space-evenly",
     alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "white",
+    borderRadius: 3,
+    height: 50,
+    shadowColor: "grey",
+    width: "70%",
+    shadowOffset: { width: 6, height: 6 },
+    shadowRadius: 10,
+    position: "fixed",
+    top: 20,
   },
-
-  logo: {
-    width: 200,
-    height: 200,
-  },
-
-  bigText: {
-    fontSize: 40,
-  },
-  
-
 });
-
 
 export default styles;
