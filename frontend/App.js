@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import * as Device from "expo-device";
 import Stripe from "./components/Stripe";
+import { StripeProvider, initStripe } from "@stripe/stripe-react-native";
 
 export default function App() {
   let device;
@@ -56,28 +57,29 @@ export default function App() {
 
   //App return
   return (
-
-    <View style={styles.container}>
-      {view === "HOME" && (
-        <Home
-          products={products}
-          transition={transition}
-          back={back}
-          view={view}
-          setViewHistory={setViewHistory}
-        ></Home>
-      )}
-      {view === "STRIPE" && <Stripe />}
-      {view === "PRODUCTS" && <ProductList products={products}></ProductList>}
-      {view === "MAP" && device === "web" && <WebMap />}
-      {view === "MAP" && device === "mobile" && (
-        <Map
-          transition={transition}
-          viewHistory={viewHistory}
-          setviewHistory={setViewHistory}
-        />
-      )}
-      <StatusBar style="auto" />
-    </View>
+    <StripeProvider publishableKey="pk_test_51NDgmwLv74N28uF2MxWf6liIv4DqMJcIagTtcT1BAymIJEkX1gaky4i9nLLfmfALffHmN32aiXmRrSiPAcmn0wOP00ONBP6Dfx">
+      <View style={styles.container}>
+        {view === "HOME" && (
+          <Home
+            products={products}
+            transition={transition}
+            back={back}
+            view={view}
+            setViewHistory={setViewHistory}
+          ></Home>
+        )}
+        {view === "STRIPE" && <Stripe />}
+        {view === "PRODUCTS" && <ProductList products={products}></ProductList>}
+        {view === "MAP" && device === "web" && <WebMap />}
+        {view === "MAP" && device === "mobile" && (
+          <Map
+            transition={transition}
+            viewHistory={viewHistory}
+            setviewHistory={setViewHistory}
+          />
+        )}
+        <StatusBar style="auto" />
+      </View>
+    </StripeProvider>
   );
 }
