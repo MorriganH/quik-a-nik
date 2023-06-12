@@ -53,7 +53,7 @@ export default function App() {
       .then((prods) => setProducts(prods.data.products))
       .catch((error) => console.log("New error caught: ", error));
   }, []);
-  console.log(products);
+  // console.log(products);
 
   //App return
   return (

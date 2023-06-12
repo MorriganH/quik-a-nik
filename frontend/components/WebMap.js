@@ -1,52 +1,69 @@
-import { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { Text, StyleSheet } from "react-native";
-import MapView from "react-native-maps";
-import * as Device from "expo-device";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import key from "../api_key";
+import * as Location from "expo-location";
 
 const containerStyle = {
   width: "400px",
   height: "400px",
 };
 
-const center = {
-  lat: -3.745,
-  lng: -38.523,
-};
-
 export default function WebMap() {
-  const { isLoaded } = useJsApiLoader({
+  const [location, setLocation] = useState({});
+  const [markerPos, setMarkerPos] = useState(location);
+  console.log(markerPos)
+
+  const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: key,
   });
 
-  const [map, setMap] = useState(null);
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
 
-  const onLoad = useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-
-    setMap(map);
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+      setMarkerPos(location)
+    })();
   }, []);
 
-  const onUnmount = useCallback(function callback(map) {
-    setMap(null);
-  }, []);
+  const updateMarker = ev => {
+    const oldMarkerPos = { ...markerPos };
+    setMarkerPos(oldMarkerPos, oldMarkerPos.coords.latitude = ev.latLng.lat(), oldMarkerPos.coords.longitude = ev.latLng.lng())
+  };
+
+  if (loadError) {
+    return <Text>Map cannot be loaded</Text>;
+  }
 
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={center}
-      zoom={10}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
+      center={{ lat: location.coords.latitude, lng: location.coords.longitude }}
+      zoom={13}
+      onClick={ev => {
+        updateMarker(ev)
+      }}
     >
-      {/* Child components, such as markers, info windows, etc. */}
-      <></>
+      <Marker
+        position={{
+          lat: markerPos.coords.latitude,
+          lng: markerPos.coords.longitude,
+        }}
+        
+        draggable
+        onDragEnd={ev => {
+          updateMarker(ev)
+        }}
+      />
     </GoogleMap>
   ) : (
-    <></>
+    <Text>Loading</Text>
   );
 }
