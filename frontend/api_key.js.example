@@ -1,2 +1,2 @@
-const key = 'key';
+const key = `yourKey`;
 export default key;
