@@ -8,6 +8,7 @@ import ProductList from "./components/ProductList";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import * as Device from "expo-device";
+import Stripe from "./components/Stripe";
 
 export default function App() {
   let device;
@@ -48,7 +49,8 @@ export default function App() {
   useEffect(() => {
     axios
       .get("http://localhost:3000/products")
-      .then(prods => setProducts(prods.data.products));
+      .then((prods) => setProducts(prods.data.products))
+      .catch((error) => console.log("New error caught: ", error));
   }, []);
   // console.log(products);
 
@@ -64,9 +66,16 @@ export default function App() {
           setViewHistory={setViewHistory}
         ></Home>
       )}
+      {view === "STRIPE" && <Stripe />}
       {view === "PRODUCTS" && <ProductList products={products}></ProductList>}
       {view === "MAP" && device === "web" && <WebMap />}
-      {view === "MAP" && device === "mobile" && <Map />}
+      {view === "MAP" && device === "mobile" && (
+        <Map
+          transition={transition}
+          viewHistory={viewHistory}
+          setviewHistory={setViewHistory}
+        />
+      )}
       <StatusBar style="auto" />
     </View>
   );
