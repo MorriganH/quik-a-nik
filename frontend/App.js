@@ -6,6 +6,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
+//EXPO
+import * as Device from "expo-device";
+
 //REDUX
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { Store } from "./redux/store";
@@ -15,13 +18,16 @@ import Map from "./components/Map";
 import WebMap from "./components/WebMap";
 import Cart from "./components/Cart";
 import ProductList from "./components/ProductList";
-import * as Device from "expo-device";
 import Navbar from "./components/Navbar";
 import Web from "./components/Web";
 import Android from "./components/Android";
 import OrderList from "./components/OrderList";
 import ProductListItem from "./components/ProductListItem";
 import stateManager from "./hooks/stateManager";
+
+//STRIPE
+// import Stripe from "./components/Stripe";
+// import { StripeProvider, initStripe } from "@stripe/stripe-react-native";
 
 export default function App() {
   const device = Platform.OS;
@@ -54,13 +60,14 @@ export default function App() {
           <Stack.Screen name="ProductList" component={ProductList} />
           <Stack.Screen name="ProductListItem" component={ProductListItem} />
           <Stack.Screen name="Android" component={Android} />
+          <Stack.Screen name="WebMap" component={WebMap} />
           <Stack.Screen name="OrderList" component={OrderList} />
           <Stack.Screen name="Cart" component={Cart} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
   );
-
+}
   /////////////OLD LOGIC//////////////
   //variables
 
@@ -122,5 +129,40 @@ export default function App() {
   //       <StatusBar style="auto" />
   //     </View>
   // );
-  // }
-}
+//   // }
+//   useEffect(() => {
+//     axios
+//       .get("http://localhost:3000/products")
+//       .then((prods) => setProducts(prods.data.products))
+//       .catch((error) => console.log("New error caught: ", error));
+//   }, []);
+//   // console.log(products);
+
+//   //App return
+//   return (
+//     <StripeProvider publishableKey="pk_test_51NDgmwLv74N28uF2MxWf6liIv4DqMJcIagTtcT1BAymIJEkX1gaky4i9nLLfmfALffHmN32aiXmRrSiPAcmn0wOP00ONBP6Dfx">
+//       <View style={styles.container}>
+//         {view === "HOME" && (
+//           <Home
+//             products={products}
+//             transition={transition}
+//             back={back}
+//             view={view}
+//             setViewHistory={setViewHistory}
+//           ></Home>
+//         )}
+//         {view === "STRIPE" && <Stripe />}
+//         {view === "PRODUCTS" && <ProductList products={products}></ProductList>}
+//         {view === "MAP" && device === "web" && <WebMap />}
+//         {view === "MAP" && device === "mobile" && (
+//           <Map
+//             transition={transition}
+//             viewHistory={viewHistory}
+//             setviewHistory={setViewHistory}
+//           />
+//         )}
+//         <StatusBar style="auto" />
+//       </View>
+//     </StripeProvider>
+//   );
+// }

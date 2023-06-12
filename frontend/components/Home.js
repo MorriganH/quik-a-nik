@@ -78,6 +78,13 @@ const dispatch = useDispatch();
         </Pressable>
       <Pressable
           style={styles.button}
+          onPress={() => viewSwitcher("WebMap")}
+        >
+          <Text>Map</Text>
+        </Pressable>
+
+      <Pressable
+          style={styles.button}
           onPress={() => viewSwitcher("Android")}
         >
           <Text>Android</Text>
