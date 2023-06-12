@@ -45,13 +45,14 @@ export default function App() {
                 onPress={() => navigation.navigate("Cart")}
               />
             ),
-  })}
+          })}
         >
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Web" component={Web} />
           <Stack.Screen name="ProductList" component={ProductList} />
           <Stack.Screen name="Android" component={Android} />
           <Stack.Screen name="WebMap" component={WebMap} />
+          <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="OrderList" component={OrderList} />
           <Stack.Screen name="Cart" component={Cart} />
         </Stack.Navigator>
