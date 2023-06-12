@@ -39,14 +39,14 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Home"
-          screenOptions={{
+          screenOptions={({navigation}) => ({
             headerRight: () => (
               <Button
                 title="Cart"
                 onPress={() => navigation.navigate("Cart")}
               />
             ),
-          }}
+  })}
         >
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Web" component={Web} />
