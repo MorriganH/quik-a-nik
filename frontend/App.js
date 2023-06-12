@@ -7,7 +7,6 @@ import axios from "axios";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 //EXPO
-import * as Device from "expo-device";
 
 //REDUX
 import { Provider, useDispatch, useSelector } from "react-redux";
@@ -18,9 +17,9 @@ import Map from "./components/Map";
 import WebMap from "./components/WebMap";
 import Cart from "./components/Cart";
 import ProductList from "./components/ProductList";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import * as Device from "expo-device";
+import Web from "./components/Web";
+import Android from "./components/Android";
+import OrderList from "./components/OrderList"
 
 export default function App() {
   const device = Platform.OS;
@@ -51,7 +50,6 @@ export default function App() {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Web" component={Web} />
           <Stack.Screen name="ProductList" component={ProductList} />
-          <Stack.Screen name="ProductListItem" component={ProductListItem} />
           <Stack.Screen name="Android" component={Android} />
           <Stack.Screen name="WebMap" component={WebMap} />
           <Stack.Screen name="OrderList" component={OrderList} />
