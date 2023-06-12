@@ -1,15 +1,15 @@
 import { StyleSheet, Text, View, Image, Button } from "react-native";
-import stateManager from "../hooks/stateManager";
+import { useDispatch, useSelector } from "react-redux";
 
 
 export default function Cart() {
 
-  const { state } = stateManager();
+  const { cart } = useSelector(state => state.reducer);
 
   let subTotal = 0;
 
   
-  const cartItems = state.cart.map((item) => {
+  const cartItems = cart.map((item) => {
     const price = (item.price_cents / 100 )* item.qty
     subTotal += Number(price)
     return (
@@ -26,7 +26,6 @@ export default function Cart() {
   const total = subTotal * tax
 
 
-  console.log(state.cart);
 
   return(
 <View>

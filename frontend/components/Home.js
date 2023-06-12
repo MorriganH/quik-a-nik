@@ -1,15 +1,20 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { StyleSheet, Text, View, Image, Button, Pressable, Platform  } from "react-native";
 import * as Device from "expo-device";
 import Android from "./Android";
 import Web from "./Web";
 import stateManager from "../hooks/stateManager";
+import {useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { addItem, setProducts } from "../redux/actions";
+
 
 
 export default function Home({navigation, route}) {
 const device = Platform.OS
 
-const {state} = stateManager()
+const { cart, products } = useSelector((state) => state.reducer);
+const dispatch = useDispatch();
 
   
 
@@ -19,6 +24,17 @@ const {state} = stateManager()
     navigation.navigate(newView) 
     
   }
+
+  useEffect(() => {
+    axios
+    .get("http://localhost:3000/products")
+    .then((prods) => {
+      dispatch(setProducts(prods.data.products))
+    }).catch(err => {
+      console.log(err);
+      
+    });
+  }, []);
 
 
   return (

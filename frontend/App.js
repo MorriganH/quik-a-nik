@@ -1,3 +1,4 @@
+//REACT / REACT NATIVE
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image, Button, Platform } from "react-native";
 import styles from "./styles";
@@ -5,7 +6,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-
+//REDUX
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { Store } from "./redux/store";
+//COMPONENTS
 import Home from "./components/Home";
 import Map from "./components/Map";
 import WebMap from "./components/WebMap";
@@ -19,95 +23,42 @@ import OrderList from "./components/OrderList";
 import ProductListItem from "./components/ProductListItem";
 import stateManager from "./hooks/stateManager";
 
-
-
-
 export default function App() {
-
-  const {state} = stateManager()
-
   const device = Platform.OS;
-  
-  //useState
-  // const [isLoading, setIsLoading] = useState(true)
-  // const [cart, setCart] = useState([]);
-  const [products, setProducts] = useState([]);
+
   const [viewHistory, setViewHistory] = useState(["HOME"]);
   const [filter, setFilter] = useState(null);
-  //useEffect
-  // useEffect(() => {
-  //   axios
-  //   .get("http://localhost:3000/products")
-  //   .then((prods) => {
-  //     setProducts(prods.data.products)
-  //     setIsLoading(false)
-  //   });
-  // }, []);
 
-  
-  
-  //App return
-  
   const Stack = createNativeStackNavigator();
-   
+
   // if (state.isLoading) {
   //   return <View className="App"><Text>Loading... </Text></View>;
   // }
-    return (
+  return (
+    <Provider store={Store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home" screenOptions={{headerRight: () => (
-          <Button title="Cart" onPress={() => navigation.navigate("Cart")}/>
-        )}}>
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            
-            />
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={{
+            headerRight: () => (
+              <Button
+                title="Cart"
+                onPress={() => navigation.navigate("Cart")}
+              />
+            ),
+          }}
+        >
+          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Web" component={Web} />
-          <Stack.Screen
-            name="ProductList"
-            component={ProductList}
-            
-            />
-          <Stack.Screen
-            name="ProductListItem"
-            component={ProductListItem}
-            
-            />
+          <Stack.Screen name="ProductList" component={ProductList} />
+          <Stack.Screen name="ProductListItem" component={ProductListItem} />
           <Stack.Screen name="Android" component={Android} />
           <Stack.Screen name="OrderList" component={OrderList} />
           <Stack.Screen name="Cart" component={Cart} />
         </Stack.Navigator>
       </NavigationContainer>
-    );
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </Provider>
+  );
 
   /////////////OLD LOGIC//////////////
   //variables
@@ -136,15 +87,13 @@ export default function App() {
   //useEffects
   //axios request to get all products
 
-
-  
   // if (device !== "web") {
-    // return <HomeStack products={products}></HomeStack>;
-    // }
-    // if (device === "web") {
-      //   return (
-        //     <View style={styles.container}>
-        //       <Navbar
+  // return <HomeStack products={products}></HomeStack>;
+  // }
+  // if (device === "web") {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Navbar
   //         products={products}
   //         transition={transition}
   //         back={back}
