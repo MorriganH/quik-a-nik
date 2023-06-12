@@ -1,12 +1,11 @@
-import { useState } from "react";
 
-export default function App() {
-  let [qty, setQty] = useState(1)
+export default function quantity_set(qty) {
+  
 
-  const increment = function() {
-    setQty(qty + 1)
+  const increment = function(qty) {
+    return qty + 1
   };
   const decrement = function() {
-    setQty(qty - 1)
+    return qty - 1
   };
 }

@@ -1,85 +1,144 @@
+//REACT / REACT NATIVE
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, Button } from "react-native";
+import { StyleSheet, Text, View, Image, Button, Platform } from "react-native";
 import styles from "./styles";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+//EXPO
+import * as Device from "expo-device";
+
+//REDUX
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { Store } from "./redux/store";
+//COMPONENTS
 import Home from "./components/Home";
 import Map from "./components/Map";
 import WebMap from "./components/WebMap";
+import Cart from "./components/Cart";
 import ProductList from "./components/ProductList";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import * as Device from "expo-device";
-import Stripe from "./components/Stripe";
-import { StripeProvider, initStripe } from "@stripe/stripe-react-native";
 
 export default function App() {
-  let device;
-  if (Device.brand === null) {
-    device = "web";
-  }
-  if (Device.brand !== null) {
-    device = "mobile";
-  }
+  const device = Platform.OS;
 
-  const [products, setProducts] = useState([]);
   const [viewHistory, setViewHistory] = useState(["HOME"]);
+  const [filter, setFilter] = useState(null);
+
+  const Stack = createNativeStackNavigator();
+
+  // if (state.isLoading) {
+  //   return <View className="App"><Text>Loading... </Text></View>;
+  // }
+  return (
+    <Provider store={Store}>
+
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={({navigation}) => ({
+            headerRight: () => (
+              <Button
+                title="Cart"
+                onPress={() => navigation.navigate("Cart")}
+              />
+            ),
+  })}
+        >
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Web" component={Web} />
+          <Stack.Screen name="ProductList" component={ProductList} />
+          <Stack.Screen name="ProductListItem" component={ProductListItem} />
+          <Stack.Screen name="Android" component={Android} />
+          <Stack.Screen name="WebMap" component={WebMap} />
+          <Stack.Screen name="OrderList" component={OrderList} />
+          <Stack.Screen name="Cart" component={Cart} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
+  );
+}
+  /////////////OLD LOGIC//////////////
   //variables
-  const view = viewHistory[viewHistory.length - 1];
-  console.log("Current view: ", view);
 
-  const transition = function (newView, replace) {
-    const oldHistory = [...viewHistory];
+  // const view = viewHistory[viewHistory.length - 1];
+  // console.log("Current view: ", view);
 
-    // to be used if we have transitions...
-    if (replace) {
-      oldHistory.pop();
-    }
+  // const transition = function (newView, replace) {
+  //   const oldHistory = [...viewHistory];
 
-    setViewHistory([...oldHistory, newView]);
-  };
+  //   if (replace) {
+  //     oldHistory.pop();
+  //   }
 
-  const back = function () {
-    const oldHistory = [...viewHistory];
-    if (oldHistory.length !== 1) {
-      oldHistory.pop();
-    }
-    setViewHistory(oldHistory);
-  };
+  //   setViewHistory([...oldHistory, newView]);
+  // };
+
+  // const back = function () {
+  //   const oldHistory = [...viewHistory];
+  //   if (oldHistory.length !== 1) {
+  //     oldHistory.pop();
+  //   }
+  //   setViewHistory(oldHistory);
+  // };
 
   //useEffects
   //axios request to get all products
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/products")
-      .then((prods) => setProducts(prods.data.products))
-      .catch((error) => console.log("New error caught: ", error));
-  }, []);
-  // console.log(products);
+//   useEffect(() => {
+//     axios
+//       .get("http://localhost:3000/products")
+//       .then(prods => setProducts(prods.data.products));
+//   }, []);
+//   console.log(products);
 
-  //App return
-  return (
-    <StripeProvider publishableKey="pk_test_51NDgmwLv74N28uF2MxWf6liIv4DqMJcIagTtcT1BAymIJEkX1gaky4i9nLLfmfALffHmN32aiXmRrSiPAcmn0wOP00ONBP6Dfx">
-      <View style={styles.container}>
-        {view === "HOME" && (
-          <Home
-            products={products}
-            transition={transition}
-            back={back}
-            view={view}
-            setViewHistory={setViewHistory}
-          ></Home>
-        )}
-        {view === "STRIPE" && <Stripe />}
-        {view === "PRODUCTS" && <ProductList products={products}></ProductList>}
-        {view === "MAP" && device === "web" && <WebMap />}
-        {view === "MAP" && device === "mobile" && (
-          <Map
-            transition={transition}
-            viewHistory={viewHistory}
-            setviewHistory={setViewHistory}
-          />
-        )}
-        <StatusBar style="auto" />
-      </View>
-    </StripeProvider>
-  );
-}
+//   //App return
+//   return (
+//     <View style={styles.container}>
+//       {view === "HOME" && (
+//         <Home
+//           products={products}
+//           transition={transition}
+//           back={back}
+//           view={view}
+//           setViewHistory={setViewHistory}
+//         ></Home>
+//       )}
+//       {view === "PRODUCTS" && <ProductList products={products}></ProductList>}
+//       {view === "MAP" && device === "web" && <WebMap />}
+//       {view === "MAP" && device === "mobile" && <Map />}
+//       <StatusBar style="auto" />
+//     </View>
+//   );
+// }
+
+//   //App return
+//   return (
+//     <StripeProvider publishableKey="pk_test_51NDgmwLv74N28uF2MxWf6liIv4DqMJcIagTtcT1BAymIJEkX1gaky4i9nLLfmfALffHmN32aiXmRrSiPAcmn0wOP00ONBP6Dfx">
+//       <View style={styles.container}>
+//         {view === "HOME" && (
+//           <Home
+//             products={products}
+//             transition={transition}
+//             back={back}
+//             view={view}
+//             setViewHistory={setViewHistory}
+//           ></Home>
+//         )}
+//         {view === "STRIPE" && <Stripe />}
+//         {view === "PRODUCTS" && <ProductList products={products}></ProductList>}
+//         {view === "MAP" && device === "web" && <WebMap />}
+//         {view === "MAP" && device === "mobile" && (
+//           <Map
+//             transition={transition}
+//             viewHistory={viewHistory}
+//             setviewHistory={setViewHistory}
+//           />
+//         )}
+//         <StatusBar style="auto" />
+//       </View>
+//     </StripeProvider>
+//   );
+// }
