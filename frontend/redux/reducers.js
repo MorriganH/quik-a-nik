@@ -55,9 +55,17 @@ const reducer = function (state = initialState, action) {
           cart: [...state.cart, lineItem],
         };
       } else {
-        const index = state.cart.findIndex((i) => i.id === action.item.id);
-        //I have a feeling this is bad practice need to review (but it works)
-        state.cart[index].qty++;
+        const index = state.cart.findIndex((i) => i.id === action.payload.id);
+        //I have a feeling this is bad practice need to review 
+        const mutableCart = [...state.cart]
+        mutableCart[index].qty++
+
+        return{
+
+          ...state,
+          cart: mutableCart 
+        }
+        ;
       }
 
     case GENERATE_PRODUCTS:
