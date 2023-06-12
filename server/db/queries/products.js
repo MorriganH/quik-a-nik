@@ -13,7 +13,7 @@ const getProductById = (id) => {
 };
 
 const getProductsByPortions = (portions) => {
-  return db.query("SELECT * FROM products WHERE portions = $1;", [portions]).then(data => {
+  return db.query("SELECT * FROM products WHERE portions = $1 AND is_basket = true;", [portions]).then(data => {
     return data.rows;
   });
 };
@@ -24,5 +24,11 @@ const getDeluxeProducts = () => {
       return data.rows;
     })
 };
+const getIndividualProducts = () => {
+  return db.query("SELECT * FROM products WHERE is_basket = false;").then(data => 
+    {
+      return data.rows;
+    })
+};
 
-module.exports = { getAllProducts, getProductById, getProductsByPortions, getDeluxeProducts };
+module.exports = { getAllProducts, getProductById, getProductsByPortions, getDeluxeProducts, getIndividualProducts };

@@ -69,6 +69,21 @@ const dispatch = useDispatch();
           onPress={() => filter("deluxe","ProductList")}
           title="Deluxe Products"
       />  
+      <Button
+          style={styles.button}
+          onPress={() => filter("2","ProductList")}
+          title="Baskets for 2"
+      />  
+      <Button
+          style={styles.button}
+          onPress={() => filter("4","ProductList")}
+          title="Baskets for the whole family"
+      />  
+      <Button
+          style={styles.button}
+          onPress={() => filter("addons","ProductList")}
+          title="Individual Items"
+      />  
         
       <Pressable
           style={styles.button}

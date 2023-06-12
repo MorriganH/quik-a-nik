@@ -10,7 +10,7 @@ const products = require("../db/queries/products");
 /* GET products listing. */
 router.get("/", function (req, res, next) {
   products.getAllProducts().then(data => {
-    console.log(data);
+    // console.log(data);
     res.json({ products: data });
   });
 });
@@ -21,6 +21,21 @@ router.get("/deluxe", function (req, res, next) {
     console.log(data);
     res.json({ products: data });
   });
+});
+
+router.get("/addons", function (req, res, next) {
+  products.getIndividualProducts().then(data => {
+    console.log(data);
+    res.json({ products: data });
+  });
+});
+
+router.get("/:portion", function (req, res, next) {
+  console.log(req.params.portion)
+  products.getProductsByPortions(req.params.portion).then(data => {
+    console.log(data);
+    res.json({ products: data });
+  });  
 });
 
 module.exports = router;
