@@ -7,6 +7,7 @@ import stateManager from "../hooks/stateManager";
 import {useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addItem, setProducts } from "../redux/actions";
+import tunnelURL from '../backend_tunnel'
 
 
 
@@ -18,7 +19,7 @@ const dispatch = useDispatch();
 
   const filter = function(path, view){
     axios
-    .get(`http://localhost:3000/products/${path}`)
+    .get(`${tunnelURL}/products/${path}`)
     .then((prods) => {
       dispatch(setProducts(prods.data.products))
     }).then(viewSwitcher(view)).catch(err => {
@@ -36,7 +37,7 @@ const dispatch = useDispatch();
 
   useEffect(() => {
     axios
-    .get("http://localhost:3000/products")
+    .get(`${tunnelURL}/products`)
     .then((prods) => {
       dispatch(setProducts(prods.data.products))
     }).catch(err => {
