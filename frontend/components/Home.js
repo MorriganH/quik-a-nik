@@ -69,11 +69,6 @@ const dispatch = useDispatch();
           onPress={() => filter("deluxe","ProductList")}
           title="Deluxe Products"
       />  
-      <Button
-          style={styles.button}
-          onPress={() => viewSwitcher("Cart")}
-          title="Cart"
-      />  
         
       <Pressable
           style={styles.button}
