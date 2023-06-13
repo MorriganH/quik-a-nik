@@ -7,32 +7,67 @@ import {
   useWindowDimensions,
   ScrollView,
 } from "react-native";
+//APP
+import tunnelURL from "../backend_tunnel";
+import axios from "axios";
 
-export default function Navbar(props) {
-  const width = useWindowDimensions().width;
-  const { setViewHistory, back, transition } = props;
+//NAVIGATOR
+import {
+  addItem,
+  toggleModal,
+  adjustQuantity,
+  setProducts,
+} from "../redux/actions";
+
+//REDUX
+import { useDispatch, useSelector } from "react-redux";
+
+export default function Navbar({ navigation }) {
+  const { cart, products, modalShow, modalProduct } = useSelector(
+    (state) => state.reducer
+  );
+  const dispatch = useDispatch();
+
+  const filter = function (path, view) {
+    axios
+      .get(`${tunnelURL}/products/${path}`)
+      .then((prods) => {
+        dispatch(setProducts(prods.data.products));
+      })
+      .then(viewSwitcher(view))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const viewSwitcher = function (newView) {
-    transition(newView);
+    navigation.navigate(newView);
   };
 
   return (
     <Text style={styles.webNavBar}>
-      <Pressable style={styles.button} onPress={() => viewSwitcher("HOME")}>
-        <Text>Home</Text>
-      </Pressable>
-      <Pressable style={styles.button} onPress={() => viewSwitcher("PRODUCTS")}>
-        <Text>Products</Text>
-      </Pressable>
-      <Pressable style={styles.button} onPress={() => viewSwitcher("MAP")}>
-        <Text>Map</Text>
-      </Pressable>
-      <Pressable style={styles.button}>
-        <Text>{width}</Text>
-      </Pressable>
-      <Pressable style={styles.button} onPress={() => viewSwitcher("CART")}>
-        <Text>Cart</Text>
-      </Pressable>
+      <View style={styles.navSection}>
+        <Pressable style={styles.button} onPress={() => viewSwitcher("Home")}>
+          <Text>Quik-a-nik</Text>
+        </Pressable>
+        <Pressable
+          style={styles.button}
+          onPress={() => filter("", "ProductList")}
+        >
+          <Text>Products</Text>
+        </Pressable>
+        <Pressable style={styles.button} onPress={() => viewSwitcher("WebMap")}>
+          <Text>Map</Text>
+        </Pressable>
+      </View>
+      <View style={styles.navSection}>
+        <Pressable style={styles.button} onPress={() => viewSwitcher("Cart")}>
+          <Text>My Orders {cart.length} </Text>
+        </Pressable>
+        <Pressable style={styles.button} onPress={() => viewSwitcher("Cart")}>
+          <Text>Cart {cart.length} </Text>
+        </Pressable>
+      </View>
     </Text>
   );
 }
@@ -40,17 +75,26 @@ export default function Navbar(props) {
 const styles = StyleSheet.create({
   webNavBar: {
     display: "flex",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     alignItems: "center",
+    alignSelf: "center",
     backgroundColor: "white",
     borderRadius: 3,
     height: 50,
     shadowColor: "grey",
-    width: "70%",
+    width: "80%",
     shadowOffset: { width: 6, height: 6 },
     shadowRadius: 10,
-    position: "fixed",
-    top: 20,
+    margin: 20,
+    // position: "fixed",
+    // top: 20,
+  },
+
+  navSection: {
+    display: "flex",
+    justifyContent: "space-evenly",
+    width: "45%",
+    flexDirection: "row"
   },
 
   button: {

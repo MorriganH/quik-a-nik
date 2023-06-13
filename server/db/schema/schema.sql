@@ -37,6 +37,7 @@ CREATE TABLE products (
   portions INTEGER,
   is_deluxe BOOLEAN,
   image VARCHAR(255),
+  default_quantity INTEGER,
   created_at TIMESTAMP DEFAULT NOW(),
   updated_at TIMESTAMP DEFAULT NOW()
 );

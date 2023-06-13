@@ -1,4 +1,4 @@
-import { ADD_TO_CART, GENERATE_PRODUCTS, SHOW_MODAL } from "./actions";
+import { ADD_TO_CART, GENERATE_PRODUCTS, TOGGLE_MODAL, ADJUST_QUANTITY } from "./actions";
 
 const initialState = {
   cart: [],
@@ -15,7 +15,6 @@ const initialState = {
       created_at: "2023-06-09T14:40:47.689Z",
       updated_at: "2023-06-09T14:40:47.689Z",
     },
-
   ],
   isLoading: true,
   modalProduct: {},
@@ -26,17 +25,15 @@ const reducer = function (state = initialState, action) {
   switch (action.type) {
     case ADD_TO_CART:
       if (!state.cart.some((i) => i.id === action.payload.id)) {
-        let lineItem = action.payload;
-        lineItem.qty = 1;
         return {
           ...state,
-          cart: [...state.cart, lineItem],
+          cart: [...state.cart, action.payload],
         };
       } else {
         const index = state.cart.findIndex((i) => i.id === action.payload.id);
-        //I have a feeling this is bad practice need to review
+        
         const mutableCart = [...state.cart];
-        mutableCart[index].qty++;
+        mutableCart[index].default_quantity++;
 
         return {
           ...state,
@@ -51,11 +48,34 @@ const reducer = function (state = initialState, action) {
         isLoading: false,
         products: action.payload,
       };
-    case SHOW_MODAL:
-      return{
+    case TOGGLE_MODAL:
+      if (state.modalShow === true) {
+        return {
+          ...state,
+          modalShow: false,
+          modalProduct: {},
+        };
+      }
+      return {
         ...state,
         modalShow: true,
-        modalProduct: action.payload
+        modalProduct: action.payload,
+      };
+    case ADJUST_QUANTITY:
+      let currentModalProduct = state.modalProduct
+      if (action.payload === "+") {
+        currentModalProduct.default_quantity ++;
+      }
+      if (action.payload === "-") {
+        currentModalProduct.default_quantity --;
+      }
+      if (action.payload === "reset") {
+        currentModalProduct.default_quantity ++;
+      }
+      console.log(currentModalProduct)
+      return{
+        ...state,
+        modalProduct: currentModalProduct
       }
     default:
       return state;

@@ -1,6 +1,7 @@
 export const ADD_TO_CART = "ADD_TO_CART";
 export const GENERATE_PRODUCTS = "GENERATE_PRODUCTS";
-export const SHOW_MODAL = "SHOW_MODAL";
+export const TOGGLE_MODAL = "TOGGLE_MODAL";
+export const ADJUST_QUANTITY = "ADJUST_QUANTITY"
 
 
 export const addItem = item => dispatch => {
@@ -17,10 +18,16 @@ export const setProducts = productList => dispatch => {
   })
 }
 
-export const showModal = product => dispatch => {
+export const toggleModal = product => dispatch => {
   dispatch({
-    type: SHOW_MODAL,
+    type: TOGGLE_MODAL,
     payload: product
+  })
+}
+export const adjustQuantity = operation => dispatch => {
+  dispatch({
+    type: ADJUST_QUANTITY,
+    payload: operation
   })
 }
 

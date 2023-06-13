@@ -1,19 +1,18 @@
 import { React, useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, Button, Pressable, Platform, TouchableOpacity  } from "react-native";
-import * as Device from "expo-device";
+import { StyleSheet, Text, View, Image, Button, Pressable, Platform, TouchableOpacity, Modal  } from "react-native";
 import Android from "./Android";
 import Web from "./Web";
-import stateManager from "../hooks/stateManager";
 import {useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { addItem, setProducts } from "../redux/actions";
+import { addItem, toggleModal, adjustQuantity, setProducts } from "../redux/actions";
 import tunnelURL from '../backend_tunnel'
 
 export default function Home({navigation, route}) {
 const device = Platform.OS
 
-const { cart, products } = useSelector((state) => state.reducer);
-const dispatch = useDispatch();
+const { cart, products, modalShow, modalProduct } = useSelector(
+  (state) => state.reducer
+);const dispatch = useDispatch();
 
   const filter = function(path, view){
     axios
@@ -33,7 +32,7 @@ const dispatch = useDispatch();
   }
   return (
 
-    <>
+    <View style={styles.container}>
       <Text style={styles.bigText}>Juniper Xenoblade</Text>
       <Image
         style={styles.logo}
@@ -47,14 +46,45 @@ const dispatch = useDispatch();
       <TouchableOpacity
           style={styles.button}
           onPress={() => filter("","ProductList")}
-          title="Mix & Match"
-      />  
-      <Button
+          
+      ><Text>Mix & Match</Text>
+      </TouchableOpacity>  
+      
+      <TouchableOpacity
           style={styles.button}
           onPress={() => filter("deluxe","ProductList")}
-          title="Deluxe Products"
-      />  
+          
+      ><Text>Deluxe Items</Text>
+      </TouchableOpacity>  
+      
+      <TouchableOpacity
+          style={styles.button}
+          onPress={() => filter("4","ProductList")}
+          
+      ><Text>Family Baskets</Text>
+      </TouchableOpacity>  
+      
+      <TouchableOpacity
+          style={styles.button}
+          onPress={() => filter("3","ProductList")}
+          
+      ><Text>Baskets for three</Text>
+      </TouchableOpacity>  
+      
+      <TouchableOpacity
+          style={styles.button}
+          onPress={() => filter("2","ProductList")}
+          
+      ><Text>Baskets for two</Text>
+      </TouchableOpacity>  
+      
+      <TouchableOpacity
+          style={styles.button}
+          onPress={() => filter("addons","ProductList")}
+          
+      ><Text>Individual items & add-ons</Text>
 
+      </TouchableOpacity>  
       {device === 'web' && <Pressable
           style={styles.button}
           onPress={() => viewSwitcher("WebMap")}
@@ -68,25 +98,24 @@ const dispatch = useDispatch();
           <Text>Map</Text>
         </Pressable>}
 
-      <Button
-          style={styles.button}
-          onPress={() => filter("2","ProductList")}
-          title="Baskets for 2"
-      />  
-      <Button
-          style={styles.button}
-          onPress={() => filter("4","ProductList")}
-          title="Baskets for the whole family"
-      />  
-      <Button
-          style={styles.button}
-          onPress={() => filter("addons","ProductList")}
-          title="Individual Items"
-      />  
+        <Modal visible={modalShow} transparent={true} animationType="slide">
+        <View style={styles.modal}>
+          <Button title="X" onPress={() => dispatch(toggleModal())} />
+          <View style={styles.button}>
+            <Text>UserName</Text>
+            <Text>Email@address.com</Text>
 
 
+          </View>
+          <Text>Orders</Text>
+          <Text>About</Text>
+          <Text>Become a certified Quik-a-nik specialist</Text>
+          <Text></Text>
+          <Text></Text>
+        </View>
+      </Modal>
    
-    </>
+    </View>
   );
   }
   const styles = StyleSheet.create({
@@ -106,13 +135,36 @@ const dispatch = useDispatch();
     },
   
     button: {
+      display: "flex",
       backgroundColor: "white",
       // border: "solid",
       padding: 5,
       margin: 5,
+      width: "100%",
+      height: 75,
+      borderRadius: 10,
+      shadowColor: "grey",
+      shadowOffset: { width: 3, height: 3 }, 
+      shadowRadius: 10,
+
+
     },
     logo: {
       width: 200,
       height: 200,
+    },
+    container: {
+      display: "flex",
+      alignSelf: "center",
+      alignContent: "center",
+      width: "80%",
+
+    },
+    modal: {
+      display: "flex",
+      flex: 1,
+      backgroundColor: "#e9ebec"
+
+
     },
 })
