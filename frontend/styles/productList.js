@@ -88,6 +88,17 @@ if (device !== "web") {
       width: 200,
       fontSize: 24,
     },
+
+    prodInfo: {
+      display: "flex",
+      flexDirection: "column",
+      padding: 10,
+    },
+
+    prodName: {
+      width: 200,
+      fontSize: 24,
+    },
   });
 }
 
