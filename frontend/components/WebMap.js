@@ -1,13 +1,9 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, } from "react-native";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
-
-const containerStyle = {
-  width: "400px",
-  height: "400px",
-};
+import styles from '../styles/webMap'
 
 export default function WebMap() {
   const [location, setLocation] = useState({coords: {latitude: 0, longitude: 0}});
@@ -62,7 +58,7 @@ export default function WebMap() {
 
   return isLoaded ? (
     <GoogleMap
-      mapContainerStyle={containerStyle}
+      mapContainerStyle={styles.mapWindow}
       center={{ lat: location.coords.latitude, lng: location.coords.longitude }}
       zoom={13}
       onClick={ev => {

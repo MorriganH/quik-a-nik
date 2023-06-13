@@ -1,12 +1,12 @@
 import { React, useState, useEffect } from "react";
 import {
-  StyleSheet,
   Text,
   View,
   Image,
   Button,
   Pressable,
   Platform,
+  ScrollView,
 } from "react-native";
 import * as Device from "expo-device";
 import Android from "./Android";
@@ -15,9 +15,10 @@ import stateManager from "../hooks/stateManager";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addItem, setProducts } from "../redux/actions";
+import styles from "../styles/home";
 import tunnelURL from "../backend_tunnel";
 
-export default function Home({ navigation, route, set, StripeModalVisible }) {
+export default function Home({ navigation, route }) {
   const device = Platform.OS;
 
   const { cart, products } = useSelector((state) => state.reducer);
@@ -53,87 +54,113 @@ export default function Home({ navigation, route, set, StripeModalVisible }) {
   }, []);
 
   return (
-    <>
-      <Text style={styles.bigText}>Juniper Xenoblade</Text>
-      <Image
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        {/* <Text style={styles.bigText}>Juniper Xenoblade</Text>
+        <Image
         style={styles.logo}
         source={require("../assets/Juniper_Twitter_Art.webp")}
-      />
+        />
+        
+        <Text>Running on {device}</Text>
+        {device === "web" && <Web />}
+      {device !== "web" && <Android />} */}
+        <View style={styles.main}>
+          <Pressable
+            style={styles.buttonMain}
+            onPress={() => filter("", "ProductList")}
+            title="Mix & Match"
+          >
+            <Image
+              style={styles.logoMain}
+              source={require("../assets/Juniper_Twitter_Art.webp")}
+            />
+            <Text style={styles.bigText}>Mix & Match</Text>
+          </Pressable>
 
-      <Text>Running on {device}</Text>
-      {device === "web" && <Web />}
-      {device !== "web" && <Android />}
+          <View style={styles.sideMain}>
+            <Pressable
+              style={styles.buttonSideMain}
+              onPress={() => filter("deluxe", "ProductList")}
+              title="Deluxe Products"
+            >
+              <Image
+                style={styles.logo}
+                source={require("../assets/Juniper_Twitter_Art.webp")}
+              />
+              <Text style={styles.bigText}>Deluxe Products</Text>
+            </Pressable>
 
-      <Button
-        style={styles.button}
-        onPress={() => filter("", "ProductList")}
-        title="Mix & Match"
-      />
-      <Button
-        style={styles.button}
-        onPress={() => filter("deluxe", "ProductList")}
-        title="Deluxe Products"
-      />
+            {device === "web" && (
+              <Pressable
+                style={styles.buttonSideMain}
+                onPress={() => viewSwitcher("WebMap")}
+              >
+                <Image
+                  style={styles.logo}
+                  source={require("../assets/Juniper_Twitter_Art.webp")}
+                />
+                <Text style={styles.bigText}>Map</Text>
+              </Pressable>
+            )}
+            <Pressable
+              style={styles.button}
+              onPress={() => {
+                viewSwitcher("Stripe");
+                setStripeModalVisible(true);
+              }}
+            >
+              <Text>Checkout</Text>
+            </Pressable>
+          </View>
+        </View>
 
-      {device === "web" && (
-        <Pressable style={styles.button} onPress={() => viewSwitcher("WebMap")}>
-          <Text>Map</Text>
+        {device !== "web" && (
+          <Pressable
+            style={styles.buttonSideMain}
+            onPress={() => viewSwitcher("Map")}
+          >
+            <Image
+              style={styles.logo}
+              source={require("../assets/Juniper_Twitter_Art.webp")}
+            />
+            <Text style={styles.bigText}>Map</Text>
+          </Pressable>
+        )}
+
+        <Pressable
+          style={styles.button}
+          onPress={() => viewSwitcher("OrderList")}
+        >
+          <Image
+            style={styles.logo}
+            source={require("../assets/Juniper_Twitter_Art.webp")}
+          />
+          <Text style={styles.bigText}>OrderList</Text>
         </Pressable>
-      )}
-      {device !== "web" && (
-        <Pressable style={styles.button} onPress={() => viewSwitcher("Map")}>
-          <Text>Map</Text>
-        </Pressable>
-      )}
 
-      <Pressable
-        style={styles.button}
-        onPress={() => viewSwitcher("OrderList")}
-      >
-        <Text>OrderList</Text>
-      </Pressable>
-      <Pressable style={styles.button} onPress={() => viewSwitcher("PRODUCTS")}>
-        <Text>Family Packages</Text>
-      </Pressable>
-      <Pressable style={styles.button} onPress={() => viewSwitcher("PRODUCTS")}>
-        <Text>Individual alignItems</Text>
-      </Pressable>
-      <Pressable
-        style={styles.button}
-        onPress={() => {
-          viewSwitcher("Stripe");
-          setStripeModalVisible(true);
-        }}
-      >
-        <Text>Checkout</Text>
-      </Pressable>
-    </>
+        <Pressable
+          style={styles.button}
+          onPress={() => viewSwitcher("PRODUCTS")}
+        >
+          <Image
+            style={styles.logo}
+            source={require("../assets/Juniper_Twitter_Art.webp")}
+          />
+          <Text style={styles.bigText}>Family Packages</Text>
+        </Pressable>
+
+        <Pressable
+          style={styles.button}
+          onPress={() => viewSwitcher("PRODUCTS")}
+        >
+          <Image
+            style={styles.logo}
+            source={require("../assets/Juniper_Twitter_Art.webp")}
+          />
+          <Text style={styles.bigText}>Individual Items</Text>
+        </Pressable>
+      </ScrollView>
+    </View>
   );
 }
-const styles = StyleSheet.create({
-  webNavBar: {
-    display: "flex",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    backgroundColor: "white",
-    borderRadius: 3,
-    height: 50,
-    shadowColor: "grey",
-    width: "70%",
-    shadowOffset: { width: 6, height: 6 },
-    shadowRadius: 10,
-    position: "fixed",
-    top: 20,
-  },
-
-  button: {
-    backgroundColor: "white",
-    // border: "solid",
-    padding: 5,
-    margin: 5,
-  },
-  logo: {
-    width: 200,
-    height: 200,
-  },
-});
