@@ -28,6 +28,6 @@ app.use(
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);
-app.use('/create-checkout-session', checkout);
+app.use('/checkout', checkout);
 
 module.exports = app;

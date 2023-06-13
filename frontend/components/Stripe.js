@@ -12,43 +12,44 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import tunnelURL from '../backend_tunnel'
 
 export default function Stripe() {
-  const stripe = useStripe();
-  const elements = useElements();
+  const stripe = useStripe();                       // Hook to access Stripe.js API
+  const elements = useElements();                   // Hook to access Stripe Elements
+
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault();                         // Prevent form from refreshing the page
 
+    //Create a PaymentMethod object, using card details collected from the Stripe Element
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
     });
 
     if (error) {
+      //Log errors related to creating paymentMethod
       console.log("[error]", error);
     } else {
+      //Log paymentMethod
       console.log("[PaymentMethod]", paymentMethod);
 
+      // Call to backend to send paymentMethod
       axios
-        .post(`${tunnelURL}/charge`, {
+        .post(`${tunnelURL}/checkout`, {
           paymentMethodId: paymentMethod.id,
-          // Include any other relevant data to your server here
         })
+        // Server response
         .then((response) => {
-          // Handle server response here
           if (response.data.success) {
             alert("Payment Successful!");
-            // Redirect to a success page, update UI, etc.
           } else {
             alert(
-              "Payment failed: " + (response.data.message || "Unknown error")
+              "Payment failed: " + (response.data.message)
             );
-            // Update UI to allow user to try again, etc.
           }
         })
         .catch((error) => {
-          // Handle network or server error here
           console.error(error);
-          alert("Error: " + (error.message || "Unknown error"));
+          alert("Error: " + (error.message));
         });
     }
   };
