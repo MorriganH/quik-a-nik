@@ -42,7 +42,7 @@ export default function App() {
             headerRight: () => (
               <Button
                 title="Cart"
-                color=""
+                color="#55bb55"
                 onPress={() => navigation.navigate("Cart")}
               />
             ),

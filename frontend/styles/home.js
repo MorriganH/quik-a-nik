@@ -7,34 +7,51 @@ if (device === 'web') {
 
   styles = StyleSheet.create({
     container: {
+      
+      backgroundColor: "#fff",
+      // paddingTop: 300,
+    },
+    
+    scrollView: {
       display: "flex",
       flex: 1,
-      backgroundColor: "#fff",
       alignItems: "center",
       justifyContent: "center",
-      paddingTop: 300,
-      height: 1000
     },
     
     logo: {
-      width: 200,
-      height: 200,
-  },
-
-  bigText: {
-    fontSize: 40,
-  },
-  
-  button: {
+      width: 80,
+      height: 80,
+    },
+    
+    bigText: {
+      fontSize: 40,
+    },
+    
+    button: {
     display: 'flex',
-    justifyContent: 'flex-end',
-    backgroundColor: "#2196f3",
-    height:100,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: "#55bb55",
+    borderRadius: 10,
+    height: 'auto',
     width: '80%',
     padding: 5,
     margin: 5,
   },
   
+  main: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '50%',
+    height: 300,
+  },
+
+  sideMain: {
+    // width: 
+  },
 });
 }
 
@@ -42,17 +59,18 @@ if (device !== 'web') {
 
   styles = StyleSheet.create({
     container: {
-      display: "flex",
-      flex: 1,
       backgroundColor: "#fff",
       alignItems: "center",
       justifyContent: "center",
-      paddingTop: 200,
+      // paddingTop: 200,
+    },
+    
+    scrollView: {
     },
     
     logo: {
-      width: 200,
-      height: 200,
+      width: 80,
+      height: 80,
   },
 
   bigText: {
@@ -61,10 +79,13 @@ if (device !== 'web') {
   
   button: {
     display: 'flex',
-    justifyContent: 'flex-end',
-    backgroundColor: "#2196f3",
-    height:100,
-    width: '80%',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: "#55bb55",
+    borderRadius: 10,
+    height:150,
+    width: '97%',
     padding: 5,
     margin: 5,
   },
