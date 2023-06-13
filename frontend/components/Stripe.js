@@ -7,23 +7,60 @@ import {
   Pressable,
   Button,
 } from "react-native";
-// import MapView, { Marker } from "react-native-maps";
-// import * as Device from "expo-device";
-// import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
-// import key from "../api_key";
-// import * as Location from "expo-location";
-// import {
-//   StripeProvider,
-//   CardField,
-//   useStripe,
-//   useConfirmPayment,
-//   BillingDetails
-// } from "@stripe/stripe-react-native";
+import axios from "axios";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import tunnelURL from '../backend_tunnel'
 
 export default function Stripe() {
+  const stripe = useStripe();
+  const elements = useElements();
 
-  return
-  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardElement),
+    });
+
+    if (error) {
+      console.log("[error]", error);
+    } else {
+      console.log("[PaymentMethod]", paymentMethod);
+
+      axios
+        .post(`${tunnelURL}/charge`, {
+          paymentMethodId: paymentMethod.id,
+          // Include any other relevant data to your server here
+        })
+        .then((response) => {
+          // Handle server response here
+          if (response.data.success) {
+            alert("Payment Successful!");
+            // Redirect to a success page, update UI, etc.
+          } else {
+            alert(
+              "Payment failed: " + (response.data.message || "Unknown error")
+            );
+            // Update UI to allow user to try again, etc.
+          }
+        })
+        .catch((error) => {
+          // Handle network or server error here
+          console.error(error);
+          alert("Error: " + (error.message || "Unknown error"));
+        });
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <CardElement />
+      <button type="submit" disabled={!stripe}>
+        Pay
+      </button>
+    </form>
+  );
 }
 
 //   const { confirmPayment, loading } = useStripe();

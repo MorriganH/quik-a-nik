@@ -6,8 +6,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-//EXPO
-
+//STRIPE
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 //REDUX
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { Store } from "./redux/store";
@@ -19,7 +20,12 @@ import Cart from "./components/Cart";
 import ProductList from "./components/ProductList";
 import Web from "./components/Web";
 import Android from "./components/Android";
-import OrderList from "./components/OrderList"
+import OrderList from "./components/OrderList";
+import Stripe from "./components/Stripe";
+
+const stripePromise = loadStripe(
+  "pk_test_51NDgmwLv74N28uF2MxWf6liIv4DqMJcIagTtcT1BAymIJEkX1gaky4i9nLLfmfALffHmN32aiXmRrSiPAcmn0wOP00ONBP6Dfx"
+);
 
 export default function App() {
   const device = Platform.OS;
@@ -29,63 +35,62 @@ export default function App() {
 
   const Stack = createNativeStackNavigator();
 
-  // if (state.isLoading) {
-  //   return <View className="App"><Text>Loading... </Text></View>;
-  // }
   return (
-    <Provider store={Store}>
-
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Home"
-          screenOptions={({navigation}) => ({
-            headerRight: () => (
-              <Button
-                title="Cart"
-                onPress={() => navigation.navigate("Cart")}
-              />
-            ),
-          })}
-        >
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Web" component={Web} />
-          <Stack.Screen name="ProductList" component={ProductList} />
-          <Stack.Screen name="Android" component={Android} />
-          <Stack.Screen name="WebMap" component={WebMap} />
-          <Stack.Screen name="Map" component={Map} />
-          <Stack.Screen name="OrderList" component={OrderList} />
-          <Stack.Screen name="Cart" component={Cart} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
+    <Elements stripe={stripePromise}>
+      <Provider store={Store}>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Home"
+            screenOptions={({ navigation }) => ({
+              headerRight: () => (
+                <Button
+                  title="Cart"
+                  onPress={() => navigation.navigate("Cart")}
+                />
+              ),
+            })}
+          >
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Web" component={Web} />
+            <Stack.Screen name="ProductList" component={ProductList} />
+            <Stack.Screen name="Android" component={Android} />
+            <Stack.Screen name="WebMap" component={WebMap} />
+            <Stack.Screen name="Map" component={Map} />
+            <Stack.Screen name="OrderList" component={OrderList} />
+            <Stack.Screen name="Cart" component={Cart} />
+            <Stack.Screen name="Stripe" component={Stripe} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    </Elements>
   );
 }
-  /////////////OLD LOGIC//////////////
-  //variables
+/////////////OLD LOGIC//////////////
+//variables
 
-  // const view = viewHistory[viewHistory.length - 1];
-  // console.log("Current view: ", view);
+// const view = viewHistory[viewHistory.length - 1];
+// console.log("Current view: ", view);
 
-  // const transition = function (newView, replace) {
-  //   const oldHistory = [...viewHistory];
+// const transition = function (newView, replace) {
+//   const oldHistory = [...viewHistory];
 
-  //   if (replace) {
-  //     oldHistory.pop();
-  //   }
+//   if (replace) {
+//     oldHistory.pop();
+//   }
 
-  //   setViewHistory([...oldHistory, newView]);
-  // };
+//   setViewHistory([...oldHistory, newView]);
+// };
 
-  // const back = function () {
-  //   const oldHistory = [...viewHistory];
-  //   if (oldHistory.length !== 1) {
-  //     oldHistory.pop();
-  //   }
-  //   setViewHistory(oldHistory);
-  // };
+// const back = function () {
+//   const oldHistory = [...viewHistory];
+//   if (oldHistory.length !== 1) {
+//     oldHistory.pop();
+//   }
+//   setViewHistory(oldHistory);
+// };
 
-  //useEffects
-  //axios request to get all products
+//useEffects
+//axios request to get all products
 //   useEffect(() => {
 //     axios
 //       .get("http://localhost:3000/products")

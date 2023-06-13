@@ -102,6 +102,12 @@ const dispatch = useDispatch();
         >
           <Text>Individual alignItems</Text>
         </Pressable>
+      <Pressable
+          style={styles.button}
+          onPress={() => viewSwitcher("Stripe")}
+        >
+          <Text>Checkout</Text>
+        </Pressable>
 
    
     </>
