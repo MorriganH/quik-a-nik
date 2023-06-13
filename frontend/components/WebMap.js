@@ -10,9 +10,11 @@ const containerStyle = {
 };
 
 export default function WebMap() {
-  const [location, setLocation] = useState({});
+  const [location, setLocation] = useState({coords: {latitude: 0, longitude: 0}});
   const [markerPos, setMarkerPos] = useState(location);
-  console.log(markerPos)
+  const [errorMsg, setErrorMsg] = useState(null);
+  console.log("location", location);
+  console.log("markerPos", markerPos);
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
@@ -21,21 +23,37 @@ export default function WebMap() {
 
   useEffect(() => {
     (async () => {
+      console.log("in the useEffect")
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
+        console.log("bad status")
         setErrorMsg("Permission to access location was denied");
         return;
       }
+      console.log("setting location")
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
-      setMarkerPos(location)
+      setMarkerPos(location);
     })();
   }, []);
 
+  let text = "Waiting..";
+  // save either error message or JSON location data (in string format) in 'text' variable
+  if (errorMsg) {
+    text = errorMsg;
+    console.log(text)
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
+
   const updateMarker = ev => {
     const oldMarkerPos = { ...markerPos };
-    setMarkerPos(oldMarkerPos, oldMarkerPos.coords.latitude = ev.latLng.lat(), oldMarkerPos.coords.longitude = ev.latLng.lng())
+    setMarkerPos(
+      oldMarkerPos,
+      (oldMarkerPos.coords.latitude = ev.latLng.lat()),
+      (oldMarkerPos.coords.longitude = ev.latLng.lng())
+    );
   };
 
   if (loadError) {
@@ -48,7 +66,7 @@ export default function WebMap() {
       center={{ lat: location.coords.latitude, lng: location.coords.longitude }}
       zoom={13}
       onClick={ev => {
-        updateMarker(ev)
+        updateMarker(ev);
       }}
     >
       <Marker
@@ -56,14 +74,13 @@ export default function WebMap() {
           lat: markerPos.coords.latitude,
           lng: markerPos.coords.longitude,
         }}
-        
         draggable
         onDragEnd={ev => {
-          updateMarker(ev)
+          updateMarker(ev);
         }}
       />
     </GoogleMap>
   ) : (
-    <Text>Loading</Text>
+    <Text>{text}</Text>
   );
 }

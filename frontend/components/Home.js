@@ -7,7 +7,7 @@ import stateManager from "../hooks/stateManager";
 import {useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addItem, setProducts } from "../redux/actions";
-import {ngrokKey} from "../api_key";
+import tunnelURL from '../backend_tunnel'
 
 
 
@@ -19,7 +19,7 @@ const dispatch = useDispatch();
 
   const filter = function(path, view){
     axios
-    .get(`https://quikanik.loca.lt/products/${path}`)
+    .get(`${tunnelURL}/products/${path}`)
     .then((prods) => {
       dispatch(setProducts(prods.data.products))
     }).then(viewSwitcher(view)).catch(err => {
@@ -37,7 +37,7 @@ const dispatch = useDispatch();
 
   useEffect(() => {
     axios
-    .get(`https://quikanik.loca.lt/products`)
+    .get(`${tunnelURL}/products`)
     .then((prods) => {
       dispatch(setProducts(prods.data.products))
     }).catch(err => {
@@ -56,9 +56,9 @@ const dispatch = useDispatch();
         source={require("../assets/Juniper_Twitter_Art.webp")}
       />
 
-      <Text>Running on {Device.brand}</Text>
-      {Device.brand === null && <Web />}
-      {Device.brand !== null && <Android />}
+      <Text>Running on {device}</Text>
+      {device === 'web' && <Web />}
+      {device !== 'web' && <Android />}
 
       <Button
           style={styles.button}
@@ -70,26 +70,20 @@ const dispatch = useDispatch();
           onPress={() => filter("deluxe","ProductList")}
           title="Deluxe Products"
       />  
-        
-      <Pressable
-          style={styles.button}
-          onPress={() => viewSwitcher("Web")}
-        >
-          <Text>Web</Text>
-        </Pressable>
-      <Pressable
+
+      {device === 'web' && <Pressable
           style={styles.button}
           onPress={() => viewSwitcher("WebMap")}
         >
           <Text>Map</Text>
-        </Pressable>
-
-      <Pressable
+        </Pressable>}
+      {device !== 'web' && <Pressable
           style={styles.button}
-          onPress={() => viewSwitcher("Android")}
+          onPress={() => viewSwitcher("Map")}
         >
-          <Text>Android</Text>
-        </Pressable>
+          <Text>Map</Text>
+        </Pressable>}
+
       <Pressable
           style={styles.button}
           onPress={() => viewSwitcher("OrderList")}
