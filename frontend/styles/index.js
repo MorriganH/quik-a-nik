@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
   logo: {
     width: 200,
     height: 200,
@@ -16,7 +15,7 @@ const styles = StyleSheet.create({
   cart: {
     width: 25,
     height: 25,
-    margin: 15
+    margin: 15,
   },
 
   bigText: {

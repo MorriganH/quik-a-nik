@@ -7,8 +7,7 @@ import stateManager from "../hooks/stateManager";
 import {useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addItem, setProducts } from "../redux/actions";
-
-
+import tunnelURL from '../backend_tunnel'
 
 export default function Home({navigation, route}) {
 const device = Platform.OS
@@ -18,7 +17,7 @@ const dispatch = useDispatch();
 
   const filter = function(path, view){
     axios
-    .get(`https://quikanik.loca.lt/products/${path}`)
+    .get(`${tunnelURL}/products/${path}`)
     .then((prods) => {
       dispatch(setProducts(prods.data.products))
     }).then(viewSwitcher(view)).catch(err => {
@@ -28,24 +27,10 @@ const dispatch = useDispatch();
   }
 
   const viewSwitcher = function(newView) {
-    // {device !== "web" && navigation.navigate(newView), products}
-    // {device === "web" && transition(newView)} 
+ 
     navigation.navigate(newView) 
     
   }
-
-  // useEffect(() => {
-  //   axios
-  //   .get("https://643d-142-189-255-40.ngrok-free.app/products")
-  //   .then((prods) => {
-  //     dispatch(setProducts(prods.data.products))
-  //   }).catch(err => {
-  //     console.log(err);
-      
-  //   });
-  // }, []);
-
-
   return (
 
     <>
@@ -55,9 +40,9 @@ const dispatch = useDispatch();
         source={require("../assets/Juniper_Twitter_Art.webp")}
       />
 
-      <Text>Running on {Device.brand}</Text>
-      {Device.brand === null && <Web />}
-      {Device.brand !== null && <Android />}
+      <Text>Running on {device}</Text>
+      {device === 'web' && <Web />}
+      {device !== 'web' && <Android />}
 
       <TouchableOpacity
           style={styles.button}
@@ -69,6 +54,20 @@ const dispatch = useDispatch();
           onPress={() => filter("deluxe","ProductList")}
           title="Deluxe Products"
       />  
+
+      {device === 'web' && <Pressable
+          style={styles.button}
+          onPress={() => viewSwitcher("WebMap")}
+        >
+          <Text>Map</Text>
+        </Pressable>}
+      {device !== 'web' && <Pressable
+          style={styles.button}
+          onPress={() => viewSwitcher("Map")}
+        >
+          <Text>Map</Text>
+        </Pressable>}
+
       <Button
           style={styles.button}
           onPress={() => filter("2","ProductList")}

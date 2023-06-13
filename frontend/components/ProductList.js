@@ -7,34 +7,53 @@ import {
   Button,
   Platform,
   FlatList,
+  Modal,
+  Pressable,
 } from "react-native";
 
-import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "../redux/actions";
+import {  useDispatch, useSelector } from "react-redux";
+import { addItem, showModal  } from "../redux/actions";
+import { SafeAreaView } from "react-native-safe-area-context";
+import styles from "../styles";
 
 export default function ProductList() {
   const device = Platform.OS;
 
-  const { cart, products } = useSelector((state) => state.reducer);
+  const { cart, products, modalShow, modalProduct } = useSelector((state) => state.reducer);
   const dispatch = useDispatch();
+
+
 
   console.log(cart);
 
   const Item = ({ product }) => (
     <View style={style.item}>
-      <Text style={style.title}>{product.name}</Text>
+      <Pressable onPress={() => dispatch(showModal(product))}>
+        <Text style={style.title}>{product.name}</Text>
+      </Pressable>
       <Button title="Add to cart" onPress={() => dispatch(addItem(product))} />
     </View>
   );
 
   return (
-    <FlatList
-      data={products}
-      renderItem={(product) => <Item product={product.item} />}
-      keyExtractor={(item) => item.id}
-    />
+    <SafeAreaView style={styles.fill}>
+      <FlatList
+        data={products}
+        renderItem={(product) => <Item product={product.item} />}
+        keyExtractor={(item) => item.id}
+      />
+      <Modal
+      visible={modalShow}
+      transparent={true}
+      animationType="slide">
+        <View style={style.modal}>
 
-    // productsArr;
+<Text>{modalProduct.name}</Text>
+<Text>{modalProduct.description}</Text>
+<Text>${modalProduct.price_cents / 100}</Text>
+        </View>
+      </Modal>
+    </SafeAreaView>
   );
 }
 
@@ -57,4 +76,11 @@ const style = StyleSheet.create({
   title: {
     fontSize: 32,
   },
+  modal: {
+    display: "flex",
+    width: "70%",
+    height: "70%",
+    backgroundColor: "pink"
+    
+  }
 });

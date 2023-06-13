@@ -1,3 +1,2 @@
-const key = 'key';
-const ngrok = ngrokKey
-export default {key, ngrok};
+const key = `yourKey`;
+export default key;

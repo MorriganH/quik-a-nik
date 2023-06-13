@@ -22,7 +22,8 @@ export default function Cart() {
     );
   });
   
-  const tax = 1.13
+  const taxRate = 1.13
+  const tax = (subTotal * tax) - subTotal
   const total = subTotal * tax
 
 
