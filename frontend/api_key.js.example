@@ -1,2 +1,3 @@
 const key = 'key';
-export default key;
+const ngrok = ngrokKey
+export default {key, ngrok};

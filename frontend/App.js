@@ -1,6 +1,6 @@
 //REACT / REACT NATIVE
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, Button, Platform } from "react-native";
+import { StyleSheet, Text, View, Image, Button, Platform, Pressable } from "react-native";
 import styles from "./styles";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -40,10 +40,11 @@ export default function App() {
           initialRouteName="Home"
           screenOptions={({navigation}) => ({
             headerRight: () => (
-              <Button
-                title="Cart"
-                onPress={() => navigation.navigate("Cart")}
-              />
+              <Pressable  onPress={() => navigation.navigate("Cart")}
+              > <Image
+              style={styles.cart}
+              source={require("./assets/basket-shopping-solid.svg")}
+            /></Pressable>
             ),
   })}
         >

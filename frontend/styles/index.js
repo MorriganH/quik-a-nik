@@ -13,6 +13,11 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
+  cart: {
+    width: 25,
+    height: 25,
+    margin: 15
+  },
 
   bigText: {
     fontSize: 40,

@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, Button, Pressable, Platform  } from "react-native";
+import { StyleSheet, Text, View, Image, Button, Pressable, Platform, TouchableOpacity  } from "react-native";
 import * as Device from "expo-device";
 import Android from "./Android";
 import Web from "./Web";
@@ -18,7 +18,7 @@ const dispatch = useDispatch();
 
   const filter = function(path, view){
     axios
-    .get(`http://localhost:3000/products/${path}`)
+    .get(`https://quikanik.loca.lt/products/${path}`)
     .then((prods) => {
       dispatch(setProducts(prods.data.products))
     }).then(viewSwitcher(view)).catch(err => {
@@ -34,16 +34,16 @@ const dispatch = useDispatch();
     
   }
 
-  useEffect(() => {
-    axios
-    .get("http://localhost:3000/products")
-    .then((prods) => {
-      dispatch(setProducts(prods.data.products))
-    }).catch(err => {
-      console.log(err);
+  // useEffect(() => {
+  //   axios
+  //   .get("https://643d-142-189-255-40.ngrok-free.app/products")
+  //   .then((prods) => {
+  //     dispatch(setProducts(prods.data.products))
+  //   }).catch(err => {
+  //     console.log(err);
       
-    });
-  }, []);
+  //   });
+  // }, []);
 
 
   return (
@@ -59,7 +59,7 @@ const dispatch = useDispatch();
       {Device.brand === null && <Web />}
       {Device.brand !== null && <Android />}
 
-      <Button
+      <TouchableOpacity
           style={styles.button}
           onPress={() => filter("","ProductList")}
           title="Mix & Match"
@@ -84,44 +84,7 @@ const dispatch = useDispatch();
           onPress={() => filter("addons","ProductList")}
           title="Individual Items"
       />  
-        
-      <Pressable
-          style={styles.button}
-          onPress={() => viewSwitcher("Web")}
-        >
-          <Text>Web</Text>
-        </Pressable>
-      <Pressable
-          style={styles.button}
-          onPress={() => viewSwitcher("WebMap")}
-        >
-          <Text>Map</Text>
-        </Pressable>
 
-      <Pressable
-          style={styles.button}
-          onPress={() => viewSwitcher("Android")}
-        >
-          <Text>Android</Text>
-        </Pressable>
-      <Pressable
-          style={styles.button}
-          onPress={() => viewSwitcher("OrderList")}
-        >
-          <Text>OrderList</Text>
-        </Pressable>
-      <Pressable
-          style={styles.button}
-          onPress={() => viewSwitcher("PRODUCTS")}
-        >
-          <Text>Family Packages</Text>
-        </Pressable>
-      <Pressable
-          style={styles.button}
-          onPress={() => viewSwitcher("PRODUCTS")}
-        >
-          <Text>Individual alignItems</Text>
-        </Pressable>
 
    
     </>
