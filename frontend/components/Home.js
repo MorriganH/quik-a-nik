@@ -53,22 +53,6 @@ export default function Home({ navigation, route }) {
       });
   }, []);
 
-  const stuff = [
-    "Mix & Match",
-    "Deluxe Products",
-    "Map",
-    "OrderList",
-    "Family Packages",
-    "Individual  Items",
-  ];
-  const MenuButton = text => (
-    <View>
-      <Pressable style={styles.button} onPress={() => console.log("Hi")}>
-        <Text style={styles.bigText}>{text}</Text>
-      </Pressable>
-    </View>
-  );
-
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
@@ -83,12 +67,12 @@ export default function Home({ navigation, route }) {
         {device !== "web" && <Android />} */}
         <View style={styles.main}>
           <Pressable
-            style={styles.button}
+            style={styles.buttonMain}
             onPress={() => filter("", "ProductList")}
             title="Mix & Match"
           >
             <Image
-              style={styles.logo}
+              style={styles.logoMain}
               source={require("../assets/Juniper_Twitter_Art.webp")}
             />
             <Text style={styles.bigText}>Mix & Match</Text>
@@ -96,7 +80,7 @@ export default function Home({ navigation, route }) {
 
           <View style={styles.sideMain} >
           <Pressable
-            style={styles.button}
+            style={styles.buttonSideMain}
             onPress={() => filter("deluxe", "ProductList")}
             title="Deluxe Products"
           >
@@ -109,7 +93,7 @@ export default function Home({ navigation, route }) {
 
           {device === "web" && (
             <Pressable
-              style={styles.button}
+              style={styles.buttonSideMain}
               onPress={() => viewSwitcher("WebMap")}
             >
               <Image
@@ -123,7 +107,7 @@ export default function Home({ navigation, route }) {
         </View>
 
         {device !== "web" && (
-          <Pressable style={styles.button} onPress={() => viewSwitcher("Map")}>
+          <Pressable style={styles.buttonSideMain} onPress={() => viewSwitcher("Map")}>
             <Image
               style={styles.logo}
               source={require("../assets/Juniper_Twitter_Art.webp")}
