@@ -1,5 +1,7 @@
 export const ADD_TO_CART = "ADD_TO_CART";
 export const GENERATE_PRODUCTS = "GENERATE_PRODUCTS";
+export const TOGGLE_MODAL = "TOGGLE_MODAL";
+
 
 
 export const addItem = item => dispatch => {
@@ -16,3 +18,8 @@ export const setProducts = productList => dispatch => {
   })
 }
 
+export const toggleModal = () => dispatch => {
+  dispatch({
+    type: TOGGLE_MODAL
+  });
+};
