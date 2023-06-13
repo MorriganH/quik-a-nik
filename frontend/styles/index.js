@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     width: "70%",
     shadowOffset: { width: 6, height: 6 },
     shadowRadius: 10,
-    position: "fixed",
+    // position: "fixed",
     top: 20,
   },
 });

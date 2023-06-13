@@ -1,6 +1,6 @@
 //REACT / REACT NATIVE
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, Button, Platform } from "react-native";
+import { Text, View, Image, Button, Platform } from "react-native";
 import styles from "./styles";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -19,7 +19,7 @@ import Cart from "./components/Cart";
 import ProductList from "./components/ProductList";
 import Web from "./components/Web";
 import Android from "./components/Android";
-import OrderList from "./components/OrderList"
+import OrderList from "./components/OrderList";
 
 export default function App() {
   const device = Platform.OS;
@@ -34,59 +34,67 @@ export default function App() {
   // }
   return (
     <Provider store={Store}>
-
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Home"
           style={styles.webNavBar} // not working
-          screenOptions={({navigation}) => ({
+          screenOptions={({ navigation }) => ({
             headerRight: () => (
               <Button
                 title="Cart"
+                color=""
                 onPress={() => navigation.navigate("Cart")}
               />
             ),
           })}
         >
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Web" component={Web} />
-          <Stack.Screen name="ProductList" component={ProductList} />
-          <Stack.Screen name="Android" component={Android} />
-          <Stack.Screen name="WebMap" component={WebMap} />
-          <Stack.Screen name="Map" component={Map} />
-          <Stack.Screen name="OrderList" component={OrderList} />
-          <Stack.Screen name="Cart" component={Cart} />
+          <Stack.Group
+            screenOptions={{ headerStyle: { backgroundColor: "papayawhip" } }}
+          >
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Web" component={Web} />
+            <Stack.Screen name="ProductList" component={ProductList} />
+            <Stack.Screen name="Android" component={Android} />
+            <Stack.Screen
+              name="WebMap"
+              component={WebMap}
+              options={{ title: "Map" }}
+            />
+            <Stack.Screen name="Map" component={Map} />
+            <Stack.Screen name="OrderList" component={OrderList} />
+            <Stack.Screen name="Cart" component={Cart} />
+          </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
   );
 }
-  /////////////OLD LOGIC//////////////
-  //variables
+/////////////OLD LOGIC//////////////
+//variables
 
-  // const view = viewHistory[viewHistory.length - 1];
-  // console.log("Current view: ", view);
+// const view = viewHistory[viewHistory.length - 1];
+// console.log("Current view: ", view);
 
-  // const transition = function (newView, replace) {
-  //   const oldHistory = [...viewHistory];
+// const transition = function (newView, replace) {
+//   const oldHistory = [...viewHistory];
 
-  //   if (replace) {
-  //     oldHistory.pop();
-  //   }
+//   if (replace) {
+//     oldHistory.pop();
+//   }
 
-  //   setViewHistory([...oldHistory, newView]);
-  // };
+//   setViewHistory([...oldHistory, newView]);
+// };
 
-  // const back = function () {
-  //   const oldHistory = [...viewHistory];
-  //   if (oldHistory.length !== 1) {
-  //     oldHistory.pop();
-  //   }
-  //   setViewHistory(oldHistory);
-  // };
+// const back = function () {
+//   const oldHistory = [...viewHistory];
+//   if (oldHistory.length !== 1) {
+//     oldHistory.pop();
+//   }
+//   setViewHistory(oldHistory);
+// };
 
-  //useEffects
-  //axios request to get all products
+//useEffects
+//axios request to get all products
 //   useEffect(() => {
 //     axios
 //       .get("http://localhost:3000/products")

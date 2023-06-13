@@ -1,17 +1,24 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
-const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+const device = Platform.OS
+let styles;
 
-  logo: {
-    width: 200,
-    height: 200,
+if (device === 'web') {
+
+  styles = StyleSheet.create({
+    container: {
+      display: "flex",
+      flex: 1,
+      backgroundColor: "#fff",
+      alignItems: "center",
+      justifyContent: "center",
+      paddingTop: 300,
+      height: 1000
+    },
+    
+    logo: {
+      width: 200,
+      height: 200,
   },
 
   bigText: {
@@ -19,12 +26,51 @@ const styles = StyleSheet.create({
   },
   
   button: {
-    backgroundColor: "white",
+    display: 'flex',
+    justifyContent: 'flex-end',
+    backgroundColor: "#2196f3",
+    height:100,
+    width: '80%',
     padding: 5,
     margin: 5,
   },
-
+  
 });
+}
+
+if (device !== 'web') {
+
+  styles = StyleSheet.create({
+    container: {
+      display: "flex",
+      flex: 1,
+      backgroundColor: "#fff",
+      alignItems: "center",
+      justifyContent: "center",
+      paddingTop: 200,
+    },
+    
+    logo: {
+      width: 200,
+      height: 200,
+  },
+
+  bigText: {
+    fontSize: 25,
+  },
+  
+  button: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    backgroundColor: "#2196f3",
+    height:100,
+    width: '80%',
+    padding: 5,
+    margin: 5,
+  },
+  
+});
+}
 
 
 export default styles;

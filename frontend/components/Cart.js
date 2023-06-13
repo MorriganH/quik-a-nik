@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Button } from "react-native";
+import { Text, View, Image, Button } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -23,6 +23,7 @@ export default function Cart() {
   });
   
   const tax = 1.13
+  const displayTax = 13
   const total = subTotal * tax
 
 
@@ -31,9 +32,9 @@ export default function Cart() {
 <View>
 {cartItems}
 <View>
-    <Text>Subtotal: {subTotal}</Text>
-    <Text>Tax: {tax}%</Text>
-    <Text>Total: {total}</Text>
+    <Text>Subtotal: ${subTotal}</Text>
+    <Text>Tax: {displayTax}%</Text>
+    <Text>Total: ${total.toFixed(2)}</Text>
 
 </View>
   </View>

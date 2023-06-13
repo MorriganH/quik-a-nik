@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { Text, StyleSheet, View, TextInput, Pressable } from "react-native";
+import { Text, View, TextInput, Pressable } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 //import * as Device from "expo-device";
 //import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";

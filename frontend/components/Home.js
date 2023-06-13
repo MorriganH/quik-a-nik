@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, Button, Pressable, Platform  } from "react-native";
+import { Text, View, Image, Button, Pressable, Platform, ScrollView  } from "react-native";
 import * as Device from "expo-device";
 import Android from "./Android";
 import Web from "./Web";
@@ -9,8 +9,6 @@ import axios from "axios";
 import { addItem, setProducts } from "../redux/actions";
 import styles from '../styles/home'
 import tunnelURL from '../backend_tunnel'
-
-
 
 export default function Home({navigation, route}) {
 const device = Platform.OS
@@ -50,7 +48,7 @@ const dispatch = useDispatch();
 
   return (
 
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.bigText}>Juniper Xenoblade</Text>
       <Image
         style={styles.logo}
@@ -61,50 +59,54 @@ const dispatch = useDispatch();
       {device === 'web' && <Web />}
       {device !== 'web' && <Android />}
 
-      <Button
+      <Pressable
           style={styles.button}
           onPress={() => filter("","ProductList")}
           title="Mix & Match"
-      />  
-      <Button
+      >
+        <Text style={styles.bigText}>Mix & Match</Text>
+      </Pressable>  
+      <Pressable
           style={styles.button}
           onPress={() => filter("deluxe","ProductList")}
           title="Deluxe Products"
-      />  
+      >
+        <Text style={styles.bigText}>Deluxe Products</Text>  
+      </Pressable>  
 
       {device === 'web' && <Pressable
           style={styles.button}
           onPress={() => viewSwitcher("WebMap")}
         >
-          <Text>Map</Text>
+          <Text style={styles.bigText}>Map</Text>
         </Pressable>}
       {device !== 'web' && <Pressable
           style={styles.button}
           onPress={() => viewSwitcher("Map")}
         >
-          <Text>Map</Text>
+          <Text style={styles.bigText}>Map</Text>
         </Pressable>}
 
       <Pressable
           style={styles.button}
           onPress={() => viewSwitcher("OrderList")}
         >
-          <Text>OrderList</Text>
+          <Text style={styles.bigText}>OrderList</Text>
         </Pressable>
       <Pressable
           style={styles.button}
           onPress={() => viewSwitcher("PRODUCTS")}
         >
-          <Text>Family Packages</Text>
+          <Text style={styles.bigText}>Family Packages</Text>
         </Pressable>
       <Pressable
           style={styles.button}
           onPress={() => viewSwitcher("PRODUCTS")}
         >
-          <Text>Individual alignItems</Text>
+          <Text style={styles.bigText}>Individual alignItems</Text>
         </Pressable>
 
    
-    </View>
+    </ScrollView>
   );
   }
