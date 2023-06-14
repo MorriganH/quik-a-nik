@@ -28,6 +28,10 @@ export default function Navbar({ navigation }) {
   );
   const dispatch = useDispatch();
 
+  const cartNotification = cart.reduce((sum, current) => {
+    sum += current.default_quantity
+  }, 0);
+
   const filter = function (path, view) {
     axios
       .get(`${tunnelURL}/products/${path}`)
@@ -62,10 +66,10 @@ export default function Navbar({ navigation }) {
       </View>
       <View style={styles.navSection}>
         <Pressable style={styles.button} onPress={() => viewSwitcher("Cart")}>
-          <Text>My Orders {cart.length} </Text>
+          <Text>My Orders</Text>
         </Pressable>
         <Pressable style={styles.button} onPress={() => viewSwitcher("Cart")}>
-          <Text>Cart {cart.length} </Text>
+          <Text>Cart {cartNotification} </Text>
         </Pressable>
       </View>
     </Text>

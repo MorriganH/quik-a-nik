@@ -8,46 +8,56 @@ import {
   Platform,
   FlatList,
   Modal,
-  Pressable,
-  
+  Pressable
 } from "react-native";
+import styles from "../styles/productList";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, toggleModal, adjustQuantity } from "../redux/actions";
 import { SafeAreaView } from "react-native-safe-area-context";
-import styles from "../styles";
 
 export default function ProductList() {
   const device = Platform.OS;
-  
-
-
-
+  const columns = device === "web" ? 3 : 1;
   const { cart, products, modalShow, modalProduct } = useSelector(
     (state) => state.reducer
   );
   const dispatch = useDispatch();
 
-  console.log(cart);
-
   const Item = ({ product }) => (
-    <View style={style.item}>
-      <Pressable onPress={() => dispatch(toggleModal(product))}>
-        <Text style={style.title}>{product.name}</Text>
-      </Pressable>
-      <Button title="Add to cart" onPress={() => dispatch(addItem(product))} />
+    <View style={styles.item}>
+      <Image
+        style={styles.logo}
+        source={require("../assets/Juniper_Twitter_Art.webp")}
+      />
+      <View style={styles.prodInfo}>
+        <Pressable onPress={() => dispatch(toggleModal(product))}>
+        <Text style={styles.prodName}>{product.name}</Text>
+        <Text>${product.price_cents / 100}</Text>
+        <Button
+          color="#55bb55"
+          title="Add to cart"
+          onPress={() => dispatch(addItem(product))}
+          />
+          </Pressable>
+      </View>
     </View>
   );
-  
+
   return (
-    <SafeAreaView style={styles.fill}>
+    <View style={styles.list}>
+      <Text style={styles.title}>Take your pick!</Text>
+      <Text style={styles.subtitle}>
+        {device === "web" ? "Click" : "Touch"} an item to view more info
+      </Text>
       <FlatList
         data={products}
+        numColumns={columns}
         renderItem={(product) => <Item product={product.item} />}
         keyExtractor={(item) => item.id}
       />
       <Modal visible={modalShow} transparent={true} animationType="slide">
-        <View style={style.modal}>
+        <View style={styles.modal}>
           <Button title="X" onPress={() => dispatch(toggleModal())} />
           <Text>{modalProduct.name}</Text>
           <Text>{modalProduct.description}</Text>
@@ -56,41 +66,12 @@ export default function ProductList() {
 
           <Text>{modalProduct.default_quantity}</Text>
           <Button title="-" onPress={() => dispatch(adjustQuantity("-"))} />
-      <Button title="Add to cart" onPress={() => dispatch(addItem(modalProduct))} />
+          <Button
+            title="Add to cart"
+            onPress={() => dispatch(addItem(modalProduct))}
+          />
         </View>
       </Modal>
-    </SafeAreaView>
+    </View>
   );
 }
-
-const style = StyleSheet.create({
-  prod: {
-    // border: "solid",
-    padding: 5,
-    margin: 5,
-    width: "30%",
-  },
-  container: {
-    flex: 1,
-  },
-  item: {
-    backgroundColor: "white",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 10,
-    shadowColor: "grey",
-    shadowOffset: { width: 3, height: 3 }, 
-    shadowRadius: 10,
-  },
-  title: {
-    fontSize: 32,
-  },
-  modal: {
-    display: "flex",
-    flex: 1,
-    width: "70%",
-    height: "70%",
-    backgroundColor: "pink",
-  },
-});

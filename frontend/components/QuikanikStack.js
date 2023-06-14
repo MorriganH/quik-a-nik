@@ -24,29 +24,30 @@ import Web from "./Web";
 import Android from "./Android";
 import OrderList from "./OrderList";
 import Navbar from "./Navbar";
+import Stripe from "./Stripe";
+
 
 //REDUX
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItem, toggleModal, adjustQuantity } from "../redux/actions";
 
 
 export default function QuikanikStack() {
-//REDUX FUNCTIONS
-const { cart, products, modalShow, modalProduct } = useSelector(
-  (state) => state.reducer
-);
-const dispatch = useDispatch();
+  //REDUX FUNCTIONS
+  const { cart, products, modalShow, modalProduct } = useSelector(
+    (state) => state.reducer
+  );
+  const dispatch = useDispatch();
 
-
-//VARIABLEs
+  //VARIABLEs
   const device = Platform.OS;
   const Stack = createNativeStackNavigator();
-  const cartNotification = cart.length
+  const cartNotification = cart.reduce((sum, current) => {
+    sum += current.default_quantity
+  }, 0);
 
-
-
-if (device !== "web"){  
-  return (
+  if (device !== "web") {
+    return (
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Home"
@@ -54,50 +55,51 @@ if (device !== "web"){
             headerRight: () => (
               <Pressable onPress={() => navigation.navigate("Cart")}>
                 <Text>{cartNotification}</Text>
- 
               </Pressable>
             ),
           })}
+        >
+          <Stack.Group
+            screenOptions={({ navigation }) => ({
+              headerLeft: () => (
+                <Button
+                  onPress={() => dispatch(toggleModal("N/A"))}
+                  title="⇶"
+                />
+              ),
+            })}
           >
-            <Stack.Group screenOptions={({ navigation }) =>({headerLeft: () => <Button onPress={() => dispatch(toggleModal("N/A"))} title="⇶"/>})}>
-
-          <Stack.Screen name="Home" component={Home}  />
-            </Stack.Group>
+            <Stack.Screen name="Home" component={Home} />
+          </Stack.Group>
           <Stack.Screen name="Web" component={Web} />
           <Stack.Screen name="ProductList" component={ProductList} />
           <Stack.Screen name="Android" component={Android} />
-          <Stack.Screen name="WebMap" component={WebMap} />
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="OrderList" component={OrderList} />
           <Stack.Screen name="Cart" component={Cart} />
         </Stack.Navigator>
       </NavigationContainer>
-  );
-} else{
-  return(
-    
-        <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="Home"
-            screenOptions={({ navigation }) => ({
-              header: () => <Navbar navigation={navigation}/>
-                
-              
-            })}
-          >
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="Web" component={Web} />
-            <Stack.Screen name="ProductList" component={ProductList} />
-            <Stack.Screen name="Android" component={Android} />
-            <Stack.Screen name="WebMap" component={WebMap} />
-            <Stack.Screen name="Map" component={Map} />
-            <Stack.Screen name="OrderList" component={OrderList} />
-            <Stack.Screen name="Cart" component={Cart} />
-            <Stack.Screen name="Navbar" component={Navbar} />
-
-          </Stack.Navigator>
-        </NavigationContainer>
     );
- 
-}
+  } else {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={({ navigation }) => ({
+            header: () => <Navbar navigation={navigation} />,
+          })}
+        >
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Web" component={Web} />
+          <Stack.Screen name="ProductList" component={ProductList} />
+          <Stack.Screen name="Android" component={Android} />
+          <Stack.Screen name="Map" component={WebMap} />
+          <Stack.Screen name="OrderList" component={OrderList} />
+          <Stack.Screen name="Cart" component={Cart} />
+          <Stack.Screen name="Navbar" component={Navbar} />
+          <Stack.Screen name="Stripe" component={Stripe} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }

@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View, Image, Button, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-
+import styles from "../styles/cart";
 
 export default function Cart() {
-
   const { cart } = useSelector(state => state.reducer);
 
   let subTotal = 0
