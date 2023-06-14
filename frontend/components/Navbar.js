@@ -60,8 +60,8 @@ export default function Navbar({ navigation }) {
         >
           <Text>Products</Text>
         </Pressable>
-        <Pressable style={styles.button} onPress={() => viewSwitcher("Map")}>
-          <Text>Map</Text>
+        <Pressable style={styles.button} onPress={() => viewSwitcher("Login")}>
+          <Text>Login</Text>
         </Pressable>
       </View>
       <View style={styles.navSection}>

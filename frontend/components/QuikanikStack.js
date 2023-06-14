@@ -25,6 +25,7 @@ import Android from "./Android";
 import OrderList from "./OrderList";
 import Navbar from "./Navbar";
 import Stripe from "./Stripe";
+import Login from "./Login";
 
 
 //REDUX
@@ -98,6 +99,7 @@ export default function QuikanikStack() {
           <Stack.Screen name="Cart" component={Cart} />
           <Stack.Screen name="Navbar" component={Navbar} />
           <Stack.Screen name="Stripe" component={Stripe} />
+          <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
       </NavigationContainer>
     );

@@ -10,4 +10,13 @@ router.get("/", function (req, res, next) {
   });
 });
 
+router.post('/', function(req, res) {
+  console.log("req.body", req.body)
+  users.getUserByEmail(req.body.email)
+    .then(data => {
+      console.log(data)
+      res.json(data[0])
+    })
+})
+
 module.exports = router;
