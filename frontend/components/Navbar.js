@@ -23,7 +23,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Navbar({ navigation }) {
-  const { cart, products, modalShow, modalProduct } = useSelector(
+  const { cart, products, modalShow, modalProduct, userSession } = useSelector(
     (state) => state.reducer
   );
   const dispatch = useDispatch();
@@ -60,9 +60,16 @@ export default function Navbar({ navigation }) {
         >
           <Text>Products</Text>
         </Pressable>
-        <Pressable style={styles.button} onPress={() => viewSwitcher("Login")}>
+        {userSession === null && <Pressable style={styles.button} onPress={() => viewSwitcher("Login")}>
           <Text>Login</Text>
-        </Pressable>
+        </Pressable>}
+        {userSession === null && <Pressable style={styles.button} onPress={() => viewSwitcher("Register")}>
+          <Text>Register</Text>
+        </Pressable>}
+        {userSession !== null && <Text>{userSession.first_name}</Text>}
+        {userSession !== null && <Pressable style={styles.button} onPress={() => viewSwitcher("Logout")}>
+          <Text>Logout</Text>
+        </Pressable>}
       </View>
       <View style={styles.navSection}>
         <Pressable style={styles.button} onPress={() => viewSwitcher("Cart")}>

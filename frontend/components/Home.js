@@ -23,10 +23,10 @@ import {
 import tunnelURL from "../backend_tunnel";
 import styles from "../styles/home";
 
-export default function Home({ navigation, route }) {
+export default function Home({ navigation }) {
   const device = Platform.OS;
 
-  const { cart, products, modalShow, modalProduct } = useSelector(
+  const { cart, products, modalShow, modalProduct, userSession } = useSelector(
     (state) => state.reducer
   );
   const dispatch = useDispatch();

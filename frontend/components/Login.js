@@ -1,30 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, TextInput, Pressable } from "react-native";
 import tunnelURL from "../backend_tunnel";
 import axios from "axios";
+import { setUserSession } from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function Login() {
+export default function Login({ navigation }) {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { userSession } = useSelector(state => state.reducer);
+
+  const viewSwitcher = function (newView) {
+    navigation.push(newView);
+  };
+
   const userAuth = function (email, password) {
-    const input = {email, password}
-    console.log(input)
+    const input = { email, password };
 
     axios
       .post(`${tunnelURL}/users/`, input)
       .then(response => {
-        console.log(response);
-        // dispatch(setProducts(prods.data.products));
+        if (response.data === "") {
+          return alert("Login Failed");
+        }
+        dispatch(setUserSession(response.data));
       })
-      // .then(viewSwitcher(view))
+      .then(() => {
+        viewSwitcher("Home");
+      })
       .catch(err => {
         console.log(err);
       });
-  };
-
-  const test = event => {
-    console.log(event);
   };
 
   return (
@@ -39,6 +48,7 @@ export default function Login() {
         }}
         placeholder="email"
         onChangeText={newText => setEmail(newText)}
+        onSubmitEditing={() => userAuth(email, password)}
       />
       <Text>Password</Text>
       <TextInput
@@ -50,6 +60,7 @@ export default function Login() {
         }}
         placeholder="password"
         onChangeText={newText => setPassword(newText)}
+        onSubmitEditing={() => userAuth(email, password)}
         secureTextEntry={true}
       />
       <Pressable

@@ -4,6 +4,7 @@ import {
   GENERATE_PRODUCTS,
   TOGGLE_MODAL,
   ADJUST_QUANTITY,
+  SET_USER_SESSION,
 } from "./actions";
 
 const initialState = {
@@ -25,20 +26,20 @@ const initialState = {
   isLoading: true,
   modalProduct: {},
   modalShow: false,
-  cartNotification: 0
+  cartNotification: 0,
+  userSession: null,
 };
 
 const reducer = function (state = initialState, action) {
   switch (action.type) {
     case ADD_TO_CART:
-
-      if (!state.cart.some((i) => i.id === action.payload.id)) {
+      if (!state.cart.some(i => i.id === action.payload.id)) {
         return {
           ...state,
           cart: [...state.cart, action.payload],
         };
       } else {
-        const index = state.cart.findIndex((i) => i.id === action.payload.id);
+        const index = state.cart.findIndex(i => i.id === action.payload.id);
 
         const mutableCart = [...state.cart];
         mutableCart[index].default_quantity++;
@@ -85,15 +86,20 @@ const reducer = function (state = initialState, action) {
         ...state,
         modalProduct: currentModalProduct,
       };
+    case SET_USER_SESSION:
+      return {
+        ...state,
+        userSession: action.payload,
+      };
     default:
       return state;
   }
-  
+
   // useEffect(() => {
   //   const cartNotification = cart.reduce((sum, current) => {
   //     sum += current.default_quantity
   //   }, 0);
-    
+
   //   return{
   //     ...state,
   //     cartNotification: cartNotification
