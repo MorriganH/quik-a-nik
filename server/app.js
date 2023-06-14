@@ -23,11 +23,13 @@ app.use(
   const indexRouter = require("./routes/index");
   const usersRouter = require("./routes/users");
   const productsRouter = require("./routes/products");
-  const checkout = require("./routes/checkout");
+  const checkoutRouter = require("./routes/checkout");
+  const ordersRouter = require("./routes/orders");
   
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);
-app.use('/checkout', checkout);
+app.use('/checkout', checkoutRouter);
+app.use('/orders', ordersRouter);
 
 module.exports = app;
