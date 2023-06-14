@@ -1,12 +1,13 @@
 import { StyleSheet, Text, View, Image, Button, FlatList, Modal } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/cart";
-import Stripe from "./Stripe";
+import WebMap from "./WebMap";
 import { toggleModal } from "../redux/actions";
 
 
-export default function Cart() {
+export default function Cart({navigation}) {
   const { cart, modalShow } = useSelector((state) => state.reducer);
+  
   const dispatch = useDispatch()
 
   let subTotal = 0;
@@ -44,12 +45,12 @@ export default function Cart() {
         <Text>Tax: ${tax.toFixed(2)}</Text>
         <Text>Total: ${total.toFixed(2)}</Text>
       </View>
-      <Button onPress={() => dispatch(toggleModal("N.A"))} title="Stripe"/>
+      <Button onPress={() => navigation.navigate("Map")} title="Set Location"/>
       <Modal
       visible={modalShow} transparent={true}>
         <View style={style.modal}>
 
-        <Stripe/>
+        <WebMap/>
         </View>
       </Modal>
     </View>

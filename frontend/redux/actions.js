@@ -3,6 +3,7 @@ export const GENERATE_PRODUCTS = "GENERATE_PRODUCTS";
 export const TOGGLE_MODAL = "TOGGLE_MODAL";
 export const ADJUST_QUANTITY = "ADJUST_QUANTITY";
 export const SET_USER_SESSION = "SET_USER_SESSION";
+export const SET_LOCATION_INFO = "SET_LOCATION_INFO";
 
 export const addItem = item => dispatch => {
   console.log(item);
@@ -37,4 +38,13 @@ export const setUserSession = id => dispatch => {
     type: SET_USER_SESSION,
     payload: id,
   });
+
+};
+
+export const setLocationInfo = location => dispatch => {
+  dispatch({
+    type: SET_LOCATION_INFO,
+    payload: location,
+  });
+
 };

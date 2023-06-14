@@ -5,6 +5,7 @@ import {
   TOGGLE_MODAL,
   ADJUST_QUANTITY,
   SET_USER_SESSION,
+  SET_LOCATION_INFO,
 } from "./actions";
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
   modalShow: false,
   cartNotification: 0,
   userSession: null,
+  locationInfo: null,
 };
 
 const reducer = function (state = initialState, action) {
@@ -91,6 +93,13 @@ const reducer = function (state = initialState, action) {
         ...state,
         userSession: action.payload,
       };
+
+    case SET_LOCATION_INFO:
+      return {
+        ...state,
+        locationInfo: action.payload,
+      };
+      
     default:
       return state;
   }

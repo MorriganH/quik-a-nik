@@ -7,11 +7,16 @@ import {
   Pressable,
   Button,
 } from "react-native";
+
 import axios from "axios";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import tunnelURL from '../backend_tunnel'
+import tunnelURL from '../backend_tunnel';
+import { useSelector } from "react-redux";
 
 export default function Stripe() {
+  const { locationInfo } = useSelector((state) => state.reducer);
+  console.log("locationInfo from Stripe: ", locationInfo);
+
   const stripe = useStripe();                       // Hook to access Stripe.js API
   const elements = useElements();                   // Hook to access Stripe Elements
 
@@ -45,7 +50,12 @@ export default function Stripe() {
             alert(
               "Payment failed: " + (response.data.message)
             );
+            throw Error("Payment has failed");
           }
+        })
+        .then(()=> {
+          //Make axios request to insert into order table
+          console.log("This should only appear on success");
         })
         .catch((error) => {
           console.error(error);
