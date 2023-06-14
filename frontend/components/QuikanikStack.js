@@ -47,8 +47,8 @@ export default function QuikanikStack() {
     sum += current.default_quantity
   }, 0);
 
-  // if (device !== "web") {
-  if (!true) {
+  if (device !== "web") {
+  // if (!true) {
     return (
       <NavigationContainer>
         <Stack.Navigator

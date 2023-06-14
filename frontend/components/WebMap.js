@@ -26,14 +26,11 @@ export default function WebMap({ navigation }) {
 
   useEffect(() => {
     (async () => {
-      console.log("in the useEffect");
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        console.log("bad status");
         setErrorMsg("Permission to access location was denied");
         return;
       }
-      console.log("setting location");
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
@@ -63,12 +60,7 @@ export default function WebMap({ navigation }) {
     const input = { markerPos, locationDetails };
     dispatch(setLocationInfo(input))
     console.log("locationInfo: ", locationInfo);
-      // .then(() => {
         navigation.navigate("Stripe");
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // });
   };
 
   if (loadError) {

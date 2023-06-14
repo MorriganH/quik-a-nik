@@ -1,21 +1,16 @@
 import { useState, useCallback, useEffect } from "react";
 import { Text, View, TextInput, Pressable } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import MapView, { Marker } from "react-native-maps";
-//import * as Device from "expo-device";
-//import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
-//import Stripe from "./Stripe";
 import styles from '../styles/map'
+import { setLocationInfo } from "../redux/actions";
 
-export default function Map(props) {
-  let view = null;
+export default function Map({navigation}) {
 
-  const {
-    transition,
-    viewHistory,
-    setViewHistory
-  } = props;
+  const { locationInfo } = useSelector((state) => state.reducer);
+  const dispatch = useDispatch();
 
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -54,8 +49,11 @@ export default function Map(props) {
     console.log("markerPosition: ", markerPosition); // TEST CODE - logging marker position coordinates
   };
 
-  const viewSwitcher = function (newView) {
-    transition(newView);
+  const checkoutConfirmation = function (markerPosition, locationDetails) {
+    const input = { markerPosition, locationDetails };
+    dispatch(setLocationInfo(input))
+    console.log("locationInfo: ", locationInfo);
+        navigation.navigate("Android");
   };
 
   return (
@@ -91,9 +89,9 @@ export default function Map(props) {
         />
         <Pressable
           style={styles.checkoutButton}
-          onPress={() => viewSwitcher("STRIPE")}
+          onPress={() => checkoutConfirmation(markerPosition, locationDetails)}
         >
-          <Text>Proceed to Payment Details</Text>
+          <Text>Proceed to Not Payment Details</Text>
         </Pressable>
       </View>
     )
