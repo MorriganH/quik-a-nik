@@ -5,7 +5,9 @@ const stateManager = function () {
   const defaultState = {
     cart: [],
     products: [],
-    isLoading: true,
+    orders: [],
+    productsLoading: true,
+    ordersLoading: true,
   };
 
   const reducer = function (state, action) {
@@ -25,11 +27,19 @@ const stateManager = function () {
         }
 
       case "generateProducts":
-        console.log(action.prods)
+        console.log(action.prods);
         return {
           ...state,
-          isLoading: false,
+          productsLoading: false,
           products: action.prods,
+        };
+
+      case "generateOrders":
+        console.log(action.orders);
+        return {
+          ...state,
+          ordersLoading: false,
+          orders: action.orders,
         };
     }
   };
@@ -37,9 +47,15 @@ const stateManager = function () {
 
   useEffect(() => {
     axios.get("http://localhost:3000/products").then((res) => {
-      const prods = res.data.products
+      const prods = res.data.products;
       dispatch({ type: "generateProducts", prods });
     });
+
+    axios.get("http://localhost:3000/orders").then((res) => {
+      const orders = res.data.orders;
+      dispatch({ type: "generateOrders", orders});
+    })
+    
   }, []);
 
   const addItem = function (item) {
