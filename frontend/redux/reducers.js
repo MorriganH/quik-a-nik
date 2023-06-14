@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import {
   ADD_TO_CART,
   GENERATE_PRODUCTS,
+  GENERATE_ORDERS,
   TOGGLE_MODAL,
   ADJUST_QUANTITY,
 } from "./actions";
@@ -22,7 +23,9 @@ const initialState = {
       updated_at: "2023-06-09T14:40:47.689Z",
     },
   ],
-  isLoading: true,
+  orders: [],
+  productsLoading: true,
+  ordersLoading:true,
   modalProduct: {},
   modalShow: false,
   cartNotification: 0
@@ -53,9 +56,18 @@ const reducer = function (state = initialState, action) {
       console.log(action.payload);
       return {
         ...state,
-        isLoading: false,
+        productsLoading: false,
         products: action.payload,
       };
+
+    case GENERATE_ORDERS:
+      console.log(action.payload);
+      return {
+        ...state,
+        ordersLoading: false,
+        orders: action.payload,
+      };
+
     case TOGGLE_MODAL:
       if (state.modalShow === true) {
         return {
