@@ -20,7 +20,7 @@ Scan the QR code to veiw your app
 
 ## Backend
 
-- `cd backend/`
+- `cd server/`
 - `npm start`
 
 ### To allow mobile to make axios requests to localhost

@@ -18,6 +18,12 @@ const getProductsByPortions = (portions) => {
   });
 };
 
+const getPartyProducts = () => {
+  return db.query("SELECT * FROM products WHERE portions > 4 AND is_basket = true;").then(data => {
+    return data.rows;
+  });
+};
+
 const getDeluxeProducts = () => {
   return db.query("SELECT * FROM products WHERE is_deluxe = TRUE;").then(data => 
     {
@@ -31,4 +37,4 @@ const getIndividualProducts = () => {
     })
 };
 
-module.exports = { getAllProducts, getProductById, getProductsByPortions, getDeluxeProducts, getIndividualProducts };
+module.exports = { getAllProducts, getProductById, getProductsByPortions, getDeluxeProducts, getIndividualProducts, getPartyProducts };

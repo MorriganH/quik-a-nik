@@ -23,10 +23,10 @@ import {
 import tunnelURL from "../backend_tunnel";
 import styles from "../styles/home";
 
-export default function Home({ navigation, route }) {
+export default function Home({ navigation }) {
   const device = Platform.OS;
 
-  const { cart, products, modalShow, modalProduct } = useSelector(
+  const { cart, products, modalShow, modalProduct, userSession } = useSelector(
     (state) => state.reducer
   );
   const dispatch = useDispatch();
@@ -74,20 +74,30 @@ export default function Home({ navigation, route }) {
               />
               <Text style={styles.bigText}>Deluxe Products</Text>
             </Pressable>
+            <Pressable
+              style={styles.button}
+              onPress={() => filter("addons", "ProductList")}
+            >
+              <Image
+                style={styles.logo}
+                source={require("../assets/Juniper_Twitter_Art.webp")}
+              />
+              <Text style={styles.bigText}>Individual Items</Text>
+            </Pressable>
 
-            {device === "web" && (
+            {/* {device === "web" && (
               <Pressable
-                style={styles.buttonSideMain}
-                onPress={() => viewSwitcher("Map")}
+              style={styles.buttonSideMain}
+              onPress={() => viewSwitcher("Map")}
               >
-                <Image
-                  style={styles.logo}
-                  source={require("../assets/Juniper_Twitter_Art.webp")}
-                />
+              <Image
+              style={styles.logo}
+              source={require("../assets/Juniper_Twitter_Art.webp")}
+              />
                 <Text style={styles.bigText}>Map</Text>
               </Pressable>
-            )}
-            <Pressable
+            )} */}
+            {/* <Pressable
               style={styles.button}
               onPress={() => {
                 viewSwitcher("Stripe");
@@ -96,10 +106,11 @@ export default function Home({ navigation, route }) {
             >
               <Text>Checkout</Text>
             </Pressable>
+          */}
           </View>
-        </View>
+        </View> 
 
-        {device !== "web" && (
+        {/* {device !== "web" && (
           <Pressable
             style={styles.buttonSideMain}
             onPress={() => viewSwitcher("Map")}
@@ -110,9 +121,9 @@ export default function Home({ navigation, route }) {
             />
             <Text style={styles.bigText}>Map</Text>
           </Pressable>
-        )}
+        )} */}
 
-        <Pressable
+        {/* <Pressable
           style={styles.button}
           onPress={() => viewSwitcher("OrderList")}
         >
@@ -121,7 +132,7 @@ export default function Home({ navigation, route }) {
             source={require("../assets/Juniper_Twitter_Art.webp")}
           />
           <Text style={styles.bigText}>OrderList</Text>
-        </Pressable>
+        </Pressable> */}
 
         <Pressable
           style={styles.button}
@@ -133,17 +144,28 @@ export default function Home({ navigation, route }) {
           />
           <Text style={styles.bigText}>Family Packages</Text>
         </Pressable>
-
+        
         <Pressable
           style={styles.button}
-          onPress={() => filter("addons", "ProductList")}
+          onPress={() => filter("party", "ProductList")}
         >
           <Image
             style={styles.logo}
             source={require("../assets/Juniper_Twitter_Art.webp")}
           />
-          <Text style={styles.bigText}>Individual Items</Text>
+          <Text style={styles.bigText}>Party Packages</Text>
         </Pressable>
+        <Pressable
+          style={styles.button}
+          onPress={() => filter("2", "ProductList")}
+        >
+          <Image
+            style={styles.logo}
+            source={require("../assets/Juniper_Twitter_Art.webp")}
+          />
+          <Text style={styles.bigText}>Baskets for Two</Text>
+        </Pressable>
+
       </ScrollView>
       <Modal visible={modalShow} transparent={true} animationType="slide">
         <View style={styles.modal}>
