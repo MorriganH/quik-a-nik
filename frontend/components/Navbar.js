@@ -72,7 +72,7 @@ export default function Navbar({ navigation }) {
         </Pressable>}
       </View>
       <View style={styles.navSection}>
-        <Pressable style={styles.button} onPress={() => viewSwitcher("Cart")}>
+        <Pressable style={styles.button} onPress={() => viewSwitcher("OrderList")}>
           <Text>My Orders</Text>
         </Pressable>
         <Pressable style={styles.button} onPress={() => viewSwitcher("Cart")}>

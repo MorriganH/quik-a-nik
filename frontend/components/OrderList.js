@@ -11,18 +11,19 @@ export default function OrderList() {
   const dispatch = useDispatch();
 
   //useSelector hook selects orders state from Redux
-  const orders = useSelector((state) => state.orders);
+  const {orders} = useSelector((state) => state.reducer);
+  console.log("orders in OrderList: ", orders.orders);
 
-  const fetchOrders = async () => {
-    try {
+  const fetchOrders = () => {
+    
       //GET request to server to fetch orders data
-      const res = await axios.get(`${tunnelURL}/orders`);
+      axios.get(`${tunnelURL}/orders`)
       // Dispatch setOrders action with orders data as payload
       // to update the state in Redux
-      dispatch(setOrders(res.data));
-    } catch (error) {
-      console.log(error);
-    }
+      .then((res) => dispatch(setOrders(res.data))) 
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   //fetchOrders once component loaded
@@ -30,16 +31,19 @@ export default function OrderList() {
     fetchOrders();
   }, []);
 
-  const renderOrder = ({ order }) => (
-    <View>
+  const Order = ( {order} ) => {
+  console.log("order from within component: ", order);
+     return (
+
+  <View>
       <Text>{`Order ID: ${order.id}`}</Text>
     </View>
-  );
+  )};
 
   return (
     <FlatList
-      data={orders} //Pass orders data to FlatList
-      renderItem={renderOrder} //render each order
+      data={orders.orders} //Pass orders data to FlatList
+      renderItem={(order) => <Order order={order.item} />}
       keyExtractor={(order) => order.id}
     />
   );

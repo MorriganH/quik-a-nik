@@ -26,7 +26,7 @@ const initialState = {
     },
   ],
   orders: [],
-  productsLoading: true,
+  loading: true,
   ordersLoading:true,
   modalProduct: {},
   modalShow: false,
