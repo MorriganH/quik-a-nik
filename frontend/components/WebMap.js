@@ -42,7 +42,6 @@ export default function WebMap({ navigation }) {
   // save either error message or JSON location data (in string format) in 'text' variable
   if (errorMsg) {
     text = errorMsg;
-    console.log(text);
   } else if (location) {
     text = JSON.stringify(location);
   }
@@ -59,7 +58,6 @@ export default function WebMap({ navigation }) {
   const checkoutConfirmation = function (markerPos, locationDetails) {
     const input = { markerPos, locationDetails };
     dispatch(setLocationInfo(input))
-    console.log("locationInfo: ", locationInfo);
         navigation.navigate("Stripe");
   };
 

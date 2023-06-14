@@ -15,7 +15,6 @@ import { useSelector } from "react-redux";
 
 export default function Stripe() {
   const { locationInfo } = useSelector((state) => state.reducer);
-  console.log("locationInfo from Stripe: ", locationInfo);
 
   const stripe = useStripe();                       // Hook to access Stripe.js API
   const elements = useElements();                   // Hook to access Stripe Elements
@@ -34,9 +33,6 @@ export default function Stripe() {
       //Log errors related to creating paymentMethod
       console.log("[error]", error);
     } else {
-      //Log paymentMethod
-      console.log("[PaymentMethod]", paymentMethod);
-
       // Call to backend to send paymentMethod
       axios
         .post(`${tunnelURL}/checkout`, {
@@ -55,7 +51,6 @@ export default function Stripe() {
         })
         .then(()=> {
           //Make axios request to insert into order table
-          console.log("This should only appear on success");
         })
         .catch((error) => {
           console.error(error);

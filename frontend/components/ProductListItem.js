@@ -15,7 +15,6 @@ export default function ProductListItem(props) {
       //I have a feeling this is bad practice need to review (but it works)
       cart[index].qty++;
     }
-    console.log(cart)
   };
   return (
     <View style={style.prod} >

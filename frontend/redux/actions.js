@@ -6,7 +6,6 @@ export const SET_USER_SESSION = "SET_USER_SESSION";
 export const SET_LOCATION_INFO = "SET_LOCATION_INFO";
 
 export const addItem = item => dispatch => {
-  console.log(item);
   dispatch({
     type: ADD_TO_CART,
     payload: item,

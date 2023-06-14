@@ -8,8 +8,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET);
 router.post('/', async (req, res) => {
     const { paymentMethodId, amount } = req.body;
 
-    console.log("Stripe call received in router");
-    
     try {
         // Create PaymentIntent with the order amount and currency and send to Stripe
         const paymentIntent = await stripe.paymentIntents.create({

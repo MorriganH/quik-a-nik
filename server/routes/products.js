@@ -10,7 +10,6 @@ const products = require("../db/queries/products");
 /* GET products listing. */
 router.get("/", function (req, res, next) {
   products.getAllProducts().then(data => {
-    // console.log(data);
     res.json({ products: data });
   });
 });
@@ -18,21 +17,18 @@ router.get("/", function (req, res, next) {
 
 router.get("/deluxe", function (req, res, next) {
   products.getDeluxeProducts().then(data => {
-    console.log(data);
     res.json({ products: data });
   });
 });
 
 router.get("/addons", function (req, res, next) {
   products.getIndividualProducts().then(data => {
-    console.log(data);
     res.json({ products: data });
   });
 });
 
 router.get("/party", function (req, res, next) {
   products.getPartyProducts().then(data => {
-    console.log(data);
     res.json({ products: data });
   });
 });
@@ -40,9 +36,7 @@ router.get("/party", function (req, res, next) {
 
 
 router.get("/:portion", function (req, res, next) {
-  console.log(req.params.portion)
   products.getProductsByPortions(req.params.portion).then(data => {
-    console.log(data);
     res.json({ products: data });
   });  
 });

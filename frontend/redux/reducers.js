@@ -53,7 +53,6 @@ const reducer = function (state = initialState, action) {
       }
 
     case GENERATE_PRODUCTS:
-      console.log(action.payload);
       return {
         ...state,
         isLoading: false,
@@ -83,7 +82,6 @@ const reducer = function (state = initialState, action) {
       if (action.payload === "reset") {
         currentModalProduct.default_quantity++;
       }
-      console.log(currentModalProduct);
       return {
         ...state,
         modalProduct: currentModalProduct,

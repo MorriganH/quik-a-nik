@@ -46,13 +46,11 @@ export default function Map({navigation}) {
   //Set new markerPosition state onPress of map
   const handlePress = (event) => {
     setMarkerPosition(event.nativeEvent.coordinate);
-    console.log("markerPosition: ", markerPosition); // TEST CODE - logging marker position coordinates
   };
 
   const checkoutConfirmation = function (markerPosition, locationDetails) {
     const input = { markerPosition, locationDetails };
     dispatch(setLocationInfo(input))
-    console.log("locationInfo: ", locationInfo);
         navigation.navigate("Android");
   };
 
