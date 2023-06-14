@@ -78,7 +78,7 @@ export default function Home({ navigation, route }) {
             {device === "web" && (
               <Pressable
                 style={styles.buttonSideMain}
-                onPress={() => viewSwitcher("WebMap")}
+                onPress={() => viewSwitcher("Map")}
               >
                 <Image
                   style={styles.logo}
