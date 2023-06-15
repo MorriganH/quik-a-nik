@@ -21,7 +21,7 @@ export default function Login({ navigation }) {
 
   // axios request to add user to db
   const registerUser = (firstName, lastName, email, hash) => {
-    const userInfo = { firstName, lastName, email, hash };
+    const userInfo = { firstName, lastName, email: email.toLowerCase(), hash };
     for (let key in userInfo) {
       if (userInfo[key] === "") {
         return alert("Please fill in all fields");

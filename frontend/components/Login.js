@@ -18,10 +18,10 @@ export default function Login({ navigation }) {
 
   // axios request to verify user info
   const userAuth = function (email, password) {
-    const input = { email, password };
+    const input = { email: email.toLowerCase(), password };
 
     axios
-      .post(`${tunnelURL}/users/login`, { email })
+      .post(`${tunnelURL}/users/login`, {email: input.email})
       .then(res => {
         console.log(res);
         if (!res.data) {
