@@ -27,28 +27,26 @@ import Navbar from "./Navbar";
 import Stripe from "./Stripe";
 import Login from "./Login";
 
-
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, toggleModal, adjustQuantity } from "../redux/actions";
-
 
 export default function QuikanikStack() {
   //REDUX FUNCTIONS
   const { cart, products, modalShow, modalProduct } = useSelector(
     (state) => state.reducer
-  );
-  const dispatch = useDispatch();
-
-  //VARIABLEs
-  const device = Platform.OS;
-  const Stack = createNativeStackNavigator();
+    );
+    const dispatch = useDispatch();
+    
+    //VARIABLEs
+        const device = Platform.OS;
+   const Stack = createNativeStackNavigator();
   const cartNotification = cart.reduce((sum, current) => {
-    sum += current.default_quantity
+    sum += current.default_quantity;
   }, 0);
 
   if (device !== "web") {
-  // if (!true) {
+    // if (!true) {
     return (
       <NavigationContainer>
         <Stack.Navigator

@@ -9,7 +9,6 @@ import { setLocationInfo } from "../redux/actions";
 
 export default function Map({navigation}) {
 
-  const { locationInfo } = useSelector((state) => state.reducer);
   const dispatch = useDispatch();
 
   const [location, setLocation] = useState(null);
