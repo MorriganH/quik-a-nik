@@ -23,14 +23,14 @@ app.use(cors());
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const productsRouter = require("./routes/products");
-const checkout = require("./routes/checkout");
+const checkoutWebRouter = require("./routes/checkout-web");
 const users = require("./routes/users");
 const ordersRouter = require("./routes/orders");
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);
-app.use("/checkout", checkout);
+app.use("/checkout-web", checkoutWebRouter);
 app.use("/users", users);
 app.use('/orders', ordersRouter);
 

@@ -35,7 +35,7 @@ export default function Stripe() {
     } else {
       // Call to backend to send paymentMethod
       axios
-        .post(`${tunnelURL}/checkout`, {
+        .post(`${tunnelURL}/checkout-web`, {
           paymentMethodId: paymentMethod.id,
         })
         // Server response
