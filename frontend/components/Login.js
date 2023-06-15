@@ -4,11 +4,12 @@ import tunnelURL from "../backend_tunnel";
 import axios from "axios";
 import { setUserSession } from "../redux/actions";
 import { useDispatch } from "react-redux";
+import bcrypt from "bcryptjs";
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+
   const dispatch = useDispatch();
 
   const viewSwitcher = function (newView) {
@@ -20,14 +21,23 @@ export default function Login({ navigation }) {
     const input = { email, password };
 
     axios
-      .post(`${tunnelURL}/users/`, input)
-      .then(response => {
-        if (response.data === "") {
-          alert("Login Failed. Check your email and password.");
+      .post(`${tunnelURL}/users/login`, { email })
+      .then(res => {
+        console.log(res);
+        if (!res.data) {
+          alert("Login failed. Check your email and password.");
           throw Error("User credentials invalid");
         }
-        dispatch(setUserSession(response.data));
-        viewSwitcher("Home");
+
+        return bcrypt.compare(password, res.data.password)
+        .then(passed => {
+          if (!passed) {
+            alert("Login failed. Check your email and password.");
+            throw Error("User credentials invalid");
+          }
+          dispatch(setUserSession(res.data));
+          viewSwitcher("Home");
+        });
       })
       .catch(err => {
         console.log(err);

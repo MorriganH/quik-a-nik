@@ -21,13 +21,13 @@ const getUserByEmail = email => {
 };
 
 const addUser = userInfo => {
-  const { firstName, lastName, email, password } = userInfo;
+  const { firstName, lastName, email, hash } = userInfo;
   return db
     .query(
       `INSERT INTO users (first_name, last_name, email, password)
     VALUES ($1, $2, $3, $4)
-    RETURNING id, first_name, last_name, email, is_employee, phone, profile_img`,
-      [firstName, lastName, email, password]
+    RETURNING *`,
+      [firstName, lastName, email, hash]
     )
     .then(response => response.rows[0]);
 };

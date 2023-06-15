@@ -9,6 +9,16 @@ router.get("/", function (req, res, next) {
   });
 });
 
+router.post("/login", function (req, res) {
+  users.getUserByEmail(req.body.email).then(data => {
+    if (data) {
+      res.json(data);
+    } else {
+      res.json("");
+    }
+  });
+});
+
 // verify users credentials and return their data on success
 router.post("/", function (req, res) {
   users.getUserByEmail(req.body.email).then(data => {

@@ -80,7 +80,8 @@ export default function QuikanikStack() {
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="OrderList" component={OrderList} />
           <Stack.Screen name="Cart" component={Cart} />
-          
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
           {/* STRIPE MOBILE MODULE HERE */}
           <Stack.Screen name="Stripe" component={StripeMobile} />  
         </Stack.Navigator>
