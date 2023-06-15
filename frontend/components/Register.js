@@ -1,45 +1,49 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { View, Text, TextInput, Pressable } from "react-native";
 import tunnelURL from "../backend_tunnel";
 import axios from "axios";
 import { setUserSession } from "../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function Login({ navigation }) {
-  const dispatch = useDispatch();
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-
-  const { userSession } = useSelector(state => state.reducer);
+  
+  const dispatch = useDispatch();
 
   const viewSwitcher = function (newView) {
-    navigation.push(newView);
+    navigation.navigate(newView);
   };
 
-  const userAuth = function (email, password) {
-    const input = { email, password };
-    setEmail("");
-    setPassword("");
+  // axios request to add user to db
+  const registerUser = (firstName, lastName, email, password) => {
+    const userInfo = { firstName, lastName, email, password };
+    for (let key in userInfo) {
+      if (userInfo[key] === "") {
+        return alert("Please fill in all fields");
+      }
+    }
 
-    axios
-      .post(`${tunnelURL}/users/`, input)
-      .then(response => {
-        if (response.data === "") {
-          alert("Login Failed");
-          throw Error("User credentials invalid");
-        }
-        dispatch(setUserSession(response.data));
-      })
-      .then(() => {
+    axios.post(`${tunnelURL}/users/register`, userInfo).then(res => {
+      if (!res.data) {
+        alert("User with this email already exists");
+      } else {
+        console.log(res.data)
+        dispatch(setUserSession(res.data));
         viewSwitcher("Home");
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      }
+    });
+  };
+
+  const checkPasswords = (password, passwordConfirm) => {
+    if (!password || password !== passwordConfirm) {
+      return alert("Please ensure your passwords match and are not blank");
+    }
+
+    registerUser(firstName, lastName, email, password);
   };
 
   return (
@@ -54,7 +58,7 @@ export default function Login({ navigation }) {
         }}
         placeholder="first name"
         onChangeText={newText => setFirstName(newText)}
-        onSubmitEditing={() => userAuth(email, password)}
+        onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
       />
       <Text>Last Name</Text>
       <TextInput
@@ -66,7 +70,7 @@ export default function Login({ navigation }) {
         }}
         placeholder="last name"
         onChangeText={newText => setLastName(newText)}
-        onSubmitEditing={() => userAuth(email, password)}
+        onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
       />
       <Text>Email</Text>
       <TextInput
@@ -77,8 +81,9 @@ export default function Login({ navigation }) {
           borderWidth: 1,
         }}
         placeholder="email"
+        inputMode="email"
         onChangeText={newText => setEmail(newText)}
-        onSubmitEditing={() => userAuth(email, password)}
+        onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
       />
       <Text>Password</Text>
       <TextInput
@@ -90,7 +95,7 @@ export default function Login({ navigation }) {
         }}
         placeholder="password"
         onChangeText={newText => setPassword(newText)}
-        onSubmitEditing={() => userAuth(email, password)}
+        onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
         secureTextEntry={true}
       />
       <Text>Confirm Password</Text>
@@ -103,7 +108,7 @@ export default function Login({ navigation }) {
         }}
         placeholder="confirm password"
         onChangeText={newText => setPasswordConfirm(newText)}
-        onSubmitEditing={() => userAuth(email, password)}
+        onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
         secureTextEntry={true}
       />
       <Pressable
@@ -113,7 +118,7 @@ export default function Login({ navigation }) {
           width: 100,
           backgroundColor: "red",
         }}
-        onPress={() => userAuth(email, password)}
+        onPress={() => checkPasswords(password, passwordConfirm)}
       >
         <Text>Submit</Text>
       </Pressable>
