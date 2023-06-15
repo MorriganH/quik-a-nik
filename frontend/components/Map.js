@@ -58,6 +58,8 @@ export default function Map({navigation}) {
 
     location && (
       <View style={styles.container}>
+      <Text style={styles.title}>Set Location</Text>
+      <Text style={styles.subtitle}>Let Us Know Exactly Where You'll Be</Text>
         <MapView
           style={styles.map}
           provider="google"
@@ -73,7 +75,7 @@ export default function Map({navigation}) {
         >
           <Marker coordinate={markerPosition} />
         </MapView>
-        <Text>{`Please provide us with more details so we can find you\n Example: "In the parking lot beside the ice cream truck" \n or "By the bench beside the duck pond" `}</Text>
+        <Text style={styles.infoText}>{`Please provide us with some more details so we can find you`}</Text>
         <TextInput
           style={styles.locationDetailsInput}
           placeholder="Location Details"
@@ -88,7 +90,7 @@ export default function Map({navigation}) {
           style={styles.checkoutButton}
           onPress={() => checkoutConfirmation(markerPosition, locationDetails)}
         >
-          <Text>Proceed to Not Payment Details</Text>
+          <Text style={styles.buttonText}>Proceed to Checkout</Text>
         </Pressable>
       </View>
     )
