@@ -27,6 +27,8 @@ import Navbar from "./Navbar";
 import Stripe from "./Stripe";
 import Login from "./Login";
 
+import StripeMobile from "./Stripe";
+
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, toggleModal, adjustQuantity } from "../redux/actions";
@@ -77,6 +79,9 @@ export default function QuikanikStack() {
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="OrderList" component={OrderList} />
           <Stack.Screen name="Cart" component={Cart} />
+          
+          {/* STRIPE MOBILE MODULE HERE */}
+          <Stack.Screen name="Stripe" component={StripeMobile} />  
         </Stack.Navigator>
       </NavigationContainer>
     );
