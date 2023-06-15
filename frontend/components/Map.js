@@ -50,7 +50,7 @@ export default function Map({navigation}) {
   const checkoutConfirmation = function (markerPosition, locationDetails) {
     const input = { markerPosition, locationDetails };
     dispatch(setLocationInfo(input))
-        navigation.navigate("Android");
+        navigation.navigate("Stripe");
   };
 
   return (

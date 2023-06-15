@@ -22,25 +22,22 @@ import {
 //REDUX
 import { setUserSession } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export default function Navbar({ navigation }) {
-  const { cart, products, modalShow, modalProduct, userSession } = useSelector(
-    (state) => state.reducer
+  const { cart, userSession, cartNotification } = useSelector(
+    state => state.reducer
   );
   const dispatch = useDispatch();
-
-  const cartNotification = cart.reduce((sum, current) => {
-    sum += current.default_quantity
-  }, 0);
 
   const filter = function (path, view) {
     axios
       .get(`${tunnelURL}/products/${path}`)
-      .then((prods) => {
+      .then(prods => {
         dispatch(setProducts(prods.data.products));
       })
       .then(viewSwitcher(view))
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -52,7 +49,7 @@ export default function Navbar({ navigation }) {
   const logout = () => {
     dispatch(setUserSession(null));
     viewSwitcher("Login");
-  }
+  };
 
   return (
     <Text style={styles.webNavBar}>
@@ -66,19 +63,34 @@ export default function Navbar({ navigation }) {
         >
           <Text>Products</Text>
         </Pressable>
-        {userSession === null && <Pressable style={styles.button} onPress={() => viewSwitcher("Login")}>
-          <Text>Login</Text>
-        </Pressable>}
-        {userSession === null && <Pressable style={styles.button} onPress={() => viewSwitcher("Register")}>
-          <Text>Register</Text>
-        </Pressable>}
+        {userSession === null && (
+          <Pressable
+            style={styles.button}
+            onPress={() => viewSwitcher("Login")}
+          >
+            <Text>Login</Text>
+          </Pressable>
+        )}
+        {userSession === null && (
+          <Pressable
+            style={styles.button}
+            onPress={() => viewSwitcher("Register")}
+          >
+            <Text>Register</Text>
+          </Pressable>
+        )}
         {userSession !== null && <Text>{userSession.first_name}</Text>}
-        {userSession !== null && <Pressable style={styles.button} onPress={() => logout()}>
-          <Text>Logout</Text>
-        </Pressable>}
+        {userSession !== null && (
+          <Pressable style={styles.button} onPress={() => logout()}>
+            <Text>Logout</Text>
+          </Pressable>
+        )}
       </View>
       <View style={styles.navSection}>
-        <Pressable style={styles.button} onPress={() => viewSwitcher("OrderList")}>
+        <Pressable
+          style={styles.button}
+          onPress={() => viewSwitcher("OrderList")}
+        >
           <Text>My Orders</Text>
         </Pressable>
         <Pressable style={styles.button} onPress={() => viewSwitcher("Cart")}>
@@ -111,7 +123,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "space-evenly",
     width: "45%",
-    flexDirection: "row"
+    flexDirection: "row",
   },
 
   button: {
