@@ -20,6 +20,7 @@ import {
 } from "../redux/actions";
 
 //REDUX
+import { setUserSession } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Navbar({ navigation }) {
@@ -48,6 +49,11 @@ export default function Navbar({ navigation }) {
     navigation.navigate(newView);
   };
 
+  const logout = () => {
+    dispatch(setUserSession(null));
+    viewSwitcher("Login");
+  }
+
   return (
     <Text style={styles.webNavBar}>
       <View style={styles.navSection}>
@@ -67,7 +73,7 @@ export default function Navbar({ navigation }) {
           <Text>Register</Text>
         </Pressable>}
         {userSession !== null && <Text>{userSession.first_name}</Text>}
-        {userSession !== null && <Pressable style={styles.button} onPress={() => viewSwitcher("Logout")}>
+        {userSession !== null && <Pressable style={styles.button} onPress={() => logout()}>
           <Text>Logout</Text>
         </Pressable>}
       </View>
