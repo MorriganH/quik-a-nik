@@ -2,6 +2,7 @@ import {
   StripeProvider,
   CardField,
   useStripe,
+  useConfirmPayment
 } from "@stripe/stripe-react-native";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { useState } from "react";
@@ -10,7 +11,7 @@ const axios = require('axios');
 
 export default function StripeMobile() {
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
-  const [loading, setLoading] = useState(false);
+  const {confirmPayment, loading} = useConfirmPayment();
 
   const fetchPaymentIntentClientSecret = async () => {
     const response = await fetch(`${tunnelURL}/checkout-mobile/create-payment-intent`, {
@@ -29,9 +30,9 @@ export default function StripeMobile() {
 
   const handlePayPress = async () => {
     // Gather the customer's billing information (for example, email)
-    // const billingDetails: BillingDetails = {
-    //   email: "jenny.rosen@example.com",
-    // };
+    const billingDetails: BillingDetails = {
+      email: "jenny.rosen@example.com",
+    };
 
     // Fetch the intent client secret from the backend
     const clientSecret = await fetchPaymentIntentClientSecret();
