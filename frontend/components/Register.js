@@ -5,6 +5,7 @@ import axios from "axios";
 import { setUserSession } from "../redux/actions";
 import { useDispatch } from "react-redux";
 import bcrypt from "bcryptjs";
+import styles from "../styles/register";
 
 export default function Login({ navigation }) {
   const [firstName, setFirstName] = useState("");
@@ -49,81 +50,54 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <View>
-      <Text>First Name</Text>
-      <TextInput
-        style={{
-          height: 40,
-          width: 300,
-          borderColor: "gray",
-          borderWidth: 1,
-        }}
-        placeholder="first name"
-        onChangeText={newText => setFirstName(newText)}
-        onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
-      />
-      <Text>Last Name</Text>
-      <TextInput
-        style={{
-          height: 40,
-          width: 300,
-          borderColor: "gray",
-          borderWidth: 1,
-        }}
-        placeholder="last name"
-        onChangeText={newText => setLastName(newText)}
-        onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
-      />
-      <Text>Email</Text>
-      <TextInput
-        style={{
-          height: 40,
-          width: 300,
-          borderColor: "gray",
-          borderWidth: 1,
-        }}
-        placeholder="email"
-        inputMode="email"
-        onChangeText={newText => setEmail(newText)}
-        onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
-      />
-      <Text>Password</Text>
-      <TextInput
-        style={{
-          height: 40,
-          width: 300,
-          borderColor: "gray",
-          borderWidth: 1,
-        }}
-        placeholder="password"
-        onChangeText={newText => setPassword(newText)}
-        onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
-        secureTextEntry={true}
-      />
-      <Text>Confirm Password</Text>
-      <TextInput
-        style={{
-          height: 40,
-          width: 300,
-          borderColor: "gray",
-          borderWidth: 1,
-        }}
-        placeholder="confirm password"
-        onChangeText={newText => setPasswordConfirm(newText)}
-        onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
-        secureTextEntry={true}
-      />
-      <Pressable
-        style={{
-          margin: 20,
-          height: 40,
-          width: 100,
-          backgroundColor: "red",
-        }}
-        onPress={() => checkPasswords(password, passwordConfirm)}
-      >
-        <Text>Submit</Text>
-      </Pressable>
+    <View style={styles.container}>
+      <View style={styles.box}>
+        <Text style={styles.title}>Register</Text>
+        <Text>First Name</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="first name"
+          onChangeText={newText => setFirstName(newText)}
+          onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
+        />
+        <Text>Last Name</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="last name"
+          onChangeText={newText => setLastName(newText)}
+          onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
+        />
+        <Text>Email</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="email"
+          inputMode="email"
+          onChangeText={newText => setEmail(newText)}
+          onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
+        />
+        <Text>Password</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="password"
+          onChangeText={newText => setPassword(newText)}
+          onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
+          secureTextEntry={true}
+        />
+        <Text>Confirm Password</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="confirm password"
+          onChangeText={newText => setPasswordConfirm(newText)}
+          onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
+          secureTextEntry={true}
+        />
+        <Pressable
+          style={styles.submitButton}
+          onPress={() => checkPasswords(password, passwordConfirm)}
+        >
+          <Text>Submit</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
