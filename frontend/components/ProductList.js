@@ -8,7 +8,7 @@ import {
   Platform,
   FlatList,
   Modal,
-  Pressable
+  Pressable,
 } from "react-native";
 import styles from "../styles/productList";
 
@@ -32,14 +32,14 @@ export default function ProductList() {
       />
       <View style={styles.prodInfo}>
         <Pressable onPress={() => dispatch(toggleModal(product))}>
-        <Text style={styles.prodName}>{product.name}</Text>
-        <Text>${product.price_cents / 100}</Text>
-        <Button
-          color="#55bb55"
-          title="Add to cart"
-          onPress={() => dispatch(addItem(product))}
+          <Text style={styles.prodName}>{product.name}</Text>
+          <Text>${product.price_cents / 100}</Text>
+          <Button
+            color="#55bb55"
+            title="Add to cart"
+            onPress={() => dispatch(addItem(product))}
           />
-          </Pressable>
+        </Pressable>
       </View>
     </View>
   );
