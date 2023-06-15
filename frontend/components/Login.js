@@ -1,35 +1,43 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { View, Text, TextInput, Pressable } from "react-native";
 import tunnelURL from "../backend_tunnel";
 import axios from "axios";
 import { setUserSession } from "../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import bcrypt from "bcryptjs";
 
 export default function Login({ navigation }) {
-  const dispatch = useDispatch();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { userSession } = useSelector(state => state.reducer);
+  const dispatch = useDispatch();
 
   const viewSwitcher = function (newView) {
-    navigation.push(newView);
+    navigation.navigate(newView);
   };
 
+  // axios request to verify user info
   const userAuth = function (email, password) {
-    const input = { email, password };
+    const input = { email: email.toLowerCase(), password };
 
     axios
-      .post(`${tunnelURL}/users/`, input)
-      .then(response => {
-        if (response.data === "") {
-          return alert("Login Failed");
+      .post(`${tunnelURL}/users/login`, {email: input.email})
+      .then(res => {
+        console.log(res);
+        if (!res.data) {
+          alert("Login failed. Check your email and password.");
+          throw Error("User credentials invalid");
         }
-        dispatch(setUserSession(response.data));
-      })
-      .then(() => {
-        viewSwitcher("Home");
+
+        return bcrypt.compare(password, res.data.password)
+        .then(passed => {
+          if (!passed) {
+            alert("Login failed. Check your email and password.");
+            throw Error("User credentials invalid");
+          }
+          dispatch(setUserSession(res.data));
+          viewSwitcher("Home");
+        });
       })
       .catch(err => {
         console.log(err);
@@ -47,6 +55,7 @@ export default function Login({ navigation }) {
           borderWidth: 1,
         }}
         placeholder="email"
+        inputMode="email"
         onChangeText={newText => setEmail(newText)}
         onSubmitEditing={() => userAuth(email, password)}
       />

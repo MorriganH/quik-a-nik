@@ -20,31 +20,35 @@ import {
 } from "../redux/actions";
 
 //REDUX
+import { setUserSession } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 export default function Navbar({ navigation }) {
-  const { cart, userSession, cartNotification } = useSelector((state) => state.reducer);
+  const { cart, userSession, cartNotification } = useSelector(
+    state => state.reducer
+  );
   const dispatch = useDispatch();
-
-
-
-
 
   const filter = function (path, view) {
     axios
       .get(`${tunnelURL}/products/${path}`)
-      .then((prods) => {
+      .then(prods => {
         dispatch(setProducts(prods.data.products));
       })
       .then(viewSwitcher(view))
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
 
   const viewSwitcher = function (newView) {
     navigation.navigate(newView);
+  };
+
+  const logout = () => {
+    dispatch(setUserSession(null));
+    viewSwitcher("Login");
   };
 
   return (
@@ -77,10 +81,7 @@ export default function Navbar({ navigation }) {
         )}
         {userSession !== null && <Text>{userSession.first_name}</Text>}
         {userSession !== null && (
-          <Pressable
-            style={styles.button}
-            onPress={() => viewSwitcher("Logout")}
-          >
+          <Pressable style={styles.button} onPress={() => logout()}>
             <Text>Logout</Text>
           </Pressable>
         )}

@@ -26,6 +26,7 @@ import OrderList from "./OrderList";
 import Navbar from "./Navbar";
 import Stripe from "./Stripe";
 import Login from "./Login";
+import Register from "./Register";
 
 import StripeMobile from "./Stripe";
 
@@ -36,13 +37,13 @@ import { addItem, toggleModal, adjustQuantity } from "../redux/actions";
 export default function QuikanikStack() {
   //REDUX FUNCTIONS
   const { cart, products, modalShow, modalProduct } = useSelector(
-    (state) => state.reducer
-    );
-    const dispatch = useDispatch();
-    
-    //VARIABLEs
-        const device = Platform.OS;
-   const Stack = createNativeStackNavigator();
+    state => state.reducer
+  );
+  const dispatch = useDispatch();
+
+  //VARIABLEs
+  const device = Platform.OS;
+  const Stack = createNativeStackNavigator();
   const cartNotification = cart.reduce((sum, current) => {
     sum += current.default_quantity;
   }, 0);
@@ -79,7 +80,8 @@ export default function QuikanikStack() {
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="OrderList" component={OrderList} />
           <Stack.Screen name="Cart" component={Cart} />
-          
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
           {/* STRIPE MOBILE MODULE HERE */}
           <Stack.Screen name="Stripe" component={StripeMobile} />  
         </Stack.Navigator>
@@ -104,6 +106,7 @@ export default function QuikanikStack() {
           <Stack.Screen name="Navbar" component={Navbar} />
           <Stack.Screen name="Stripe" component={Stripe} />
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
         </Stack.Navigator>
       </NavigationContainer>
     );
