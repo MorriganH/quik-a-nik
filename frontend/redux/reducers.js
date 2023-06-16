@@ -11,20 +11,7 @@ import {
 
 const initialState = {
   cart: [],
-  products: [
-    {
-      id: 49,
-      name: "Products not found",
-      price_cents: 4000,
-      description: "6 Pack of Beer, 6 Pack of Wine Coolers, 1 Bag of Ice",
-      is_basket: true,
-      portions: 4,
-      is_deluxe: true,
-      image: "booze_basket.png",
-      created_at: "2023-06-09T14:40:47.689Z",
-      updated_at: "2023-06-09T14:40:47.689Z",
-    },
-  ],
+  products: [],
   orders: [],
   loading: true,
   ordersLoading: true,

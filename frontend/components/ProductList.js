@@ -23,14 +23,16 @@ export default function ProductList() {
   );
   const dispatch = useDispatch();
 
-  const Item = ({ product }) => (
+  const Item = ({ product }) => {
+    console.log(product.image)
+    return (
       <Pressable
         style={styles.item}
         onPress={() => dispatch(toggleModal(product))}
       >
         <Image
           style={styles.logo}
-          source={require("../assets/Juniper_Twitter_Art.webp")}
+          source={`${product.image}`}
         />
         <View style={styles.prodInfo}>
           <Text style={styles.prodName}>{product.name}</Text>
@@ -42,7 +44,7 @@ export default function ProductList() {
           />
         </View>
       </Pressable>
-  );
+  )};
 
   return (
     <View style={styles.list}>
