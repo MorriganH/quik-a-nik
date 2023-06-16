@@ -11,8 +11,8 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
+import images from "../product-images";
 import styles from "../styles/productList";
-
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, toggleModal, adjustQuantity } from "../redux/actions";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -25,8 +25,10 @@ export default function ProductList() {
   );
   const dispatch = useDispatch();
 
+  const BASE_URI = '../assets/product-image/'
+
   const Item = ({ product }) => {
-    console.log(product.image)
+    const path = `..assets/product-image/${product.image}`
     return (
       <Pressable
         style={styles.item}
@@ -34,7 +36,7 @@ export default function ProductList() {
       >
         <Image
           style={styles.logo}
-          source={`${product.image}`}
+          source={{uri: product.image}}
         />
         <View style={styles.prodInfo}>
           <Text style={styles.prodName}>{product.name}</Text>
