@@ -6,6 +6,7 @@ import {
   FlatList,
   Modal,
   Pressable,
+  BlurView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/cart";
@@ -13,13 +14,15 @@ import WebMap from "./WebMap";
 import { toggleModal, adjustCartQuantity } from "../redux/actions";
 
 export default function Cart({ navigation }) {
-  const { cart, modalShow } = useSelector(state => state.reducer);
+  const { cart, modalShow, cartNotification } = useSelector(
+    (state) => state.reducer
+  );
 
   const dispatch = useDispatch();
 
   let subTotal = 0;
 
-  cart.forEach(item => {
+  cart.forEach((item) => {
     const itemPrice = (item.price_cents / 100) * item.default_quantity;
     subTotal += itemPrice;
   });
@@ -28,10 +31,19 @@ export default function Cart({ navigation }) {
     <View style={styles.item}>
       <Text>{item.name}</Text>
       <Text>{item.description}</Text>
-      <Button onPress={() => dispatch(adjustCartQuantity(item, "+"))} title="+"/>
+      <Button
+        onPress={() => dispatch(adjustCartQuantity(item, "+"))}
+        title="+"
+      />
       <Text>{item.default_quantity}</Text>
-      <Button onPress={() => dispatch(adjustCartQuantity(item, "-"))} title="-"/>
-      <Button onPress={() => dispatch(adjustCartQuantity(item, "delete"))} title="X"/>
+      <Button
+        onPress={() => dispatch(adjustCartQuantity(item, "-"))}
+        title="-"
+      />
+      <Button
+        onPress={() => dispatch(adjustCartQuantity(item, "delete"))}
+        title="X"
+      />
       <Text>
         ${((item.price_cents / 100) * item.default_quantity).toFixed(2)}
       </Text>
@@ -39,35 +51,57 @@ export default function Cart({ navigation }) {
   );
 
   const taxRate = 1.13;
-  const tax = subTotal * taxRate - subTotal;
-  const total = subTotal + tax;
+  const deliveryFee = cartNotification * 1.25;
+  const beforeTax = subTotal + deliveryFee;
+  const tax = beforeTax * taxRate - beforeTax;
+  const total = beforeTax + tax;
 
   return (
+    
     <View style={styles.container}>
-      <View style={styles.box}>
+      
         <FlatList
+          style={styles.list}
           data={cart}
-          renderItem={item => <Item item={item.item} />}
-          keyExtractor={item => item.id}
+          renderItem={(item) => <Item item={item.item} />}
+          keyExtractor={(item) => item.id}
         />
 
-        <View style={styles.item}>
-          <Text>Subtotal: ${subTotal.toFixed(2)}</Text>
-          <Text>Tax: ${tax.toFixed(2)}</Text>
-          <Text>Total: ${total.toFixed(2)}</Text>
+        <View style={styles.total}>
+          <View style={styles.lineItem}>
+            <Text>Items ({cartNotification}):</Text>
+            <Text>${subTotal.toFixed(2)}</Text>
+          </View>
+
+          <View style={styles.lineItem}>
+            <Text>Delivery fee:</Text>
+            <Text>${deliveryFee.toFixed(2)}</Text>
+          </View>
+
+          <View style={styles.divider}>
+            <View style={styles.lineItem}>
+              <Text>Total before tax:</Text>
+              <Text>${beforeTax.toFixed(2)}</Text>
+            </View>
+
+            <View style={styles.lineItem}>
+              <Text>Estimated tax:</Text>
+              <Text>${tax.toFixed(2)}</Text>
+            </View>
+
+            <View style={styles.lineItem}>
+              <Text style={styles.orderTotal}>Order Total:</Text>
+              <Text style={styles.orderTotal}>${total.toFixed(2)}</Text>
+            </View>
+          </View>
+          <Pressable
+            style={styles.submitButton}
+            onPress={() => navigation.navigate("Map")}
+          >
+            <Text>Select Drop-off Location</Text>
+          </Pressable>
         </View>
-        <Pressable
-          style={styles.submitButton}
-          onPress={() => navigation.navigate("Map")}
-        >
-          <Text>Select Drop-off Location</Text>
-        </Pressable>
-      </View>
+      
     </View>
   );
 }
-
-// <Pressable
-// style={styles.submitButton}
-// onPress={() => checkPasswords(password, passwordConfirm)}
-// ></Pressable>

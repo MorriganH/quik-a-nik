@@ -29,10 +29,11 @@ export const setOrders = (orderList) => (dispatch) => {
   });
 };
 
-export const toggleModal = (product) => (dispatch) => {
+export const toggleModal = (product, modalType) => (dispatch) => {
   dispatch({
     type: TOGGLE_MODAL,
     payload: product,
+    modalType
   });
 };
 export const adjustQuantity = (operation) => (dispatch) => {

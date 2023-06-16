@@ -10,6 +10,7 @@ import {
   Pressable,
   TouchableOpacity,
   ImageBackground,
+  ActivityIndicator,
 } from "react-native";
 import styles from "../styles/productList";
 
@@ -28,7 +29,7 @@ export default function ProductList() {
   const Item = ({ product }) => (
     <Pressable
       style={styles.item}
-      onPress={() => dispatch(toggleModal(product))}
+      onPress={() => dispatch(toggleModal(product, "productModal"))}
     >
       <Image
         style={styles.logo}
@@ -39,7 +40,7 @@ export default function ProductList() {
         <Text>${product.price_cents / 100}</Text>
         <Button
           color="#55bb55"
-          title="Add to cart"
+          title="Add to my basket"
           onPress={() => dispatch(addItem(product))}
         />
       </View>
@@ -52,18 +53,21 @@ export default function ProductList() {
       <Text style={styles.subtitle}>
         {device === "web" ? "Click" : "Touch"} an item to view more info
       </Text>
+      { products.length < 2 ? <ActivityIndicator/> :
       <FlatList
         data={products}
+        showsHorizontalScrollIndicator={false}
         numColumns={columns}
         renderItem={(product) => <Item product={product.item} />}
         keyExtractor={(item) => item.id}
-      />
-      <Modal visible={modalShow} transparent={true} animationType="slide">
+      /> }
+      <Modal visible={modalShow === "productModal"} transparent={true} animationType="slide"  blurRadius={1} >
+
         <View style={styles.modal}>
           <ImageBackground
             style={styles.modalHeader}
             source={require("../assets/Juniper_Twitter_Art.webp")}
-          >
+            >
             <TouchableOpacity onPress={() => dispatch(toggleModal())}>
               <Text style={styles.closeModal}>⨉</Text>
             </TouchableOpacity>
@@ -93,8 +97,8 @@ export default function ProductList() {
 
             <Button
             
-              title="Add to cart"
-              onPress={() => dispatch(addItem(modalProduct))}
+            title="Add to basket"
+            onPress={() => dispatch(addItem(modalProduct))}
             />
           </View>
         </View>
