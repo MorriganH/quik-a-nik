@@ -28,7 +28,6 @@ export default function ProductList() {
   const BASE_URI = '../assets/product-image/'
 
   const Item = ({ product }) => {
-    const path = `..assets/product-image/${product.image}`
     return (
       <Pressable
         style={styles.item}
