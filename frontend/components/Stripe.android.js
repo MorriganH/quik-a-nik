@@ -2,27 +2,31 @@ import {
   StripeProvider,
   CardField,
   useStripe,
-  useConfirmPayment
+  useConfirmPayment,
 } from "@stripe/stripe-react-native";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Text, View, Button } from "react-native";
 import { useState } from "react";
 import tunnelURL from "../backend_tunnel";
-const axios = require('axios');
+import styles from "../styles/stripe_android";
+import axios from "axios";
 
 export default function StripeMobile() {
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
-  const {confirmPayment, loading} = useConfirmPayment();
+  const { confirmPayment, loading } = useConfirmPayment();
 
   const fetchPaymentIntentClientSecret = async () => {
-    const response = await fetch(`${tunnelURL}/checkout-mobile/create-payment-intent`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        currency: "cad",
-      }),
-    });
+    const response = await fetch(
+      `${tunnelURL}/checkout-mobile/create-payment-intent`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          currency: "cad",
+        }),
+      }
+    );
     const { clientSecret } = await response.json();
     console.log(clientSecret);
     return clientSecret;
@@ -69,10 +73,10 @@ export default function StripeMobile() {
             minHeight: 50,
             marginVertical: 30,
           }}
-          onCardChange={(cardDetails) => {
+          onCardChange={cardDetails => {
             console.log("cardDetails", cardDetails);
           }}
-          onFocus={(focusedField) => {
+          onFocus={focusedField => {
             console.log("focusField", focusedField);
           }}
         />
@@ -81,13 +85,3 @@ export default function StripeMobile() {
     </StripeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    midWidth: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF",
-  },
-});

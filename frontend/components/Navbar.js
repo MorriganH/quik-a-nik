@@ -10,6 +10,7 @@ import {
 //APP
 import tunnelURL from "../backend_tunnel";
 import axios from "axios";
+import styles from "../styles/navbar";
 
 //NAVIGATOR
 import {
@@ -100,33 +101,3 @@ export default function Navbar({ navigation }) {
     </Text>
   );
 }
-
-const styles = StyleSheet.create({
-  webNavBar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    alignSelf: "center",
-    backgroundColor: "white",
-    borderRadius: 3,
-    height: 50,
-    shadowColor: "grey",
-    width: "80%",
-    shadowOffset: { width: 6, height: 6 },
-    shadowRadius: 10,
-    margin: 20,
-    // position: "fixed",
-    // top: 20,
-  },
-
-  navSection: {
-    display: "flex",
-    justifyContent: "space-evenly",
-    width: "45%",
-    flexDirection: "row",
-  },
-
-  button: {
-    backgroundColor: "white",
-  },
-});

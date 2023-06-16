@@ -6,7 +6,7 @@ let styles;
 if (device === "web") {
   styles = StyleSheet.create({
     container: {
-      backgroundColor: "#fff",
+      backgroundColor: "rgb(242, 242, 242)",
     },
 
     scrollView: {
@@ -97,12 +97,10 @@ if (device === "web") {
 if (device !== "web") {
   styles = StyleSheet.create({
     container: {
-      backgroundColor: "#fff",
+      backgroundColor: "rgb(242, 242, 242)",
       alignItems: "center",
       justifyContent: "center",
     },
-
-    scrollView: {},
 
     logo: {
       width: 80,

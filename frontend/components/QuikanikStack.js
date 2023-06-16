@@ -1,7 +1,6 @@
 //REACT / REACT NATIVE
 import { StatusBar } from "expo-status-bar";
 import {
-  StyleSheet,
   Text,
   Image,
   Button,

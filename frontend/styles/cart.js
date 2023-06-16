@@ -16,13 +16,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#F5FCFF",
     width: "80%",
-    // height: "80%",
     borderRadius: 15,
   },
 
   item: {
     backgroundColor: "white",
-    // width: "80%",
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
@@ -35,6 +33,7 @@ const styles = StyleSheet.create({
   submitButton: {
     borderWidth: 1,
     padding: 10,
+    marginBottom: 10,
     borderRadius: 5,
     backgroundColor: "#55bb55",
     width: "50%",

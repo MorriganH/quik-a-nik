@@ -26,10 +26,6 @@ if (device === "web") {
       shadowRadius: 10,
     },
 
-    itemPressable: {
-      
-    },
-
     logo: {
       width: 100,
       height: 100,
@@ -58,16 +54,6 @@ if (device === "web") {
 
 if (device !== "web") {
   styles = StyleSheet.create({
-    // prod: {
-    //   // border: "solid",
-    //   padding: 5,
-    //   margin: 5,
-    //   width: "30%",
-    // },
-
-    // container: {
-    //   flex: 1,
-    // },
     list: {
       display: "flex",
       alignItems: "center",
@@ -83,7 +69,6 @@ if (device !== "web") {
       marginVertical: 8,
       marginHorizontal: 16,
       borderRadius: 10,
-      // width: '33%'
     },
 
     itemPressable: {
