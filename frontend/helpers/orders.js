@@ -1,3 +1,9 @@
+
+const formatOrderId = (orderId) => {
+  return`bsk000${orderId}`
+}
+
+
 const formatPrice = (priceInCents) => {
   return `$${(priceInCents / 100).toFixed(2)}`;
 };
@@ -22,7 +28,7 @@ const formatOrderData = (data) => {
     if (!ordersById[order.id]) {
       // If this order id is not in ordersById, add new object for it
       ordersById[order.id] = {
-        id: order.id,
+        id: formatOrderId(order.id),
         user_id: order.user_id,
         first_name: order.first_name,
         email: order.email,

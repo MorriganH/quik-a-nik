@@ -4,13 +4,11 @@ import { Text, View, Image, Button, FlatList } from "react-native";
 import axios from "axios";
 import tunnelURL from "../backend_tunnel";
 import styles from "../styles/orderList";
-import { formatOrderData } from '../helpers/orders';
+import { formatOrderData } from "../helpers/orders";
 
 import { setOrders } from "../redux/actions";
 
 export default function OrderList() {
-
-
   const fetchOrders = () => {
     //GET request to server to fetch orders data
     axios
@@ -41,8 +39,8 @@ export default function OrderList() {
   const Order = ({ order }) => {
     console.log("Order WITHIN component: ", order);
     return (
-      <View style={styles.orderList}>
-        <Text>{`Basket ID: ${order.id}`}</Text>
+      <View style={styles.orderItem}>
+        <Text style={styles.orderId}>{`Order ID:  ${order.id}`}</Text>
 
         {order.line_items.map(
           (
@@ -50,16 +48,23 @@ export default function OrderList() {
             index //NEED TO REFACTOR KEY USE FOR ITEMLIST
           ) => (
             <View style={styles.itemList} key={index}>
-              <Text style={styles.lineItem}>{`${item.name}`}</Text>
-              <Text style={styles.lineItem}>{`Quantity: ${item.quantity}`}</Text>
-              <Text style={styles.lineItem}>{`Price: ${item.line_price_cents}`}</Text>
+              <Text style={styles.productText}>{`${item.name}`}</Text>
+              <Text style={styles.qtyText}>{`Qty: ${item.quantity}`}</Text>
+              <Text
+                style={styles.linePriceText}
+              >{`${item.line_price_cents}`}</Text>
             </View>
           )
         )}
-
-        <Text>{`Latitude: ${order.latitude} | Longitude: ${order.longitude}`}</Text>
-        <Text>{`Date Ordered: ${order.created_at}`}</Text>
-        <Text>{`Total Price: ${order.total_price_cents}`}</Text>
+        <View style={styles.location}>
+          <Text>{`Longitude: ${order.longitude}`}</Text>
+          <Text>{`Latitude: ${order.latitude}`}</Text>
+        </View>
+        <View style={styles.dateTotal}>
+          <Text>{`Order Placed: ${order.created_at}`}</Text>
+          <Text style={styles.total}>Total:  <Text style={styles.price}>{`${order.total_price_cents}`}</Text>
+          </Text>
+        </View>
       </View>
     );
   };

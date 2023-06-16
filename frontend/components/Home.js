@@ -90,6 +90,16 @@ export default function Home({ navigation }) {
               />
               <Text style={styles.bigText}>Individual Items</Text>
             </Pressable>
+            <Pressable
+              style={styles.button}
+              onPress={() => viewSwitcher("OrderList")}
+            >
+              <Image
+                style={styles.logo}
+                source={require("../assets/Juniper_Twitter_Art.webp")}
+              />
+              <Text style={styles.bigText}>Orders</Text>
+            </Pressable>
 
             {/* {device === "web" && (
               <Pressable
