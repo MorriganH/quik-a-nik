@@ -1,13 +1,3 @@
-import { useState, useCallback, useEffect } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  TextInput,
-  Pressable,
-  Button,
-} from "react-native";
-
 import axios from "axios";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import tunnelURL from '../backend_tunnel';

@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
 import {
-  StyleSheet,
   Text,
   View,
   Image,
@@ -184,8 +183,27 @@ export default function Home({ navigation }) {
       </ScrollView>
       <Modal visible={modalShow} transparent={true} animationType="slide">
         <View style={styles.modal}>
-          <Button title="X" onPress={() => dispatch(toggleModal())} />
+          <View style={styles.modalHeader}>
+            <TouchableOpacity onPress={() => dispatch(toggleModal())}>
+              <Text style={styles.closeModal}>⨉</Text>
+            </TouchableOpacity>
+            <Text style={styles.modalUsername}>Graydon Ritchie</Text>
+            <Text style={styles.modalEmail}>email@address.com</Text>
 
+            <Text style={styles.modalOrderBanner}>
+              {" "}
+              You have made 9 Quik-a-nik orders!
+            </Text>
+          </View>
+          <View style={styles.modalDivider}>
+            <Text style={styles.modalOption}>🧾  Orders</Text>
+            <Text style={styles.modalOption}>📍  About</Text>
+            <Text style={styles.modalOption}>🌭  Work with us</Text>
+          </View>
+          <View style={styles.modalDivider}>
+            <Text style={styles.modalOption}>⇇|  Logout</Text>
+
+          </View>
           {userSession === null && (
             <Pressable
               style={styles.button}
@@ -209,13 +227,6 @@ export default function Home({ navigation }) {
               <Text>Logout</Text>
             </Pressable>
           )}
-          {/* <View style={styles.button}>
-            <Text>UserName</Text>
-            <Text>Email@address.com</Text>
-          </View>
-          <Text>Orders</Text>
-          <Text>About</Text>
-          <Text>Become a certified Quik-a-nik specialist</Text> */}
         </View>
       </Modal>
     </View>

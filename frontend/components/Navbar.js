@@ -6,10 +6,12 @@ import {
   Pressable,
   useWindowDimensions,
   ScrollView,
+  Modal,
 } from "react-native";
 //APP
 import tunnelURL from "../backend_tunnel";
 import axios from "axios";
+import styles from "../styles/navbar";
 
 //NAVIGATOR
 import {
@@ -26,18 +28,19 @@ import { useEffect } from "react";
 
 export default function Navbar({ navigation }) {
   const { cart, userSession, cartNotification } = useSelector(
-    state => state.reducer
+    (state) => state.reducer
   );
   const dispatch = useDispatch();
+  const test = false
 
   const filter = function (path, view) {
     axios
       .get(`${tunnelURL}/products/${path}`)
-      .then(prods => {
+      .then((prods) => {
         dispatch(setProducts(prods.data.products));
       })
       .then(viewSwitcher(view))
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -94,39 +97,23 @@ export default function Navbar({ navigation }) {
           <Text>My Orders</Text>
         </Pressable>
         <Pressable style={styles.button} onPress={() => viewSwitcher("Cart")}>
-          <Text>Cart {cartNotification} </Text>
+          {cartNotification > 0 && <Text>{cartNotification} </Text>}
+          <Text>Cart </Text>
         </Pressable>
       </View>
+      <Modal style={style.modal} transparent={true} visible={test} animationType="fade">
+        <Text>Hello?</Text>
+      </Modal>
     </Text>
   );
 }
 
-const styles = StyleSheet.create({
-  webNavBar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    alignSelf: "center",
-    backgroundColor: "white",
-    borderRadius: 3,
-    height: 50,
-    shadowColor: "grey",
-    width: "80%",
-    shadowOffset: { width: 6, height: 6 },
-    shadowRadius: 10,
-    margin: 20,
-    // position: "fixed",
-    // top: 20,
-  },
-
-  navSection: {
-    display: "flex",
-    justifyContent: "space-evenly",
-    width: "45%",
-    flexDirection: "row",
-  },
-
-  button: {
-    backgroundColor: "white",
-  },
-});
+const style = StyleSheet.create({
+  modal: {
+    position: "absolute",
+    backgroundColor: "pink",
+    maxHeight: 50,
+    margin: 0
+    
+  }
+})

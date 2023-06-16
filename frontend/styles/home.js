@@ -6,7 +6,7 @@ let styles;
 if (device === "web") {
   styles = StyleSheet.create({
     container: {
-      backgroundColor: "#fff",
+      backgroundColor: "rgb(242, 242, 242)",
     },
 
     scrollView: {
@@ -37,6 +37,9 @@ if (device === "web") {
       width: "80%",
       padding: 5,
       margin: 5,
+      shadowColor: "grey",
+      shadowOffset: { width: 3, height: 3 },
+      shadowRadius: 10,
     },
 
     main: {
@@ -63,6 +66,9 @@ if (device === "web") {
       width: "50%",
       padding: 5,
       margin: 5,
+      shadowColor: "grey",
+      shadowOffset: { width: 3, height: 3 },
+      shadowRadius: 10,
     },
 
     sideMain: {
@@ -81,6 +87,9 @@ if (device === "web") {
       width: "80%",
       padding: 5,
       margin: 5,
+      shadowColor: "grey",
+      shadowOffset: { width: 3, height: 3 },
+      shadowRadius: 10,
     },
   });
 }
@@ -88,12 +97,10 @@ if (device === "web") {
 if (device !== "web") {
   styles = StyleSheet.create({
     container: {
-      backgroundColor: "#fff",
+      backgroundColor: "rgb(242, 242, 242)",
       alignItems: "center",
       justifyContent: "center",
     },
-
-    scrollView: {},
 
     logo: {
       width: 80,
@@ -147,6 +154,72 @@ if (device !== "web") {
       padding: 5,
       margin: 5,
     },
+    modal: {
+      backgroundColor: "white",
+      height: "100%"
+    
+    },
+
+    closeModal: {
+      fontSize: 25,
+      fontWeight: "bold",
+      color: "white",
+      paddingBottom: 15
+    },
+    modalOrderBanner: {
+      fontSize: 15,
+      alignSelf: "center",
+      textAlign: "center",
+      marginTop: 10,
+      paddingBottom: 5,
+      paddingTop: 5,
+      backgroundColor: "white",
+      borderRadius: 12,
+      width: "100%",
+      height: 35
+      
+      
+    },
+    modalHeader: {
+      backgroundColor :"#89cc7e",
+      paddingLeft: 25,
+      paddingRight: 25,
+      paddingTop: 25,
+      paddingBottom: 10,
+    },
+    modalUsername: {
+      color: "white",
+      fontWeight: "bold",
+      fontSize: 25
+    },
+    modalEmail: {
+      color: "white",
+      fontSize: 15
+    },
+    modalOption: {
+      display: "flex",
+      flexDirection: "row",
+      fontSize: 25,
+      paddingLeft: 15,
+      paddingBottom: 12,
+      paddingTop: 10
+
+    },
+
+    modalDivider: {
+      marginTop: 5,
+      paddingBottom: 7,
+      borderBottomWidth: 1,
+      borderColor: "lightgrey",
+      width: "95%",
+      alignSelf: "center"
+
+
+    }
+
+
+
+    
   });
 }
 

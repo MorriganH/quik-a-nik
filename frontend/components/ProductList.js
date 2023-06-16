@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
   Text,
   View,
   Image,
@@ -8,7 +7,9 @@ import {
   Platform,
   FlatList,
   Modal,
-  Pressable
+  Pressable,
+  TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import styles from "../styles/productList";
 
@@ -25,23 +26,24 @@ export default function ProductList() {
   const dispatch = useDispatch();
 
   const Item = ({ product }) => (
-    <View style={styles.item}>
+    <Pressable
+      style={styles.item}
+      onPress={() => dispatch(toggleModal(product))}
+    >
       <Image
         style={styles.logo}
         source={require("../assets/Juniper_Twitter_Art.webp")}
       />
       <View style={styles.prodInfo}>
-        <Pressable onPress={() => dispatch(toggleModal(product))}>
         <Text style={styles.prodName}>{product.name}</Text>
         <Text>${product.price_cents / 100}</Text>
         <Button
           color="#55bb55"
           title="Add to cart"
           onPress={() => dispatch(addItem(product))}
-          />
-          </Pressable>
+        />
       </View>
-    </View>
+    </Pressable>
   );
 
   return (
@@ -58,18 +60,43 @@ export default function ProductList() {
       />
       <Modal visible={modalShow} transparent={true} animationType="slide">
         <View style={styles.modal}>
-          <Button title="X" onPress={() => dispatch(toggleModal())} />
-          <Text>{modalProduct.name}</Text>
-          <Text>{modalProduct.description}</Text>
-          <Text>${modalProduct.price_cents / 100}</Text>
-          <Button title="+" onPress={() => dispatch(adjustQuantity("+"))} />
+          <ImageBackground
+            style={styles.modalHeader}
+            source={require("../assets/Juniper_Twitter_Art.webp")}
+          >
+            <TouchableOpacity onPress={() => dispatch(toggleModal())}>
+              <Text style={styles.closeModal}>⨉</Text>
+            </TouchableOpacity>
+          </ImageBackground>
 
-          <Text>{modalProduct.default_quantity}</Text>
-          <Button title="-" onPress={() => dispatch(adjustQuantity("-"))} />
-          <Button
-            title="Add to cart"
-            onPress={() => dispatch(addItem(modalProduct))}
-          />
+          <View style={styles.modalDivider}>
+            <Text style={styles.modalProductName}>{modalProduct.name}</Text>
+            <Text style={styles.modalProductName}>
+              ${(modalProduct.price_cents / 100).toFixed(2)}
+            </Text>
+          </View>
+          <View style={styles.modalDivider}>
+            <Text>{modalProduct.description}</Text>
+          </View>
+
+          <View style={styles.modalActions}>
+            <View style={styles.modalQuantity}>
+              <Pressable onPress={() => dispatch(adjustQuantity("-"))}>
+                <Text>-</Text>
+              </Pressable>
+
+              <Text>{modalProduct.default_quantity}</Text>
+              <Pressable onPress={() => dispatch(adjustQuantity("+"))}>
+                <Text>+</Text>
+              </Pressable>
+            </View>
+
+            <Button
+            
+              title="Add to cart"
+              onPress={() => dispatch(addItem(modalProduct))}
+            />
+          </View>
         </View>
       </Modal>
     </View>
