@@ -8,6 +8,8 @@ import {
   FlatList,
   Modal,
   Pressable,
+  TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import styles from "../styles/productList";
 
@@ -19,7 +21,7 @@ export default function ProductList() {
   const device = Platform.OS;
   const columns = device === "web" ? 3 : 1;
   const { cart, products, modalShow, modalProduct } = useSelector(
-    state => state.reducer
+    (state) => state.reducer
   );
   const dispatch = useDispatch();
 
@@ -55,23 +57,48 @@ export default function ProductList() {
       <FlatList
         data={products}
         numColumns={columns}
-        renderItem={product => <Item product={product.item} />}
-        keyExtractor={item => item.id}
+        renderItem={(product) => <Item product={product.item} />}
+        keyExtractor={(item) => item.id}
       />
       <Modal visible={modalShow} transparent={true} animationType="slide">
         <View style={styles.modal}>
-          <Button title="X" onPress={() => dispatch(toggleModal())} />
-          <Text>{modalProduct.name}</Text>
-          <Text>{modalProduct.description}</Text>
-          <Text>${modalProduct.price_cents / 100}</Text>
-          <Button title="+" onPress={() => dispatch(adjustQuantity("+"))} />
+          <ImageBackground
+            style={styles.modalHeader}
+            source={require("../assets/Juniper_Twitter_Art.webp")}
+          >
+            <TouchableOpacity onPress={() => dispatch(toggleModal())}>
+              <Text style={styles.closeModal}>⨉</Text>
+            </TouchableOpacity>
+          </ImageBackground>
 
-          <Text>{modalProduct.default_quantity}</Text>
-          <Button title="-" onPress={() => dispatch(adjustQuantity("-"))} />
-          <Button
-            title="Add to cart"
-            onPress={() => dispatch(addItem(modalProduct))}
-          />
+          <View style={styles.modalDivider}>
+            <Text style={styles.modalProductName}>{modalProduct.name}</Text>
+            <Text style={styles.modalProductName}>
+              ${(modalProduct.price_cents / 100).toFixed(2)}
+            </Text>
+          </View>
+          <View style={styles.modalDivider}>
+            <Text>{modalProduct.description}</Text>
+          </View>
+
+          <View style={styles.modalActions}>
+            <View style={styles.modalQuantity}>
+              <Pressable onPress={() => dispatch(adjustQuantity("-"))}>
+                <Text>-</Text>
+              </Pressable>
+
+              <Text>{modalProduct.default_quantity}</Text>
+              <Pressable onPress={() => dispatch(adjustQuantity("+"))}>
+                <Text>+</Text>
+              </Pressable>
+            </View>
+
+            <Button
+            
+              title="Add to cart"
+              onPress={() => dispatch(addItem(modalProduct))}
+            />
+          </View>
         </View>
       </Modal>
     </View>

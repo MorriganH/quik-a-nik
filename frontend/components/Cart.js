@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/cart";
 import WebMap from "./WebMap";
-import { toggleModal } from "../redux/actions";
+import { toggleModal, adjustCartQuantity } from "../redux/actions";
 
 export default function Cart({ navigation }) {
   const { cart, modalShow } = useSelector(state => state.reducer);
@@ -28,7 +28,10 @@ export default function Cart({ navigation }) {
     <View style={styles.item}>
       <Text>{item.name}</Text>
       <Text>{item.description}</Text>
+      <Button onPress={() => dispatch(adjustCartQuantity(item, "+"))} title="+"/>
       <Text>{item.default_quantity}</Text>
+      <Button onPress={() => dispatch(adjustCartQuantity(item, "-"))} title="-"/>
+      <Button onPress={() => dispatch(adjustCartQuantity(item, "delete"))} title="X"/>
       <Text>
         ${((item.price_cents / 100) * item.default_quantity).toFixed(2)}
       </Text>

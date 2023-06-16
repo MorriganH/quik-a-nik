@@ -6,6 +6,7 @@ import {
   Pressable,
   useWindowDimensions,
   ScrollView,
+  Modal,
 } from "react-native";
 //APP
 import tunnelURL from "../backend_tunnel";
@@ -27,18 +28,19 @@ import { useEffect } from "react";
 
 export default function Navbar({ navigation }) {
   const { cart, userSession, cartNotification } = useSelector(
-    state => state.reducer
+    (state) => state.reducer
   );
   const dispatch = useDispatch();
+  const test = false
 
   const filter = function (path, view) {
     axios
       .get(`${tunnelURL}/products/${path}`)
-      .then(prods => {
+      .then((prods) => {
         dispatch(setProducts(prods.data.products));
       })
       .then(viewSwitcher(view))
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -95,9 +97,23 @@ export default function Navbar({ navigation }) {
           <Text>My Orders</Text>
         </Pressable>
         <Pressable style={styles.button} onPress={() => viewSwitcher("Cart")}>
-          <Text>Cart {cartNotification} </Text>
+          {cartNotification > 0 && <Text>{cartNotification} </Text>}
+          <Text>Cart </Text>
         </Pressable>
       </View>
+      <Modal style={style.modal} transparent={true} visible={test} animationType="fade">
+        <Text>Hello?</Text>
+      </Modal>
     </Text>
   );
 }
+
+const style = StyleSheet.create({
+  modal: {
+    position: "absolute",
+    backgroundColor: "pink",
+    maxHeight: 50,
+    margin: 0
+    
+  }
+})

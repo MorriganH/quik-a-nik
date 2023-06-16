@@ -2,25 +2,23 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Text, View, Image, Button, FlatList } from "react-native";
 import axios from "axios";
-import tunnelURL from '../backend_tunnel';
+import tunnelURL from "../backend_tunnel";
+import styles from "../styles/orderList";
+import { formatOrderData } from "../helpers/orders";
 
 import { setOrders } from "../redux/actions";
 
 export default function OrderList() {
-  //useDispatch hook dispatches Redux action
-  const dispatch = useDispatch();
-
-  //useSelector hook selects orders state from Redux
-  const {orders} = useSelector((state) => state.reducer);
-  console.log("orders in OrderList: ", orders.orders);
-
   const fetchOrders = () => {
-    
-      //GET request to server to fetch orders data
-      axios.get(`${tunnelURL}/orders`)
-      // Dispatch setOrders action with orders data as payload
-      // to update the state in Redux
-      .then((res) => dispatch(setOrders(res.data))) 
+    //GET request to server to fetch orders data
+    axios
+      .get(`${tunnelURL}/orders/user/1`)
+      //Format orders data and dispatch to Redux to set state
+      .then((res) => {
+        const formattedData = formatOrderData(res.data);
+        console.log("formattedData: ", formattedData);
+        dispatch(setOrders(formattedData));
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -31,20 +29,56 @@ export default function OrderList() {
     fetchOrders();
   }, []);
 
-  const Order = ( {order} ) => {
-  console.log("order from within component: ", order);
-     return (
+  //useDispatch hook dispatches Redux action
+  const dispatch = useDispatch();
 
-  <View>
-      <Text>{`Order ID: ${order.id}`}</Text>
-    </View>
-  )};
+  //useSelector hook selects orders state from Redux
+  const { orders } = useSelector((state) => state.reducer);
+  // console.log("orders in OrderList: ", orders.orders);
+
+  const Order = ({ order }) => {
+    console.log("Order WITHIN component: ", order);
+    return (
+      <View style={styles.orderItem}>
+        <Text style={styles.orderId}>{`Order ID:  ${order.id}`}</Text>
+
+        {order.line_items.map(
+          (
+            item,
+            index //NEED TO REFACTOR KEY USE FOR ITEMLIST
+          ) => (
+            <View style={styles.itemList} key={index}>
+              <Text style={styles.productText}>{`${item.name}`}</Text>
+              <Text style={styles.qtyText}>{`Qty: ${item.quantity}`}</Text>
+              <Text
+                style={styles.linePriceText}
+              >{`${item.line_price_cents}`}</Text>
+            </View>
+          )
+        )}
+        <View style={styles.location}>
+          <Text>{`Longitude: ${order.longitude}`}</Text>
+          <Text>{`Latitude: ${order.latitude}`}</Text>
+        </View>
+        <View style={styles.dateTotal}>
+          <Text>{`Order Placed: ${order.created_at}`}</Text>
+          <Text style={styles.total}>Total:  <Text style={styles.price}>{`${order.total_price_cents}`}</Text>
+          </Text>
+        </View>
+      </View>
+    );
+  };
 
   return (
-    <FlatList
-      data={orders.orders} //Pass orders data to FlatList
-      renderItem={(order) => <Order order={order.item} />}
-      keyExtractor={(order) => order.id}
-    />
+    <View style={styles.container}>
+      {orders.length > 0 && <Text>{`${orders[0].first_name}'s Baskets`}</Text>}
+      <FlatList
+        data={orders} //Pass orders data to FlatList
+        renderItem={({ item }) => (
+          <Order order={item} style={styles.container} />
+        )}
+        keyExtractor={(order) => order.id.toString()}
+      />
+    </View>
   );
 }

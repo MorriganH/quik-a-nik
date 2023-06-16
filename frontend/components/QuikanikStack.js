@@ -7,6 +7,7 @@ import {
   Platform,
   Pressable,
   AnimateHamburger,
+  View
 } from "react-native";
 
 //STACK NAVIGATOR
@@ -35,18 +36,15 @@ import { addItem, toggleModal, adjustQuantity } from "../redux/actions";
 
 export default function QuikanikStack() {
   //REDUX FUNCTIONS
-  const { cart, products, modalShow, modalProduct } = useSelector(
-    state => state.reducer
-  );
-  const dispatch = useDispatch();
-
-  //VARIABLEs
-  const device = Platform.OS;
-  const Stack = createNativeStackNavigator();
-  const cartNotification = cart.reduce((sum, current) => {
-    sum += current.default_quantity;
-  }, 0);
-
+  const { cart, products, modalShow, modalProduct,cartNotification } = useSelector(
+    (state) => state.reducer
+    );
+    const dispatch = useDispatch();
+    
+    //VARIABLEs
+        const device = Platform.OS;
+   const Stack = createNativeStackNavigator();
+  
   if (device !== "web") {
     // if (!true) {
     return (
@@ -55,9 +53,12 @@ export default function QuikanikStack() {
           initialRouteName="Home"
           screenOptions={({ navigation }) => ({
             headerRight: () => (
-              <Pressable onPress={() => navigation.navigate("Cart")}>
-                <Text>{cartNotification}</Text>
-              </Pressable>
+              <View>
+
+                {cartNotification > 0 && <Text>{cartNotification}</Text>}
+              <Button onPress={() => navigation.navigate("Cart")} title="cart"/>
+              
+              </View>
             ),
           })}
         >
@@ -66,7 +67,7 @@ export default function QuikanikStack() {
               headerLeft: () => (
                 <Button
                   onPress={() => dispatch(toggleModal("N/A"))}
-                  title="⇶"
+                  title="Menu"
                 />
               ),
             })}
