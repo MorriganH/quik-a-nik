@@ -11,8 +11,8 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
+import images from "../product-images";
 import styles from "../styles/productList";
-
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, toggleModal, adjustQuantity } from "../redux/actions";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -25,26 +25,30 @@ export default function ProductList() {
   );
   const dispatch = useDispatch();
 
-  const Item = ({ product }) => (
-    <Pressable
-      style={styles.item}
-      onPress={() => dispatch(toggleModal(product))}
-    >
-      <Image
-        style={styles.logo}
-        source={require("../assets/Juniper_Twitter_Art.webp")}
-      />
-      <View style={styles.prodInfo}>
-        <Text style={styles.prodName}>{product.name}</Text>
-        <Text>${product.price_cents / 100}</Text>
-        <Button
-          color="#55bb55"
-          title="Add to cart"
-          onPress={() => dispatch(addItem(product))}
+  const BASE_URI = '../assets/product-image/'
+
+  const Item = ({ product }) => {
+    const path = `..assets/product-image/${product.image}`
+    return (
+      <Pressable
+        style={styles.item}
+        onPress={() => dispatch(toggleModal(product))}
+      >
+        <Image
+          style={styles.logo}
+          source={{uri: product.image}}
         />
-      </View>
-    </Pressable>
-  );
+        <View style={styles.prodInfo}>
+          <Text style={styles.prodName}>{product.name}</Text>
+          <Text>${product.price_cents / 100}</Text>
+          <Button
+            color="#55bb55"
+            title="Add to cart"
+            onPress={() => dispatch(addItem(product))}
+          />
+        </View>
+      </Pressable>
+  )};
 
   return (
     <View style={styles.list}>
