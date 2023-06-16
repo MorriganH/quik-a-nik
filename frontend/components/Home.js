@@ -108,7 +108,7 @@ export default function Home({ navigation }) {
             </Pressable>
           */}
           </View>
-        </View> 
+        </View>
 
         {/* {device !== "web" && (
           <Pressable
@@ -144,7 +144,7 @@ export default function Home({ navigation }) {
           />
           <Text style={styles.bigText}>Family Packages</Text>
         </Pressable>
-        
+
         <Pressable
           style={styles.button}
           onPress={() => filter("party", "ProductList")}
@@ -165,18 +165,30 @@ export default function Home({ navigation }) {
           />
           <Text style={styles.bigText}>Baskets for Two</Text>
         </Pressable>
-
       </ScrollView>
       <Modal visible={modalShow} transparent={true} animationType="slide">
         <View style={styles.modal}>
-          <Button title="X" onPress={() => dispatch(toggleModal())} />
-          <View style={styles.button}>
-            <Text>UserName</Text>
-            <Text>Email@address.com</Text>
+          <View style={styles.modalHeader}>
+            <TouchableOpacity onPress={() => dispatch(toggleModal())}>
+              <Text style={styles.closeModal}>⨉</Text>
+            </TouchableOpacity>
+            <Text style={styles.modalUsername}>Graydon Ritchie</Text>
+            <Text style={styles.modalEmail}>email@address.com</Text>
+
+            <Text style={styles.modalOrderBanner}>
+              {" "}
+              You have made 9 Quik-a-nik orders!
+            </Text>
           </View>
-          <Text>Orders</Text>
-          <Text>About</Text>
-          <Text>Become a certified Quik-a-nik specialist</Text>
+          <View style={styles.modalDivider}>
+            <Text style={styles.modalOption}>🧾  Orders</Text>
+            <Text style={styles.modalOption}>📍  About</Text>
+            <Text style={styles.modalOption}>🌭  Work with us</Text>
+          </View>
+          <View style={styles.modalDivider}>
+            <Text style={styles.modalOption}>⇇|  Logout</Text>
+
+          </View>
         </View>
       </Modal>
     </View>

@@ -21,10 +21,10 @@ export default function Cart({navigation}) {
     <View style={style.item}>
       <Text>{item.name}</Text>
       <Text>{item.description}</Text>
-      <Button onPress={() => dispatch(adjustCartQuantity(item, "+"))} label="+"/>
+      <Button onPress={() => dispatch(adjustCartQuantity(item, "+"))} title="+"/>
       <Text>{item.default_quantity}</Text>
-      <Button onPress={() => dispatch(adjustCartQuantity(item, "-"))} label="-"/>
-      <Button onPress={() => dispatch(adjustCartQuantity(item, "delete"))} label="X"/>
+      <Button onPress={() => dispatch(adjustCartQuantity(item, "-"))} title="-"/>
+      <Button onPress={() => dispatch(adjustCartQuantity(item, "delete"))} title="X"/>
       <Text>
         ${((item.price_cents / 100) * item.default_quantity).toFixed(2)}
       </Text>

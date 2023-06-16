@@ -99,6 +99,82 @@ if (device !== "web") {
       width: 200,
       fontSize: 24,
     },
+    modal: {
+      backgroundColor: "grey",
+      height: "100%"
+    
+    },
+
+    closeModal: {
+      fontSize: 25,
+      fontWeight: "bold",
+      color: "white",
+      paddingBottom: 15
+    },
+    modalOrderBanner: {
+      fontSize: 15,
+      alignSelf: "center",
+      textAlign: "center",
+      marginTop: 10,
+      paddingBottom: 5,
+      paddingTop: 5,
+      backgroundColor: "white",
+      borderRadius: 12,
+      width: "100%",
+      
+      
+    },
+    modalHeader: {
+      backgroundColor :"#89cc7e",
+      paddingLeft: 25,
+      paddingRight: 25,
+      paddingTop: 25,
+      paddingBottom: 10,
+      height: 1
+    },
+    modalUsername: {
+      color: "white",
+      fontWeight: "bold",
+      fontSize: 25
+    },
+    modalEmail: {
+      color: "white",
+      fontSize: 15
+    },
+    modalOption: {
+      display: "flex",
+      flexDirection: "row",
+      fontSize: 25,
+      paddingLeft: 15,
+      paddingBottom: 12,
+      paddingTop: 10
+
+    },
+    modalDivider: {
+      marginTop: 5,
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-around",
+      height: 100,
+      position: "absolute",
+      bottom: 0,
+      alignSelf: "center",
+      padding: 25,
+      
+      width: "100%",
+      backgroundColor: "white",
+      
+      
+      
+    },
+    modalQuantity: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      backgroundColor: "grey",
+      width: 125,
+
+    }
   });
 }
 

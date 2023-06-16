@@ -9,6 +9,7 @@ import {
   FlatList,
   Modal,
   Pressable,
+  TouchableOpacity,
 } from "react-native";
 import styles from "../styles/productList";
 
@@ -58,18 +59,34 @@ export default function ProductList() {
       />
       <Modal visible={modalShow} transparent={true} animationType="slide">
         <View style={styles.modal}>
-          <Button title="X" onPress={() => dispatch(toggleModal())} />
+          <View style={styles.modalHeader}>
+            <TouchableOpacity onPress={() => dispatch(toggleModal())}>
+              <Text style={styles.closeModal}>⨉</Text>
+            </TouchableOpacity>
+          </View>
+
           <Text>{modalProduct.name}</Text>
           <Text>{modalProduct.description}</Text>
           <Text>${modalProduct.price_cents / 100}</Text>
-          <Button title="+" onPress={() => dispatch(adjustQuantity("+"))} />
 
-          <Text>{modalProduct.default_quantity}</Text>
-          <Button title="-" onPress={() => dispatch(adjustQuantity("-"))} />
-          <Button
-            title="Add to cart"
-            onPress={() => dispatch(addItem(modalProduct))}
-          />
+          <View style={styles.modalDivider}>
+            <View style={styles.modalQuantity}>
+
+            <Pressable onPress={() => dispatch(adjustQuantity("-"))}>
+              <Text>-</Text>
+            </Pressable>
+
+            <Text>{modalProduct.default_quantity}</Text>
+            <Pressable onPress={() => dispatch(adjustQuantity("+"))}>
+              <Text>+</Text>
+            </Pressable>
+            </View>
+
+            <Button
+              title="Add to cart"
+              onPress={() => dispatch(addItem(modalProduct))}
+            />
+          </View>
         </View>
       </Modal>
     </View>
