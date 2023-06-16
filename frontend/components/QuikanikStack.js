@@ -7,6 +7,7 @@ import {
   Platform,
   Pressable,
   AnimateHamburger,
+  View
 } from "react-native";
 
 //STACK NAVIGATOR

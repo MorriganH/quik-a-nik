@@ -99,7 +99,7 @@ if (device !== "web") {
       fontSize: 24,
     },
     modal: {
-      backgroundColor: "grey",
+      backgroundColor: "white",
       height: "100%"
     
     },
@@ -129,12 +129,14 @@ if (device !== "web") {
       paddingRight: 25,
       paddingTop: 25,
       paddingBottom: 10,
-      height: 1
+      height: 350
+ 
     },
-    modalUsername: {
-      color: "white",
+    modalProductName: {
+      color: "#1e1f22",
       fontWeight: "bold",
-      fontSize: 25
+      fontSize: 25,
+      margin: 15
     },
     modalEmail: {
       color: "white",
@@ -149,7 +151,7 @@ if (device !== "web") {
       paddingTop: 10
 
     },
-    modalDivider: {
+    modalActions: {
       marginTop: 5,
       display: "flex",
       flexDirection: "row",
@@ -158,13 +160,23 @@ if (device !== "web") {
       position: "absolute",
       bottom: 0,
       alignSelf: "center",
-      padding: 25,
-      
+      padding: 25,      
       width: "100%",
-      backgroundColor: "white",
+      backgroundColor: "white",      
       
-      
-      
+    },
+    modalDivider: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginTop: 5,
+      paddingBottom: 7,
+      borderBottomWidth: 1,
+      borderColor: "lightgrey",
+      width: "95%",
+      alignSelf: "center"
+
+
     },
     modalQuantity: {
       display: "flex",
