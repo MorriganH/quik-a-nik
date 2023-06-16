@@ -44,9 +44,9 @@ INSERT INTO products (name, price_cents, description, is_basket, portions, is_de
 ('Family Basket C', 6000, '2 Veggie Sandwiches, 2 Turkey Sandwiches, 1 Veggie Platter, 1 Fruit Platter, 1 Assorted Trail Mix, 4 Bottles of Water', true, 4, false, 'family_basket.png', 1),
 ('Family Basket D', 6000, '2 Roast Beef Sandwiches, 2 Ham Sandwiches, 1 Bag of Chips, 1 Bag of Brownies, 4 Cans of Pop', true, 4, false, 'family_basket.png', 1),
 ('Kids Fun Basket', 3000, '1 Bag of Chips, 2 Cans of Pop, 1 Frisbee', true, 2, false, 'kids_basket.png', 1),
-('Healthy Quik-A-Nik', 4000, '1 Fruit Platter, 1 Veggie Platter, 4 Water Bottles, 1 Large Garden Salad', true, 4, false, 'healthy_basket.png', 1),
+('Healthy Quik-A-Nik', 4000, '1 Fruit Platter, 1 Veggie Platter, 4 Water Bottles, 1 Large Garden Salad', true, 2, false, 'healthy_basket.png', 1),
 ('Deluxe Quik-A-Nik Starter Kit', 10000, '1 Branded Quik-A-Nik Blanket, 1 Branded Quik-A-Nik Cooler, Family Basket A', true, 4, true, 'deluxe_basket.png', 1),
 ('Celebration Extravaganza', 10000, '15 Assorted Sandwiches, 1 Birthday Cake, 1 Birthday Banner, 1 Package of Paper Plates', true, 15, true, 'cele_basket.png', 1),
 ('Adult Hydration Basket', 4000, '6 Pack of Beer, 6 Pack of Wine Coolers, 1 Bag of Ice', true, 4, true, 'booze_basket.png', 1),
 ('Grill Lovers Pack', 5000, '4 Frozen Hambuger Patties, 4 Hot Dogs, 4 Hamburger Buns, 4 Hot Dog Buns, 1 Set of Tongs', true, 8, false, 'bbq_basket.png', 1),
-('Deluxe Grill Lovers Pack', 12000, '8 Frozen Hambuger Patties, 8 Hot Dogs, 8 Hamburger Buns, 8 Hot Dog Buns, 1 Set of Tongs, 6 Pack of Beer, 6 Pack of Wine Coolers', true, 4, true, 'deluxe_bbq_basket.png', 1);
+('Deluxe Grill Lovers Pack', 12000, '8 Frozen Hambuger Patties, 8 Hot Dogs, 8 Hamburger Buns, 8 Hot Dog Buns, 1 Set of Tongs, 6 Pack of Beer, 6 Pack of Wine Coolers', true, 16, true, 'deluxe_bbq_basket.png', 1);

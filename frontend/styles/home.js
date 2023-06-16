@@ -37,6 +37,9 @@ if (device === "web") {
       width: "80%",
       padding: 5,
       margin: 5,
+      shadowColor: "grey",
+      shadowOffset: { width: 3, height: 3 },
+      shadowRadius: 10,
     },
 
     main: {
@@ -63,6 +66,9 @@ if (device === "web") {
       width: "50%",
       padding: 5,
       margin: 5,
+      shadowColor: "grey",
+      shadowOffset: { width: 3, height: 3 },
+      shadowRadius: 10,
     },
 
     sideMain: {
@@ -81,6 +87,9 @@ if (device === "web") {
       width: "80%",
       padding: 5,
       margin: 5,
+      shadowColor: "grey",
+      shadowOffset: { width: 3, height: 3 },
+      shadowRadius: 10,
     },
   });
 }

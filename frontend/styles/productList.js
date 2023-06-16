@@ -21,6 +21,9 @@ if (device === "web") {
       marginHorizontal: 16,
       borderRadius: 10,
       width: "30%",
+      shadowColor: "grey",
+      shadowOffset: { width: 3, height: 3 },
+      shadowRadius: 10,
     },
 
     logo: {
