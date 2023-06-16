@@ -10,6 +10,7 @@ import {
 //APP
 import tunnelURL from "../backend_tunnel";
 import axios from "axios";
+import styles from "../styles/navbar";
 
 //NAVIGATOR
 import {
@@ -20,31 +21,35 @@ import {
 } from "../redux/actions";
 
 //REDUX
+import { setUserSession } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 export default function Navbar({ navigation }) {
-  const { cart, userSession, cartNotification } = useSelector((state) => state.reducer);
+  const { cart, userSession, cartNotification } = useSelector(
+    state => state.reducer
+  );
   const dispatch = useDispatch();
-
-
-
-
 
   const filter = function (path, view) {
     axios
       .get(`${tunnelURL}/products/${path}`)
-      .then((prods) => {
+      .then(prods => {
         dispatch(setProducts(prods.data.products));
       })
       .then(viewSwitcher(view))
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
 
   const viewSwitcher = function (newView) {
     navigation.navigate(newView);
+  };
+
+  const logout = () => {
+    dispatch(setUserSession(null));
+    viewSwitcher("Login");
   };
 
   return (
@@ -77,10 +82,7 @@ export default function Navbar({ navigation }) {
         )}
         {userSession !== null && <Text>{userSession.first_name}</Text>}
         {userSession !== null && (
-          <Pressable
-            style={styles.button}
-            onPress={() => viewSwitcher("Logout")}
-          >
+          <Pressable style={styles.button} onPress={() => logout()}>
             <Text>Logout</Text>
           </Pressable>
         )}
@@ -100,33 +102,3 @@ export default function Navbar({ navigation }) {
     </Text>
   );
 }
-
-const styles = StyleSheet.create({
-  webNavBar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    alignSelf: "center",
-    backgroundColor: "white",
-    borderRadius: 3,
-    height: 50,
-    shadowColor: "grey",
-    width: "80%",
-    shadowOffset: { width: 6, height: 6 },
-    shadowRadius: 10,
-    margin: 20,
-    // position: "fixed",
-    // top: 20,
-  },
-
-  navSection: {
-    display: "flex",
-    justifyContent: "space-evenly",
-    width: "45%",
-    flexDirection: "row",
-  },
-
-  button: {
-    backgroundColor: "white",
-  },
-});

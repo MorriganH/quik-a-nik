@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Text, TextInput, Pressable } from "react-native";
+import { Text, TextInput, Pressable, View } from "react-native";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
@@ -57,8 +57,8 @@ export default function WebMap({ navigation }) {
 
   const checkoutConfirmation = function (markerPos, locationDetails) {
     const input = { markerPos, locationDetails };
-    dispatch(setLocationInfo(input))
-        navigation.navigate("Stripe");
+    dispatch(setLocationInfo(input));
+    navigation.navigate("Stripe");
   };
 
   if (loadError) {
@@ -67,45 +67,49 @@ export default function WebMap({ navigation }) {
 
   return isLoaded ? (
     <>
-      <GoogleMap
-        mapContainerStyle={styles.mapWindow}
-        center={{
-          lat: location.coords.latitude,
-          lng: location.coords.longitude,
-        }}
-        zoom={13}
-        onClick={(ev) => {
-          updateMarker(ev);
-        }}
-      >
-        <Marker
-          position={{
-            lat: markerPos.coords.latitude,
-            lng: markerPos.coords.longitude,
+      <Text style={styles.title}>Set Location</Text>
+      <Text style={styles.subtitle}>Let Us Know Exactly Where You'll Be</Text>
+      <View style={styles.container}>
+        <GoogleMap
+          mapContainerStyle={styles.mapWindow}
+          center={{
+            lat: location.coords.latitude,
+            lng: location.coords.longitude,
           }}
-          draggable
-          onDragEnd={(ev) => {
+          zoom={13}
+          onClick={(ev) => {
             updateMarker(ev);
           }}
+        >
+          <Marker
+            position={{
+              lat: markerPos.coords.latitude,
+              lng: markerPos.coords.longitude,
+            }}
+            draggable
+            onDragEnd={(ev) => {
+              updateMarker(ev);
+            }}
+          />
+        </GoogleMap>
+        <Text style={styles.infoText}>{`Please provide us with some more details so we can find you`}</Text>
+        <TextInput
+          style={styles.locationDetailsInput}
+          placeholder="Location Details"
+          editable
+          multiline
+          onChangeText={(text) => setLocationDetails(text)}
+          value={locationDetails}
+          numberOfLines={5}
+          maxLength={255}
         />
-      </GoogleMap>
-      <Text>{`Please provide us with more details so we can find you\n Example: "In the parking lot beside the ice cream truck" \n or "By the bench beside the duck pond" `}</Text>
-      <TextInput
-        style={styles.locationDetailsInput}
-        placeholder="Location Details"
-        editable
-        multiline
-        onChangeText={(text) => setLocationDetails(text)}
-        value={locationDetails}
-        numberOfLines={5}
-        maxLength={255}
-      />
-      <Pressable
-        style={styles.checkoutButton}
-        onPress={() => checkoutConfirmation(markerPos, locationDetails)}
-      >
-        <Text>Proceed to Payment Details</Text>
-      </Pressable>
+        <Pressable
+          style={styles.checkoutButton}
+          onPress={() => checkoutConfirmation(markerPos, locationDetails)}
+        >
+          <Text style={styles.buttonText}>Proceed to Checkout</Text>
+        </Pressable>
+      </View>
     </>
   ) : (
     <Text>{text}</Text>

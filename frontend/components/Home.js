@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
 import {
-  StyleSheet,
   Text,
   View,
   Image,
@@ -12,6 +11,7 @@ import {
   ScrollView,
 } from "react-native";
 
+import { setUserSession } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import {
@@ -27,24 +27,29 @@ export default function Home({ navigation }) {
   const device = Platform.OS;
 
   const { cart, products, modalShow, modalProduct, userSession } = useSelector(
-    (state) => state.reducer
+    state => state.reducer
   );
   const dispatch = useDispatch();
 
   const filter = function (path, view) {
     axios
       .get(`${tunnelURL}/products/${path}`)
-      .then((prods) => {
+      .then(prods => {
         dispatch(setProducts(prods.data.products));
       })
       .then(viewSwitcher(view))
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
 
   const viewSwitcher = function (newView) {
     navigation.navigate(newView);
+  };
+
+  const logout = () => {
+    dispatch(setUserSession(null));
+    viewSwitcher("Login");
   };
   return (
     <View style={styles.container}>
@@ -189,6 +194,29 @@ export default function Home({ navigation }) {
             <Text style={styles.modalOption}>⇇|  Logout</Text>
 
           </View>
+          {userSession === null && (
+            <Pressable
+              style={styles.button}
+              onPress={() => viewSwitcher("Login")}
+            >
+              <Text>Login</Text>
+            </Pressable>
+          )}
+
+          {userSession === null && (
+            <Pressable
+              style={styles.button}
+              onPress={() => viewSwitcher("Register")}
+            >
+              <Text>Register</Text>
+            </Pressable>
+          )}
+          {userSession !== null && <Text>{userSession.first_name}</Text>}
+          {userSession !== null && (
+            <Pressable style={styles.button} onPress={() => logout()}>
+              <Text>Logout</Text>
+            </Pressable>
+          )}
         </View>
       </Modal>
     </View>

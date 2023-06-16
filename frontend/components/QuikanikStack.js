@@ -1,8 +1,6 @@
 //REACT / REACT NATIVE
 import { StatusBar } from "expo-status-bar";
 import {
-  StyleSheet,
-  View,
   Text,
   Image,
   Button,
@@ -27,6 +25,7 @@ import OrderList from "./OrderList";
 import Navbar from "./Navbar";
 import Stripe from "./Stripe";
 import Login from "./Login";
+import Register from "./Register";
 
 import StripeMobile from "./Stripe";
 
@@ -80,7 +79,8 @@ export default function QuikanikStack() {
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="OrderList" component={OrderList} />
           <Stack.Screen name="Cart" component={Cart} />
-          
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
           {/* STRIPE MOBILE MODULE HERE */}
           <Stack.Screen name="Stripe" component={StripeMobile} />  
         </Stack.Navigator>
@@ -105,6 +105,7 @@ export default function QuikanikStack() {
           <Stack.Screen name="Navbar" component={Navbar} />
           <Stack.Screen name="Stripe" component={Stripe} />
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
         </Stack.Navigator>
       </NavigationContainer>
     );

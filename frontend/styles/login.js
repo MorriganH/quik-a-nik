@@ -5,9 +5,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
     alignItems: "center",
-    justifyContent: "flex-start",
-    marginTop: 10,
-    height: "auto",
+    justifyContent: "center",
   },
 
   box: {
@@ -16,27 +14,30 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#F5FCFF",
     width: "80%",
+    height: "50%",
     borderRadius: 15,
   },
 
-  item: {
-    backgroundColor: "white",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 10,
-    shadowColor: "grey",
-    shadowOffset: { width: 3, height: 3 },
-    shadowRadius: 10,
+  title: {
+    fontSize: 34,
+    paddingBottom: 20,
+  },
+
+  textInput: {
+    height: 40,
+    width: 300,
+    fontSize: 20,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 10,
   },
 
   submitButton: {
     borderWidth: 1,
     padding: 10,
-    marginBottom: 10,
     borderRadius: 5,
     backgroundColor: "#55bb55",
-    width: "auto",
   },
 });
 

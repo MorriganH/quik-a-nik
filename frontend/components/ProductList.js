@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
   Text,
   View,
   Image,
@@ -21,18 +20,20 @@ export default function ProductList() {
   const device = Platform.OS;
   const columns = device === "web" ? 3 : 1;
   const { cart, products, modalShow, modalProduct } = useSelector(
-    (state) => state.reducer
+    state => state.reducer
   );
   const dispatch = useDispatch();
 
   const Item = ({ product }) => (
-    <View style={styles.item}>
-      <Image
-        style={styles.logo}
-        source={require("../assets/Juniper_Twitter_Art.webp")}
-      />
-      <View style={styles.prodInfo}>
-        <Pressable onPress={() => dispatch(toggleModal(product))}>
+      <Pressable
+        style={styles.item}
+        onPress={() => dispatch(toggleModal(product))}
+      >
+        <Image
+          style={styles.logo}
+          source={require("../assets/Juniper_Twitter_Art.webp")}
+        />
+        <View style={styles.prodInfo}>
           <Text style={styles.prodName}>{product.name}</Text>
           <Text>${product.price_cents / 100}</Text>
           <Button
@@ -40,9 +41,8 @@ export default function ProductList() {
             title="Add to cart"
             onPress={() => dispatch(addItem(product))}
           />
-        </Pressable>
-      </View>
-    </View>
+        </View>
+      </Pressable>
   );
 
   return (
@@ -54,8 +54,8 @@ export default function ProductList() {
       <FlatList
         data={products}
         numColumns={columns}
-        renderItem={(product) => <Item product={product.item} />}
-        keyExtractor={(item) => item.id}
+        renderItem={product => <Item product={product.item} />}
+        keyExtractor={item => item.id}
       />
       <Modal visible={modalShow} transparent={true} animationType="slide">
         <View style={styles.modal}>

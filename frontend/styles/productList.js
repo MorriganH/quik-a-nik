@@ -21,6 +21,9 @@ if (device === "web") {
       marginHorizontal: 16,
       borderRadius: 10,
       width: "30%",
+      shadowColor: "grey",
+      shadowOffset: { width: 3, height: 3 },
+      shadowRadius: 10,
     },
 
     logo: {
@@ -51,16 +54,6 @@ if (device === "web") {
 
 if (device !== "web") {
   styles = StyleSheet.create({
-    // prod: {
-    //   // border: "solid",
-    //   padding: 5,
-    //   margin: 5,
-    //   width: "30%",
-    // },
-
-    // container: {
-    //   flex: 1,
-    // },
     list: {
       display: "flex",
       alignItems: "center",
@@ -76,7 +69,13 @@ if (device !== "web") {
       marginVertical: 8,
       marginHorizontal: 16,
       borderRadius: 10,
-      // width: '33%'
+    },
+
+    itemPressable: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-around",
+      alignItems: "center",
     },
 
     logo: {

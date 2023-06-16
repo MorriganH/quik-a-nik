@@ -1,6 +1,18 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+
+  title: {
+    fontSize: 24,
+  },
+
+  subtitle: {
+    fontSize: 16,
+    margin: "auto",
+    marginBottom: "10%",
+
+  },
+
   container: {
     flex: 1,
     justifyContent: "center",
@@ -11,8 +23,11 @@ const styles = StyleSheet.create({
   map: {
     minWidth: "90%",
     minHeight: "50%",
-    borderRadius: 10, //Not working at all
-    borderWidth: 1, //Not working at all
+    marginBottom: "3%",
+  },
+
+  infoText: {
+    fontStyle: "italic",
   },
 
   locationDetailsInput: {
@@ -21,13 +36,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     padding: 10,
+    textAlign: "center"
   },
 
   checkoutButton: {
     borderWidth: 1,
     padding: 10,
     borderRadius: 5,
-    backgroundColor: "pink",
+    backgroundColor: "#55bb55",
+  },
+
+  buttonText: {
+    fontWeight: 500,
   },
 
 });

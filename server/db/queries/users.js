@@ -13,9 +13,28 @@ const getUserById = id => {
 };
 
 const getUserByEmail = email => {
-  return db.query("SELECT * FROM users WHERE email = $1", [email]).then(data => {
-    return data.rows;
-  });
+  return db
+    .query("SELECT * FROM users WHERE email = $1", [email])
+    .then(data => {
+      return data.rows[0];
+    });
 };
 
-module.exports = { getAllUsers, getUserById, getUserByEmail };
+const addUser = userInfo => {
+  const { firstName, lastName, email, hash } = userInfo;
+  return db
+    .query(
+      `INSERT INTO users (first_name, last_name, email, password)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *`,
+      [firstName, lastName, email, hash]
+    )
+    .then(response => response.rows[0]);
+};
+
+module.exports = {
+  getAllUsers,
+  getUserById,
+  getUserByEmail,
+  addUser,
+};
