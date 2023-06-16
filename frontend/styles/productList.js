@@ -26,6 +26,10 @@ if (device === "web") {
       shadowRadius: 10,
     },
 
+    itemPressable: {
+      
+    },
+
     logo: {
       width: 100,
       height: 100,
@@ -80,6 +84,13 @@ if (device !== "web") {
       marginHorizontal: 16,
       borderRadius: 10,
       // width: '33%'
+    },
+
+    itemPressable: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-around",
+      alignItems: "center",
     },
 
     logo: {
