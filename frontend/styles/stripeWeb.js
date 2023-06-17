@@ -13,6 +13,10 @@ const styles = StyleSheet.create({
   checkoutForm: {
     minHeight: "90%",
     minWidth:"90%",
+  },
+
+  cardDetails:{
+    borderWidth: 1,
   }
 
 });

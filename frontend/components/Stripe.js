@@ -61,16 +61,15 @@ export default function Stripe() {
 
   return (
     <>
-    {/* <View style={styles.checkoutForm}> */}
+    
 
     <form onSubmit={handleSubmit} style={{ minHeight: 60, minWidth: 500, backgroundColor: "white", margin:"auto", padding:10 }}>
-      <CardElement style={styles.checkoutForm}/>
+      <CardElement style={styles.cardDetails}/>
       <button type="submit" disabled={!stripe} style={{ margin:"auto", backgroundColor: "#55bb55", marginTop: 15, marginBottom: 10, }}>
         Pay
       </button>
     </form>
     {processing && <ActivityIndicator size="large" color="#00ff00" style={styles.activityIndicator} />}
-    {/* </View> */}
     </>
   );
 }

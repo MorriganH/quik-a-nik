@@ -13,11 +13,11 @@ import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
 import styles from "../styles/webMap";
-import { setLocationInfo } from "../redux/actions";
+import { setLocationInfo, toggleModal } from "../redux/actions";
 import Stripe from "./Stripe";
 
 export default function WebMap({ navigation }) {
-  const { locationInfo } = useSelector((state) => state.reducer);
+  const { locationInfo, modalShow } = useSelector((state) => state.reducer);
   const dispatch = useDispatch();
 
   const [location, setLocation] = useState({
@@ -26,7 +26,7 @@ export default function WebMap({ navigation }) {
   const [markerPos, setMarkerPos] = useState(location);
   const [errorMsg, setErrorMsg] = useState(null);
   const [locationDetails, setLocationDetails] = useState("");
-  const [showStripeWeb, setShowStripeWeb] = useState(false);
+  //const [showStripeWeb, setShowStripeWeb] = useState(false);
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
@@ -69,7 +69,7 @@ export default function WebMap({ navigation }) {
     const input = { longitude, latitude, locationDetails };
     dispatch(setLocationInfo(input));
     // navigation.navigate("Stripe");
-    setShowStripeWeb(true);
+    dispatch(toggleModal(null, 'stripeWebModal'));
   };
 
   if (loadError) {
@@ -122,12 +122,12 @@ export default function WebMap({ navigation }) {
         >
           <Text style={styles.buttonText}>Proceed to Checkout</Text>
         </Pressable>
-        <Modal animationType="slide" transparent={true} visible={showStripeWeb}>
+        <Modal animationType="slide" transparent={true} visible={modalShow === 'stripeWebModal'}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Stripe />
               <View style={styles.closeButtonContainer}>
-                <TouchableOpacity onPress={() => setShowStripeWeb(false)}>
+              <TouchableOpacity onPress={() => dispatch(toggleModal(''))}>
                   <Text style={styles.closeModal}>⨉</Text>
                 </TouchableOpacity>
               </View>
