@@ -62,7 +62,7 @@ export default function Home({ navigation }) {
     if (userSession) {
       getOrderCount(userSession.id)
     }
-  }, [userSession]);
+  }, [modalShow]);
 
   const viewSwitcher = function (newView) {
     navigation.navigate(newView);
