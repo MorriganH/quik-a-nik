@@ -27,13 +27,13 @@ import styles from "../styles/home";
 export default function Home({ navigation }) {
   const device = Platform.OS;
 
-  const [menuModalShow, setMenuModalShow] = useState(false)
+  const [menuModalShow, setMenuModalShow] = useState(false);
 
   const { cart, products, modalShow, modalProduct, userSession } = useSelector(
     state => state.reducer
   );
 
-  const [orderCount, setOrderCount] = useState(0)
+  const [orderCount, setOrderCount] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -53,14 +53,14 @@ export default function Home({ navigation }) {
     axios
       .get(`${tunnelURL}/orders/count/${user_id}`)
       .then(res => {
-        setOrderCount(res.data)
+        setOrderCount(res.data);
       })
       .catch(err => console.log(err));
   };
 
   useEffect(() => {
     if (userSession) {
-      getOrderCount(userSession.id)
+      getOrderCount(userSession.id);
     }
   }, [modalShow]);
 
@@ -145,10 +145,14 @@ export default function Home({ navigation }) {
           <Text style={styles.buttonTitle}>Baskets for Two</Text>
         </Pressable>
       </ScrollView>
-      <Modal visible={modalShow === "homeModal"} transparent={true} animationType="slide">
+      <Modal
+        visible={modalShow === "homeModal"}
+        transparent={true}
+        animationType="slide"
+      >
         <View style={styles.modal}>
           <View style={styles.modalHeader}>
-            <TouchableOpacity onPress={() => dispatch(toggleModal("",""))}>
+            <TouchableOpacity onPress={() => dispatch(toggleModal("", ""))}>
               <Text style={styles.closeModal}>⨉</Text>
             </TouchableOpacity>
             {userSession && (
@@ -175,35 +179,35 @@ export default function Home({ navigation }) {
               <View style={styles.modalDivider}>
                 <Pressable
                   style={styles.modalButton}
-                  onPress={() => viewSwitcher("OrderList")}  
+                  onPress={() => viewSwitcher("OrderList")}
                 >
-                <Text style={styles.modalOption}>🧾 Orders</Text>
+                  <Text style={styles.modalOption}>🧾 Orders</Text>
                 </Pressable>
-                <Text style={styles.modalOption}>📍 About</Text>
-                <Text style={styles.modalOption}>🌭 Work with us</Text>
+                <Pressable style={styles.modalButton} onPress={() => logout()}>
+                  <Text style={styles.modalOption}>⬅️ Logout</Text>
+                </Pressable>
               </View>
-              <Pressable style={styles.modalButton} onPress={() => logout()}>
-                <Text style={styles.modalOption}>⇇| Logout</Text>
-              </Pressable>
             </>
           )}
           {!userSession && (
-            <>
+            <View style={styles.modalDivider}>
               <Pressable
                 style={styles.modalButton}
                 onPress={() => viewSwitcher("Login")}
               >
-                <Text style={styles.modalOption}>Login</Text>
+                <Text style={styles.modalOption}>➡️ Login</Text>
               </Pressable>
 
               <Pressable
                 style={styles.modalButton}
                 onPress={() => viewSwitcher("Register")}
               >
-                <Text style={styles.modalOption}>Register</Text>
+                <Text style={styles.modalOption}>🖊️ Register</Text>
               </Pressable>
-            </>
+            </View>
           )}
+          <Text style={styles.modalOption}>📍 About</Text>
+          <Text style={styles.modalOption}>🌭 Work with us</Text>
         </View>
       </Modal>
     </View>
