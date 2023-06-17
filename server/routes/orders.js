@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const orders = require("../db/queries/orders");
+const line_items = require("../db/queries/line_items")
 
 //GET all orders
 router.get("/", function (req, res) {
@@ -29,7 +30,24 @@ router.post("/", function (req, res) {
   };
 
   console.log(order);
-  orders.postOrder(order);
+  orders.postOrder(order)
+  .then((order_result) => {
+    const order_id = order_result.rows[0].id    
+
+    cart.forEach((item) => {
+      const line_price_cents = (item.price_cents * item.default_quantity)
+      const lineItem = {
+        order_id,
+        product_id: item.id,
+        quantity: item.default_quantity,
+        line_price_cents
+      }
+
+      line_items.postLineItem(lineItem)
+    });
+  })
+
+
 });
 
 
