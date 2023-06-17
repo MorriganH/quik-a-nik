@@ -89,6 +89,10 @@ const reducer = function (state = initialState, action) {
         currentModalProduct.default_quantity++;
       }
       if (action.payload === "-") {
+        if (currentModalProduct.default_quantity === 1) {
+          break;
+        }
+
         currentModalProduct.default_quantity--;
       }
 
