@@ -1,20 +1,29 @@
 import { useState, useCallback, useEffect } from "react";
-import { Text, View, TextInput, Pressable, ActivityIndicator } from "react-native";
+import {
+  Text,
+  View,
+  TextInput,
+  Pressable,
+  ActivityIndicator,
+  Modal,
+  TouchableOpacity,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import MapView, { Marker } from "react-native-maps";
 import key from "../api_key";
 import * as Location from "expo-location";
-import styles from '../styles/map'
+import styles from "../styles/map";
 import { setLocationInfo } from "../redux/actions";
+import StripeMobile from "./Stripe.android";
 
-export default function Map({navigation}) {
-
+export default function Map({ navigation }) {
   const dispatch = useDispatch();
+  const [showStripeMobile, setShowStripeMobile] = useState(false);
 
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [markerPosition, setMarkerPosition] = useState(null);
-  const [locationDetails, setLocationDetails] = useState(''); 
+  const [locationDetails, setLocationDetails] = useState("");
 
   // grab device location using expo-location
   useEffect(() => {
@@ -49,8 +58,9 @@ export default function Map({navigation}) {
 
   const checkoutConfirmation = function (markerPosition, locationDetails) {
     const input = { markerPosition, locationDetails };
-    dispatch(setLocationInfo(input))
-        navigation.navigate("Stripe");
+    dispatch(setLocationInfo(input));
+    setShowStripeMobile(true);
+    // navigation.navigate("Stripe");
   };
 
   return (
@@ -58,8 +68,8 @@ export default function Map({navigation}) {
 
     location ? (
       <View style={styles.container}>
-      <Text style={styles.title}>Set Location</Text>
-      <Text style={styles.subtitle}>Let Us Know Exactly Where You'll Be</Text>
+        <Text style={styles.title}>Set Location</Text>
+        <Text style={styles.subtitle}>Let Us Know Exactly Where You'll Be</Text>
         <MapView
           style={styles.map}
           provider="google"
@@ -75,7 +85,9 @@ export default function Map({navigation}) {
         >
           <Marker coordinate={markerPosition} />
         </MapView>
-        <Text style={styles.infoText}>{`Please provide us with some more details so we can find you`}</Text>
+        <Text
+          style={styles.infoText}
+        >{`Please provide us with some more details so we can find you`}</Text>
         <TextInput
           style={styles.locationDetailsInput}
           placeholder="Location Details"
@@ -92,7 +104,29 @@ export default function Map({navigation}) {
         >
           <Text style={styles.buttonText}>Proceed to Checkout</Text>
         </Pressable>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={showStripeMobile}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <View style={styles.closeButtonContainer}>
+                <TouchableOpacity onPress={() => setShowStripeMobile(false)}>
+                  <Text style={styles.closeModal}>⨉</Text>
+                </TouchableOpacity>
+              </View>
+              <StripeMobile />
+            </View>
+          </View>
+        </Modal>
       </View>
-    ) : <ActivityIndicator size="large" color="#00ff00" style={styles.activityIndicator} /> 
+    ) : (
+      <ActivityIndicator
+        size="large"
+        color="#00ff00"
+        style={styles.activityIndicator}
+      />
+    )
   );
 }

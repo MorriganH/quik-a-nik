@@ -8,7 +8,7 @@ import { ActivityIndicator } from "react-native";
 import { Text, View, Button } from "react-native";
 import { useState } from "react";
 import tunnelURL from "../backend_tunnel";
-import styles from "../styles/stripeMobile";
+import styles from "../styles/stripeAndroid";
 import axios from "axios";
 
 export default function StripeMobile() {
