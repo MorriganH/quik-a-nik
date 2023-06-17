@@ -73,10 +73,10 @@ export default function QuikanikStack() {
           <Stack.Group
             screenOptions={({ navigation }) => ({
               headerLeft: () => (
-                <Button
+                <Pressable
                   onPress={() => dispatch(toggleModal("N/A", "homeModal"))}
-                  title="Menu"
-                />
+                  
+                ><Text style={style.menu}> ☰  </Text></Pressable>
               ),
             })}
           >
@@ -138,6 +138,10 @@ cartNotification: {
   fontWeight: "bold",
   color: "#ce4216"
 
+},
+menu: {
+  fontSize: 35,
+  color: "#62ab56"
 }
 
 })
