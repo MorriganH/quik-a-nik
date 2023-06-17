@@ -68,13 +68,16 @@ const styles = StyleSheet.create({
     marginTop: 22
   },
 
+// Stripe-web Modal Styling Below
 
   modalView: {
-    minWidth: "80%",
-    minHeight: "50%",
+    minWidth: "40%",
+    minHeight: "25%",
     margin: 20,
-    backgroundColor: "grey",
+    backgroundColor: "#F5FCFF",
     borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "black",
     padding: 35,
     alignItems: "center",
     shadowColor: "#000",
@@ -97,7 +100,8 @@ const styles = StyleSheet.create({
 
   closeModal: {
     color: "black",
-    fontSize: 20 
+    fontSize: 20,
+    fontWeight: 800,
   }
 
   
