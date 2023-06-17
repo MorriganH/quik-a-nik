@@ -174,6 +174,7 @@ if (device !== "web") {
       padding: 5,
       margin: 5,
     },
+
     modal: {
       backgroundColor: "white",
       height: "100%",
@@ -185,6 +186,7 @@ if (device !== "web") {
       color: "white",
       paddingBottom: 15,
     },
+
     modalOrderBanner: {
       fontSize: 15,
       alignSelf: "center",
@@ -197,6 +199,7 @@ if (device !== "web") {
       width: "100%",
       height: 35,
     },
+
     modalHeader: {
       backgroundColor: "#89cc7e",
       paddingLeft: 25,
@@ -204,19 +207,43 @@ if (device !== "web") {
       paddingTop: 25,
       paddingBottom: 10,
     },
+
     modalUsername: {
       color: "white",
       fontWeight: "bold",
       fontSize: 25,
     },
+
     modalEmail: {
       color: "white",
-      fontSize: 15,
+      fontSize: 18,
     },
+
+    modalButton: {
+      backgroundColor: "none",
+    },
+
     modalOption: {
       display: "flex",
       flexDirection: "row",
+      backgroundColor: "#89cc7e",
+      borderRadius: 10,
       fontSize: 25,
+      marginTop: 15,
+      paddingLeft: 15,
+      paddingBottom: 12,
+      paddingTop: 10,
+    },
+
+    modalSubOption: {
+      display: "flex",
+      flexDirection: "row",
+      backgroundColor: "#89cc7e",
+      width: "95%",
+      alignSelf: "center",
+      borderRadius: 10,
+      fontSize: 25,
+      marginTop: 15,
       paddingLeft: 15,
       paddingBottom: 12,
       paddingTop: 10,
@@ -224,8 +251,8 @@ if (device !== "web") {
 
     modalDivider: {
       marginTop: 5,
-      paddingBottom: 7,
-      borderBottomWidth: 1,
+      paddingBottom: 15,
+      borderBottomWidth: 4,
       borderColor: "lightgrey",
       width: "95%",
       alignSelf: "center",

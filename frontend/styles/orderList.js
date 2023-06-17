@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
 
   qtyText: {
-    mindWidth: "30%",
+    minWidth: "30%",
   },
 
   linePriceText: {

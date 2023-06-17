@@ -27,11 +27,14 @@ import styles from "../styles/home";
 export default function Home({ navigation }) {
   const device = Platform.OS;
 
-  const [menuModalShow, setMenuModalShow] = useState(false)
+  const [menuModalShow, setMenuModalShow] = useState(false);
 
   const { cart, products, modalShow, modalProduct, userSession } = useSelector(
     state => state.reducer
   );
+
+  const [orderCount, setOrderCount] = useState(0);
+
   const dispatch = useDispatch();
 
   const filter = function (path, view) {
@@ -46,6 +49,21 @@ export default function Home({ navigation }) {
       });
   };
 
+  const getOrderCount = function (user_id) {
+    axios
+      .get(`${tunnelURL}/orders/count/${user_id}`)
+      .then(res => {
+        setOrderCount(res.data);
+      })
+      .catch(err => console.log(err));
+  };
+
+  useEffect(() => {
+    if (userSession) {
+      getOrderCount(userSession.id);
+    }
+  }, [modalShow]);
+
   const viewSwitcher = function (newView) {
     navigation.navigate(newView);
   };
@@ -54,6 +72,7 @@ export default function Home({ navigation }) {
     dispatch(setUserSession(null));
     viewSwitcher("Login");
   };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
@@ -92,16 +111,6 @@ export default function Home({ navigation }) {
               />
               <Text style={styles.buttonTitle}>Individual Items</Text>
             </Pressable>
-            {/* <Pressable
-              style={styles.button}
-              onPress={() => viewSwitcher("OrderList")}
-            >
-              <Image
-                style={styles.logo}
-                source={require("../assets/Juniper_Twitter_Art.webp")}
-              />
-              <Text style={styles.buttonTitle}>Orders</Text>
-            </Pressable> */}
           </View>
         </View>
         <Pressable
@@ -136,51 +145,88 @@ export default function Home({ navigation }) {
           <Text style={styles.buttonTitle}>Baskets for Two</Text>
         </Pressable>
       </ScrollView>
-      <Modal visible={modalShow === "homeModal"} transparent={true} animationType="slide">
+      <Modal
+        visible={modalShow === "homeModal"}
+        transparent={true}
+        animationType="slide"
+      >
         <View style={styles.modal}>
           <View style={styles.modalHeader}>
-            <TouchableOpacity onPress={() => dispatch(toggleModal("",""))}>
+            <TouchableOpacity onPress={() => dispatch(toggleModal("", ""))}>
               <Text style={styles.closeModal}>⨉</Text>
             </TouchableOpacity>
-            <Text style={styles.modalUsername}>Graydon Ritchie</Text>
-            <Text style={styles.modalEmail}>email@address.com</Text>
+            {userSession && (
+              <>
+                <Text style={styles.modalUsername}>
+                  {userSession.first_name} {userSession.last_name}
+                </Text>
+                <Text style={styles.modalEmail}>{userSession.email}</Text>
 
-            <Text style={styles.modalOrderBanner}>
-              {" "}
-              You have made 9 Quik-a-nik orders!
-            </Text>
+                <Text style={styles.modalOrderBanner}>
+                  {" "}
+                  You have made {orderCount} Quik-a-nik orders!
+                </Text>
+              </>
+            )}
+            {!userSession && (
+              <Text style={styles.modalUsername}>
+                Sign in to view your account details
+              </Text>
+            )}
           </View>
-          <View style={styles.modalDivider}>
-            <Text style={styles.modalOption}>🧾 Orders</Text>
-            <Text style={styles.modalOption}>📍 About</Text>
-            <Text style={styles.modalOption}>🌭 Work with us</Text>
-          </View>
-          <View style={styles.modalDivider}>
-            <Text style={styles.modalOption}>⇇| Logout</Text>
-          </View>
-          {userSession === null && (
-            <Pressable
-              style={styles.button}
-              onPress={() => viewSwitcher("Login")}
-            >
-              <Text>Login</Text>
-            </Pressable>
+          {userSession && (
+            <>
+              <View style={styles.modalDivider}>
+                <Pressable
+                  style={styles.modalButton}
+                  onPress={() => {
+                    viewSwitcher("OrderList");
+                    dispatch(toggleModal("", ""));
+                  }}
+                >
+                  <Text style={styles.modalOption}>🧾 Orders</Text>
+                </Pressable>
+                <Pressable
+                  style={styles.modalButton}
+                  onPress={() => {
+                    logout();
+                    dispatch(toggleModal("", ""));
+                  }}
+                >
+                  <Text style={styles.modalOption}>⬅️ Logout</Text>
+                </Pressable>
+              </View>
+            </>
           )}
+          {!userSession && (
+            <View style={styles.modalDivider}>
+              <Pressable
+                style={styles.modalButton}
+                onPress={() => {
+                  viewSwitcher("Login");
+                  dispatch(toggleModal("", ""));
+                }}
+              >
+                <Text style={styles.modalOption}>➡️ Login</Text>
+              </Pressable>
 
-          {userSession === null && (
-            <Pressable
-              style={styles.button}
-              onPress={() => viewSwitcher("Register")}
-            >
-              <Text>Register</Text>
-            </Pressable>
+              <Pressable
+                style={styles.modalButton}
+                onPress={() => {
+                  viewSwitcher("Register");
+                  dispatch(toggleModal("", ""));
+                }}
+              >
+                <Text style={styles.modalOption}>🖊️ Register</Text>
+              </Pressable>
+            </View>
           )}
-          {userSession !== null && <Text>{userSession.first_name}</Text>}
-          {userSession !== null && (
-            <Pressable style={styles.button} onPress={() => logout()}>
-              <Text>Logout</Text>
-            </Pressable>
-          )}
+          {/* <View style={{ alignItems: "center" }}> */}
+          <Text style={styles.modalSubOption}>📍 About</Text>
+          <Text style={styles.modalSubOption}>🌭 Work with us</Text>
+          <Text style={styles.modalSubOption}>❓ FAQ</Text>
+          <Text style={styles.modalSubOption}>📢 Contact us</Text>
+          {/* </View> */}
         </View>
       </Modal>
     </View>
