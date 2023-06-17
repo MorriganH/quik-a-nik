@@ -10,7 +10,7 @@ import tunnelURL from "../backend_tunnel";
 import axios from "axios";
 import { setUserSession } from "../redux/actions";
 import { useDispatch } from "react-redux";
-import bcrypt from "bcryptjs";
+import bcrypt from "react-native-bcrypt";
 import styles from "../styles/register";
 
 export default function Login({ navigation }) {
@@ -31,7 +31,6 @@ export default function Login({ navigation }) {
   const registerUser = (firstName, lastName, email, hash) => {
     const userInfo = { firstName, lastName, email: email.toLowerCase(), hash };
     for (let key in userInfo) {
-      console.log(key);
       if (userInfo[key] === "") {
         setLoading(false);
         return alert("Please fill in all fields");
@@ -51,15 +50,17 @@ export default function Login({ navigation }) {
 
   const checkPasswords = (password, passwordConfirm) => {
     setLoading(true);
+    console.log(password, " : ", passwordConfirm);
     if (!password || password !== passwordConfirm) {
       setLoading(false);
       return alert("Please ensure your passwords match and are not blank");
     }
-    console.log("Hello 1")
-    bcrypt.hash(password, 10).then(hash => {
-      console.log("Hello 2");
-      registerUser(firstName, lastName, email, hash);
-    });
+    console.log("Hello 1");
+    const salt = bcrypt.genSaltSync(10);
+    console.log(salt);
+    const hash = bcrypt.hashSync(password, salt);
+    console.log(hash);
+    registerUser(firstName, lastName, email, hash);
   };
 
   return (

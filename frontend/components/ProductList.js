@@ -12,7 +12,6 @@ import {
   ImageBackground,
   ActivityIndicator,
 } from "react-native";
-import images from "../product-images";
 import styles from "../styles/productList";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, toggleModal, adjustQuantity } from "../redux/actions";
