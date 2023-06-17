@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { View, Text, TextInput, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import tunnelURL from "../backend_tunnel";
 import axios from "axios";
 import { setUserSession } from "../redux/actions";
@@ -13,6 +19,7 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -24,7 +31,9 @@ export default function Login({ navigation }) {
   const registerUser = (firstName, lastName, email, hash) => {
     const userInfo = { firstName, lastName, email: email.toLowerCase(), hash };
     for (let key in userInfo) {
+      console.log(key);
       if (userInfo[key] === "") {
+        setLoading(false);
         return alert("Please fill in all fields");
       }
     }
@@ -32,6 +41,7 @@ export default function Login({ navigation }) {
     axios.post(`${tunnelURL}/users/register`, userInfo).then(res => {
       if (!res.data) {
         alert("User with this email already exists");
+        setLoading(false);
       } else {
         dispatch(setUserSession(res.data));
         viewSwitcher("Home");
@@ -40,10 +50,14 @@ export default function Login({ navigation }) {
   };
 
   const checkPasswords = (password, passwordConfirm) => {
+    setLoading(true);
     if (!password || password !== passwordConfirm) {
+      setLoading(false);
       return alert("Please ensure your passwords match and are not blank");
     }
+    console.log("Hello 1")
     bcrypt.hash(password, 10).then(hash => {
+      console.log("Hello 2");
       registerUser(firstName, lastName, email, hash);
     });
   };
@@ -90,12 +104,18 @@ export default function Login({ navigation }) {
           onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
           secureTextEntry={true}
         />
-        <Pressable
-          style={styles.submitButton}
-          onPress={() => checkPasswords(password, passwordConfirm)}
-        >
-          <Text>Submit</Text>
-        </Pressable>
+        {loading ? (
+          <ActivityIndicator size="large" color="#00ff00" />
+        ) : (
+          <Pressable
+            style={styles.submitButton}
+            onPress={() => {
+              checkPasswords(password, passwordConfirm);
+            }}
+          >
+            <Text>Submit</Text>
+          </Pressable>
+        )}
       </View>
     </View>
   );

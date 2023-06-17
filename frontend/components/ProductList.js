@@ -22,10 +22,9 @@ export default function ProductList() {
   const device = Platform.OS;
   const columns = device === "web" ? 3 : 1;
   const { cart, products, modalShow, modalProduct } = useSelector(
-    (state) => state.reducer
+    state => state.reducer
   );
   const dispatch = useDispatch();
-
 
   const Item = ({ product }) => {
     return (
@@ -33,10 +32,7 @@ export default function ProductList() {
         style={styles.item}
         onPress={() => dispatch(toggleModal(product, "productModal"))}
       >
-        <Image
-          style={styles.logo}
-          source={{uri: product.image}}
-        />
+        <Image style={styles.logo} source={{ uri: product.image }} />
         <View style={styles.prodInfo}>
           <Text style={styles.prodName}>{product.name}</Text>
           <Text>${product.price_cents / 100}</Text>
@@ -47,7 +43,8 @@ export default function ProductList() {
           />
         </View>
       </Pressable>
-  )};
+    );
+  };
 
   return (
     <View style={styles.list}>
@@ -55,21 +52,32 @@ export default function ProductList() {
       <Text style={styles.subtitle}>
         {device === "web" ? "Click" : "Touch"} an item to view more info
       </Text>
-      { products.length < 2 ? <ActivityIndicator/> :
-      <FlatList
-        data={products}
-        showsHorizontalScrollIndicator={false}
-        numColumns={columns}
-        renderItem={(product) => <Item product={product.item} />}
-        keyExtractor={(item) => item.id}
-      /> }
-      <Modal visible={modalShow === "productModal"} transparent={true} animationType="slide"  blurRadius={1} >
-
+      {products.length < 2 ? (
+        <ActivityIndicator
+          size="large"
+          color="#00ff00"
+          style={styles.activityIndicator}
+        />
+      ) : (
+        <FlatList
+          data={products}
+          showsHorizontalScrollIndicator={false}
+          numColumns={columns}
+          renderItem={product => <Item product={product.item} />}
+          keyExtractor={item => item.id}
+        />
+      )}
+      <Modal
+        visible={modalShow === "productModal"}
+        transparent={true}
+        animationType="slide"
+        blurRadius={1}
+      >
         <View style={styles.modal}>
           <ImageBackground
             style={styles.modalHeader}
             source={require("../assets/Juniper_Twitter_Art.webp")}
-            >
+          >
             <TouchableOpacity onPress={() => dispatch(toggleModal())}>
               <Text style={styles.closeModal}>⨉</Text>
             </TouchableOpacity>
@@ -98,9 +106,8 @@ export default function ProductList() {
             </View>
 
             <Button
-            
-            title="Add to basket"
-            onPress={() => dispatch(addItem(modalProduct))}
+              title="Add to basket"
+              onPress={() => dispatch(addItem(modalProduct))}
             />
           </View>
         </View>

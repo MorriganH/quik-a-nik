@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { View, Text, TextInput, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import tunnelURL from "../backend_tunnel";
 import axios from "axios";
 import { setUserSession } from "../redux/actions";
@@ -10,6 +16,7 @@ import styles from "../styles/login";
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -21,17 +28,21 @@ export default function Login({ navigation }) {
   const userAuth = function (email, password) {
     const input = { email: email.toLowerCase(), password };
 
+    setLoading(true);
+
     axios
       .post(`${tunnelURL}/users/login`, { email: input.email })
       .then(res => {
         if (!res.data) {
           alert("Login failed. Check your email and password.");
+          setLoading(false);
           throw Error("User credentials invalid");
         }
 
-        return bcrypt.compare(password, res.data.password).then(passed => {
+        bcrypt.compare(password, res.data.password).then(passed => {
           if (!passed) {
             alert("Login failed. Check your email and password.");
+            setLoading(false);
             throw Error("User credentials invalid");
           }
           dispatch(setUserSession(res.data));
@@ -63,12 +74,18 @@ export default function Login({ navigation }) {
           onSubmitEditing={() => userAuth(email, password)}
           secureTextEntry={true}
         />
-        <Pressable
-          style={styles.submitButton}
-          onPress={() => userAuth(email, password)}
-        >
-          <Text>Submit</Text>
-        </Pressable>
+        {loading ? (
+          <ActivityIndicator size="large" color="#00ff00" />
+        ) : (
+          <Pressable
+            style={styles.submitButton}
+            onPress={() => {
+              userAuth(email, password);
+            }}
+          >
+            <Text>Submit</Text>
+          </Pressable>
+        )}
       </View>
     </View>
   );

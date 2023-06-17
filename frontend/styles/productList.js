@@ -9,7 +9,7 @@ if (device === "web") {
       display: "flex",
       alignItems: "center",
       flex: 1,
-      overflow: "hidden"
+      overflow: "hidden",
     },
 
     item: {
@@ -51,20 +51,29 @@ if (device === "web") {
       width: 200,
       fontSize: 24,
     },
+
+    activityIndicator: {
+      flex: 1,
+      justifyContent: "center",
+      flexDirection: "row",
+      justifyContent: "space-around",
+      padding: 10,
+    },
+
     modal: {
       backgroundColor: "white",
       height: "60%",
       width: "50%",
-      alignSelf: "center"
-    
+      alignSelf: "center",
     },
 
     closeModal: {
       fontSize: 25,
       fontWeight: "bold",
       color: "white",
-      paddingBottom: 15
+      paddingBottom: 15,
     },
+
     modalOrderBanner: {
       fontSize: 15,
       alignSelf: "center",
@@ -75,37 +84,38 @@ if (device === "web") {
       backgroundColor: "white",
       borderRadius: 12,
       width: "100%",
-      
-      
     },
+
     modalHeader: {
-      backgroundColor :"#89cc7e",
+      backgroundColor: "#89cc7e",
       paddingLeft: 25,
       paddingRight: 25,
       paddingTop: 25,
       paddingBottom: 10,
-      height: 350
- 
+      height: 350,
     },
+
     modalProductName: {
       color: "#1e1f22",
       fontWeight: "bold",
       fontSize: 25,
-      margin: 15
+      margin: 15,
     },
+
     modalEmail: {
       color: "white",
-      fontSize: 15
+      fontSize: 15,
     },
+
     modalOption: {
       display: "flex",
       flexDirection: "row",
       fontSize: 25,
       paddingLeft: 15,
       paddingBottom: 12,
-      paddingTop: 10
-
+      paddingTop: 10,
     },
+
     modalActions: {
       marginTop: 5,
       display: "flex",
@@ -115,11 +125,11 @@ if (device === "web") {
       position: "absolute",
       bottom: 0,
       alignSelf: "center",
-      padding: 25,      
+      padding: 25,
       width: "100%",
-      backgroundColor: "white",      
-      
+      backgroundColor: "white",
     },
+
     modalDivider: {
       display: "flex",
       flexDirection: "row",
@@ -129,18 +139,16 @@ if (device === "web") {
       borderBottomWidth: 1,
       borderColor: "lightgrey",
       width: "95%",
-      alignSelf: "center"
-
-
+      alignSelf: "center",
     },
+
     modalQuantity: {
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-evenly",
       backgroundColor: "grey",
       width: 125,
-
-    }
+    },
   });
 }
 
@@ -190,18 +198,27 @@ if (device !== "web") {
       width: 200,
       fontSize: 24,
     },
+
+    activityIndicator: {
+      flex: 1,
+      justifyContent: "center",
+      flexDirection: "row",
+      justifyContent: "space-around",
+      padding: 10,
+    },
+
     modal: {
       backgroundColor: "white",
-      height: "100%"
-    
+      height: "100%",
     },
 
     closeModal: {
       fontSize: 25,
       fontWeight: "bold",
       color: "white",
-      paddingBottom: 15
+      paddingBottom: 15,
     },
+
     modalOrderBanner: {
       fontSize: 15,
       alignSelf: "center",
@@ -212,37 +229,38 @@ if (device !== "web") {
       backgroundColor: "white",
       borderRadius: 12,
       width: "100%",
-      
-      
     },
+
     modalHeader: {
-      backgroundColor :"#89cc7e",
+      backgroundColor: "#89cc7e",
       paddingLeft: 25,
       paddingRight: 25,
       paddingTop: 25,
       paddingBottom: 10,
-      height: 350
- 
+      height: 350,
     },
+
     modalProductName: {
       color: "#1e1f22",
       fontWeight: "bold",
       fontSize: 25,
-      margin: 15
+      margin: 15,
     },
+
     modalEmail: {
       color: "white",
-      fontSize: 15
+      fontSize: 15,
     },
+
     modalOption: {
       display: "flex",
       flexDirection: "row",
       fontSize: 25,
       paddingLeft: 15,
       paddingBottom: 12,
-      paddingTop: 10
-
+      paddingTop: 10,
     },
+
     modalActions: {
       marginTop: 5,
       display: "flex",
@@ -252,11 +270,11 @@ if (device !== "web") {
       position: "absolute",
       bottom: 0,
       alignSelf: "center",
-      padding: 25,      
+      padding: 25,
       width: "100%",
-      backgroundColor: "white",      
-      
+      backgroundColor: "white",
     },
+
     modalDivider: {
       display: "flex",
       flexDirection: "row",
@@ -266,18 +284,16 @@ if (device !== "web") {
       borderBottomWidth: 1,
       borderColor: "lightgrey",
       width: "95%",
-      alignSelf: "center"
-
-
+      alignSelf: "center",
     },
+
     modalQuantity: {
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-evenly",
       backgroundColor: "grey",
       width: 125,
-
-    }
+    },
   });
 }
 
