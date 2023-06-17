@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import axios from "axios";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import tunnelURL from "../backend_tunnel";
@@ -61,9 +61,11 @@ export default function Stripe() {
 
   return (
     <>
-    <form onSubmit={handleSubmit}>
-      <CardElement />
-      <button type="submit" disabled={!stripe}>
+    
+
+    <form onSubmit={handleSubmit} style={{ minHeight: 60, minWidth: 500, backgroundColor: "white", margin:"auto", padding:10 }}>
+      <CardElement style={styles.cardDetails}/>
+      <button type="submit" disabled={!stripe} style={{ margin:"auto", backgroundColor: "#55bb55", marginTop: 15, marginBottom: 10, }}>
         Pay
       </button>
     </form>

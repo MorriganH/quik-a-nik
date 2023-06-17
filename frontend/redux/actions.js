@@ -36,6 +36,7 @@ export const toggleModal = (product, modalType) => (dispatch) => {
     modalType
   });
 };
+
 export const adjustQuantity = (operation) => (dispatch) => {
   dispatch({
     type: ADJUST_QUANTITY,
