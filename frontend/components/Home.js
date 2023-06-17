@@ -27,6 +27,8 @@ import styles from "../styles/home";
 export default function Home({ navigation }) {
   const device = Platform.OS;
 
+  const [menuModalShow, setMenuModalShow] = useState(false)
+
   const { cart, products, modalShow, modalProduct, userSession } = useSelector(
     state => state.reducer
   );
@@ -143,10 +145,10 @@ export default function Home({ navigation }) {
           <Text style={styles.buttonTitle}>Baskets for Two</Text>
         </Pressable>
       </ScrollView>
-      <Modal visible={modalShow} transparent={true} animationType="slide">
+      <Modal visible={modalShow === "homeModal"} transparent={true} animationType="slide">
         <View style={styles.modal}>
           <View style={styles.modalHeader}>
-            <TouchableOpacity onPress={() => dispatch(toggleModal())}>
+            <TouchableOpacity onPress={() => dispatch(toggleModal("",""))}>
               <Text style={styles.closeModal}>⨉</Text>
             </TouchableOpacity>
             {userSession && (

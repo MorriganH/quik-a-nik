@@ -56,7 +56,8 @@ export default function WebMap({ navigation }) {
   };
 
   const checkoutConfirmation = function (markerPos, locationDetails) {
-    const input = { markerPos, locationDetails };
+    const {longitude, latitude} = markerPos.coords
+    const input = { longitude, latitude, locationDetails };
     dispatch(setLocationInfo(input));
     navigation.navigate("Stripe");
   };

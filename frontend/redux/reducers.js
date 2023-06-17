@@ -68,7 +68,7 @@ const reducer = function (state = initialState, action) {
       };
 
     case TOGGLE_MODAL:
-      if (state.modalShow === true) {
+      if (state.modalShow !== false) {
         return {
           ...state,
           modalShow: false,
@@ -79,7 +79,7 @@ const reducer = function (state = initialState, action) {
       modalProd.default_quantity = 1;
       return {
         ...state,
-        modalShow: true,
+        modalShow: action.modalType,
         modalProduct: modalProd,
       };
 

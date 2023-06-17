@@ -7,7 +7,9 @@ import {
   Platform,
   Pressable,
   AnimateHamburger,
-  View
+  StyleSheet,
+  View,
+  ImageBackground
 } from "react-native";
 
 //STACK NAVIGATOR
@@ -55,8 +57,14 @@ export default function QuikanikStack() {
             headerRight: () => (
               <View>
 
-                {cartNotification > 0 && <Text>{cartNotification}</Text>}
-              <Button onPress={() => navigation.navigate("Cart")} title="cart"/>
+<Pressable style={style.button} onPress={() => navigation.navigate("Cart")}>
+          <ImageBackground source={require("../assets/picnic-basket2.png")}
+          style={style.cartImage}>
+
+          <Text style={style.cartNotification}>{cartNotification}</Text>
+          {/* <Text>Cart </Text> */}
+          </ImageBackground>
+        </Pressable>
               
               </View>
             ),
@@ -66,7 +74,7 @@ export default function QuikanikStack() {
             screenOptions={({ navigation }) => ({
               headerLeft: () => (
                 <Button
-                  onPress={() => dispatch(toggleModal("N/A"))}
+                  onPress={() => dispatch(toggleModal("N/A", "homeModal"))}
                   title="Menu"
                 />
               ),
@@ -112,3 +120,26 @@ export default function QuikanikStack() {
     );
   }
 }
+
+const style = StyleSheet.create({
+  modal: {
+    position: "absolute",
+    backgroundColor: "pink",
+    maxHeight: 50,
+    margin: 0
+    
+  },
+cartImage: {
+  width: 40,
+  height: 40,
+},
+cartNotification: {
+  alignSelf: "center",
+  fontWeight: "bold",
+  color: "#ce4216"
+
+}
+
+})
+
+
