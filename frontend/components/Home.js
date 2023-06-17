@@ -173,7 +173,12 @@ export default function Home({ navigation }) {
           {userSession && (
             <>
               <View style={styles.modalDivider}>
+                <Pressable
+                  style={styles.modalButton}
+                  onPress={() => viewSwitcher("OrderList")}  
+                >
                 <Text style={styles.modalOption}>🧾 Orders</Text>
+                </Pressable>
                 <Text style={styles.modalOption}>📍 About</Text>
                 <Text style={styles.modalOption}>🌭 Work with us</Text>
               </View>
