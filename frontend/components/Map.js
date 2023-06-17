@@ -31,6 +31,7 @@ export default function Map({navigation}) {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
       setMarkerPosition(location.coords);
+      console.log(location.coords)
     })();
   }, []);
 
@@ -48,7 +49,8 @@ export default function Map({navigation}) {
   };
 
   const checkoutConfirmation = function (markerPosition, locationDetails) {
-    const input = { markerPosition, locationDetails };
+    const {latitude, longitude} = markerPosition
+    const input = { longitude, latitude, locationDetails};
     dispatch(setLocationInfo(input))
         navigation.navigate("Stripe");
   };

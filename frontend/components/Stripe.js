@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import axios from "axios";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import tunnelURL from "../backend_tunnel";
@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import styles from "../styles/stripeWeb";
 
 export default function Stripe() {
-  const { locationInfo } = useSelector((state) => state.reducer);
+  const { locationInfo, userSession, cart,  } = useSelector((state) => state.reducer);
   const [processing, setProcessing] = useState(false);
 
   const stripe = useStripe(); // Hook to access Stripe.js API
@@ -36,15 +36,20 @@ export default function Stripe() {
         })
         // Server response
         .then((response) => {
-          if (response.data.success) {
+          if (response.data) {
             alert("Payment Successful!");
+            return(response.data)
           } else {
             alert("Payment failed: " + response.data.message);
             throw Error("Payment has failed");
           }
         })
-        .then(() => {
-          //Make axios request to insert into order table
+        .then((stripe_charge_id) => {
+          
+          const order= { locationInfo, userSession, cart, stripe_charge_id }
+
+ 
+          axios.post( `${tunnelURL}/orders`, order)
         })
         .catch((error) => {
           setProcessing(false);
@@ -56,9 +61,11 @@ export default function Stripe() {
 
   return (
     <>
-    <form onSubmit={handleSubmit}>
-      <CardElement />
-      <button type="submit" disabled={!stripe}>
+    
+
+    <form onSubmit={handleSubmit} style={{ minHeight: 60, minWidth: 500, backgroundColor: "white", margin:"auto", padding:10 }}>
+      <CardElement style={styles.cardDetails}/>
+      <button type="submit" disabled={!stripe} style={{ margin:"auto", backgroundColor: "#55bb55", marginTop: 15, marginBottom: 10, }}>
         Pay
       </button>
     </form>

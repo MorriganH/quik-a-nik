@@ -7,6 +7,7 @@ import {
   useWindowDimensions,
   ScrollView,
   Modal,
+  ImageBackground,
 } from "react-native";
 //APP
 import tunnelURL from "../backend_tunnel";
@@ -97,13 +98,15 @@ export default function Navbar({ navigation }) {
           <Text>My Orders</Text>
         </Pressable>
         <Pressable style={styles.button} onPress={() => viewSwitcher("Cart")}>
-          {cartNotification > 0 && <Text>{cartNotification} </Text>}
-          <Text>Cart </Text>
+          <ImageBackground source={require("../assets/picnic-basket2.png")}
+          style={style.cartImage}>
+
+          <Text style={style.cartNotification}>{cartNotification} </Text>
+          {/* <Text>Cart </Text> */}
+          </ImageBackground>
         </Pressable>
       </View>
-      <Modal style={style.modal} transparent={true} visible={test} animationType="fade">
-        <Text>Hello?</Text>
-      </Modal>
+
     </Text>
   );
 }
@@ -115,5 +118,17 @@ const style = StyleSheet.create({
     maxHeight: 50,
     margin: 0
     
-  }
+  },
+cartImage: {
+  width: 40,
+  height: 40,
+},
+cartNotification: {
+  alignSelf: "center",
+  fontWeight: "bold",
+  color: "#ce4216"
+
+}
+
 })
+

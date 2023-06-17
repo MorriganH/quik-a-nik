@@ -57,6 +57,9 @@ if (device === "web") {
       display: "flex",
       minWidth: "40%",
     },
+  qtyText: {
+    minWidth: "30%",
+  },
 
     qtyText: {
       minWidth: "30%",

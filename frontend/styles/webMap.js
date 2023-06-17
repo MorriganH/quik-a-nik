@@ -59,7 +59,51 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 10,
+  },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+
+// Stripe-web Modal Styling Below
+
+  modalView: {
+    minWidth: "40%",
+    minHeight: "25%",
+    margin: 20,
+    backgroundColor: "#F5FCFF",
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "black",
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    position: "relative" 
+  },
+
+  closeButtonContainer: {
+    position: "absolute",
+    top: 10,
+    left: 10,
+    zIndex: 1, 
+  },
+
+  closeModal: {
+    color: "black",
+    fontSize: 20,
+    fontWeight: 800,
   }
+
   
 });
 
