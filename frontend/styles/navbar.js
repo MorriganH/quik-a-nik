@@ -19,12 +19,15 @@ const styles = StyleSheet.create({
   navSection: {
     display: "flex",
     justifyContent: "space-evenly",
+    alignItems: "center",
     width: "45%",
     flexDirection: "row",
   },
 
   button: {
-    backgroundColor: "white",
+    // backgroundColor: "white",
+    display: "flex",
+    justifyContent: "flexEnd"
   },
 });
 

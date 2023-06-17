@@ -29,12 +29,14 @@ export const setOrders = (orderList) => (dispatch) => {
   });
 };
 
-export const toggleModal = (product) => (dispatch) => {
+export const toggleModal = (product, modalType) => (dispatch) => {
   dispatch({
     type: TOGGLE_MODAL,
     payload: product,
+    modalType
   });
 };
+
 export const adjustQuantity = (operation) => (dispatch) => {
   dispatch({
     type: ADJUST_QUANTITY,
@@ -58,6 +60,7 @@ export const setUserSession = (id) => (dispatch) => {
 };
 
 export const setLocationInfo = (location) => (dispatch) => {
+  console.log(location)
   dispatch({
     type: SET_LOCATION_INFO,
     payload: location,
