@@ -33,7 +33,6 @@ export default function Login({ navigation }) {
       if (!res.data) {
         alert("User with this email already exists");
       } else {
-        console.log(res.data);
         dispatch(setUserSession(res.data));
         viewSwitcher("Home");
       }

@@ -24,7 +24,6 @@ export default function Login({ navigation }) {
     axios
       .post(`${tunnelURL}/users/login`, { email: input.email })
       .then(res => {
-        console.log(res);
         if (!res.data) {
           alert("Login failed. Check your email and password.");
           throw Error("User credentials invalid");

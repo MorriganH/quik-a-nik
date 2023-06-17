@@ -174,6 +174,7 @@ if (device !== "web") {
       padding: 5,
       margin: 5,
     },
+
     modal: {
       backgroundColor: "white",
       height: "100%",
@@ -185,6 +186,7 @@ if (device !== "web") {
       color: "white",
       paddingBottom: 15,
     },
+
     modalOrderBanner: {
       fontSize: 15,
       alignSelf: "center",
@@ -197,6 +199,7 @@ if (device !== "web") {
       width: "100%",
       height: 35,
     },
+
     modalHeader: {
       backgroundColor: "#89cc7e",
       paddingLeft: 25,
@@ -204,15 +207,22 @@ if (device !== "web") {
       paddingTop: 25,
       paddingBottom: 10,
     },
+
     modalUsername: {
       color: "white",
       fontWeight: "bold",
       fontSize: 25,
     },
+
     modalEmail: {
       color: "white",
       fontSize: 15,
     },
+
+    modalButton: {
+      backgroundColor: "none",
+    },
+
     modalOption: {
       display: "flex",
       flexDirection: "row",
