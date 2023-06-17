@@ -27,7 +27,6 @@ export default function ProductList() {
   const dispatch = useDispatch();
 
 
-
   const Item = ({ product }) => {
     return (
       <Pressable
