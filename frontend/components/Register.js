@@ -5,6 +5,7 @@ import {
   TextInput,
   Pressable,
   ActivityIndicator,
+  LogBox,
 } from "react-native";
 import tunnelURL from "../backend_tunnel";
 import axios from "axios";
@@ -20,6 +21,8 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [loading, setLoading] = useState(false);
+
+  LogBox.ignoreAllLogs();
 
   const dispatch = useDispatch();
 
@@ -50,16 +53,12 @@ export default function Login({ navigation }) {
 
   const checkPasswords = (password, passwordConfirm) => {
     setLoading(true);
-    console.log(password, " : ", passwordConfirm);
     if (!password || password !== passwordConfirm) {
       setLoading(false);
       return alert("Please ensure your passwords match and are not blank");
     }
-    console.log("Hello 1");
     const salt = bcrypt.genSaltSync(10);
-    console.log(salt);
     const hash = bcrypt.hashSync(password, salt);
-    console.log(hash);
     registerUser(firstName, lastName, email, hash);
   };
 
