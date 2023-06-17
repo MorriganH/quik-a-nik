@@ -216,7 +216,7 @@ if (device !== "web") {
 
     modalEmail: {
       color: "white",
-      fontSize: 15,
+      fontSize: 18,
     },
 
     modalButton: {
@@ -226,7 +226,24 @@ if (device !== "web") {
     modalOption: {
       display: "flex",
       flexDirection: "row",
+      backgroundColor: "#89cc7e",
+      borderRadius: 10,
       fontSize: 25,
+      marginTop: 15,
+      paddingLeft: 15,
+      paddingBottom: 12,
+      paddingTop: 10,
+    },
+
+    modalSubOption: {
+      display: "flex",
+      flexDirection: "row",
+      backgroundColor: "#89cc7e",
+      width: "95%",
+      alignSelf: "center",
+      borderRadius: 10,
+      fontSize: 25,
+      marginTop: 15,
       paddingLeft: 15,
       paddingBottom: 12,
       paddingTop: 10,
@@ -234,8 +251,8 @@ if (device !== "web") {
 
     modalDivider: {
       marginTop: 5,
-      paddingBottom: 7,
-      borderBottomWidth: 1,
+      paddingBottom: 15,
+      borderBottomWidth: 4,
       borderColor: "lightgrey",
       width: "95%",
       alignSelf: "center",

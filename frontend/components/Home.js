@@ -206,8 +206,12 @@ export default function Home({ navigation }) {
               </Pressable>
             </View>
           )}
-          <Text style={styles.modalOption}>📍 About</Text>
-          <Text style={styles.modalOption}>🌭 Work with us</Text>
+          {/* <View style={{ alignItems: "center" }}> */}
+            <Text style={styles.modalSubOption}>📍 About</Text>
+            <Text style={styles.modalSubOption}>🌭 Work with us</Text>
+            <Text style={styles.modalSubOption}>❓ FAQ</Text>
+            <Text style={styles.modalSubOption}>📢 Contact us</Text>
+          {/* </View> */}
         </View>
       </Modal>
     </View>
