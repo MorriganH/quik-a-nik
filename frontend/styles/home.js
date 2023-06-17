@@ -16,13 +16,22 @@ if (device === "web") {
       justifyContent: "center",
     },
 
-    bigText: {
+    mainTitle: {
+      fontSize: 65,
+      // color: "#55bb55",
+      paddingLeft: 20,
+      // textShadowColor: "black",
+      // textShadowOffset: { width: 2, height: -2 },
+    },
+
+    buttonTitle: {
       fontSize: 40,
     },
 
     logo: {
       width: 80,
       height: 80,
+      borderRadius: 10,
     },
 
     button: {
@@ -47,12 +56,16 @@ if (device === "web") {
       justifyContent: "flex-start",
       flexDirection: "row",
       width: "80.5%",
-      height: 300,
+      height: 250,
     },
 
     logoMain: {
-      width: 200,
-      height: 200,
+      width: 610,
+      height: 240,
+      // borderRadius: 10,
+      shadowColor: "grey",
+      shadowOffset: { width: 4, height: 4 },
+      shadowRadius: 10,
     },
 
     buttonMain: {
@@ -60,15 +73,15 @@ if (device === "web") {
       flexDirection: "row",
       justifyContent: "flex-start",
       alignItems: "center",
-      backgroundColor: "#55bb55",
-      borderRadius: 10,
+      backgroundColor: "none",
+      // borderRadius: 10,
       height: "auto",
       width: "50%",
       padding: 5,
       margin: 5,
-      shadowColor: "grey",
-      shadowOffset: { width: 3, height: 3 },
-      shadowRadius: 10,
+      // shadowColor: "grey",
+      // shadowOffset: { width: 3, height: 3 },
+      // shadowRadius: 10,
     },
 
     sideMain: {
@@ -105,14 +118,21 @@ if (device !== "web") {
     logo: {
       width: 80,
       height: 80,
+      borderRadius: 10,
     },
 
     logoMain: {
-      width: 80,
-      height: 80,
+      width: 300,
+      height: 150,
+      borderRadius: 10,
     },
 
-    bigText: {
+    mainTitle: {
+      fontSize: 40,
+      paddingLeft: 20,
+    },
+
+    buttonTitle: {
       fontSize: 25,
     },
 
@@ -134,7 +154,7 @@ if (device !== "web") {
       flexDirection: "row",
       justifyContent: "flex-start",
       alignItems: "center",
-      backgroundColor: "#55bb55",
+      backgroundColor: "none",
       borderRadius: 10,
       height: 150,
       width: "97%",
@@ -156,15 +176,14 @@ if (device !== "web") {
     },
     modal: {
       backgroundColor: "white",
-      height: "100%"
-    
+      height: "100%",
     },
 
     closeModal: {
       fontSize: 25,
       fontWeight: "bold",
       color: "white",
-      paddingBottom: 15
+      paddingBottom: 15,
     },
     modalOrderBanner: {
       fontSize: 15,
@@ -176,12 +195,10 @@ if (device !== "web") {
       backgroundColor: "white",
       borderRadius: 12,
       width: "100%",
-      height: 35
-      
-      
+      height: 35,
     },
     modalHeader: {
-      backgroundColor :"#89cc7e",
+      backgroundColor: "#89cc7e",
       paddingLeft: 25,
       paddingRight: 25,
       paddingTop: 25,
@@ -190,11 +207,11 @@ if (device !== "web") {
     modalUsername: {
       color: "white",
       fontWeight: "bold",
-      fontSize: 25
+      fontSize: 25,
     },
     modalEmail: {
       color: "white",
-      fontSize: 15
+      fontSize: 15,
     },
     modalOption: {
       display: "flex",
@@ -202,8 +219,7 @@ if (device !== "web") {
       fontSize: 25,
       paddingLeft: 15,
       paddingBottom: 12,
-      paddingTop: 10
-
+      paddingTop: 10,
     },
 
     modalDivider: {
@@ -212,14 +228,8 @@ if (device !== "web") {
       borderBottomWidth: 1,
       borderColor: "lightgrey",
       width: "95%",
-      alignSelf: "center"
-
-
-    }
-
-
-
-    
+      alignSelf: "center",
+    },
   });
 }
 

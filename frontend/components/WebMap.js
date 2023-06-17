@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Text, TextInput, Pressable, View } from "react-native";
+import { Text, TextInput, Pressable, View, ActivityIndicator } from "react-native";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
@@ -56,7 +56,8 @@ export default function WebMap({ navigation }) {
   };
 
   const checkoutConfirmation = function (markerPos, locationDetails) {
-    const input = { markerPos, locationDetails };
+    const {longitude, latitude} = markerPos.coords
+    const input = { longitude, latitude, locationDetails };
     dispatch(setLocationInfo(input));
     navigation.navigate("Stripe");
   };
@@ -65,7 +66,8 @@ export default function WebMap({ navigation }) {
     return <Text>Map cannot be loaded</Text>;
   }
 
-  return isLoaded ? (
+  return  (
+    isLoaded ? (
     <>
       <Text style={styles.title}>Set Location</Text>
       <Text style={styles.subtitle}>Let Us Know Exactly Where You'll Be</Text>
@@ -111,7 +113,5 @@ export default function WebMap({ navigation }) {
         </Pressable>
       </View>
     </>
-  ) : (
-    <Text>{text}</Text>
-  );
+  ) : <ActivityIndicator size="large" color="#00ff00" style={styles.activityIndicator} /> )
 }

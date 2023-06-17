@@ -59,6 +59,7 @@ export const setUserSession = (id) => (dispatch) => {
 };
 
 export const setLocationInfo = (location) => (dispatch) => {
+  console.log(location)
   dispatch({
     type: SET_LOCATION_INFO,
     payload: location,

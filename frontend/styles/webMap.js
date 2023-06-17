@@ -52,6 +52,15 @@ const styles = StyleSheet.create({
   buttonText: {
     fontWeight: 500,
   },
+
+  activityIndicator: {
+    flex: 1,
+    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  }
+  
 });
 
 export default styles;

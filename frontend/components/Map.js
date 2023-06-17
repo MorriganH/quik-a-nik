@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { Text, View, TextInput, Pressable } from "react-native";
+import { Text, View, TextInput, Pressable, ActivityIndicator } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import MapView, { Marker } from "react-native-maps";
 import key from "../api_key";
@@ -31,6 +31,7 @@ export default function Map({navigation}) {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
       setMarkerPosition(location.coords);
+      console.log(location.coords)
     })();
   }, []);
 
@@ -48,7 +49,8 @@ export default function Map({navigation}) {
   };
 
   const checkoutConfirmation = function (markerPosition, locationDetails) {
-    const input = { markerPosition, locationDetails };
+    const {latitude, longitude} = markerPosition
+    const input = { longitude, latitude, locationDetails};
     dispatch(setLocationInfo(input))
         navigation.navigate("Stripe");
   };
@@ -56,7 +58,7 @@ export default function Map({navigation}) {
   return (
     // short circuit triggers re-render of component once location truthy
 
-    location && (
+    location ? (
       <View style={styles.container}>
       <Text style={styles.title}>Set Location</Text>
       <Text style={styles.subtitle}>Let Us Know Exactly Where You'll Be</Text>
@@ -93,6 +95,6 @@ export default function Map({navigation}) {
           <Text style={styles.buttonText}>Proceed to Checkout</Text>
         </Pressable>
       </View>
-    )
+    ) : <ActivityIndicator size="large" color="#00ff00" style={styles.activityIndicator} /> 
   );
 }

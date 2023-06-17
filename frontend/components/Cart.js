@@ -83,7 +83,6 @@ export default function Cart({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
 
       <FlatList
         style={styles.list}
@@ -91,7 +90,6 @@ export default function Cart({ navigation }) {
         renderItem={(item) => <Item item={item.item} />}
         keyExtractor={(item) => item.id}
         />
-        </ScrollView>
 
       <View style={styles.total}>
         <View style={styles.lineItem}>
