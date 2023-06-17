@@ -1,11 +1,20 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Text, TextInput, Pressable, View, ActivityIndicator } from "react-native";
+import {
+  Text,
+  TextInput,
+  Pressable,
+  View,
+  ActivityIndicator,
+  Modal,
+  TouchableOpacity,
+} from "react-native";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
 import styles from "../styles/webMap";
 import { setLocationInfo } from "../redux/actions";
+import Stripe from "./Stripe";
 
 export default function WebMap({ navigation }) {
   const { locationInfo } = useSelector((state) => state.reducer);
@@ -16,8 +25,8 @@ export default function WebMap({ navigation }) {
   });
   const [markerPos, setMarkerPos] = useState(location);
   const [errorMsg, setErrorMsg] = useState(null);
-
   const [locationDetails, setLocationDetails] = useState("");
+  const [showStripeWeb, setShowStripeWeb] = useState(false);
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
@@ -58,15 +67,15 @@ export default function WebMap({ navigation }) {
   const checkoutConfirmation = function (markerPos, locationDetails) {
     const input = { markerPos, locationDetails };
     dispatch(setLocationInfo(input));
-    navigation.navigate("Stripe");
+    // navigation.navigate("Stripe");
+    setShowStripeWeb(true);
   };
 
   if (loadError) {
     return <Text>Map cannot be loaded</Text>;
   }
 
-  return  (
-    isLoaded ? (
+  return isLoaded ? (
     <>
       <Text style={styles.title}>Set Location</Text>
       <Text style={styles.subtitle}>Let Us Know Exactly Where You'll Be</Text>
@@ -93,7 +102,9 @@ export default function WebMap({ navigation }) {
             }}
           />
         </GoogleMap>
-        <Text style={styles.infoText}>{`Please provide us with some more details so we can find you`}</Text>
+        <Text
+          style={styles.infoText}
+        >{`Please provide us with some more details so we can find you`}</Text>
         <TextInput
           style={styles.locationDetailsInput}
           placeholder="Location Details"
@@ -110,7 +121,25 @@ export default function WebMap({ navigation }) {
         >
           <Text style={styles.buttonText}>Proceed to Checkout</Text>
         </Pressable>
+        <Modal animationType="slide" transparent={true} visible={showStripeWeb}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Stripe />
+              <View style={styles.closeButtonContainer}>
+                <TouchableOpacity onPress={() => setShowStripeWeb(false)}>
+                  <Text style={styles.closeModal}>⨉</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </View>
     </>
-  ) : <ActivityIndicator size="large" color="#00ff00" style={styles.activityIndicator} /> )
+  ) : (
+    <ActivityIndicator
+      size="large"
+      color="#00ff00"
+      style={styles.activityIndicator}
+    />
+  );
 }

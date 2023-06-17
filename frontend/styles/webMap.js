@@ -59,7 +59,47 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 10,
+  },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+
+
+  modalView: {
+    minWidth: "80%",
+    minHeight: "50%",
+    margin: 20,
+    backgroundColor: "grey",
+    borderRadius: 10,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    position: "relative" 
+  },
+
+  closeButtonContainer: {
+    position: "absolute",
+    top: 10,
+    left: 10,
+    zIndex: 1, 
+  },
+
+  closeModal: {
+    color: "black",
+    fontSize: 20 
   }
+
   
 });
 
