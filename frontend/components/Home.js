@@ -179,11 +179,20 @@ export default function Home({ navigation }) {
               <View style={styles.modalDivider}>
                 <Pressable
                   style={styles.modalButton}
-                  onPress={() => viewSwitcher("OrderList")}
+                  onPress={() => {
+                    viewSwitcher("OrderList");
+                    dispatch(toggleModal("", ""));
+                  }}
                 >
                   <Text style={styles.modalOption}>🧾 Orders</Text>
                 </Pressable>
-                <Pressable style={styles.modalButton} onPress={() => logout()}>
+                <Pressable
+                  style={styles.modalButton}
+                  onPress={() => {
+                    logout();
+                    dispatch(toggleModal("", ""));
+                  }}
+                >
                   <Text style={styles.modalOption}>⬅️ Logout</Text>
                 </Pressable>
               </View>
@@ -193,24 +202,30 @@ export default function Home({ navigation }) {
             <View style={styles.modalDivider}>
               <Pressable
                 style={styles.modalButton}
-                onPress={() => viewSwitcher("Login")}
+                onPress={() => {
+                  viewSwitcher("Login");
+                  dispatch(toggleModal("", ""));
+                }}
               >
                 <Text style={styles.modalOption}>➡️ Login</Text>
               </Pressable>
 
               <Pressable
                 style={styles.modalButton}
-                onPress={() => viewSwitcher("Register")}
+                onPress={() => {
+                  viewSwitcher("Register");
+                  dispatch(toggleModal("", ""));
+                }}
               >
                 <Text style={styles.modalOption}>🖊️ Register</Text>
               </Pressable>
             </View>
           )}
           {/* <View style={{ alignItems: "center" }}> */}
-            <Text style={styles.modalSubOption}>📍 About</Text>
-            <Text style={styles.modalSubOption}>🌭 Work with us</Text>
-            <Text style={styles.modalSubOption}>❓ FAQ</Text>
-            <Text style={styles.modalSubOption}>📢 Contact us</Text>
+          <Text style={styles.modalSubOption}>📍 About</Text>
+          <Text style={styles.modalSubOption}>🌭 Work with us</Text>
+          <Text style={styles.modalSubOption}>❓ FAQ</Text>
+          <Text style={styles.modalSubOption}>📢 Contact us</Text>
           {/* </View> */}
         </View>
       </Modal>
