@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import styles from "../styles/stripeWeb";
 
 export default function Stripe() {
-  const { locationInfo } = useSelector((state) => state.reducer);
+  const { locationInfo, userSession, cart,  } = useSelector((state) => state.reducer);
   const [processing, setProcessing] = useState(false);
 
   const stripe = useStripe(); // Hook to access Stripe.js API
@@ -44,9 +44,12 @@ export default function Stripe() {
             throw Error("Payment has failed");
           }
         })
-        .then((res) => {
-          console.log(res)
-          // Make axios request to insert into order table
+        .then((stripe_charge_id) => {
+          
+          const order= { locationInfo, userSession, cart, stripe_charge_id }
+
+ 
+          axios.post( `${tunnelURL}/orders`, order)
         })
         .catch((error) => {
           setProcessing(false);

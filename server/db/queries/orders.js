@@ -1,13 +1,9 @@
 const db = require("../../configs/db.config");
 
 const getAllOrders = () => {
-  return db
-    .query(
-      "SELECT * FROM orders "
-    )
-    .then((data) => {
-      return data.rows;
-    });
+  return db.query("SELECT * FROM orders ").then((data) => {
+    return data.rows;
+  });
 };
 
 const getOrdersByUserId = (id) => {
@@ -29,4 +25,9 @@ const getOrderByOrderId = (id) => {
     });
 };
 
-module.exports = { getAllOrders, getOrdersByUserId, getOrderByOrderId };
+const postOrder = (order) => {
+  
+  return db.query("INSERT into orders (user_id, total_price_cents, stripe_charge_id, longitude, latitude, location_description) values ($1, $2, $3, $4, $5, $6);", [order.user_id, order.total_price_cents, order.stripe_charge_id, order.longitude, order.latitude, order.location_description]);
+};
+
+module.exports = { getAllOrders, getOrdersByUserId, getOrderByOrderId, postOrder };
