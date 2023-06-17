@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/cart";
-import WebMap from "./WebMap";
+import WebMap from "./Map";
 import { toggleModal, adjustCartQuantity } from "../redux/actions";
 
 export default function Cart({ navigation }) {

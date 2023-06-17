@@ -7,7 +7,7 @@ import * as Location from "expo-location";
 import styles from "../styles/webMap";
 import { setLocationInfo } from "../redux/actions";
 
-export default function WebMap({ navigation }) {
+export default function Map({ navigation }) {
   const { locationInfo } = useSelector((state) => state.reducer);
   const dispatch = useDispatch();
 

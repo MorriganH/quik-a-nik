@@ -16,23 +16,24 @@ import { NavigationContainer } from "@react-navigation/native";
 
 //COMPONENTS
 import Home from "./Home";
-// import Map from "./Map";
-import WebMap from "./WebMap";
 import Cart from "./Cart";
 import ProductList from "./ProductList";
 import Web from "./Web";
-import Android from "./Android";
 import OrderList from "./OrderList";
 import Navbar from "./Navbar";
 import Stripe from "./Stripe";
 import Login from "./Login";
 import Register from "./Register";
-
 import StripeMobile from "./Stripe";
+import Map from "./Map";
+
+
 
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, toggleModal, adjustQuantity } from "../redux/actions";
+
+
 
 export default function QuikanikStack() {
   //REDUX FUNCTIONS
@@ -42,9 +43,10 @@ export default function QuikanikStack() {
     const dispatch = useDispatch();
     
     //VARIABLEs
-        const device = Platform.OS;
-   const Stack = createNativeStackNavigator();
-  
+    const device = Platform.OS;
+    const Stack = createNativeStackNavigator();
+    
+    
   if (device !== "web") {
     // if (!true) {
     return (
@@ -76,7 +78,6 @@ export default function QuikanikStack() {
           </Stack.Group>
           <Stack.Screen name="Web" component={Web} />
           <Stack.Screen name="ProductList" component={ProductList} />
-          <Stack.Screen name="Android" component={Android} />
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="OrderList" component={OrderList} />
           <Stack.Screen name="Cart" component={Cart} />
@@ -98,8 +99,7 @@ export default function QuikanikStack() {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Web" component={Web} />
           <Stack.Screen name="ProductList" component={ProductList} />
-          <Stack.Screen name="Android" component={Android} />
-          <Stack.Screen name="Map" component={WebMap} />
+          <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="OrderList" component={OrderList} />
           <Stack.Screen name="Cart" component={Cart} />
           <Stack.Screen name="Navbar" component={Navbar} />
