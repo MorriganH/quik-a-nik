@@ -47,5 +47,7 @@ CREATE TABLE line_items (
   order_id INTEGER REFERENCES orders(id),
   product_id INTEGER REFERENCES products(id),
   quantity INTEGER,
-  line_price_cents INTEGER
+  line_price_cents INTEGER,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
 );

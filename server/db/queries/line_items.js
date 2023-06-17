@@ -8,5 +8,10 @@ const getLineItemsByOrderId = (id) => {
   });
 };
 
+const postLineItem = (lineItem) => {
+  
+  return db.query("INSERT into line_items (order_id, product_id, quantity, line_price_cents) values ($1, $2, $3, $4);", [lineItem.order_id, lineItem.product_id, lineItem.quantity, lineItem.line_price_cents]);
+};
 
-module.exports = { getLineItemsByOrderId };
+
+module.exports = { getLineItemsByOrderId, postLineItem };

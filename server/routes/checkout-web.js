@@ -21,10 +21,10 @@ router.post('/', async (req, res) => {
 
       // Send response to frontend
       if (paymentIntent.status === 'succeeded') {
-          res.json({ success: true });
+          res.json(paymentIntent.id);
       } else {
           // Handle other Stripe related payment statuses
-          res.json({ success: false });
+          res.json("");
       }
   // Handle failure to create the payment (non-payment related errors)
   } catch (error) {

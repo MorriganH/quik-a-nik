@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Modal,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 
 import { setUserSession } from "../redux/actions";
@@ -25,6 +26,8 @@ import styles from "../styles/home";
 
 export default function Home({ navigation }) {
   const device = Platform.OS;
+
+  const [menuModalShow, setMenuModalShow] = useState(false)
 
   const { cart, products, modalShow, modalProduct, userSession } = useSelector(
     state => state.reducer
@@ -60,13 +63,13 @@ export default function Home({ navigation }) {
             onPress={() => filter("", "ProductList")}
             title="Mix & Match"
           >
-            <Image
+            <ImageBackground
+              source={require("../assets/product-images/mix-n-match.jpg")}
               style={styles.logoMain}
-              source={require("../assets/Juniper_Twitter_Art.webp")}
-            />
-            <Text style={styles.bigText}>Mix & Match</Text>
+            >
+              <Text style={styles.mainTitle}>Mix & Match</Text>
+            </ImageBackground>
           </Pressable>
-
           <View style={styles.sideMain}>
             <Pressable
               style={styles.buttonSideMain}
@@ -75,9 +78,9 @@ export default function Home({ navigation }) {
             >
               <Image
                 style={styles.logo}
-                source={require("../assets/Juniper_Twitter_Art.webp")}
+                source={require("../assets/product-images/grill-lovers.jpg")}
               />
-              <Text style={styles.bigText}>Deluxe Products</Text>
+              <Text style={styles.buttonTitle}>Deluxe Products</Text>
             </Pressable>
             <Pressable
               style={styles.button}
@@ -85,11 +88,11 @@ export default function Home({ navigation }) {
             >
               <Image
                 style={styles.logo}
-                source={require("../assets/Juniper_Twitter_Art.webp")}
+                source={require("../assets/product-images/frisbee.jpg")}
               />
-              <Text style={styles.bigText}>Individual Items</Text>
+              <Text style={styles.buttonTitle}>Individual Items</Text>
             </Pressable>
-            <Pressable
+            {/* <Pressable
               style={styles.button}
               onPress={() => viewSwitcher("OrderList")}
             >
@@ -97,67 +100,19 @@ export default function Home({ navigation }) {
                 style={styles.logo}
                 source={require("../assets/Juniper_Twitter_Art.webp")}
               />
-              <Text style={styles.bigText}>Orders</Text>
-            </Pressable>
-
-            {/* {device === "web" && (
-              <Pressable
-              style={styles.buttonSideMain}
-              onPress={() => viewSwitcher("Map")}
-              >
-              <Image
-              style={styles.logo}
-              source={require("../assets/Juniper_Twitter_Art.webp")}
-              />
-                <Text style={styles.bigText}>Map</Text>
-              </Pressable>
-            )} */}
-            {/* <Pressable
-              style={styles.button}
-              onPress={() => {
-                viewSwitcher("Stripe");
-                // setStripeModalVisible(true);
-              }}
-            >
-              <Text>Checkout</Text>
-            </Pressable>
-          */}
+              <Text style={styles.buttonTitle}>Orders</Text>
+            </Pressable> */}
           </View>
         </View>
-
-        {/* {device !== "web" && (
-          <Pressable
-            style={styles.buttonSideMain}
-            onPress={() => viewSwitcher("Map")}
-          >
-            <Image
-              style={styles.logo}
-              source={require("../assets/Juniper_Twitter_Art.webp")}
-            />
-            <Text style={styles.bigText}>Map</Text>
-          </Pressable>
-        )} */}
-
-        {/* <Pressable
-          style={styles.button}
-          onPress={() => viewSwitcher("OrderList")}
-        >
-          <Image
-            style={styles.logo}
-            source={require("../assets/Juniper_Twitter_Art.webp")}
-          />
-          <Text style={styles.bigText}>OrderList</Text>
-        </Pressable> */}
-
         <Pressable
           style={styles.button}
           onPress={() => filter("4", "ProductList")}
         >
           <Image
             style={styles.logo}
-            source={require("../assets/Juniper_Twitter_Art.webp")}
+            source={require("../assets/product-images/basket.jpg")}
           />
-          <Text style={styles.bigText}>Family Packages</Text>
+          <Text style={styles.buttonTitle}>Family Packages</Text>
         </Pressable>
 
         <Pressable
@@ -166,9 +121,9 @@ export default function Home({ navigation }) {
         >
           <Image
             style={styles.logo}
-            source={require("../assets/Juniper_Twitter_Art.webp")}
+            source={require("../assets/product-images/basket.jpg")}
           />
-          <Text style={styles.bigText}>Party Packages</Text>
+          <Text style={styles.buttonTitle}>Party Packages</Text>
         </Pressable>
         <Pressable
           style={styles.button}
@@ -176,15 +131,15 @@ export default function Home({ navigation }) {
         >
           <Image
             style={styles.logo}
-            source={require("../assets/Juniper_Twitter_Art.webp")}
+            source={require("../assets/product-images/basket.jpg")}
           />
-          <Text style={styles.bigText}>Baskets for Two</Text>
+          <Text style={styles.buttonTitle}>Baskets for Two</Text>
         </Pressable>
       </ScrollView>
-      <Modal visible={modalShow} transparent={true} animationType="slide">
+      <Modal visible={modalShow === "homeModal"} transparent={true} animationType="slide">
         <View style={styles.modal}>
           <View style={styles.modalHeader}>
-            <TouchableOpacity onPress={() => dispatch(toggleModal())}>
+            <TouchableOpacity onPress={() => dispatch(toggleModal("",""))}>
               <Text style={styles.closeModal}>⨉</Text>
             </TouchableOpacity>
             <Text style={styles.modalUsername}>Graydon Ritchie</Text>
@@ -196,13 +151,12 @@ export default function Home({ navigation }) {
             </Text>
           </View>
           <View style={styles.modalDivider}>
-            <Text style={styles.modalOption}>🧾  Orders</Text>
-            <Text style={styles.modalOption}>📍  About</Text>
-            <Text style={styles.modalOption}>🌭  Work with us</Text>
+            <Text style={styles.modalOption}>🧾 Orders</Text>
+            <Text style={styles.modalOption}>📍 About</Text>
+            <Text style={styles.modalOption}>🌭 Work with us</Text>
           </View>
           <View style={styles.modalDivider}>
-            <Text style={styles.modalOption}>⇇|  Logout</Text>
-
+            <Text style={styles.modalOption}>⇇| Logout</Text>
           </View>
           {userSession === null && (
             <Pressable
