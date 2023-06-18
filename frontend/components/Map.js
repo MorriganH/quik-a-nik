@@ -17,7 +17,7 @@ import { setLocationInfo, toggleModal } from "../redux/actions";
 import Stripe from "./Stripe";
 
 export default function Map({ navigation }) {
-  const { locationInfo, modalShow } = useSelector((state) => state.reducer);
+  const { locationInfo, modalShow } = useSelector(state => state.reducer);
   const dispatch = useDispatch();
 
   const [location, setLocation] = useState({
@@ -55,7 +55,7 @@ export default function Map({ navigation }) {
     text = JSON.stringify(location);
   }
 
-  const updateMarker = (ev) => {
+  const updateMarker = ev => {
     const oldMarkerPos = { ...markerPos };
     setMarkerPos(
       oldMarkerPos,
@@ -65,11 +65,11 @@ export default function Map({ navigation }) {
   };
 
   const checkoutConfirmation = function (markerPos, locationDetails) {
-    const {longitude, latitude} = markerPos.coords
+    const { longitude, latitude } = markerPos.coords;
     const input = { longitude, latitude, locationDetails };
     dispatch(setLocationInfo(input));
     // navigation.navigate("Stripe");
-    dispatch(toggleModal(null, 'stripeWebModal'));
+    dispatch(toggleModal(null, "stripeWebModal"));
   };
 
   if (loadError) {
@@ -88,7 +88,7 @@ export default function Map({ navigation }) {
             lng: location.coords.longitude,
           }}
           zoom={13}
-          onClick={(ev) => {
+          onClick={ev => {
             updateMarker(ev);
           }}
         >
@@ -98,36 +98,42 @@ export default function Map({ navigation }) {
               lng: markerPos.coords.longitude,
             }}
             draggable
-            onDragEnd={(ev) => {
+            onDragEnd={ev => {
               updateMarker(ev);
             }}
           />
         </GoogleMap>
-        <Text
-          style={styles.infoText}
-        >{`Please provide us with some more details so we can find you`}</Text>
-        <TextInput
-          style={styles.locationDetailsInput}
-          placeholder="Location Details"
-          editable
-          multiline
-          onChangeText={(text) => setLocationDetails(text)}
-          value={locationDetails}
-          numberOfLines={5}
-          maxLength={255}
-        />
-        <Pressable
-          style={styles.checkoutButton}
-          onPress={() => checkoutConfirmation(markerPos, locationDetails)}
+        <View>
+          <Text
+            style={styles.infoText}
+          >{`Please provide us with some more details so we can find you`}</Text>
+          <TextInput
+            style={styles.locationDetailsInput}
+            placeholder="Location Details"
+            editable
+            multiline
+            onChangeText={text => setLocationDetails(text)}
+            value={locationDetails}
+            numberOfLines={5}
+            maxLength={255}
+          />
+          <Pressable
+            style={styles.checkoutButton}
+            onPress={() => checkoutConfirmation(markerPos, locationDetails)}
+          >
+            <Text style={styles.buttonText}>Proceed to Checkout</Text>
+          </Pressable>
+        </View>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalShow === "stripeWebModal"}
         >
-          <Text style={styles.buttonText}>Proceed to Checkout</Text>
-        </Pressable>
-        <Modal animationType="slide" transparent={true} visible={modalShow === 'stripeWebModal'}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Stripe />
               <View style={styles.closeButtonContainer}>
-              <TouchableOpacity onPress={() => dispatch(toggleModal(''))}>
+                <TouchableOpacity onPress={() => dispatch(toggleModal(""))}>
                   <Text style={styles.closeModal}>⨉</Text>
                 </TouchableOpacity>
               </View>

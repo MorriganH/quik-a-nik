@@ -14,19 +14,22 @@ const styles = StyleSheet.create({
   },
 
   container: {
+    display: "flex",
     flex: 1,
+    flexDirection: "row",
     margin: "auto",
     alignItems: "center",
+    justifyContent: "space-around",
     backgroundColor: "#F5FCFF",
-    width: "80%",
+    width: 950,
     maxHeight: "90%",
     marginBottom:"2%",
   },
 
   mapWindow: {
     marginTop: "2%",
-    width: "95%",
-    height: "60%",
+    width: "50%",
+    height: "80%",
     marginBottom: "2%",
   },
 
