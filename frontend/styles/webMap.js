@@ -9,24 +9,26 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 20,
     margin: "auto",
-    marginBottom: "2%",
-
+    marginBottom: "25%",
   },
 
   container: {
+    display: "flex",
     flex: 1,
+    flexDirection: "row",
     margin: "auto",
     alignItems: "center",
+    justifyContent: "space-around",
     backgroundColor: "#F5FCFF",
-    width: "80%",
+    width: 950,
     maxHeight: "90%",
-    marginBottom:"2%",
+    marginBottom: "2%",
   },
 
   mapWindow: {
     marginTop: "2%",
-    width: "95%",
-    height: "60%",
+    width: "50%",
+    height: "80%",
     marginBottom: "2%",
   },
 
@@ -55,9 +57,9 @@ const styles = StyleSheet.create({
 
   activityIndicator: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: "center",
+    flexDirection: "row",
+    justifyContent: "space-around",
     padding: 10,
   },
 
@@ -65,10 +67,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 22,
   },
 
-// Stripe-web Modal Styling Below
+  // Stripe-web Modal Styling Below
 
   modalView: {
     minWidth: "40%",
@@ -83,28 +85,26 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    position: "relative" 
+    position: "relative",
   },
 
   closeButtonContainer: {
     position: "absolute",
     top: 10,
     left: 10,
-    zIndex: 1, 
+    zIndex: 1,
   },
 
   closeModal: {
     color: "black",
     fontSize: 20,
     fontWeight: 800,
-  }
-
-  
+  },
 });
 
 export default styles;
