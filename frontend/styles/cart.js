@@ -24,7 +24,22 @@ if (device === "web") {
       width: 100,
       margin: 5,
       alignSelf: "center",
-      marginBottom: 15
+      marginBottom: 15,
+    },
+    promptSignIn: {
+      display: "flex",
+      flexDirection: "row",
+      alignSelf: 'center',
+      marginTop: 20
+
+    },
+    promptText: {
+     fontSize: 15 
+    },
+    promptLink: {
+      color: "#ce4216",
+      fontSize: 15,
+      fontWeight: "bold"
     },
 
     box: {
@@ -59,11 +74,12 @@ if (device === "web") {
       width: 950,
       alignSelf: "center",
       textAlign: "center",
-      justifyItems: "center"
+      justifyItems: "center",
     },
     total: {
       backgroundColor: "white",
       padding: 20,
+      paddingTop: 30,
       marginVertical: 8,
       marginHorizontal: 16,
       borderRadius: 10,
@@ -78,6 +94,7 @@ if (device === "web") {
       borderWidth: 1,
       padding: 10,
       margin: 10,
+      marginTop: 25,
       borderRadius: 5,
       backgroundColor: "#55bb55",
       width: "auto",
@@ -139,7 +156,7 @@ if (device === "web") {
     link: {
       color: "#ce4216",
       textDecorationLine: "underline",
-      fontWeight: "bold"
+      fontWeight: "bold",
     },
     quantityComponent: {
       fontSize: 20,
@@ -165,7 +182,7 @@ if (device === "web") {
       width: 100,
       margin: 5,
       alignSelf: "center",
-      marginBottom: 15
+      marginBottom: 15,
     },
 
     box: {
@@ -200,8 +217,7 @@ if (device === "web") {
       shadowRadius: 10,
       width: "80%",
       alignSelf: "center",
-      textAlign: "center"
-
+      textAlign: "center",
     },
     total: {
       backgroundColor: "white",
@@ -285,7 +301,7 @@ if (device === "web") {
       color: "#ce4216",
       textDecorationLine: "underline",
       fontWeight: "bold",
-      alignSelf: "center"
+      alignSelf: "center",
     },
   });
 }

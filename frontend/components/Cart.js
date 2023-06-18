@@ -15,7 +15,7 @@ import WebMap from "./Map";
 import { toggleModal, adjustCartQuantity } from "../redux/actions";
 
 export default function Cart({ navigation }) {
-  const { cart, modalShow, cartNotification } = useSelector(
+  const { cart, modalShow, cartNotification, userSession } = useSelector(
     (state) => state.reducer
   );
 
@@ -32,10 +32,7 @@ export default function Cart({ navigation }) {
     <View style={styles.item}>
       <View style={styles.containerFlow}>
         <View style={styles.containerFlow}>
-          <Image
-            style={styles.image}
-            source={{uri: item.image}}
-          />
+          <Image style={styles.image} source={{ uri: item.image }} />
 
           <View style={styles.containerMid}>
             <View>
@@ -120,25 +117,42 @@ export default function Cart({ navigation }) {
               <Text style={styles.orderTotal}>${total.toFixed(2)}</Text>
             </View>
           </View>
-          <Pressable
-            style={styles.submitButton}
-            onPress={() => navigation.navigate("Map")}
-          >
-            <Text>Select Drop-off Location</Text>
-          </Pressable>
+          {userSession !== null && (
+            <Pressable
+              style={styles.submitButton}
+              onPress={() => navigation.navigate("Map")}
+            >
+              <Text>Select Drop-off Location</Text>
+            </Pressable>
+          )}
+          {userSession === null && (
+            <View style={styles.promptSignIn}>
+              <Pressable onPress={() => navigation.navigate("register")}>
+                <Text style={styles.promptLink}>Log in</Text>
+              </Pressable>
+              <Text style={styles.promptText}> or </Text>
+              <Pressable onPress={() => navigation.navigate("register")}>
+                <Text style={styles.promptLink}>register</Text>
+              </Pressable>
+              <Text style={styles.promptText}> to continue with this order.</Text>
+            </View>
+          )}
         </View>
       </View>
     );
   } else {
     return (
       <View style={styles.missingItem}>
-        <Text style={styles.title}> Can't have a picnic with an empty basket 😉 </Text>
+        <Text style={styles.title}>
+          {" "}
+          Can't have a picnic with an empty basket 😉{" "}
+        </Text>
         <Image
-            style={styles.missingImage}
-            source={require("../assets/empty-basket.png")}
-          />
+          style={styles.missingImage}
+          source={require("../assets/empty-basket.png")}
+        />
         <Pressable onPress={() => navigation.navigate("Home")}>
-        <Text style={styles.link}>Click here for some inspiration! </Text>
+          <Text style={styles.link}>Click here for some inspiration! </Text>
         </Pressable>
       </View>
     );
