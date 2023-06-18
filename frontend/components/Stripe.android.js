@@ -9,7 +9,7 @@ import { Text, View, Button } from "react-native";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import tunnelURL from "../backend_tunnel";
-import styles from "../styles/stripeMobile";
+import styles from "../styles/stripeAndroid";
 import axios from "axios";
 
 export default function StripeMobile() {
@@ -80,13 +80,7 @@ export default function StripeMobile() {
           style={{
             minWidth: "90%",
             minHeight: 50,
-            marginVertical: 30,
-          }}
-          onCardChange={cardDetails => {
-            console.log("cardDetails", cardDetails);
-          }}
-          onFocus={focusedField => {
-            console.log("focusField", focusedField);
+            marginVertical: 10,
           }}
         />
         <Button onPress={handlePayPress} title="Pay" disabled={loading} />
