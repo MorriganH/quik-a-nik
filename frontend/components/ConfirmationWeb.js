@@ -12,10 +12,11 @@ import key from "../api_key";
 import * as Location from "expo-location";
 import styles from "../styles/webMap";
 import { setLocationInfo } from "../redux/actions";
+import { trackDelivery } from "../helpers/confirmation";
 
 export default function ConfirmationWeb({ navigation }) {
   const { locationInfo } = useSelector((state) => state.reducer);
-  console.log("ConfirmationWeb locationInfo: ", locationInfo);  //REMOVE THIS
+  console.log("ConfirmationWeb locationInfo: ", locationInfo); //REMOVE THIS
   const dispatch = useDispatch();
 
   const [location, setLocation] = useState({
@@ -24,7 +25,8 @@ export default function ConfirmationWeb({ navigation }) {
   const [markerPos, setMarkerPos] = useState(location);
   const [errorMsg, setErrorMsg] = useState(null);
 
-  // const [locationDetails, setLocationDetails] = useState("");
+  const [deliveryStatus, setDeliveryStatus] = useState(1);
+  const [deliveryString, setDeliveryString] = useState("");
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
@@ -52,6 +54,16 @@ export default function ConfirmationWeb({ navigation }) {
     })();
   }, []);
 
+  useEffect(() => {
+    //trackDelivery returns the current interval and stores in variable
+    const interval = trackDelivery(setDeliveryStatus, setDeliveryString);
+    
+    // return function to clear interval, preventing memory leak
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
   let text = "Waiting..";
   // save either error message or JSON location data (in string format) in 'text' variable
   if (errorMsg) {
@@ -59,21 +71,6 @@ export default function ConfirmationWeb({ navigation }) {
   } else if (location) {
     text = JSON.stringify(location);
   }
-
-  // const updateMarker = (ev) => {
-  //   const oldMarkerPos = { ...markerPos };
-  //   setMarkerPos(
-  //     oldMarkerPos,
-  //     (oldMarkerPos.latitude = ev.latLng.lat()),
-  //     (oldMarkerPos.longitude = ev.latLng.lng())
-  //   );
-  // };
-
-  // const checkoutConfirmation = function (markerPos, locationDetails) {
-  //   const input = { markerPos, locationDetails };
-  //   dispatch(setLocationInfo(input));
-  //   navigation.navigate("Stripe");
-  // };
 
   if (loadError) {
     return <Text>Map cannot be loaded</Text>;
@@ -84,6 +81,12 @@ export default function ConfirmationWeb({ navigation }) {
       <Text style={styles.title}>Order Successful!</Text>
       <Text style={styles.subtitle}>Your Basket Is On It's Way</Text>
       <View style={styles.container}>
+        <Text>{deliveryString}</Text>
+        {deliveryString !== "Order Status: Delivered. Enjoy!!" &&     <ActivityIndicator
+      size="large"
+      color="#00ff00"
+      style={styles.activityIndicator}
+    />}
         <GoogleMap
           mapContainerStyle={styles.mapWindow}
           center={{
@@ -100,26 +103,9 @@ export default function ConfirmationWeb({ navigation }) {
               lat: markerPos.latitude,
               lng: markerPos.longitude,
             }}
-            // draggable
-            // onDragEnd={(ev) => {
-            //   updateMarker(ev);
-            // }}
           />
         </GoogleMap>
 
-        {/* <Text
-          style={styles.infoText}
-        >{`Please provide us with some more details so we can find you`}</Text>
-        <TextInput
-          style={styles.locationDetailsInput}
-          placeholder="Location Details"
-          editable
-          multiline
-          onChangeText={(text) => setLocationDetails(text)}
-          value={locationDetails}
-          numberOfLines={5}
-          maxLength={255}
-        /> */}
         <Pressable
           style={styles.checkoutButton}
           onPress={() => navigation.navigate("OrderList")}
