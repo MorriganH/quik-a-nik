@@ -3,13 +3,16 @@ import styles from "../styles/home";
 
 const device = Platform.OS;
 
-export default function Footer() {
+export default function Footer({ navigation }) {
   if (device !== "web") {
     return (
       <View>
         <View style={styles.footer}>
-          <Pressable style={styles.footerOptions}>
-            <Text>All baskets</Text>
+          <Pressable
+            onPress={() => navigation.navigate("ContactUs")}
+            style={styles.footerOptions}
+          >
+            <Text>Contact us</Text>
           </Pressable>
           <Pressable style={styles.footerOptions}>
             <Text>About us</Text>
@@ -28,20 +31,22 @@ export default function Footer() {
     );
   } else {
     return (
-      
-        <View style={styles.footer}>
-          <Pressable style={styles.footerOptions}>
-            <Text>All baskets</Text>
-          </Pressable>
-          <Pressable style={styles.footerOptions}>
-            <Text>About us</Text>
-          </Pressable>
-          <Pressable style={styles.footerOptions}>
-            <Text>Find a park</Text>
-          </Pressable>
-          <Pressable style={styles.footerOptions}>
-            <Text>How we're helping</Text>
-          </Pressable>
+      <View style={styles.footer}>
+        <Pressable
+          onPress={() => navigation.navigate("ContactUs")}
+          style={styles.footerOptions}
+        >
+          <Text>Contact us</Text>
+        </Pressable>
+        <Pressable style={styles.footerOptions}>
+          <Text>About us</Text>
+        </Pressable>
+        <Pressable style={styles.footerOptions}>
+          <Text>Find a park</Text>
+        </Pressable>
+        <Pressable style={styles.footerOptions}>
+          <Text>How we're helping</Text>
+        </Pressable>
         <Text style={styles.buttonTitle}> TeamTBD™</Text>
       </View>
     );

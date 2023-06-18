@@ -28,7 +28,8 @@ import Login from "./Login";
 import Register from "./Register";
 import StripeMobile from "./Stripe";
 import Map from "./Map";
-
+import Footer from "./Footer";
+import ContactUs from "./ContactUs";
 
 
 //REDUX
@@ -94,7 +95,9 @@ export default function QuikanikStack() {
           <Stack.Screen name="Cart" component={Cart} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="Stripe" component={StripeMobile} />  
+          <Stack.Screen name="Stripe" component={StripeMobile} />
+          <Stack.Screen name="Footer" component={Footer} />
+          <Stack.Screen name="ContactUs" component={ContactUs} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -117,6 +120,8 @@ export default function QuikanikStack() {
           <Stack.Screen name="Stripe" component={Stripe} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="Footer" component={Footer} />
+          <Stack.Screen name="ContactUs" component={ContactUs} />
         </Stack.Navigator>
       </NavigationContainer>
     );
