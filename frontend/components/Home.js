@@ -75,23 +75,87 @@ export default function Home({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.iconsHolder}>
+
+          <View style={styles.iconsGroup}>
+            <ImageBackground
+              style={styles.icons}
+              source={require("../assets/home_page_test/pexels-leslie-torres-12087878.jpg")}
+            ></ImageBackground>
+            <Text style={styles.iconsLabel}>Add-ons</Text>
+          </View>
+
+          <View style={styles.iconsGroup}>
+            <ImageBackground
+              style={styles.icons}
+              source={require("../assets/home_page_test/pexels-leslie-torres-12087878.jpg")}
+            ></ImageBackground>
+            <Text style={styles.iconsLabel}>Add-ons</Text>
+          </View>
+
+          <View style={styles.iconsGroup}>
+            <ImageBackground
+              style={styles.icons}
+              source={require("../assets/home_page_test/pexels-leslie-torres-12087878.jpg")}
+            ></ImageBackground>
+            <Text style={styles.iconsLabel}>Add-ons</Text>
+          </View>
+
+
+        </View>
+
+        <Pressable
+          style={styles.button}
+          onPress={() => filter("", "ProductList")}
+        >
+          <ImageBackground
+            style={styles.logoTest}
+            source={require("../assets/home_page_test/pexels-leslie-torres-12087878.jpg")}
+          ></ImageBackground>
+        </Pressable>
+        <Text style={styles.buttonTitle}>Mix & Match</Text>
+
+        <Pressable
+          style={styles.button}
+          onPress={() => filter("4", "ProductList")}
+        >
+          <ImageBackground
+            style={styles.logoTest}
+            source={require("../assets/home_page_test/pexels-kampus-production-7669170.jpg")}
+          ></ImageBackground>
+        </Pressable>
+        <Text style={styles.buttonTitle}>Family Packages</Text>
+
+        <Pressable
+          style={styles.button}
+          onPress={() => filter("2", "ProductList")}
+        >
+          <ImageBackground
+            style={styles.logoTest}
+            source={require("../assets/pexels-anna-guerrero-1956974.jpg")}
+          ></ImageBackground>
+        </Pressable>
+        <Text style={styles.buttonTitle}>Baskets for Two</Text>
+
         <View style={styles.main}>
-          
-            <Pressable
-              style={styles.buttonMain}
-              onPress={() => filter("", "ProductList")}
-              title="Mix & Match"
+          <Pressable
+            style={styles.buttonMain}
+            onPress={() => filter("", "ProductList")}
+            title="Mix & Match"
+          >
+            <ImageBackground
+              source={require("../assets/product-images/mix-n-match.jpg")}
+              style={styles.logoMain}
+              imageStyle={styles.logoMain}
             >
-              <ImageBackground
-                source={require("../assets/product-images/mix-n-match.jpg")}
-                style={styles.logoMain}
-                imageStyle={styles.logoMain}
-              >
-                <Text style={styles.mainTitle}>Mix & Match</Text>
-              </ImageBackground>
-            </Pressable>
-         
+              <Text style={styles.mainTitle}>Mix & Match</Text>
+            </ImageBackground>
+          </Pressable>
+
           <View style={styles.sideMain}>
             <Pressable
               style={styles.buttonSideMain}
@@ -116,16 +180,6 @@ export default function Home({ navigation }) {
             </Pressable>
           </View>
         </View>
-        <Pressable
-          style={styles.button}
-          onPress={() => filter("4", "ProductList")}
-        >
-          <Image
-            style={styles.logo}
-            source={require("../assets/product-images/basket.jpg")}
-          />
-          <Text style={styles.buttonTitle}>Family Packages</Text>
-        </Pressable>
 
         <Pressable
           style={styles.button}

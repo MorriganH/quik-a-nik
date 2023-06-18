@@ -7,16 +7,13 @@ if (device === "web") {
   styles = StyleSheet.create({
     container: {
       backgroundColor: "rgb(242, 242, 242)",
-      width: "100%",
-      alignSelf: "center",
     },
 
     scrollView: {
       display: "flex",
       flex: 1,
       alignItems: "center",
-      // justifyContent: "center",
-      width: "100%",
+      justifyContent: "center",
     },
 
     mainTitle: {
@@ -58,13 +55,14 @@ if (device === "web") {
       display: "flex",
       justifyContent: "flex-start",
       flexDirection: "row",
+      width: "80.5%",
       height: 250,
     },
 
     logoMain: {
-      // width: "45%",
+      width: 610,
       height: 240,
-      borderRadius: 10,
+      // borderRadius: 10,
       shadowColor: "grey",
       shadowOffset: { width: 4, height: 4 },
       shadowRadius: 10,
@@ -78,7 +76,7 @@ if (device === "web") {
       backgroundColor: "none",
       // borderRadius: 10,
       height: "auto",
-      width: "45%",
+      width: "50%",
       padding: 5,
       margin: 5,
       // shadowColor: "grey",
@@ -117,9 +115,43 @@ if (device !== "web") {
       justifyContent: "center",
     },
 
+    iconsHolder: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      paddingRight: 20,
+      paddingLeft: 20,
+    },
+
+    icons: {
+      height: 100,
+      width: 100,
+      borderRadius: 50,
+      overflow: "hidden",
+      // backgroundColor: "pink",
+    },
+    iconsGroup: {
+      display: "flex",
+      marginBottom: 50,
+      // flexDirection: "column",
+      // justifyContent: "space-between"
+    },
+    iconsLabel: {
+      alignSelf: "center",
+    },
+
+    scrollView: {
+      paddingTop: 50,
+    },
+
     logo: {
       width: 80,
       height: 80,
+      borderRadius: 10,
+    },
+    logoTest: {
+      width: "100%",
+      height: "100%",
       borderRadius: 10,
     },
 
@@ -135,7 +167,9 @@ if (device !== "web") {
     },
 
     buttonTitle: {
-      fontSize: 25,
+      fontSize: 15,
+      marginLeft: 10,
+      marginBottom: 10,
     },
 
     button: {
@@ -147,8 +181,9 @@ if (device !== "web") {
       borderRadius: 10,
       height: 150,
       width: "97%",
-      padding: 5,
+      // padding: 5,
       margin: 5,
+      overflow: "hidden",
     },
 
     buttonMain: {
