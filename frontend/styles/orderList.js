@@ -4,7 +4,7 @@ const device = Platform.OS;
 let styles;
 
 if (device === "web") {
-  const styles = StyleSheet.create({
+  styles = StyleSheet.create({
     title: {
       fontSize: 16,
       margin: "2%",
@@ -18,7 +18,7 @@ if (device === "web") {
       margin: "auto",
       minWidth: "90%",
       minHeight: "90%",
-      backgroundColor: "pink",
+      backgroundColor: "#f2f2f2",
     },
 
     flatList: {
@@ -36,7 +36,7 @@ if (device === "web") {
       padding: 10,
       minWidth: "70%",
       maxWidth: "100%",
-      backgroundColor: "#c7edcc",
+      backgroundColor: "white",
     },
 
     orderId: {
@@ -127,7 +127,7 @@ if (device !== "web") {
       padding: 10,
       minWidth: "70%",
       maxWidth: "100%",
-      backgroundColor: "#c7edcc",
+      backgroundColor: "white",
     },
 
     orderId: {

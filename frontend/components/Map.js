@@ -17,7 +17,7 @@ import { setLocationInfo, toggleModal } from "../redux/actions";
 import Stripe from "./Stripe";
 
 export default function Map({ navigation }) {
-  console.log("props in Map: ", navigation)
+  console.log("props in Map: ", navigation) //REMOVE THIS
   const { locationInfo, modalShow } = useSelector((state) => state.reducer);
   const dispatch = useDispatch();
 

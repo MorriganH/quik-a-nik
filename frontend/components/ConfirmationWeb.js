@@ -15,7 +15,7 @@ import { setLocationInfo } from "../redux/actions";
 
 export default function ConfirmationWeb({ navigation }) {
   const { locationInfo } = useSelector((state) => state.reducer);
-  console.log("ConfirmationWeb locationInfo: ", locationInfo);
+  console.log("ConfirmationWeb locationInfo: ", locationInfo);  //REMOVE THIS
   const dispatch = useDispatch();
 
   const [location, setLocation] = useState({
@@ -60,14 +60,14 @@ export default function ConfirmationWeb({ navigation }) {
     text = JSON.stringify(location);
   }
 
-  const updateMarker = (ev) => {
-    const oldMarkerPos = { ...markerPos };
-    setMarkerPos(
-      oldMarkerPos,
-      (oldMarkerPos.latitude = ev.latLng.lat()),
-      (oldMarkerPos.longitude = ev.latLng.lng())
-    );
-  };
+  // const updateMarker = (ev) => {
+  //   const oldMarkerPos = { ...markerPos };
+  //   setMarkerPos(
+  //     oldMarkerPos,
+  //     (oldMarkerPos.latitude = ev.latLng.lat()),
+  //     (oldMarkerPos.longitude = ev.latLng.lng())
+  //   );
+  // };
 
   const checkoutConfirmation = function (markerPos, locationDetails) {
     const input = { markerPos, locationDetails };
@@ -100,14 +100,14 @@ export default function ConfirmationWeb({ navigation }) {
               lat: markerPos.latitude,
               lng: markerPos.longitude,
             }}
-            draggable
-            onDragEnd={(ev) => {
-              updateMarker(ev);
-            }}
+            // draggable
+            // onDragEnd={(ev) => {
+            //   updateMarker(ev);
+            // }}
           />
         </GoogleMap>
 
-        <Text
+        {/* <Text
           style={styles.infoText}
         >{`Please provide us with some more details so we can find you`}</Text>
         <TextInput
@@ -119,7 +119,7 @@ export default function ConfirmationWeb({ navigation }) {
           value={locationDetails}
           numberOfLines={5}
           maxLength={255}
-        />
+        /> */}
         <Pressable
           style={styles.checkoutButton}
           onPress={() => checkoutConfirmation(markerPos, locationDetails)}
