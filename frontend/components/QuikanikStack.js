@@ -9,7 +9,7 @@ import {
   AnimateHamburger,
   StyleSheet,
   View,
-  ImageBackground
+  ImageBackground,
 } from "react-native";
 
 //STACK NAVIGATOR
@@ -38,15 +38,14 @@ import { addItem, toggleModal, adjustQuantity } from "../redux/actions";
 
 export default function QuikanikStack() {
   //REDUX FUNCTIONS
-  const { cart, products, modalShow, modalProduct,cartNotification } = useSelector(
-    (state) => state.reducer
-    );
-    const dispatch = useDispatch();
-    
-    //VARIABLEs
-        const device = Platform.OS;
-   const Stack = createNativeStackNavigator();
-  
+  const { cart, products, modalShow, modalProduct, cartNotification } =
+    useSelector((state) => state.reducer);
+  const dispatch = useDispatch();
+
+  //VARIABLEs
+  const device = Platform.OS;
+  const Stack = createNativeStackNavigator();
+
   if (device !== "web") {
     // if (!true) {
     return (
@@ -56,16 +55,20 @@ export default function QuikanikStack() {
           screenOptions={({ navigation }) => ({
             headerRight: () => (
               <View>
-
-<Pressable style={style.button} onPress={() => navigation.navigate("Cart")}>
-          <ImageBackground source={require("../assets/picnic-basket2.png")}
-          style={style.cartImage}>
-
-          <Text style={style.cartNotification}>{cartNotification}</Text>
-          {/* <Text>Cart </Text> */}
-          </ImageBackground>
-        </Pressable>
-              
+                <Pressable
+                  style={style.button}
+                  onPress={() => navigation.navigate("Cart")}
+                >
+                  <ImageBackground
+                    source={require("../assets/picnic-basket-grey.png")}
+                    style={style.cartImage}
+                  >
+                    <Text style={style.cartNotification}>
+                      {cartNotification}
+                    </Text>
+                    {/* <Text>Cart </Text> */}
+                  </ImageBackground>
+                </Pressable>
               </View>
             ),
           })}
@@ -75,8 +78,9 @@ export default function QuikanikStack() {
               headerLeft: () => (
                 <Pressable
                   onPress={() => dispatch(toggleModal("N/A", "homeModal"))}
-                  
-                ><Text style={style.menu}> ☰  </Text></Pressable>
+                >
+                  <Text style={style.menu}> ☰ </Text>
+                </Pressable>
               ),
             })}
           >
@@ -91,7 +95,7 @@ export default function QuikanikStack() {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
           {/* STRIPE MOBILE MODULE HERE */}
-          <Stack.Screen name="Stripe" component={StripeMobile} />  
+          <Stack.Screen name="Stripe" component={StripeMobile} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -126,24 +130,22 @@ const style = StyleSheet.create({
     position: "absolute",
     backgroundColor: "pink",
     maxHeight: 50,
-    margin: 0
-    
+    margin: 0,
   },
-cartImage: {
-  width: 40,
-  height: 40,
-},
-cartNotification: {
-  alignSelf: "center",
-  fontWeight: "bold",
-  color: "#ce4216"
+  cartImage: {
+    width: 40,
+    height: 40,
+  },
+  cartNotification: {
+    alignSelf: "center",
+    fontWeight: "bold",
+    color: "#ce4216",
+    fontSize: 13,
+  },
+  menu: {
+    fontSize: 25,
+    fontWeight: "bold",
 
-},
-menu: {
-  fontSize: 35,
-  color: "#62ab56"
-}
-
-})
-
-
+    color: "#ce4216",
+  },
+});

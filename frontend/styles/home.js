@@ -110,7 +110,7 @@ if (device === "web") {
 if (device !== "web") {
   styles = StyleSheet.create({
     container: {
-      backgroundColor: "rgb(242, 242, 242)",
+      backgroundColor: "#f0f0f0",
       alignItems: "center",
       justifyContent: "center",
     },
@@ -121,8 +121,9 @@ if (device !== "web") {
       justifyContent: "space-between",
       paddingRight: 20,
       paddingLeft: 20,
+      marginBottom: 15,
     },
-
+    
     icons: {
       height: 100,
       width: 100,
@@ -132,7 +133,6 @@ if (device !== "web") {
     },
     iconsGroup: {
       display: "flex",
-      marginBottom: 50,
       // flexDirection: "column",
       // justifyContent: "space-between"
     },
@@ -140,8 +140,29 @@ if (device !== "web") {
       alignSelf: "center",
     },
 
+    footer: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      paddingRight: 5,
+      paddingLeft: 5,
+      marginBottom: 15,
+    },
+    footerOptions: {
+      display: 'flex',
+      height: 50,
+      width: 195,
+      backgroundColor: "grey",
+      borderRadius: 10,
+      textAlign: 'center',
+      justifyContent: "center",
+      alignItems: "center"
+
+    },
+
     scrollView: {
-      paddingTop: 50,
+      paddingTop: 25,
+      paddingBottom: 45,
     },
 
     logo: {
@@ -177,10 +198,24 @@ if (device !== "web") {
       flexDirection: "row",
       justifyContent: "flex-start",
       alignItems: "center",
-      backgroundColor: "#55bb55",
+      // backgroundColor: "#55bb55",
       borderRadius: 10,
       height: 150,
-      width: "97%",
+      // width: "97%",
+      // padding: 5,
+      margin: 5,
+      overflow: "hidden",
+    },
+
+    spotlightButton: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "flex-start",
+      alignItems: "center",
+      // backgroundColor: "#55bb55",
+      borderRadius: 10,
+      height: 250,
+      // width: "97%",
       // padding: 5,
       margin: 5,
       overflow: "hidden",
