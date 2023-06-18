@@ -10,7 +10,7 @@ import {
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
-import styles from "../styles/webMap";
+import styles from "../styles/confirmationWeb";
 import { setLocationInfo } from "../redux/actions";
 import { trackDelivery } from "../helpers/confirmation";
 
@@ -57,7 +57,7 @@ export default function ConfirmationWeb({ navigation }) {
   useEffect(() => {
     // trackDelivery returns the current intervalStatus and stores it in a variable
     const intervalId = trackDelivery(setDeliveryStatus, setDeliveryString);
-  
+
     // Return function to clear the interval when the component is unmounted to prevent memory leak
     return () => {
       clearInterval(intervalId);
@@ -78,15 +78,7 @@ export default function ConfirmationWeb({ navigation }) {
 
   return isLoaded ? (
     <>
-      <Text style={styles.title}>Order Successful!</Text>
-      <Text style={styles.subtitle}>Your Basket Is On It's Way</Text>
       <View style={styles.container}>
-        <Text>{deliveryString}</Text>
-        {deliveryString !== "Order Status: Delivered. Enjoy!!" &&     <ActivityIndicator
-      size="large"
-      color="#00ff00"
-      style={styles.activityIndicator}
-    />}
         <GoogleMap
           mapContainerStyle={styles.mapWindow}
           center={{
@@ -105,13 +97,26 @@ export default function ConfirmationWeb({ navigation }) {
             }}
           />
         </GoogleMap>
+        <View>
+          <Text style={styles.title}>Thanks For Your Order!</Text>
+          <Text style={styles.subtitle}>Your Basket Is On It's Way</Text>
+          <Text>Order Status:</Text>
+          <Text style={styles.infoText}>{deliveryString}</Text>
+          {deliveryString !== "Delivered. Enjoy!!" && (
+            <ActivityIndicator
+              size="large"
+              color="#00ff00"
+              style={styles.activityIndicator}
+            />
+          )}
 
-        <Pressable
-          style={styles.checkoutButton}
-          onPress={() => navigation.navigate("OrderList")}
-        >
-          <Text style={styles.buttonText}>View Your Orders</Text>
-        </Pressable>
+          <Pressable
+            style={styles.checkoutButton}
+            onPress={() => navigation.navigate("OrderList")}
+          >
+            <Text style={styles.buttonText}>View Your Orders</Text>
+          </Pressable>
+        </View>
       </View>
     </>
   ) : (

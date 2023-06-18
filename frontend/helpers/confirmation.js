@@ -16,19 +16,19 @@ export const trackDelivery = (setDeliveryStatus, setDeliveryString) => {
         //Switch through delivery strings
         switch (prevDeliveryStatus) {
           case 1:
-            setDeliveryString("Thanks for your order!");
+            setDeliveryString("Order received ...");
             break;
           case 2:
-            setDeliveryString("Order Status: Basket being prepped ...");
+            setDeliveryString("Basket being prepped ...");
             break;
           case 3:
-            setDeliveryString("Order Status: Basket out for delivery ...");
+            setDeliveryString("Basket out for delivery ...");
             break;
           case 4:
-            setDeliveryString("Order Status: Your Certified Quik-a-nik Specialist will be in touch soon ... ");
+            setDeliveryString("Your Certified Quik-a-nik Specialist is close ... ");
             break;
           case 5:
-            setDeliveryString("Order Status: Delivered. Enjoy!!");
+            setDeliveryString("Delivered. Enjoy!!");
             break;
           default:
             break;
