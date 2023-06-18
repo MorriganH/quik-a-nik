@@ -62,7 +62,9 @@ export default function OrderList() {
         </View>
         <View style={styles.dateTotal}>
           <Text>{`Order Placed: ${order.created_at}`}</Text>
-          <Text style={styles.total}>Total:  <Text style={styles.price}>{`${order.total_price_cents}`}</Text>
+          <Text style={styles.total}>
+            Total:{" "}
+            <Text style={styles.price}>{`${order.total_price_cents}`}</Text>
           </Text>
         </View>
       </View>
@@ -71,12 +73,12 @@ export default function OrderList() {
 
   return (
     <View style={styles.container}>
-      {orders.length > 0 && <Text>{`${orders[0].first_name}'s Baskets`}</Text>}
+      {orders.length > 0 && <Text style={styles.title}>{`${orders[0].first_name}'s Baskets`}</Text>}
       <FlatList
+        showsHorizontalScrollIndicator={false}
+        style={styles.flatList}
         data={orders} //Pass orders data to FlatList
-        renderItem={({ item }) => (
-          <Order order={item} style={styles.container} />
-        )}
+        renderItem={({ item }) => <Order order={item} />}
         keyExtractor={(order) => order.id.toString()}
       />
     </View>

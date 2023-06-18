@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-
   title: {
     fontSize: 24,
   },
@@ -10,7 +9,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     margin: "auto",
     marginBottom: "10%",
-
   },
 
   container: {
@@ -36,7 +34,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     padding: 10,
-    textAlign: "center"
+    textAlign: "center",
   },
 
   checkoutButton: {
@@ -52,9 +50,9 @@ const styles = StyleSheet.create({
 
   activityIndicator: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: "center",
+    flexDirection: "row",
+    justifyContent: "space-around",
     padding: 10,
   },
 
@@ -99,6 +97,5 @@ const styles = StyleSheet.create({
   },
 
 });
-
 
 export default styles;

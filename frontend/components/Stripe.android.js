@@ -7,6 +7,7 @@ import {
 import { ActivityIndicator } from "react-native";
 import { Text, View, Button } from "react-native";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import tunnelURL from "../backend_tunnel";
 import styles from "../styles/stripeAndroid";
 import axios from "axios";
@@ -14,6 +15,8 @@ import axios from "axios";
 export default function StripeMobile() {
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const { confirmPayment, loading } = useConfirmPayment();
+
+  const { locationInfo, userSession, cart,  } = useSelector((state) => state.reducer);
 
   const fetchPaymentIntentClientSecret = async () => {
     const response = await fetch(
@@ -54,6 +57,10 @@ export default function StripeMobile() {
       console.log("Payment confirmation error", error);
     } else if (paymentIntent) {
       console.log("Success from promise", paymentIntent);
+      const order = { locationInfo, userSession, cart, stripe_charge_id: paymentIntent.clientSecret }
+
+      axios.post(`${tunnelURL}/orders`, order)
+        .catch(err => console.log(err))
     }
   };
 
