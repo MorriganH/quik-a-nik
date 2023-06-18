@@ -75,6 +75,7 @@ export default function Home({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Text>- Summer starts here - </Text>
       <ScrollView
         contentContainerStyle={styles.scrollView}
         showsVerticalScrollIndicator={false}
@@ -139,6 +140,7 @@ export default function Home({ navigation }) {
           </Pressable>
           <Text style={styles.buttonTitle}>Baskets for two</Text>
 
+
           </View>
           <View style={styles.webColumn}>
 
@@ -152,6 +154,17 @@ export default function Home({ navigation }) {
             ></ImageBackground>
           </Pressable>
           <Text style={styles.buttonTitle}>Party packages</Text>
+
+          <Pressable
+            style={styles.button}
+            onPress={() => filter("party", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-rdne-stock-project-8523507.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>Deluxe packages</Text>
           
           <Pressable
             style={styles.button}

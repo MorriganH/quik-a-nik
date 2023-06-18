@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 6, height: 6 },
     shadowRadius: 10,
     margin: 20,
+    color: "#1b3e17",
   },
 
   navSection: {

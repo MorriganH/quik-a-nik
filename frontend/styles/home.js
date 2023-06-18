@@ -10,6 +10,7 @@ if (device === "web") {
       backgroundColor: "#f2f2f2",
       alignItems: "center",
       justifyContent: "center",
+      marginBottom: 45
     },
 
     iconsHolder: {
@@ -94,7 +95,9 @@ if (device === "web") {
     },
 
     buttonTitle: {
-      fontSize: 15,
+      fontSize: 20,
+      // fontWeight: "bold",
+      color: "#1b3e17",
       marginLeft: 10,
       marginBottom: 10,
     },
@@ -111,7 +114,7 @@ if (device === "web") {
       // padding: 5,
       margin: 5,
       overflow: "hidden",
-      shadowColor: "grey",
+      shadowColor: "rgba(34, 61, 26, 0.5)",
       shadowOffset: { width:3, height: 3 },
       shadowRadius: 3,
     },
@@ -123,8 +126,8 @@ if (device === "web") {
       alignItems: "center",
       // backgroundColor: "#55bb55",
       borderRadius: 10,
-      height: 250,
-      shadowColor: "grey",
+      height:350,
+      shadowColor: "rgba(34, 61, 26, 0.5)",
 
       shadowOffset: { width:3, height: 3 },
       shadowRadius: 3,
