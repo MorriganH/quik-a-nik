@@ -46,7 +46,7 @@ const getOrderByOrderId = id => {
 
 const getNewOrderByUser = id => {
   return db
-  .query("SELECT orders.id FROM orders WHERE orders.user_id = $1 ORDER BY orders.created_at DESC LIMIT 1;" , [id])
+  .query("SELECT orders.id, orders.total_price_cents FROM orders WHERE orders.user_id = $1 ORDER BY orders.created_at DESC LIMIT 1;" , [id])
   .then(data => {
     return data.rows;
   })

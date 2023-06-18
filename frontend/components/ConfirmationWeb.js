@@ -13,7 +13,7 @@ import styles from "../styles/confirmationWeb";
 import { trackDelivery } from "../helpers/confirmation";
 import axios from 'axios';
 import tunnelURL from "../backend_tunnel";
-import { formatOrderId } from "../helpers/orders";
+import { formatOrderId, formatPrice } from "../helpers/orders";
 
 export default function ConfirmationWeb({ navigation }) {
   const { locationInfo, userSession, cart } = useSelector((state) => state.reducer);
@@ -24,16 +24,31 @@ export default function ConfirmationWeb({ navigation }) {
   console.log("userSession: ", userSession)
 
 
+  const [location, setLocation] = useState({
+    coords: { latitude: 0, longitude: 0 },
+  });
+  const [markerPos, setMarkerPos] = useState(location);
+  const [errorMsg, setErrorMsg] = useState(null);
+  
+  const [deliveryStatus, setDeliveryStatus] = useState(1);
+  const [deliveryString, setDeliveryString] = useState("");
+  const [recentOrder, setrecentOrder] = useState(null);
+  
+  const { isLoaded, loadError } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: key,
+  });
+  
 
-  const fetchRecentOrderId = (userId) => {
+  const fetchrecentOrder = (userId) => {
     axios.get(`${tunnelURL}/orders/new/1`)
       .then(response => {
         const orderData = response.data.orders;
         console.log("orderData: ",orderData)
   
         if (orderData) {
-          const mostRecentOrder = orderData[0].id;
-          setRecentOrderId(mostRecentOrder);
+          const mostRecentOrder = orderData[0];
+          setrecentOrder(mostRecentOrder);
         } else {
           console.log(`No orders found for user.`);
           return null;
@@ -43,23 +58,6 @@ export default function ConfirmationWeb({ navigation }) {
         console.error(`Error fetching recent order ID: `, error);
       });
   };
-  
-  
-  const [location, setLocation] = useState({
-    coords: { latitude: 0, longitude: 0 },
-  });
-  const [markerPos, setMarkerPos] = useState(location);
-  const [errorMsg, setErrorMsg] = useState(null);
-  
-  const [deliveryStatus, setDeliveryStatus] = useState(1);
-  const [deliveryString, setDeliveryString] = useState("");
-  const [recentOrderId, setRecentOrderId] = useState(null);
-  
-  const { isLoaded, loadError } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: key,
-  });
-  
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -83,7 +81,7 @@ export default function ConfirmationWeb({ navigation }) {
     // trackDelivery returns the current intervalStatus and stores it in a variable
     const intervalId = trackDelivery(setDeliveryStatus, setDeliveryString);
   
-    fetchRecentOrderId(1);
+    fetchrecentOrder(1);
   
     // Return function to clear the interval when the component is unmounted to prevent memory leak
     return () => {
@@ -106,7 +104,7 @@ export default function ConfirmationWeb({ navigation }) {
     return <Text>Map cannot be loaded</Text>;
   }
   
-  return recentOrderId ? (
+  return recentOrder ? (
     <>
       <View style={styles.container}>
         <GoogleMap
@@ -130,7 +128,8 @@ export default function ConfirmationWeb({ navigation }) {
         <View>
           <Text style={styles.title}>Thanks For Your Order!</Text>
           <Text style={styles.subtitle}>Your Basket Is On It's Way</Text>
-          <Text>Your Order ID: {formatOrderId(recentOrderId)}</Text>
+          <Text>Your Order ID: {formatOrderId(recentOrder.id)}</Text>
+          <Text>Price: {formatPrice(recentOrder.total_price_cents)}</Text>
           <Text>Order Status:</Text>
           <Text style={styles.infoText}>{deliveryString}</Text>
           {deliveryString !== "Delivered. Enjoy!!" && (
