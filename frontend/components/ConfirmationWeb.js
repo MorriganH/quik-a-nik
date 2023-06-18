@@ -1,6 +1,12 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Text, TextInput, Pressable, View, ActivityIndicator } from "react-native";
+import {
+  Text,
+  TextInput,
+  Pressable,
+  View,
+  ActivityIndicator,
+} from "react-native";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
@@ -9,6 +15,7 @@ import { setLocationInfo } from "../redux/actions";
 
 export default function ConfirmationWeb({ navigation }) {
   const { locationInfo } = useSelector((state) => state.reducer);
+  console.log("ConfirmationWeb locationInfo: ", locationInfo);
   const dispatch = useDispatch();
 
   const [location, setLocation] = useState({
@@ -32,9 +39,16 @@ export default function ConfirmationWeb({ navigation }) {
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-      setMarkerPos(location);
+      setLocation({
+        coords: {
+          latitude: locationInfo.latitude,
+          longitude: locationInfo.longitude,
+        },
+      });
+      setMarkerPos({
+        latitude: locationInfo.latitude,
+        longitude: locationInfo.longitude,
+      });
     })();
   }, []);
 
@@ -50,8 +64,8 @@ export default function ConfirmationWeb({ navigation }) {
     const oldMarkerPos = { ...markerPos };
     setMarkerPos(
       oldMarkerPos,
-      (oldMarkerPos.coords.latitude = ev.latLng.lat()),
-      (oldMarkerPos.coords.longitude = ev.latLng.lng())
+      (oldMarkerPos.latitude = ev.latLng.lat()),
+      (oldMarkerPos.longitude = ev.latLng.lng())
     );
   };
 
@@ -65,8 +79,7 @@ export default function ConfirmationWeb({ navigation }) {
     return <Text>Map cannot be loaded</Text>;
   }
 
-  return  (
-    isLoaded ? (
+  return isLoaded ? (
     <>
       <Text style={styles.title}>Order Successful!</Text>
       <Text style={styles.subtitle}>Your Basket Is On It's Way</Text>
@@ -84,8 +97,8 @@ export default function ConfirmationWeb({ navigation }) {
         >
           <Marker
             position={{
-              lat: markerPos.coords.latitude,
-              lng: markerPos.coords.longitude,
+              lat: markerPos.latitude,
+              lng: markerPos.longitude,
             }}
             draggable
             onDragEnd={(ev) => {
@@ -93,7 +106,10 @@ export default function ConfirmationWeb({ navigation }) {
             }}
           />
         </GoogleMap>
-        <Text style={styles.infoText}>{`Please provide us with some more details so we can find you`}</Text>
+
+        <Text
+          style={styles.infoText}
+        >{`Please provide us with some more details so we can find you`}</Text>
         <TextInput
           style={styles.locationDetailsInput}
           placeholder="Location Details"
@@ -112,5 +128,11 @@ export default function ConfirmationWeb({ navigation }) {
         </Pressable>
       </View>
     </>
-  ) : <ActivityIndicator size="large" color="#00ff00" style={styles.activityIndicator} /> )
+  ) : (
+    <ActivityIndicator
+      size="large"
+      color="#00ff00"
+      style={styles.activityIndicator}
+    />
+  );
 }

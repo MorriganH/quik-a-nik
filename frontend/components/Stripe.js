@@ -3,12 +3,15 @@ import { ActivityIndicator, View } from "react-native";
 import axios from "axios";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import tunnelURL from "../backend_tunnel";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleModal } from "../redux/actions";
 import styles from "../styles/stripeWeb";
 
 export default function Stripe({ navigation }) {
-  console.log("props in Stripe: ", navigation);
-  const { locationInfo, userSession, cart } = useSelector(
+
+  const dispatch = useDispatch();
+
+  const { locationInfo, userSession, cart, modalShow } = useSelector(
     (state) => state.reducer
   );
   const [processing, setProcessing] = useState(false);
@@ -40,7 +43,7 @@ export default function Stripe({ navigation }) {
         // Server response
         .then((response) => {
           if (response.data) {
-            alert("Payment Successful!");
+            dispatch(toggleModal(''))
             return response.data;
           } else {
             alert("Payment failed: " + response.data.message);
