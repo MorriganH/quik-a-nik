@@ -14,7 +14,7 @@ const getProductById = id => {
 
 const getProductsByPortions = portions => {
   return db
-    .query("SELECT * FROM products WHERE portions = $1 AND is_basket = true;", [
+    .query("SELECT * FROM products WHERE portions = $1 AND type = 'basket';", [
       portions,
     ])
     .then(data => {
@@ -24,7 +24,7 @@ const getProductsByPortions = portions => {
 
 const getPartyProducts = () => {
   return db
-    .query("SELECT * FROM products WHERE portions > 4 AND is_basket = true;")
+    .query("SELECT * FROM products WHERE portions > 4 AND type = 'basket';")
     .then(data => {
       return data.rows;
     });
@@ -39,7 +39,7 @@ const getDeluxeProducts = () => {
 };
 const getIndividualProducts = () => {
   return db
-    .query("SELECT * FROM products WHERE is_basket = false;")
+    .query("SELECT * FROM products WHERE type != 'basket';")
     .then(data => {
       return data.rows;
     });

@@ -33,7 +33,7 @@ CREATE TABLE products (
   name VARCHAR(255) NOT NULL, 
   price_cents INTEGER,
   description VARCHAR(255) NOT NULL,
-  is_basket BOOLEAN,
+  type VARCHAR(255),
   portions INTEGER,
   is_deluxe BOOLEAN,
   image VARCHAR(255),
