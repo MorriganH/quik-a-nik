@@ -17,6 +17,7 @@ import { setLocationInfo, toggleModal } from "../redux/actions";
 import Stripe from "./Stripe";
 
 export default function Map({ navigation }) {
+  console.log("props in Map: ", navigation)
   const { locationInfo, modalShow } = useSelector((state) => state.reducer);
   const dispatch = useDispatch();
 
@@ -125,7 +126,7 @@ export default function Map({ navigation }) {
         <Modal animationType="slide" transparent={true} visible={modalShow === 'stripeWebModal'}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Stripe />
+            <Stripe navigation={navigation}/>
               <View style={styles.closeButtonContainer}>
               <TouchableOpacity onPress={() => dispatch(toggleModal(''))}>
                   <Text style={styles.closeModal}>⨉</Text>

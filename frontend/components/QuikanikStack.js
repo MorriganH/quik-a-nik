@@ -28,14 +28,12 @@ import Login from "./Login";
 import Register from "./Register";
 import StripeMobile from "./Stripe";
 import Map from "./Map";
-
-
+import ConfirmationMobile from "./ConfirmationMobile";
+import ConfirmationWeb from "./ConfirmationWeb";
 
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, toggleModal, adjustQuantity } from "../redux/actions";
-
-
 
 export default function QuikanikStack() {
   //REDUX FUNCTIONS
@@ -94,7 +92,8 @@ export default function QuikanikStack() {
           <Stack.Screen name="Cart" component={Cart} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="Stripe" component={StripeMobile} />  
+          <Stack.Screen name="Stripe" component={StripeMobile} />
+          <Stack.Screen name="Confirmation" component={ConfirmationMobile} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -115,6 +114,7 @@ export default function QuikanikStack() {
           <Stack.Screen name="Cart" component={Cart} />
           <Stack.Screen name="Navbar" component={Navbar} />
           <Stack.Screen name="Stripe" component={Stripe} />
+          <Stack.Screen name="Confirmation" component={ConfirmationWeb} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
         </Stack.Navigator>

@@ -7,7 +7,7 @@ import * as Location from "expo-location";
 import styles from '../styles/map'
 import { setLocationInfo } from "../redux/actions";
 
-export default function Map({navigation}) {
+export default function ConfirmationMobile({ navigation }) {
 
   const dispatch = useDispatch();
 

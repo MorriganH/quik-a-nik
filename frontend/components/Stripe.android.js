@@ -12,7 +12,7 @@ import tunnelURL from "../backend_tunnel";
 import styles from "../styles/stripeAndroid";
 import axios from "axios";
 
-export default function StripeMobile() {
+export default function StripeMobile({ navigation }) {
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const { confirmPayment, loading } = useConfirmPayment();
 

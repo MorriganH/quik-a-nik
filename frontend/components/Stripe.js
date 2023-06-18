@@ -6,8 +6,11 @@ import tunnelURL from "../backend_tunnel";
 import { useSelector } from "react-redux";
 import styles from "../styles/stripeWeb";
 
-export default function Stripe() {
-  const { locationInfo, userSession, cart,  } = useSelector((state) => state.reducer);
+export default function Stripe({ navigation }) {
+  console.log("props in Stripe: ", navigation);
+  const { locationInfo, userSession, cart } = useSelector(
+    (state) => state.reducer
+  );
   const [processing, setProcessing] = useState(false);
 
   const stripe = useStripe(); // Hook to access Stripe.js API
@@ -38,19 +41,18 @@ export default function Stripe() {
         .then((response) => {
           if (response.data) {
             alert("Payment Successful!");
-            return(response.data)
+            return response.data;
           } else {
             alert("Payment failed: " + response.data.message);
             throw Error("Payment has failed");
           }
         })
         .then((stripe_charge_id) => {
-          
-          const order= { locationInfo, userSession, cart, stripe_charge_id }
+          const order = { locationInfo, userSession, cart, stripe_charge_id };
 
- 
-          axios.post( `${tunnelURL}/orders`, order)
+          axios.post(`${tunnelURL}/orders`, order);
         })
+        .then(() => navigation.navigate("Confirmation"))
         .catch((error) => {
           setProcessing(false);
           console.error(error);
@@ -61,15 +63,37 @@ export default function Stripe() {
 
   return (
     <>
-    
-
-    <form onSubmit={handleSubmit} style={{ minHeight: 60, minWidth: 500, backgroundColor: "white", margin:"auto", padding:10 }}>
-      <CardElement style={styles.cardDetails}/>
-      <button type="submit" disabled={!stripe} style={{ margin:"auto", backgroundColor: "#55bb55", marginTop: 15, marginBottom: 10, }}>
-        Pay
-      </button>
-    </form>
-    {processing && <ActivityIndicator size="large" color="#00ff00" style={styles.activityIndicator} />}
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          minHeight: 60,
+          minWidth: 500,
+          backgroundColor: "white",
+          margin: "auto",
+          padding: 10,
+        }}
+      >
+        <CardElement style={styles.cardDetails} />
+        <button
+          type="submit"
+          disabled={!stripe}
+          style={{
+            margin: "auto",
+            backgroundColor: "#55bb55",
+            marginTop: 15,
+            marginBottom: 10,
+          }}
+        >
+          Pay
+        </button>
+      </form>
+      {processing && (
+        <ActivityIndicator
+          size="large"
+          color="#00ff00"
+          style={styles.activityIndicator}
+        />
+      )}
     </>
   );
 }

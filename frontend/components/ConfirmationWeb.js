@@ -7,7 +7,7 @@ import * as Location from "expo-location";
 import styles from "../styles/webMap";
 import { setLocationInfo } from "../redux/actions";
 
-export default function WebMap({ navigation }) {
+export default function ConfirmationWeb({ navigation }) {
   const { locationInfo } = useSelector((state) => state.reducer);
   const dispatch = useDispatch();
 
@@ -68,8 +68,8 @@ export default function WebMap({ navigation }) {
   return  (
     isLoaded ? (
     <>
-      <Text style={styles.title}>Set Location</Text>
-      <Text style={styles.subtitle}>Let Us Know Exactly Where You'll Be</Text>
+      <Text style={styles.title}>Order Successful!</Text>
+      <Text style={styles.subtitle}>Your Basket Is On It's Way</Text>
       <View style={styles.container}>
         <GoogleMap
           mapContainerStyle={styles.mapWindow}
