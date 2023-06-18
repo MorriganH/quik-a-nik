@@ -49,7 +49,7 @@ export default function Stripe() {
           const order= { locationInfo, userSession, cart, stripe_charge_id }
 
  
-          axios.post( `${tunnelURL}/orders`, order)
+          return axios.post( `${tunnelURL}/orders`, order)
         })
         .catch((error) => {
           setProcessing(false);
