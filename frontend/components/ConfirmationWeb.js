@@ -55,10 +55,10 @@ export default function ConfirmationWeb({ navigation }) {
   }, []);
 
   useEffect(() => {
-    //trackDelivery returns the current interval and stores in variable
-    const interval = trackDelivery(setDeliveryStatus, setDeliveryString);
-    
-    // return function to clear interval, preventing memory leak
+    // trackDelivery returns the current intervalStatus and stores it in a variable
+    const intervalId = trackDelivery(setDeliveryStatus, setDeliveryString);
+  
+    // Return function to clear the interval when the component is unmounted to prevent memory leak
     return () => {
       clearInterval(intervalId);
     };

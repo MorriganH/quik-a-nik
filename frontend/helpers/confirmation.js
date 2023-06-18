@@ -1,14 +1,15 @@
 export const trackDelivery = (setDeliveryStatus, setDeliveryString) => {
 
-  // return setInterval to call setDeliveryStatus every 4.5 sec to update string
-  return setInterval(() => {
-
-    
+  // Assign the ID returned by setInterval to a variable 'intervalStatus'
+  const intervalStatus = setInterval(() => {
+  
+    // Call setDeliveryStatus every 4.5 sec to update the delivery string
     setDeliveryStatus((prevDeliveryStatus) => {
       
-      // Stop condition for interval set to 6 (5 messages to display)
+      // Stop condition for the interval is set to 6 (5 messages to display)
       if (prevDeliveryStatus === 6) {
-        clearInterval(intervalId);
+        // Use the intervalStatus variable to clear the interval
+        clearInterval(intervalStatus);
         return prevDeliveryStatus;
       } else {
 
@@ -38,4 +39,8 @@ export const trackDelivery = (setDeliveryStatus, setDeliveryString) => {
       }
     });
   }, 4500);  //Time interval
+
+  // Return the intervalStatus so it can be used to clear the interval later
+  return intervalStatus;
 };
+
