@@ -78,8 +78,6 @@ export default function Map({ navigation }) {
 
   return isLoaded ? (
     <>
-      <Text style={styles.title}>Set Location</Text>
-      <Text style={styles.subtitle}>Let Us Know Exactly Where You'll Be</Text>
       <View style={styles.container}>
         <GoogleMap
           mapContainerStyle={styles.mapWindow}
@@ -104,6 +102,10 @@ export default function Map({ navigation }) {
           />
         </GoogleMap>
         <View>
+          <Text style={styles.title}>Set Location</Text>
+          <Text style={styles.subtitle}>
+            Let Us Know Exactly Where You'll Be
+          </Text>
           <Text
             style={styles.infoText}
           >{`Please provide us with some more details so we can find you`}</Text>
