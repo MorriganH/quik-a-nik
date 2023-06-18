@@ -18,7 +18,9 @@ app.use(
   })
 );
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cors());
+app.use(
+  cors()
+);
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -34,7 +36,6 @@ app.use("/products", productsRouter);
 app.use("/checkout-web", checkoutWebRouter);
 app.use("/checkout-mobile", checkoutMobileRouter);
 app.use("/users", users);
-app.use('/orders', ordersRouter);
-
+app.use("/orders", ordersRouter);
 
 module.exports = app;

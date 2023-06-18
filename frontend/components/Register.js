@@ -1,10 +1,17 @@
 import { useState } from "react";
-import { View, Text, TextInput, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  ActivityIndicator,
+  LogBox,
+} from "react-native";
 import tunnelURL from "../backend_tunnel";
 import axios from "axios";
 import { setUserSession } from "../redux/actions";
 import { useDispatch } from "react-redux";
-import bcrypt from "bcryptjs";
+import bcrypt from "react-native-bcrypt";
 import styles from "../styles/register";
 
 export default function Login({ navigation }) {
@@ -13,6 +20,9 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  LogBox.ignoreAllLogs();
 
   const dispatch = useDispatch();
 
@@ -25,6 +35,7 @@ export default function Login({ navigation }) {
     const userInfo = { firstName, lastName, email: email.toLowerCase(), hash };
     for (let key in userInfo) {
       if (userInfo[key] === "") {
+        setLoading(false);
         return alert("Please fill in all fields");
       }
     }
@@ -32,6 +43,7 @@ export default function Login({ navigation }) {
     axios.post(`${tunnelURL}/users/register`, userInfo).then(res => {
       if (!res.data) {
         alert("User with this email already exists");
+        setLoading(false);
       } else {
         dispatch(setUserSession(res.data));
         viewSwitcher("Home");
@@ -40,12 +52,14 @@ export default function Login({ navigation }) {
   };
 
   const checkPasswords = (password, passwordConfirm) => {
+    setLoading(true);
     if (!password || password !== passwordConfirm) {
+      setLoading(false);
       return alert("Please ensure your passwords match and are not blank");
     }
-    bcrypt.hash(password, 10).then(hash => {
-      registerUser(firstName, lastName, email, hash);
-    });
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
+    registerUser(firstName, lastName, email, hash);
   };
 
   return (
@@ -90,12 +104,18 @@ export default function Login({ navigation }) {
           onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
           secureTextEntry={true}
         />
-        <Pressable
-          style={styles.submitButton}
-          onPress={() => checkPasswords(password, passwordConfirm)}
-        >
-          <Text>Submit</Text>
-        </Pressable>
+        {loading ? (
+          <ActivityIndicator size="large" color="#00ff00" />
+        ) : (
+          <Pressable
+            style={styles.submitButton}
+            onPress={() => {
+              checkPasswords(password, passwordConfirm);
+            }}
+          >
+            <Text>Submit</Text>
+          </Pressable>
+        )}
       </View>
     </View>
   );

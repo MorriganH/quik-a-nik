@@ -9,7 +9,8 @@ if (device === "web") {
     container: {
       display: "flex",
       flexDirection: "row",
-      width: "80%",
+      alignItems: "space-between",
+      width: 950,
       alignSelf: "center",
       marginTop: 10,
     },
@@ -17,6 +18,13 @@ if (device === "web") {
       height: 100,
       width: 100,
       margin: 5,
+    },
+    missingImage: {
+      height: 100,
+      width: 100,
+      margin: 5,
+      alignSelf: "center",
+      marginBottom: 15
     },
 
     box: {
@@ -36,7 +44,22 @@ if (device === "web") {
       shadowColor: "grey",
       shadowOffset: { width: 3, height: 3 },
       shadowRadius: 10,
-      minWidth: 530
+      minWidth: 530,
+    },
+    missingItem: {
+      display: "flex",
+      backgroundColor: "white",
+      padding: 20,
+      marginVertical: 8,
+      marginHorizontal: 16,
+      borderRadius: 10,
+      shadowColor: "grey",
+      shadowOffset: { width: 3, height: 3 },
+      shadowRadius: 10,
+      width: "75%",
+      alignSelf: "center",
+      textAlign: "center",
+      justifyItems: "center"
     },
     total: {
       backgroundColor: "white",
@@ -85,7 +108,7 @@ if (device === "web") {
       flexDirection: "row",
       justifyContent: "flex-end",
       borderBottomWidth: 1,
-      borderBottomColor: "lightgrey"
+      borderBottomColor: "lightgrey",
     },
     containerFlow: {
       display: "flex",
@@ -112,6 +135,11 @@ if (device === "web") {
       marginTop: 5,
       display: "flex",
       width: 300,
+    },
+    link: {
+      color: "#ce4216",
+      textDecorationLine: "underline",
+      fontWeight: "bold"
     },
     quantityComponent: {
       fontSize: 20,
@@ -123,7 +151,7 @@ if (device === "web") {
   styles = StyleSheet.create({
     container: {
       display: "flex",
-      width: "90%",
+      width: "99%",
       alignSelf: "center",
       marginTop: 10,
     },
@@ -131,6 +159,13 @@ if (device === "web") {
       height: 100,
       width: 100,
       margin: 5,
+    },
+    missingImage: {
+      height: 100,
+      width: 100,
+      margin: 5,
+      alignSelf: "center",
+      marginBottom: 15
     },
 
     box: {
@@ -150,6 +185,23 @@ if (device === "web") {
       shadowColor: "grey",
       shadowOffset: { width: 3, height: 3 },
       shadowRadius: 10,
+      height: "auto",
+    },
+    missingItem: {
+      display: "flex",
+      lignItems: "center",
+      backgroundColor: "white",
+      padding: 20,
+      marginVertical: 8,
+      marginHorizontal: 16,
+      borderRadius: 10,
+      shadowColor: "grey",
+      shadowOffset: { width: 3, height: 3 },
+      shadowRadius: 10,
+      width: "80%",
+      alignSelf: "center",
+      textAlign: "center"
+
     },
     total: {
       backgroundColor: "white",
@@ -160,7 +212,6 @@ if (device === "web") {
       shadowColor: "grey",
       shadowOffset: { width: 3, height: 3 },
       shadowRadius: 10,
-      width: 350,
       height: 250,
     },
 
@@ -196,9 +247,13 @@ if (device === "web") {
     quantityControls: {
       display: "flex",
       flexDirection: "row",
-      justifyContent: "flex-end",
-      borderBottomWidth: 1,
-      borderBottomColor: "lightgrey"
+      justifyContent: "flex-start",
+      marginTop: 10,
+    },
+    quantityComponent: {
+      fontSize: 20,
+      fontWeight: "bold",
+      marginLeft: 20,
     },
     containerFlow: {
       display: "flex",
@@ -218,18 +273,19 @@ if (device === "web") {
 
     list: {},
     title: {
-      fontSize: 20,
+      fontSize: 14,
       fontWeight: "bold",
     },
     description: {
       marginTop: 5,
       display: "flex",
-      width: 300,
+      maxWidth: 150,
     },
-    quantityComponent: {
-      fontSize: 20,
+    link: {
+      color: "#ce4216",
+      textDecorationLine: "underline",
       fontWeight: "bold",
-      marginLeft: 10,
+      alignSelf: "center"
     },
   });
 }

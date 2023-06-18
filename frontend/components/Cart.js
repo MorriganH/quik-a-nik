@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/cart";
-import WebMap from "./WebMap";
+import WebMap from "./Map";
 import { toggleModal, adjustCartQuantity } from "../redux/actions";
 
 export default function Cart({ navigation }) {
@@ -34,7 +34,7 @@ export default function Cart({ navigation }) {
         <View style={styles.containerFlow}>
           <Image
             style={styles.image}
-            source={require("../assets/Juniper_Twitter_Art.webp")}
+            source={{uri: item.image}}
           />
 
           <View style={styles.containerMid}>
@@ -50,7 +50,9 @@ export default function Cart({ navigation }) {
                 <Text style={styles.quantityComponent}>-</Text>
               </Pressable>
 
-              <Text style={styles.quantityComponent}>{item.default_quantity}</Text>
+              <Text style={styles.quantityComponent}>
+                {item.default_quantity}
+              </Text>
 
               <Pressable
                 onPress={() => dispatch(adjustCartQuantity(item, "+"))}
@@ -81,50 +83,64 @@ export default function Cart({ navigation }) {
   const tax = beforeTax * taxRate - beforeTax;
   const total = beforeTax + tax;
 
-  return (
-    <View style={styles.container}>
-
-      <FlatList
-        style={styles.list}
-        data={cart}
-        renderItem={(item) => <Item item={item.item} />}
-        keyExtractor={(item) => item.id}
+  if (cartNotification > 0) {
+    return (
+      <View style={styles.container}>
+        <FlatList
+          style={styles.list}
+          data={cart}
+          renderItem={(item) => <Item item={item.item} />}
+          keyExtractor={(item) => item.id}
         />
 
-      <View style={styles.total}>
-        <View style={styles.lineItem}>
-          <Text>Items ({cartNotification}):</Text>
-          <Text>${subTotal.toFixed(2)}</Text>
-        </View>
-
-        <View style={styles.lineItem}>
-          <Text>Delivery fee:</Text>
-          <Text>${deliveryFee.toFixed(2)}</Text>
-        </View>
-
-        <View style={styles.divider}>
+        <View style={styles.total}>
           <View style={styles.lineItem}>
-            <Text>Total before tax:</Text>
-            <Text>${beforeTax.toFixed(2)}</Text>
+            <Text>Items ({cartNotification}):</Text>
+            <Text>${subTotal.toFixed(2)}</Text>
           </View>
 
           <View style={styles.lineItem}>
-            <Text>Estimated tax:</Text>
-            <Text>${tax.toFixed(2)}</Text>
+            <Text>Delivery fee:</Text>
+            <Text>${deliveryFee.toFixed(2)}</Text>
           </View>
 
-          <View style={styles.lineItem}>
-            <Text style={styles.orderTotal}>Order Total:</Text>
-            <Text style={styles.orderTotal}>${total.toFixed(2)}</Text>
+          <View style={styles.divider}>
+            <View style={styles.lineItem}>
+              <Text>Total before tax:</Text>
+              <Text>${beforeTax.toFixed(2)}</Text>
+            </View>
+
+            <View style={styles.lineItem}>
+              <Text>Estimated tax:</Text>
+              <Text>${tax.toFixed(2)}</Text>
+            </View>
+
+            <View style={styles.lineItem}>
+              <Text style={styles.orderTotal}>Order Total:</Text>
+              <Text style={styles.orderTotal}>${total.toFixed(2)}</Text>
+            </View>
           </View>
+          <Pressable
+            style={styles.submitButton}
+            onPress={() => navigation.navigate("Map")}
+          >
+            <Text>Select Drop-off Location</Text>
+          </Pressable>
         </View>
-        <Pressable
-          style={styles.submitButton}
-          onPress={() => navigation.navigate("Map")}
-        >
-          <Text>Select Drop-off Location</Text>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.missingItem}>
+        <Text style={styles.title}> Can't have a picnic with an empty basket 😉 </Text>
+        <Image
+            style={styles.missingImage}
+            source={require("../assets/empty-basket.png")}
+          />
+        <Pressable onPress={() => navigation.navigate("Home")}>
+        <Text style={styles.link}>Click here for some inspiration! </Text>
         </Pressable>
       </View>
-    </View>
-  );
+    );
+  }
 }

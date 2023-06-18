@@ -11,7 +11,7 @@ import {
   ScrollView,
   ImageBackground,
 } from "react-native";
-
+import Footer from "./Footer"
 import { setUserSession } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -30,7 +30,7 @@ export default function Home({ navigation }) {
   const [menuModalShow, setMenuModalShow] = useState(false);
 
   const { cart, products, modalShow, modalProduct, userSession } = useSelector(
-    state => state.reducer
+    (state) => state.reducer
   );
 
   const [orderCount, setOrderCount] = useState(0);
@@ -40,11 +40,11 @@ export default function Home({ navigation }) {
   const filter = function (path, view) {
     axios
       .get(`${tunnelURL}/products/${path}`)
-      .then(prods => {
+      .then((prods) => {
         dispatch(setProducts(prods.data.products));
       })
       .then(viewSwitcher(view))
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -52,10 +52,10 @@ export default function Home({ navigation }) {
   const getOrderCount = function (user_id) {
     axios
       .get(`${tunnelURL}/orders/count/${user_id}`)
-      .then(res => {
+      .then((res) => {
         setOrderCount(res.data);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -75,76 +75,141 @@ export default function Home({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <View style={styles.main}>
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.webColumn}>
           <Pressable
-            style={styles.buttonMain}
+            style={styles.spotlightButton}
             onPress={() => filter("", "ProductList")}
-            title="Mix & Match"
           >
             <ImageBackground
-              source={require("../assets/product-images/mix-n-match.jpg")}
-              style={styles.logoMain}
-            >
-              <Text style={styles.mainTitle}>Mix & Match</Text>
-            </ImageBackground>
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-leslie-torres-12087878.jpg")}
+            ></ImageBackground>
           </Pressable>
-          <View style={styles.sideMain}>
-            <Pressable
-              style={styles.buttonSideMain}
-              onPress={() => filter("deluxe", "ProductList")}
-              title="Deluxe Products"
-            >
-              <Image
-                style={styles.logo}
-                source={require("../assets/product-images/grill-lovers.jpg")}
-              />
-              <Text style={styles.buttonTitle}>Deluxe Products</Text>
+          <Text style={styles.buttonTitle}>Mix & Match</Text>
+
+          <Pressable
+            style={styles.button}
+            onPress={() => filter("4", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-kampus-production-7669170.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>Family Packages</Text>
+
+          <View style={styles.iconsHolder}>
+            <Pressable onPress={() => filter("addons", "ProductList")} style={styles.iconsGroup}>
+              <ImageBackground
+                style={styles.icons}
+                source={require("../assets/home_page_test/pexels-ron-lach-10398349.jpg")}
+              ></ImageBackground>
+              <Text style={styles.iconsLabel}>Add-ons</Text>
             </Pressable>
-            <Pressable
-              style={styles.button}
-              onPress={() => filter("addons", "ProductList")}
-            >
-              <Image
-                style={styles.logo}
-                source={require("../assets/product-images/frisbee.jpg")}
-              />
-              <Text style={styles.buttonTitle}>Individual Items</Text>
+
+            <Pressable style={styles.iconsGroup}>
+              <ImageBackground
+                style={styles.icons}
+                source={require("../assets/home_page_test/pexels-antoni-shkraba-5085770.jpg")}
+              ></ImageBackground>
+              <Text style={styles.iconsLabel}>Drinks</Text>
+            </Pressable>
+
+            <Pressable style={styles.iconsGroup}>
+              <ImageBackground
+                style={styles.icons}
+                source={require("../assets/home_page_test/potato.jpg")}
+              ></ImageBackground>
+              <Text style={styles.iconsLabel}>Potato</Text>
             </Pressable>
           </View>
-        </View>
-        <Pressable
-          style={styles.button}
-          onPress={() => filter("4", "ProductList")}
-        >
-          <Image
-            style={styles.logo}
-            source={require("../assets/product-images/basket.jpg")}
-          />
-          <Text style={styles.buttonTitle}>Family Packages</Text>
-        </Pressable>
 
-        <Pressable
-          style={styles.button}
-          onPress={() => filter("party", "ProductList")}
-        >
-          <Image
-            style={styles.logo}
-            source={require("../assets/product-images/basket.jpg")}
-          />
-          <Text style={styles.buttonTitle}>Party Packages</Text>
-        </Pressable>
-        <Pressable
-          style={styles.button}
-          onPress={() => filter("2", "ProductList")}
-        >
-          <Image
-            style={styles.logo}
-            source={require("../assets/product-images/basket.jpg")}
-          />
-          <Text style={styles.buttonTitle}>Baskets for Two</Text>
-        </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={() => filter("2", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/pexels-anna-guerrero-1956974.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>Baskets for two</Text>
+
+          </View>
+          <View style={styles.webColumn}>
+
+          <Pressable
+            style={styles.button}
+            onPress={() => filter("party", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-helena-lopes-697244.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>Party packages</Text>
+          
+          <Pressable
+            style={styles.button}
+            onPress={() => filter("2", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-roman-odintsov-8180728.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>Healthy living</Text>
+
+          <Pressable
+            style={styles.button}
+            onPress={() => filter("party", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-askar-abayev-5638732.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>Large groups</Text>
+
+          <Pressable
+            style={styles.button}
+            onPress={() => filter("2", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-rdne-stock-project-7551427.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>Fun in the sun</Text>
+
+{/* 
+          <View style={styles.footer}>
+            <Pressable style={styles.footerOptions}>
+              <Text>All baskets</Text>
+            </Pressable>
+            <Pressable style={styles.footerOptions}>
+              <Text>About us</Text>
+            </Pressable>
+          </View>
+          <View style={styles.footer}>
+            <Pressable style={styles.footerOptions}>
+              <Text>Find a park</Text>
+            </Pressable>
+            <Pressable style={styles.footerOptions}>
+              <Text>How we're helping</Text>
+            </Pressable>
+          </View>
+          <Text style={styles.buttonTitle}> TeamTBD™</Text> */}
+        </View>
+
+        {device !== "web" && <Footer/> }
       </ScrollView>
+        {device === "web" && <Footer/> }
+    
       <Modal
         visible={modalShow === "homeModal"}
         transparent={true}

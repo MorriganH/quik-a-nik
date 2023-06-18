@@ -26,6 +26,7 @@ const initialState = {
 const reducer = function (state = initialState, action) {
   switch (action.type) {
     case ADD_TO_CART:
+
       if (!state.cart.some((i) => i.id === action.payload.id)) {
         const cartItem = { ...action.payload };
         const newNotification =
@@ -34,6 +35,7 @@ const reducer = function (state = initialState, action) {
           ...state,
           cart: [...state.cart, cartItem],
           cartNotification: newNotification,
+          modalShow: false
         };
       } else {
         const index = state.cart.findIndex((i) => i.id === action.payload.id);
@@ -50,6 +52,7 @@ const reducer = function (state = initialState, action) {
           ...state,
           cart: mutableCart,
           cartNotification: notification,
+          modalShow: false
         };
       }
 
@@ -89,7 +92,11 @@ const reducer = function (state = initialState, action) {
         currentModalProduct.default_quantity++;
       }
       if (action.payload === "-") {
-        currentModalProduct.default_quantity--;
+        if (currentModalProduct.default_quantity > 1) {
+          currentModalProduct.default_quantity--;
+        }
+        
+
       }
 
       return {

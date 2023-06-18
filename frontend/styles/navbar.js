@@ -4,13 +4,13 @@ const styles = StyleSheet.create({
   webNavBar: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center",
+    // alignItems: "center",
     alignSelf: "center",
     backgroundColor: "white",
-    borderRadius: 3,
+    borderRadius: 10,
     height: 50,
     shadowColor: "grey",
-    width: "80%",
+    width: 950,
     shadowOffset: { width: 6, height: 6 },
     shadowRadius: 10,
     margin: 20,
@@ -29,6 +29,16 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "flexEnd"
   },
+  cartImage: {
+    width: 40,
+    height: 40,
+  },
+  cartNotification: {
+    alignSelf: "center",
+    fontWeight: "bold",
+    color: "#ce4216"
+  
+  }
 });
 
 
