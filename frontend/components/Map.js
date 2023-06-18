@@ -1,37 +1,49 @@
-import { useState, useCallback, useEffect } from "react";
-import { Text, View, TextInput, Pressable, ActivityIndicator } from "react-native";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MapView, { Marker } from "react-native-maps";
+import {
+  Text,
+  TextInput,
+  Pressable,
+  View,
+  ActivityIndicator,
+  Modal,
+  TouchableOpacity,
+} from "react-native";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
-import styles from '../styles/map'
-import { setLocationInfo } from "../redux/actions";
+import styles from "../styles/webMap";
+import { setLocationInfo, toggleModal } from "../redux/actions";
+import Stripe from "./Stripe";
 
-export default function Map({navigation}) {
-
+export default function Map({ navigation }) {
+  const { locationInfo, modalShow } = useSelector((state) => state.reducer);
   const dispatch = useDispatch();
 
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState({
+    coords: { latitude: 0, longitude: 0 },
+  });
+  const [markerPos, setMarkerPos] = useState(location);
   const [errorMsg, setErrorMsg] = useState(null);
-  const [markerPosition, setMarkerPosition] = useState(null);
-  const [locationDetails, setLocationDetails] = useState(''); 
+  const [locationDetails, setLocationDetails] = useState("");
+  //const [showStripeWeb, setShowStripeWeb] = useState(false);
 
-  // grab device location using expo-location
+  const { isLoaded, loadError } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: key,
+  });
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
-
-      // if location permission not granted by user, return error
       if (status !== "granted") {
         setErrorMsg("Permission to access location was denied");
         return;
       }
 
-      // Capture current location
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
-      setMarkerPosition(location.coords);
-      console.log(location.coords)
+      setMarkerPos(location);
     })();
   }, []);
 
@@ -43,41 +55,57 @@ export default function Map({navigation}) {
     text = JSON.stringify(location);
   }
 
-  //Set new markerPosition state onPress of map
-  const handlePress = (event) => {
-    setMarkerPosition(event.nativeEvent.coordinate);
+  const updateMarker = (ev) => {
+    const oldMarkerPos = { ...markerPos };
+    setMarkerPos(
+      oldMarkerPos,
+      (oldMarkerPos.coords.latitude = ev.latLng.lat()),
+      (oldMarkerPos.coords.longitude = ev.latLng.lng())
+    );
   };
 
-  const checkoutConfirmation = function (markerPosition, locationDetails) {
-    const {latitude, longitude} = markerPosition
-    const input = { longitude, latitude, locationDetails};
-    dispatch(setLocationInfo(input))
-        navigation.navigate("Stripe");
+  const checkoutConfirmation = function (markerPos, locationDetails) {
+    const {longitude, latitude} = markerPos.coords
+    const input = { longitude, latitude, locationDetails };
+    dispatch(setLocationInfo(input));
+    // navigation.navigate("Stripe");
+    dispatch(toggleModal(null, 'stripeWebModal'));
   };
 
-  return (
-    // short circuit triggers re-render of component once location truthy
+  if (loadError) {
+    return <Text>Map cannot be loaded</Text>;
+  }
 
-    location ? (
-      <View style={styles.container}>
+  return isLoaded ? (
+    <>
       <Text style={styles.title}>Set Location</Text>
       <Text style={styles.subtitle}>Let Us Know Exactly Where You'll Be</Text>
-        <MapView
-          style={styles.map}
-          provider="google"
-          googleMapsApiKey={key}
-          loadingFallback={<Text>Loading...</Text>}
-          initialRegion={{
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-            latitudeDelta: 0.0115,
-            longitudeDelta: 0.0055,
+      <View style={styles.container}>
+        <GoogleMap
+          mapContainerStyle={styles.mapWindow}
+          center={{
+            lat: location.coords.latitude,
+            lng: location.coords.longitude,
           }}
-          onPress={handlePress}
+          zoom={13}
+          onClick={(ev) => {
+            updateMarker(ev);
+          }}
         >
-          <Marker coordinate={markerPosition} />
-        </MapView>
-        <Text style={styles.infoText}>{`Please provide us with some more details so we can find you`}</Text>
+          <Marker
+            position={{
+              lat: markerPos.coords.latitude,
+              lng: markerPos.coords.longitude,
+            }}
+            draggable
+            onDragEnd={(ev) => {
+              updateMarker(ev);
+            }}
+          />
+        </GoogleMap>
+        <Text
+          style={styles.infoText}
+        >{`Please provide us with some more details so we can find you`}</Text>
         <TextInput
           style={styles.locationDetailsInput}
           placeholder="Location Details"
@@ -90,11 +118,29 @@ export default function Map({navigation}) {
         />
         <Pressable
           style={styles.checkoutButton}
-          onPress={() => checkoutConfirmation(markerPosition, locationDetails)}
+          onPress={() => checkoutConfirmation(markerPos, locationDetails)}
         >
           <Text style={styles.buttonText}>Proceed to Checkout</Text>
         </Pressable>
+        <Modal animationType="slide" transparent={true} visible={modalShow === 'stripeWebModal'}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Stripe />
+              <View style={styles.closeButtonContainer}>
+              <TouchableOpacity onPress={() => dispatch(toggleModal(''))}>
+                  <Text style={styles.closeModal}>⨉</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </View>
-    ) : <ActivityIndicator size="large" color="#00ff00" style={styles.activityIndicator} /> 
+    </>
+  ) : (
+    <ActivityIndicator
+      size="large"
+      color="#00ff00"
+      style={styles.activityIndicator}
+    />
   );
 }

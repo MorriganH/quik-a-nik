@@ -12,7 +12,6 @@ import {
   ImageBackground,
   ActivityIndicator,
 } from "react-native";
-import images from "../product-images";
 import styles from "../styles/productList";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, toggleModal, adjustQuantity } from "../redux/actions";
@@ -23,12 +22,9 @@ export default function ProductList() {
   const columns = device === "web" ? 3 : 1;
   const modalTransition = device === "web" ? "fade" : "slide"
   const { cart, products, modalShow, modalProduct } = useSelector(
-    (state) => state.reducer
+    state => state.reducer
   );
   const dispatch = useDispatch();
-
-
-
 
   const Item = ({ product }) => {
     return (
@@ -36,10 +32,7 @@ export default function ProductList() {
         style={styles.item}
         onPress={() => dispatch(toggleModal(product, "productModal"))}
       >
-        <Image
-          style={styles.logo}
-          source={{uri: product.image}}
-        />
+        <Image style={styles.logo} source={{ uri: product.image }} />
         <View style={styles.prodInfo}>
           <Text style={styles.prodName}>{product.name}</Text>
           <Text>${product.price_cents / 100}</Text>
@@ -50,7 +43,8 @@ export default function ProductList() {
           />
         </View>
       </Pressable>
-  )};
+    );
+  };
 
   return (
     <View style={styles.list}>
@@ -58,7 +52,11 @@ export default function ProductList() {
       <Text style={styles.subtitle}>
         {device === "web" ? "Click" : "Touch"} an item to view more info
       </Text>
-      { products.length < 2 ? <ActivityIndicator/> :
+      { products.length < 2 ?  <ActivityIndicator
+        size="large"
+        color="#00ff00"
+        style={styles.activityIndicator}
+      /> :
       <FlatList
         data={products}
         showsHorizontalScrollIndicator={false}
