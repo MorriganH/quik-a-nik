@@ -211,6 +211,7 @@ export default function Home({ navigation }) {
         </Pressable>
         
         </View>
+        <Text style={styles.buttonTitle}> TeamTBD™</Text>
 
 
 
