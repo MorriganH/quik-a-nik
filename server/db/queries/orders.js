@@ -44,6 +44,14 @@ const getOrderByOrderId = id => {
     });
 };
 
+const getNewOrderByUser = id => {
+  return db
+  .query("SELECT orders.id FROM orders WHERE orders.user_id = $1 ORDER BY orders.created_at DESC LIMIT 1;" , [id])
+  .then(data => {
+    return data.rows;
+  })
+}
+
 const postOrder = order => {
   return db.query(
     `INSERT INTO orders (user_id, total_price_cents, stripe_charge_id, longitude, latitude, location_description)
@@ -67,4 +75,5 @@ module.exports = {
   getOrderCountByUserId,
   getOrderByOrderId,
   postOrder,
+  getNewOrderByUser,
 };

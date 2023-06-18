@@ -1,8 +1,7 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Text,
-  TextInput,
   Pressable,
   View,
   ActivityIndicator,
@@ -11,13 +10,42 @@ import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
 import styles from "../styles/confirmationWeb";
-import { setLocationInfo } from "../redux/actions";
 import { trackDelivery } from "../helpers/confirmation";
+import axios from 'axios';
+import tunnelURL from "../backend_tunnel";
 
 export default function ConfirmationWeb({ navigation }) {
-  const { locationInfo } = useSelector((state) => state.reducer);
-  console.log("ConfirmationWeb locationInfo: ", locationInfo); //REMOVE THIS
-  const dispatch = useDispatch();
+  const { locationInfo, userSession, cart } = useSelector((state) => state.reducer);
+  const order = { locationInfo, userSession, cart };
+  
+  console.log("cart: ", cart);
+  console.log("locationInfo: ", locationInfo)
+  console.log("userSession: ", userSession)
+
+  const fetchRecentOrderId = (userId) => {
+    axios.get(`${tunnelURL}/orders/new/1`)
+      .then(response => {
+        const orderData = response.data.orders;
+        console.log("orderData: ",orderData)
+  
+        if (orderData) {
+          const mostRecentOrder = orderData[0];
+  
+          console.log(`Most recent order ID for user: `, mostRecentOrder.id);
+          return mostRecentOrder.id;
+        } else {
+          console.log(`No orders found for user.`);
+          return null;
+        }
+      })
+      .catch(error => {
+        console.error(`Error fetching recent order ID: `, error);
+      });
+  };
+  
+
+  fetchRecentOrderId(1);
+
 
   const [location, setLocation] = useState({
     coords: { latitude: 0, longitude: 0 },
