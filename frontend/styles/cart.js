@@ -9,7 +9,8 @@ if (device === "web") {
     container: {
       display: "flex",
       flexDirection: "row",
-      width: "75%",
+      alignItems: "space-between",
+      width: 950,
       alignSelf: "center",
       marginTop: 10,
     },

@@ -103,29 +103,29 @@ export default function Home({ navigation }) {
           <Text style={styles.buttonTitle}>Family Packages</Text>
 
           <View style={styles.iconsHolder}>
-            <View style={styles.iconsGroup}>
+            <Pressable onPress={() => filter("addons", "ProductList")} style={styles.iconsGroup}>
               <ImageBackground
                 style={styles.icons}
                 source={require("../assets/home_page_test/pexels-ron-lach-10398349.jpg")}
               ></ImageBackground>
               <Text style={styles.iconsLabel}>Add-ons</Text>
-            </View>
+            </Pressable>
 
-            <View style={styles.iconsGroup}>
+            <Pressable style={styles.iconsGroup}>
               <ImageBackground
                 style={styles.icons}
                 source={require("../assets/home_page_test/pexels-antoni-shkraba-5085770.jpg")}
               ></ImageBackground>
               <Text style={styles.iconsLabel}>Drinks</Text>
-            </View>
+            </Pressable>
 
-            <View style={styles.iconsGroup}>
+            <Pressable style={styles.iconsGroup}>
               <ImageBackground
                 style={styles.icons}
-                source={require("../assets/home_page_test/pexels-kampus-production-6299265.jpg")}
+                source={require("../assets/home_page_test/potato.jpg")}
               ></ImageBackground>
-              <Text style={styles.iconsLabel}>For the kids</Text>
-            </View>
+              <Text style={styles.iconsLabel}>Potato</Text>
+            </Pressable>
           </View>
 
           <Pressable
@@ -138,12 +138,13 @@ export default function Home({ navigation }) {
             ></ImageBackground>
           </Pressable>
           <Text style={styles.buttonTitle}>Baskets for two</Text>
+
           </View>
           <View style={styles.webColumn}>
 
           <Pressable
             style={styles.button}
-            onPress={() => filter("2", "ProductList")}
+            onPress={() => filter("party", "ProductList")}
           >
             <ImageBackground
               style={styles.logoTest}
@@ -151,6 +152,7 @@ export default function Home({ navigation }) {
             ></ImageBackground>
           </Pressable>
           <Text style={styles.buttonTitle}>Party packages</Text>
+          
           <Pressable
             style={styles.button}
             onPress={() => filter("2", "ProductList")}
@@ -164,7 +166,7 @@ export default function Home({ navigation }) {
 
           <Pressable
             style={styles.button}
-            onPress={() => filter("2", "ProductList")}
+            onPress={() => filter("party", "ProductList")}
           >
             <ImageBackground
               style={styles.logoTest}
