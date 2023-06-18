@@ -56,7 +56,7 @@ if (device === "web") {
       shadowColor: "grey",
       shadowOffset: { width: 3, height: 3 },
       shadowRadius: 10,
-      width: "75%",
+      width: 950,
       alignSelf: "center",
       textAlign: "center",
       justifyItems: "center"

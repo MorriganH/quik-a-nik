@@ -23,6 +23,10 @@ const styles = StyleSheet.create({
     width: "45%",
     flexDirection: "row",
   },
+  userActions: {
+    display: "flex",
+    flexDirection: "row",
+  },
 
   button: {
     // backgroundColor: "white",

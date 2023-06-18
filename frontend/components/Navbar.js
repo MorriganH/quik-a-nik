@@ -32,7 +32,7 @@ export default function Navbar({ navigation }) {
     (state) => state.reducer
   );
   const dispatch = useDispatch();
-  const test = false
+  const test = false;
 
   const filter = function (path, view) {
     axios
@@ -67,48 +67,61 @@ export default function Navbar({ navigation }) {
         >
           <Text>Products</Text>
         </Pressable>
-        {userSession === null && (
-          <Pressable
-            style={styles.button}
-            onPress={() => viewSwitcher("Login")}
-          >
-            <Text>Login</Text>
-          </Pressable>
-        )}
-        {userSession === null && (
-          <Pressable
-            style={styles.button}
-            onPress={() => viewSwitcher("Register")}
-          >
-            <Text>Register</Text>
-          </Pressable>
-        )}
-        {userSession !== null && <Text>{userSession.first_name}</Text>}
-        {userSession !== null && (
-          <Pressable style={styles.button} onPress={() => logout()}>
-            <Text>Logout</Text>
-          </Pressable>
-        )}
-      </View>
-      <View style={styles.navSection}>
         <Pressable
           style={styles.button}
-          onPress={() => viewSwitcher("OrderList")}
+          onPress={() => filter("", "ProductList")}
         >
-          <Text>My Orders</Text>
+          <Text>About</Text>
         </Pressable>
-        <Pressable style={styles.button} onPress={() => viewSwitcher("Cart")}>
-          <ImageBackground source={require("../assets/picnic-basket-grey.png")}
-          style={styles.cartImage}>
+      </View>
+      <View style={styles.navSection}>
+        {userSession === null && (
+          <View style={styles.userActions}>
+            <Pressable
+              style={styles.button}
+              onPress={() => viewSwitcher("Login")}
+            >
+              <Text>Login</Text>
+            </Pressable>
 
-          <Text style={styles.cartNotification}>{cartNotification} </Text>
-          {/* <Text>Cart </Text> */}
+            <Text> | </Text>
+            <Pressable
+              style={styles.button}
+              onPress={() => viewSwitcher("Register")}
+            >
+              <Text>Register</Text>
+            </Pressable>
+          </View>
+        )}
+
+        {userSession !== null && (
+          <View style={styles.userActions}>
+            <Text> Welcome back, {userSession.first_name}</Text>
+            <Text> | </Text>
+
+            <Pressable
+              style={styles.button}
+              onPress={() => viewSwitcher("OrderList")}
+            >
+              <Text>My Orders</Text>
+            </Pressable>
+            <Text> | </Text>
+
+            <Pressable style={styles.button} onPress={() => logout()}>
+              <Text>Logout</Text>
+            </Pressable>
+          </View>
+        )}
+        <Pressable style={styles.button} onPress={() => viewSwitcher("Cart")}>
+          <ImageBackground
+            source={require("../assets/picnic-basket-grey.png")}
+            style={styles.cartImage}
+          >
+            <Text style={styles.cartNotification}>{cartNotification} </Text>
+            {/* <Text>Cart </Text> */}
           </ImageBackground>
         </Pressable>
       </View>
-
     </Text>
   );
 }
-
-
