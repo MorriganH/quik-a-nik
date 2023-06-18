@@ -11,7 +11,7 @@ INSERT INTO products (name, price_cents, description, is_basket, portions, is_de
 ('Sweet Dessert', 1500, 'Decadent sweet treats', false, 1, false, 'https://firebasestorage.googleapis.com/v0/b/quik-a-nik.appspot.com/o/sweet-dessert.jpg?alt=media&token=2f79bf10-3636-49c2-a711-836ba0d5f969', 1),
 ('Soda Pop', 200, 'A variety of soda flavors', false, 1, false, 'https://firebasestorage.googleapis.com/v0/b/quik-a-nik.appspot.com/o/soda-pop.jpg?alt=media&token=8b5a6329-cad4-4c64-b5ec-02e6582a34e0', 1),
 ('Potato', 100, 'Simply Perfect', false, 1, false, 'https://firebasestorage.googleapis.com/v0/b/quik-a-nik.appspot.com/o/potato.jpg?alt=media&token=b9a35504-fe1c-4e96-8e82-03ef759b53c0', 1),
-('Potato Wedges', 100, 'Wedged and fried to perfection!', false, 1, false, 'https://firebasestorage.googleapis.com/v0/b/quik-a-nik.appspot.com/o/potato-wedges.jpg?alt=media&token=4d55de8e-e48d-4f48-b13c-8000ef432b1a', 1),
+('Potato Wedges', 300, 'Wedged and fried to perfection!', false, 1, false, 'https://firebasestorage.googleapis.com/v0/b/quik-a-nik.appspot.com/o/potato-wedges.jpg?alt=media&token=4d55de8e-e48d-4f48-b13c-8000ef432b1a', 1),
 ('Chips', 300, 'Bag of potato chips', false, 1, false, 'https://firebasestorage.googleapis.com/v0/b/quik-a-nik.appspot.com/o/chips.jpg?alt=media&token=8cd35332-a51e-4aaf-9c3c-9178d126895a', 1),
 ('Frisbee', 1000, 'Durable frisbee for outdoor fun', false, 1, false, 'https://firebasestorage.googleapis.com/v0/b/quik-a-nik.appspot.com/o/frisbee.jpg?alt=media&token=d2145e5d-b5dc-48c4-9eb7-c864e1b2bf28', 1),
 ('Veggie Platter', 1000, 'Fresh cut vegetables with dip', false, 1, false, 'https://firebasestorage.googleapis.com/v0/b/quik-a-nik.appspot.com/o/veggie-platter.jpg?alt=media&token=99786afb-44bb-45b8-baa3-653ea6a36b0e', 1),
