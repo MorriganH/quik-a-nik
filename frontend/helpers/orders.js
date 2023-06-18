@@ -52,4 +52,4 @@ const formatOrderData = (data) => {
   return Object.values(ordersById);
 };
 
-export { formatOrderData, formatPrice };
+export { formatOrderData, formatPrice, formatOrderId };
