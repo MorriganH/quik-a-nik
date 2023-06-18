@@ -58,6 +58,19 @@ const getPotatoes = () => {
     });
 };
 
+const getDrinks = () => {
+  return db
+    .query(
+      `SELECT *
+    FROM products
+    WHERE type = 'drink'
+    ;`
+    )
+    .then(data => {
+      return data.rows;
+    });
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
@@ -66,4 +79,5 @@ module.exports = {
   getIndividualProducts,
   getPartyProducts,
   getPotatoes,
+  getDrinks,
 };

@@ -37,6 +37,12 @@ router.get("/potato", function (req, res) {
   });
 });
 
+router.get("/drinks", function (req, res) {
+  products.getDrinks().then(data => {
+    res.json({ products: data });
+  });
+});
+
 router.get("/:portion", function (req, res) {
   products.getProductsByPortions(req.params.portion).then(data => {
     res.json({ products: data });

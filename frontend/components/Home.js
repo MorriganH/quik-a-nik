@@ -59,6 +59,16 @@ export default function Home({ navigation }) {
       .catch(err => console.log(err));
   };
 
+  const getDrinks = function () {
+    axios
+      .get(`${tunnelURL}/products/drinks`)
+      .then(prods => {
+        dispatch(setProducts(prods.data.products));
+      })
+      .then(viewSwitcher("ProductList"))
+      .catch(err => console.log(err));
+  };
+
   const getOrderCount = function (user_id) {
     axios
       .get(`${tunnelURL}/orders/count/${user_id}`)
@@ -124,7 +134,7 @@ export default function Home({ navigation }) {
               <Text style={styles.iconsLabel}>Add-ons</Text>
             </Pressable>
 
-            <Pressable style={styles.iconsGroup}>
+            <Pressable onPress={() => getDrinks()} style={styles.iconsGroup}>
               <ImageBackground
                 style={styles.icons}
                 source={require("../assets/home_page_test/pexels-antoni-shkraba-5085770.jpg")}
