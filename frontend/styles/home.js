@@ -7,13 +7,16 @@ if (device === "web") {
   styles = StyleSheet.create({
     container: {
       backgroundColor: "rgb(242, 242, 242)",
+      width: "100%",
+      alignSelf: "center",
     },
 
     scrollView: {
       display: "flex",
       flex: 1,
       alignItems: "center",
-      justifyContent: "center",
+      // justifyContent: "center",
+      width: "100%",
     },
 
     mainTitle: {
@@ -55,14 +58,13 @@ if (device === "web") {
       display: "flex",
       justifyContent: "flex-start",
       flexDirection: "row",
-      width: "80.5%",
       height: 250,
     },
 
     logoMain: {
-      width: 610,
+      // width: "45%",
       height: 240,
-      // borderRadius: 10,
+      borderRadius: 10,
       shadowColor: "grey",
       shadowOffset: { width: 4, height: 4 },
       shadowRadius: 10,
@@ -76,7 +78,7 @@ if (device === "web") {
       backgroundColor: "none",
       // borderRadius: 10,
       height: "auto",
-      width: "50%",
+      width: "45%",
       padding: 5,
       margin: 5,
       // shadowColor: "grey",

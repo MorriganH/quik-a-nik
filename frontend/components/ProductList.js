@@ -21,10 +21,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function ProductList() {
   const device = Platform.OS;
   const columns = device === "web" ? 3 : 1;
+  const modalTransition = device === "web" ? "fade" : "slide"
   const { cart, products, modalShow, modalProduct } = useSelector(
     (state) => state.reducer
   );
   const dispatch = useDispatch();
+
+
 
 
   const Item = ({ product }) => {
@@ -51,7 +54,7 @@ export default function ProductList() {
 
   return (
     <View style={styles.list}>
-      <Text style={styles.title}>Take your pick!</Text>
+    <Text style={styles.title}>Take your pick!</Text>
       <Text style={styles.subtitle}>
         {device === "web" ? "Click" : "Touch"} an item to view more info
       </Text>
@@ -59,16 +62,17 @@ export default function ProductList() {
       <FlatList
         data={products}
         showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         numColumns={columns}
         renderItem={(product) => <Item product={product.item} />}
         keyExtractor={(item) => item.id}
       /> }
-      <Modal visible={modalShow === "productModal"} transparent={true} animationType="slide"  blurRadius={1} >
-
+      <Modal visible={modalShow === "productModal"} transparent={true} animationType={modalTransition} >
+      <View style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', width: "100%", height: "100%"}}>
         <View style={styles.modal}>
           <ImageBackground
             style={styles.modalHeader}
-            source={require("../assets/Juniper_Twitter_Art.webp")}
+            source={{uri: modalProduct.image}}
             >
             <TouchableOpacity onPress={() => dispatch(toggleModal())}>
               <Text style={styles.closeModal}>⨉</Text>
@@ -82,27 +86,30 @@ export default function ProductList() {
             </Text>
           </View>
           <View style={styles.modalDivider}>
-            <Text>{modalProduct.description}</Text>
+            <Text style={styles.description}>{modalProduct.description}</Text>
           </View>
 
           <View style={styles.modalActions}>
             <View style={styles.modalQuantity}>
               <Pressable onPress={() => dispatch(adjustQuantity("-"))}>
-                <Text>-</Text>
+                <Text style={styles.quantityComponent}>-</Text>
               </Pressable>
 
-              <Text>{modalProduct.default_quantity}</Text>
-              <Pressable onPress={() => dispatch(adjustQuantity("+"))}>
-                <Text>+</Text>
+              <Text style={styles.quantityComponent}>{modalProduct.default_quantity}</Text>
+              <Pressable  onPress={() => dispatch(adjustQuantity("+"))}>
+                <Text style={styles.quantityComponent}>+</Text>
               </Pressable>
             </View>
 
-            <Button
+            <Pressable
             
-            title="Add to basket"
+            style={styles.modalButton}
             onPress={() => dispatch(addItem(modalProduct))}
-            />
+            >
+              <Text style={styles.modalButtonText}> add +</Text>
+            </Pressable>
           </View>
+        </View>
         </View>
       </Modal>
     </View>

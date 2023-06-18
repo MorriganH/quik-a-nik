@@ -99,9 +99,9 @@ export default function Navbar({ navigation }) {
         </Pressable>
         <Pressable style={styles.button} onPress={() => viewSwitcher("Cart")}>
           <ImageBackground source={require("../assets/picnic-basket2.png")}
-          style={style.cartImage}>
+          style={styles.cartImage}>
 
-          <Text style={style.cartNotification}>{cartNotification} </Text>
+          <Text style={styles.cartNotification}>{cartNotification} </Text>
           {/* <Text>Cart </Text> */}
           </ImageBackground>
         </Pressable>
@@ -111,24 +111,4 @@ export default function Navbar({ navigation }) {
   );
 }
 
-const style = StyleSheet.create({
-  modal: {
-    position: "absolute",
-    backgroundColor: "pink",
-    maxHeight: 50,
-    margin: 0
-    
-  },
-cartImage: {
-  width: 40,
-  height: 40,
-},
-cartNotification: {
-  alignSelf: "center",
-  fontWeight: "bold",
-  color: "#ce4216"
-
-}
-
-})
 

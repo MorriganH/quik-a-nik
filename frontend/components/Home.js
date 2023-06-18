@@ -30,7 +30,7 @@ export default function Home({ navigation }) {
   const [menuModalShow, setMenuModalShow] = useState(false);
 
   const { cart, products, modalShow, modalProduct, userSession } = useSelector(
-    state => state.reducer
+    (state) => state.reducer
   );
 
   const [orderCount, setOrderCount] = useState(0);
@@ -40,11 +40,11 @@ export default function Home({ navigation }) {
   const filter = function (path, view) {
     axios
       .get(`${tunnelURL}/products/${path}`)
-      .then(prods => {
+      .then((prods) => {
         dispatch(setProducts(prods.data.products));
       })
       .then(viewSwitcher(view))
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -52,10 +52,10 @@ export default function Home({ navigation }) {
   const getOrderCount = function (user_id) {
     axios
       .get(`${tunnelURL}/orders/count/${user_id}`)
-      .then(res => {
+      .then((res) => {
         setOrderCount(res.data);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -77,18 +77,21 @@ export default function Home({ navigation }) {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.main}>
-          <Pressable
-            style={styles.buttonMain}
-            onPress={() => filter("", "ProductList")}
-            title="Mix & Match"
-          >
-            <ImageBackground
-              source={require("../assets/product-images/mix-n-match.jpg")}
-              style={styles.logoMain}
+          
+            <Pressable
+              style={styles.buttonMain}
+              onPress={() => filter("", "ProductList")}
+              title="Mix & Match"
             >
-              <Text style={styles.mainTitle}>Mix & Match</Text>
-            </ImageBackground>
-          </Pressable>
+              <ImageBackground
+                source={require("../assets/product-images/mix-n-match.jpg")}
+                style={styles.logoMain}
+                imageStyle={styles.logoMain}
+              >
+                <Text style={styles.mainTitle}>Mix & Match</Text>
+              </ImageBackground>
+            </Pressable>
+         
           <View style={styles.sideMain}>
             <Pressable
               style={styles.buttonSideMain}

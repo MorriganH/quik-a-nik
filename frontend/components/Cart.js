@@ -34,7 +34,7 @@ export default function Cart({ navigation }) {
         <View style={styles.containerFlow}>
           <Image
             style={styles.image}
-            source={require("../assets/Juniper_Twitter_Art.webp")}
+            source={{uri: item.image}}
           />
 
           <View style={styles.containerMid}>

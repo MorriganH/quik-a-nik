@@ -7,9 +7,12 @@ if (device === "web") {
   styles = StyleSheet.create({
     list: {
       display: "flex",
+      justifyContent: "space-between",
       alignItems: "center",
       flex: 1,
-      overflow: "hidden"
+      overflow: "hidden",
+      marginBottom: 40
+
     },
 
     item: {
@@ -53,9 +56,13 @@ if (device === "web") {
     },
     modal: {
       backgroundColor: "white",
-      height: "60%",
-      width: "50%",
-      alignSelf: "center"
+      display: "flex",
+      height: "95%",
+      width: 550,
+      alignSelf: "center",
+      marginTop: 25,
+      borderRadius: 25,
+      overflow: "hidden"
     
     },
 
@@ -84,7 +91,8 @@ if (device === "web") {
       paddingRight: 25,
       paddingTop: 25,
       paddingBottom: 10,
-      height: 350
+      height: 500,
+      width: 550,
  
     },
     modalProductName: {
@@ -93,9 +101,9 @@ if (device === "web") {
       fontSize: 25,
       margin: 15
     },
-    modalEmail: {
-      color: "white",
-      fontSize: 15
+    description: {
+      fontSize: 25,
+      margin: 10
     },
     modalOption: {
       display: "flex",
@@ -110,7 +118,7 @@ if (device === "web") {
       marginTop: 5,
       display: "flex",
       flexDirection: "row",
-      justifyContent: "space-around",
+      justifyContent: "flex-end",
       height: 100,
       position: "absolute",
       bottom: 0,
@@ -137,10 +145,32 @@ if (device === "web") {
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-evenly",
-      backgroundColor: "grey",
+      backgroundColor: "#b24213",
       width: 125,
+      borderRadius: 25,
+      marginRight: 10
 
-    }
+    },
+    modalButton: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      backgroundColor: "#6ab85d",
+      width: 125,
+      borderRadius: 25,
+      marginRight: 10
+      
+    },
+    quantityComponent: {
+      fontSize: 20,
+      fontWeight: "bold",
+      margin: 10,
+    },
+    modalButtonText: {
+      fontSize: 20,
+      fontWeight: "bold",
+      margin: 10,
+    },
   });
 }
 
@@ -148,7 +178,10 @@ if (device !== "web") {
   styles = StyleSheet.create({
     list: {
       display: "flex",
-      alignItems: "center",
+      alignItems: "center",      
+      marginBottom: 60,
+      marginTop: 15,
+      width: "100%"
     },
 
     item: {
@@ -159,7 +192,7 @@ if (device !== "web") {
       backgroundColor: "white",
       padding: 20,
       marginVertical: 8,
-      marginHorizontal: 16,
+      // marginHorizontal: 16,
       borderRadius: 10,
     },
 
@@ -227,12 +260,12 @@ if (device !== "web") {
     modalProductName: {
       color: "#1e1f22",
       fontWeight: "bold",
-      fontSize: 25,
+      fontSize: 20,
       margin: 15
     },
-    modalEmail: {
-      color: "white",
-      fontSize: 15
+    description: {
+      margin:10,
+      fontSize: 25
     },
     modalOption: {
       display: "flex",
@@ -274,10 +307,30 @@ if (device !== "web") {
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-evenly",
-      backgroundColor: "grey",
+      backgroundColor: "#b24213",
       width: 125,
+      borderRadius: 25
 
-    }
+    },
+    modalButton: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      backgroundColor: "#6ab85d",
+      width: 125,
+      borderRadius: 25
+
+    },
+    quantityComponent: {
+      fontSize: 20,
+      fontWeight: "bold",
+      margin: 10,
+    },
+    modalButtonText: {
+      fontSize: 20,
+      fontWeight: "bold",
+      margin: 10,
+    },
   });
 }
 
