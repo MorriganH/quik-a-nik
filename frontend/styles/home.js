@@ -344,7 +344,6 @@ if (device !== "web") {
       // padding: 5,
       margin: 5,
       overflow: "hidden",
-
       elevation: 15
     },
 

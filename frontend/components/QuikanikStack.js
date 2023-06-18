@@ -85,16 +85,16 @@ export default function QuikanikStack() {
               ),
             })}
           >
-            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Home" component={Home} options={{ title: '    Quik-a-nik', color: "green" }} />
           </Stack.Group>
           <Stack.Screen name="Web" component={Web} />
-          <Stack.Screen name="ProductList" component={ProductList} />
-          <Stack.Screen name="Map" component={Map} />
-          <Stack.Screen name="OrderList" component={OrderList} />
-          <Stack.Screen name="Cart" component={Cart} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="Stripe" component={StripeMobile} />  
+          <Stack.Screen name="ProductList" component={ProductList} options={{ title: 'Quik-a-nik' }} />
+          <Stack.Screen name="Map" component={Map} options={{ title: 'Quik-a-nik' }} />
+          <Stack.Screen name="OrderList" component={OrderList} options={{ title: 'Quik-a-nik' }} />
+          <Stack.Screen name="Cart" component={Cart} options={{ title: 'Quik-a-nik' }} />
+          <Stack.Screen name="Login" component={Login} options={{ title: 'Quik-a-nik' }} />
+          <Stack.Screen name="Register" component={Register} options={{ title: 'Quik-a-nik' }} />
+          <Stack.Screen name="Stripe" component={StripeMobile} options={{ title: 'Quik-a-nik' }}/>  
         </Stack.Navigator>
       </NavigationContainer>
     );

@@ -98,7 +98,7 @@ export default function Navbar({ navigation }) {
           <Text>My Orders</Text>
         </Pressable>
         <Pressable style={styles.button} onPress={() => viewSwitcher("Cart")}>
-          <ImageBackground source={require("../assets/picnic-basket2.png")}
+          <ImageBackground source={require("../assets/picnic-basket-grey.png")}
           style={styles.cartImage}>
 
           <Text style={styles.cartNotification}>{cartNotification} </Text>
