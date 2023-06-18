@@ -69,7 +69,7 @@ export default function Navbar({ navigation }) {
         </Pressable>
         <Pressable
           style={styles.button}
-          onPress={() => filter("", "ProductList")}
+          onPress={() => viewSwitcher("About")}
         >
           <Text>About</Text>
         </Pressable>

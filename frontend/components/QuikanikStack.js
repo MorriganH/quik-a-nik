@@ -28,6 +28,7 @@ import Login from "./Login";
 import Register from "./Register";
 import StripeMobile from "./Stripe";
 import Map from "./Map";
+import About from "./About";
 
 
 
@@ -95,6 +96,7 @@ export default function QuikanikStack() {
           <Stack.Screen name="Login" component={Login} options={{ title: 'Quik-a-nik' }} />
           <Stack.Screen name="Register" component={Register} options={{ title: 'Quik-a-nik' }} />
           <Stack.Screen name="Stripe" component={StripeMobile} options={{ title: 'Quik-a-nik' }}/>  
+          <Stack.Screen name="About" component={About} options={{ title: 'Quik-a-nik' }}/>  
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -117,6 +119,7 @@ export default function QuikanikStack() {
           <Stack.Screen name="Stripe" component={Stripe} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="About" component={About} />
         </Stack.Navigator>
       </NavigationContainer>
     );
