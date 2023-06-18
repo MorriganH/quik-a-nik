@@ -6,7 +6,7 @@ let styles;
 if (device === "web") {
   styles = StyleSheet.create({
     title: {
-      fontSize: 16,
+      fontSize: 24,
       margin: "2%",
     },
 
@@ -37,6 +37,9 @@ if (device === "web") {
       minWidth: "70%",
       maxWidth: "100%",
       backgroundColor: "white",
+      shadowColor: "grey",
+      shadowOffset: { width: 3, height: 3 },
+      shadowRadius: 10,
     },
 
     orderId: {

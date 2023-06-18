@@ -24,7 +24,7 @@ export default function ConfirmationWeb({ navigation }) {
   const [markerPos, setMarkerPos] = useState(location);
   const [errorMsg, setErrorMsg] = useState(null);
 
-  const [locationDetails, setLocationDetails] = useState("");
+  // const [locationDetails, setLocationDetails] = useState("");
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
@@ -69,11 +69,11 @@ export default function ConfirmationWeb({ navigation }) {
   //   );
   // };
 
-  const checkoutConfirmation = function (markerPos, locationDetails) {
-    const input = { markerPos, locationDetails };
-    dispatch(setLocationInfo(input));
-    navigation.navigate("Stripe");
-  };
+  // const checkoutConfirmation = function (markerPos, locationDetails) {
+  //   const input = { markerPos, locationDetails };
+  //   dispatch(setLocationInfo(input));
+  //   navigation.navigate("Stripe");
+  // };
 
   if (loadError) {
     return <Text>Map cannot be loaded</Text>;
@@ -122,9 +122,9 @@ export default function ConfirmationWeb({ navigation }) {
         /> */}
         <Pressable
           style={styles.checkoutButton}
-          onPress={() => checkoutConfirmation(markerPos, locationDetails)}
+          onPress={() => navigation.navigate("OrderList")}
         >
-          <Text style={styles.buttonText}>Proceed to Checkout</Text>
+          <Text style={styles.buttonText}>View Your Orders</Text>
         </Pressable>
       </View>
     </>
