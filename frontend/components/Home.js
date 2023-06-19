@@ -252,7 +252,7 @@ export default function Home({ navigation }) {
           <Text style={styles.buttonTitle}> TeamTBD™</Text> */}
         </View>
 
-        {device !== "web" && <Footer />}
+        {device !== "web" && <Footer navigation={navigation} />}
       </ScrollView>
       {device === "web" && <Footer />}
 

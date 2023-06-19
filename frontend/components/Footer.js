@@ -3,7 +3,7 @@ import styles from "../styles/home";
 
 const device = Platform.OS;
 
-export default function Footer() {
+export default function Footer({navigation}) {
   if (device !== "web") {
     return (
       <View>
@@ -11,7 +11,7 @@ export default function Footer() {
           <Pressable style={styles.footerOptions}>
             <Text>All baskets</Text>
           </Pressable>
-          <Pressable style={styles.footerOptions}>
+          <Pressable onPress={navigation.navigate("About")} style={styles.footerOptions}>
             <Text>About us</Text>
           </Pressable>
         </View>

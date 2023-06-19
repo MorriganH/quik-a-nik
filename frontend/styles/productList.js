@@ -73,6 +73,7 @@ if (device === "web") {
     prodName: {
       width: 140,
       fontSize: 20,
+      height: 50
     },
 
     activityIndicator: {
@@ -230,6 +231,20 @@ if (device !== "web") {
       // marginHorizontal: 16,
       borderRadius: 10,
     },
+    add: {
+      display: "flex",
+      fontSize: 18,
+      alignItems: "center",
+      alignSelf: "flex-end",
+      justifyContent: "center",
+      color: "white",
+      backgroundColor: "#55bb55",
+      width: 150,
+      height: 30,
+      textAlign: "center",
+      borderRadius: 5,
+      marginTop: 20
+    },
 
     itemPressable: {
       display: "flex",
@@ -257,6 +272,7 @@ if (device !== "web") {
     prodName: {
       width: 200,
       fontSize: 24,
+      height: 60
     },
 
     activityIndicator: {
