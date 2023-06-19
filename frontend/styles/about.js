@@ -5,26 +5,44 @@ const styles = StyleSheet.create({
   aboutWrapper: {
     display: "flex",
     flexDirection: "row",
-    width: 900,
+    width: 950,
     alignSelf: "center",
+    backgroundColor: "white",
+    borderRadius: 20,
+    shadowColor: "rgba(34, 61, 26, 0.5)",
+    shadowOffset: { width:3, height: 3 },
+    shadowRadius: 3,
+    overflow: "hidden"
   },
   paragraphWrapper: {
     display: "flex",
-    maxWidth: 600
-
+    
   },
   bearBox: {
     display: "flex",
     alignSelf: 'flex-end'
-
+    
   },
   paragraph: {
-    margin: 10
-
+    padding: 10,
+    maxWidth: 600
+    
+  },
+  paragraphL: {
+    padding: 10,
+    // maxWidth: 600
+    
   },
   qnBear: {
     height: 500,
-    width: 250
+    width: 240,
+  },
+  base: {
+    position:"absolute",
+    bottom: 0,
+    height: 26,
+    width: 950,
+    backgroundColor: "#92a864",
   }
 });
 
