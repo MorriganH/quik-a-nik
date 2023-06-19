@@ -109,31 +109,45 @@ if (device !== "web") {
   styles = StyleSheet.create({
 
     title: {
-      fontSize: 24,
+      fontSize: 30,
+      marginLeft: "auto",
+      marginRight: "auto",
+      marginTop: "3%"
     },
   
     subtitle: {
-      fontSize: 16,
-      margin: "auto",
-      marginBottom: "10%",
+      fontSize: 20,
+      marginLeft: "auto",
+      marginRight: "auto",
     },
   
     container: {
+      display: "flex",
+      flexDirection: "column",
       flex: 1,
       height: "100%",
-      justifyContent: "center",
       // alignItems: "center",
       backgroundColor: "white",
     },
-  
+
     map: {
-      maxWidth: "60%",
-      minHeight: "30%",
-      marginBottom: "3%",
+      width: "65%",
+      height: "35%",
+      marginLeft: "auto",
+      marginRight: "auto",
+      marginTop: "7%",
+      marginBottom: "7%"
+      // marginBottom: "3%",
+      // margin: "auto",
     },
   
     infoText: {
       fontStyle: "italic",
+      fontSize: 18,
+      fontWeight: 500,
+      marginLeft: "auto",
+      marginRight: "auto",
+
     },
   
     checkoutButton: {
@@ -141,11 +155,17 @@ if (device !== "web") {
       padding: 10,
       borderRadius: 5,
       backgroundColor: "#55bb55",
-      maxWidth: "40%"
+      maxWidth: "40%",
+      marginLeft: "auto",
+      marginRight: "auto",
+      alignSelf: "flex-end"
+      // margin: "auto",
     },
   
     buttonText: {
       fontWeight: 500,
+      // margin: "auto",
+
     },
   
     activityIndicator: {
@@ -160,32 +180,59 @@ if (device !== "web") {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      marginTop: 22
+      // marginTop: 22
     },
 
     orderSummary: {
     display: "flex",
     justifyContent: "space-between",
-    height: "80%"
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 
   orderId: {
-    fontSize: 14,
+    fontSize: 20,
     fontWeight: 800,
+    marginLeft: "auto",
+    marginRight: "auto",
+
+  },
+
+  bottom: {
+    display: "flex",
+    flexDirection: "row",
+    flex: 1,
+    justifyContent: "space-around",
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+
+  bottomRight: {
+    display: "flex",
+    flexDirection: "column",
   },
 
   order: {
-    margin: "auto",
+    marginLeft: "auto",
+    marginRight: "auto",
+    // borderWidth: 1,
+    // borderRadius: 10,
+    padding: 10,
   },
 
   orderStatus: {
-    fontSize: 14,
+    fontSize: 20,
     fontWeight: 800,
-    color: "#ce4216"
+    color: "#ce4216",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: "5%"
+
   },
   
   orderTracker: {
-    margin: "auto",
+    marginLeft: "auto",
+    marginRight: "auto",
   }
 
   })}

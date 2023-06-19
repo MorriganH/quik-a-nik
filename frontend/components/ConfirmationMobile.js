@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -10,20 +10,16 @@ import { useDispatch, useSelector } from "react-redux";
 import MapView, { Marker } from "react-native-maps";
 import key from "../api_key";
 import styles from "../styles/confirmation";
-import { setLocationInfo } from "../redux/actions";
 import { trackDelivery } from "../helpers/confirmation";
 import axios from "axios";
 import tunnelURL from "../backend_tunnel";
 import { formatOrderId, formatPrice } from "../helpers/orders";
 
 export default function ConfirmationMobile({ route, navigation }) {
-  const { locationInfo, userSession } = useSelector(
-    (state) => state.reducer
-  );
+  const { locationInfo, userSession } = useSelector((state) => state.reducer);
+
   const cart = route.params.cart;
-
-
-  console.log("cart: ", cart);
+  const order = { locationInfo, userSession, cart };
 
   const [deliveryStatus, setDeliveryStatus] = useState(1);
   const [deliveryString, setDeliveryString] = useState("");
@@ -35,8 +31,6 @@ export default function ConfirmationMobile({ route, navigation }) {
     latitudeDelta: 0.0115,
     longitudeDelta: 0.0055,
   };
-
-  const order = { locationInfo, userSession, cart };
 
   const fetchRecentOrder = (userId) => {
     axios
@@ -100,34 +94,41 @@ export default function ConfirmationMobile({ route, navigation }) {
         >
           <Marker coordinate={initialRegion} />
         </MapView>
-
-        <View style={styles.order}>
-            <Text style={styles.orderId}>Order ID: {formatOrderId(recentOrder.id)}</Text>
+        <View style={styles.bottom}>
+          <View style={styles.order}>
+            <Text style={styles.orderId}>
+              Order ID: {formatOrderId(recentOrder.id)}
+            </Text>
             <FlatList
               data={cart}
               renderItem={({ item }) => <LineItem item={item} />}
               keyExtractor={(item) => item.name}
             />
-            <Text>Total: {formatPrice(recentOrder.total_price_cents)}</Text>
+            <Text style={styles.total}>
+              Total: {formatPrice(recentOrder.total_price_cents)}
+            </Text>
           </View>
-            <Text style={styles.orderStatus}>Order Status:</Text>
-          <View style={styles.orderTracker}>
-            <Text style={styles.infoText}>{deliveryString}</Text>
-            {deliveryString !== "Delivered. Enjoy!!" && (
-              <ActivityIndicator
-                size="large"
-                color="#00ff00"
-                style={styles.activityIndicator}
-              />
-            )}
-          </View>
+          <View style={styles.bottomRight}>
+            <View style={styles.orderTracker}>
+              <Text style={styles.orderStatus}>Order Status:</Text>
+              <Text style={styles.infoText}>{deliveryString}</Text>
+              {deliveryString !== "Delivered. Enjoy!!" && (
+                <ActivityIndicator
+                  size="large"
+                  color="#00ff00"
+                  style={styles.activityIndicator}
+                />
+              )}
+            </View>
 
-        <Pressable
-          style={styles.checkoutButton}
-          onPress={() => navigation.navigate("OrderList")}
-        >
-          <Text style={styles.buttonText}>View Your Orders</Text>
-        </Pressable>
+          </View>
+        </View>
+            <Pressable
+              style={styles.checkoutButton}
+              onPress={() => navigation.navigate("OrderList")}
+            >
+              <Text style={styles.buttonText}>View Your Orders</Text>
+            </Pressable>
       </View>
     ) : (
       <ActivityIndicator
