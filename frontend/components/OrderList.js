@@ -67,8 +67,8 @@ export default function OrderList() {
           )
         )}
         <View style={styles.location}>
-          <Text>{`Longitude: ${order.longitude}`}</Text>
-          <Text>{`Latitude: ${order.latitude}`}</Text>
+          <Text>{`Longitude: ${Number(order.longitude).toFixed(7)}`}</Text>
+          <Text>{`Latitude: ${Number(order.latitude).toFixed(7)}`}</Text>
         </View>
         <View style={styles.dateTotal}>
           <Text>{`Order Placed: ${order.created_at}`}</Text>
@@ -81,8 +81,6 @@ export default function OrderList() {
     );
   };
 
-  console.log(userSession);
-
   return (
     <>
       <View style={styles.container}>
@@ -92,7 +90,7 @@ export default function OrderList() {
               style={styles.title}
             >{`${orders[0].first_name}'s Orders`}</Text>
           )}
-          <ScrollView>
+          
             <FlatList
               showsHorizontalScrollIndicator={false}
               style={styles.flatList}
@@ -100,7 +98,7 @@ export default function OrderList() {
               renderItem={({ item }) => <Order order={item} />}
               keyExtractor={(order) => order.id.toString()}
             />
-          </ScrollView>
+          
         </View>
 
         {device === "web" && (
