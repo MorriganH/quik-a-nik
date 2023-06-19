@@ -8,7 +8,7 @@ import {
   SET_USER_SESSION,
   SET_LOCATION_INFO,
   ADJUST_CART_QUANTITY,
-  RESET_CART
+  RESET_CART,
 } from "./actions";
 
 const initialState = {
@@ -20,7 +20,13 @@ const initialState = {
   modalProduct: {},
   modalShow: false,
   cartNotification: 0,
-  userSession: null,
+  userSession: {
+    id: 11,
+    email: "v",
+    password: "$2a$10$hrXGHDTZH2cVz.wF3XqNDOkHV6MHCKfyX348CGNv9PDMaQejgpBe2",
+    first_name: "Vik",
+    last_name: "R",
+  },
   locationInfo: null,
 };
 

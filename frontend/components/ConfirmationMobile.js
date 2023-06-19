@@ -35,7 +35,7 @@ export default function ConfirmationMobile({ route, navigation }) {
 
   const fetchRecentOrder = (userId) => {
     axios
-      .get(`${tunnelURL}/orders/new/${userSession.id}`)
+      .get(`${tunnelURL}/orders/new/${userId}`)
       .then((response) => {
         const orderData = response.data.orders;
         console.log("orderData: ", orderData);

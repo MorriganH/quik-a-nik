@@ -7,35 +7,36 @@ if (device === "web") {
   styles = StyleSheet.create({
     title: {
       fontSize: 24,
-      margin: "2%",
+      color: "#1b3e17",
+      fontWeight: 800,
+      margin: "auto",
+      marginBottom: "5%",
     },
 
     container: {
       display: "flex",
       flex: 1,
-      alignItems: "center",
+      flexDirection: "row",
       justifyContent: "center",
       margin: "auto",
-      minWidth: "90%",
-      minHeight: "90%",
+      width: 950,
       backgroundColor: "#f2f2f2",
     },
 
     flatList: {
-      minWidth: "50%",
-      maxWidth: "50%",
+      minWidth: "100%",
+      maxWidth: "100%",
     },
 
     orderItem: {
       display: "flex",
       flex: 1,
+      width: 450,
       marginBottom: "8%",
       borderWidth: 3,
       borderRadius: 10,
-      borderColor: "#55bb55",
+      borderColor: "#1b3e17",
       padding: 10,
-      minWidth: "70%",
-      maxWidth: "100%",
       backgroundColor: "white",
       shadowColor: "grey",
       shadowOffset: { width: 3, height: 3 },
@@ -43,6 +44,7 @@ if (device === "web") {
     },
 
     orderId: {
+      color: "#1b3e17",
       marginBottom: "3%",
       fontWeight: 800,
       textAlign: "center",
@@ -60,9 +62,10 @@ if (device === "web") {
       display: "flex",
       minWidth: "40%",
     },
-  qtyText: {
-    minWidth: "30%",
-  },
+
+    qtyText: {
+      minWidth: "30%",
+    },
 
     qtyText: {
       minWidth: "30%",
@@ -87,11 +90,20 @@ if (device === "web") {
     },
 
     total: {
-      fontWeight: 700,
+      fontWeight: 800,
+      color: "#ce4216",
     },
 
     price: {
-      fontWeight: 400,
+      fontWeight: 800,
+      color: "black",
+    },
+
+    qnBear: {
+      height: 500,
+      width: 240,
+      marginTop: "15%",
+      marginLeft: "10%",
     },
   });
 }
@@ -100,24 +112,29 @@ if (device !== "web") {
   styles = StyleSheet.create({
     title: {
       fontSize: 24,
+      color: "#1b3e17",
       fontWeight: 800,
-      margin: "2%",
+      marginBottom: "5%",
+      marginTop: "5%",
+      margin: "auto",
+      textAlign: "center",
     },
 
     container: {
       display: "flex",
       flex: 1,
+      flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
       margin: "auto",
       minWidth: "90%",
       minHeight: "90%",
-      backgroundColor: "pink",
+      backgroundColor: "#f2f2f2",
     },
 
     flatList: {
-      minWidth: "80%",
-      maxWidth: "80%",
+      minWidth: "90%",
+      maxWidth: "100%",
     },
 
     orderItem: {
@@ -126,7 +143,7 @@ if (device !== "web") {
       marginBottom: "8%",
       borderWidth: 3,
       borderRadius: 10,
-      borderColor: "#55bb55",
+      borderColor: "#1b3e17",
       padding: 10,
       minWidth: "70%",
       maxWidth: "100%",
@@ -134,6 +151,7 @@ if (device !== "web") {
     },
 
     orderId: {
+      color: "#1b3e17",
       marginBottom: "3%",
       fontWeight: 800,
       textAlign: "center",
@@ -177,12 +195,15 @@ if (device !== "web") {
     },
 
     total: {
-      fontWeight: 700,
+      fontWeight: 800,
+      color: "#ce4216",
     },
 
     price: {
-      fontWeight: 400,
+      fontWeight: 800,
+      color: "black",
     },
-  })}
+  });
+}
 
 export default styles;

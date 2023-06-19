@@ -26,19 +26,22 @@ export default function StripeMobile({ navigation }) {
   const dispatch = useDispatch();
 
   const fetchPaymentIntentClientSecret = async () => {
-    const response = await fetch(
-      `${tunnelURL}/checkout-mobile/create-payment-intent`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          currency: "cad",
-        }),
-      }
-    );
-    const { clientSecret } = await response.json();
+    const response = await axios.post(`${tunnelURL}/checkout-mobile/create-payment-intent`, {cart})
+    console.log(response.data.clientSecret)
+    // const response = await fetch(
+    //   `${tunnelURL}/checkout-mobile/create-payment-intent`,
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       currency: "cad",
+    //       cart
+    //     }),
+    //   }
+    // );
+    const clientSecret = response.data.clientSecret;
     console.log(clientSecret);
     return clientSecret;
   };
@@ -70,20 +73,20 @@ export default function StripeMobile({ navigation }) {
       console.log("Payment confirmation error", error);
     } else if (paymentIntent) {
 
-      handlePaymentSuccess();
-
       const order = {
         locationInfo,
         userSession,
         cart,
         stripe_charge_id: paymentIntent.clientSecret,
       };
-
+      
       axios
-        .post(`${tunnelURL}/orders`, order)
-        // .then(handlePaymentSuccess)
-        .catch((err) => console.log(err));
+      .post(`${tunnelURL}/orders`, order)
+      // .then(handlePaymentSuccess)
+      .catch((err) => console.log(err));
     }
+    
+    handlePaymentSuccess();
   };
 
   return loading ? (
