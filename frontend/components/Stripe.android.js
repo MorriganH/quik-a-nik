@@ -44,8 +44,7 @@ export default function StripeMobile({ navigation }) {
   };
 
   const handlePaymentSuccess = () => {
-    console.log("Getting to navigation call");
-    navigation.navigate("Confirmation");
+    navigation.navigate("Confirmation", {cart});
     dispatch(toggleModal(""));
     dispatch(resetCart());
   };
@@ -79,8 +78,6 @@ export default function StripeMobile({ navigation }) {
         cart,
         stripe_charge_id: paymentIntent.clientSecret,
       };
-
-      console.log("locationInfo.markerPosition: ",locationInfo.markerPosition);
 
       axios
         .post(`${tunnelURL}/orders`, order)

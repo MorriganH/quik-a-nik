@@ -10,16 +10,19 @@ import {
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
-import styles from "../styles/confirmationWeb";
+import styles from "../styles/confirmation";
 import { trackDelivery } from "../helpers/confirmation";
 import axios from "axios";
 import tunnelURL from "../backend_tunnel";
 import { formatOrderId, formatPrice } from "../helpers/orders";
 
-export default function ConfirmationWeb({ navigation }) {
-  const { locationInfo, userSession, cart } = useSelector(
+export default function ConfirmationWeb({ route, navigation }) {
+  const { locationInfo, userSession } = useSelector(
     (state) => state.reducer
   );
+
+  const cart = route.params.cart;
+
   const order = { locationInfo, userSession, cart };
 
   const [location, setLocation] = useState({
@@ -38,7 +41,7 @@ export default function ConfirmationWeb({ navigation }) {
   });
 
   //Call to backend to grab new Order ID and price
-  const fetchrecentOrder = (userId) => {
+  const fetchRecentOrder = (userId) => {
     axios
       .get(`${tunnelURL}/orders/new/${userSession.id}`)
       .then((response) => {
@@ -82,7 +85,7 @@ export default function ConfirmationWeb({ navigation }) {
     const intervalId = trackDelivery(setDeliveryStatus, setDeliveryString);
 
     //fetch the most recent order for the user
-    fetchrecentOrder(1);
+    fetchRecentOrder(userSession.id);
 
     // Return function to clear the interval when the component is unmounted to prevent memory leak
     return () => {

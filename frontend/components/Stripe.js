@@ -8,7 +8,6 @@ import { toggleModal, resetCart } from "../redux/actions";
 import styles from "../styles/stripeWeb";
 
 export default function Stripe({ navigation }) {
-
   const dispatch = useDispatch();
 
   const { locationInfo, userSession, cart, modalShow } = useSelector(
@@ -43,8 +42,6 @@ export default function Stripe({ navigation }) {
         // Server response
         .then((response) => {
           if (response.data) {
-            dispatch(toggleModal(''))
-            dispatch(resetCart())
             return response.data;
           } else {
             alert("Payment failed: " + response.data.message);
@@ -57,7 +54,11 @@ export default function Stripe({ navigation }) {
 
           axios.post(`${tunnelURL}/orders`, order);
         })
-        .then(() => navigation.navigate("Confirmation"))
+        .then(() => navigation.navigate("Confirmation", { cart }))
+        .then(() => {
+          dispatch(toggleModal(""));
+          dispatch(resetCart());
+        })
         .catch((error) => {
           setProcessing(false);
           console.error(error);

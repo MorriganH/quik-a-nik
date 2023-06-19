@@ -2,21 +2,32 @@ import { useState, useCallback, useEffect } from "react";
 import {
   Text,
   View,
-  TextInput,
+  FlatList,
   Pressable,
   ActivityIndicator,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import MapView, { Marker } from "react-native-maps";
 import key from "../api_key";
-// import * as Location from "expo-location";
-import styles from "../styles/map";
+import styles from "../styles/confirmation";
 import { setLocationInfo } from "../redux/actions";
+import { trackDelivery } from "../helpers/confirmation";
+import axios from "axios";
+import tunnelURL from "../backend_tunnel";
+import { formatOrderId, formatPrice } from "../helpers/orders";
 
-export default function ConfirmationMobile({ navigation }) {
-  const { locationInfo, userSession, cart } = useSelector(
+export default function ConfirmationMobile({ route, navigation }) {
+  const { locationInfo, userSession } = useSelector(
     (state) => state.reducer
   );
+  const cart = route.params.cart;
+
+
+  console.log("cart: ", cart);
+
+  const [deliveryStatus, setDeliveryStatus] = useState(1);
+  const [deliveryString, setDeliveryString] = useState("");
+  const [recentOrder, setrecentOrder] = useState(null);
 
   const initialRegion = {
     latitude: locationInfo.latitude,
@@ -27,91 +38,103 @@ export default function ConfirmationMobile({ navigation }) {
 
   const order = { locationInfo, userSession, cart };
 
-  console.log("initialRegion: ", initialRegion);
-  console.log("userSession", userSession);
-  console.log("cart", cart);
+  const fetchRecentOrder = (userId) => {
+    axios
+      .get(`${tunnelURL}/orders/new/${userSession.id}`)
+      .then((response) => {
+        const orderData = response.data.orders;
+        console.log("orderData: ", orderData);
 
-  // grab device location using expo-location
-  // useEffect(() => {
-  //   (async () => {
-  //     let { status } = await Location.requestForegroundPermissionsAsync();
+        if (orderData) {
+          //set order fetched to recentOrder state
+          const mostRecentOrder = orderData[0];
+          setrecentOrder(mostRecentOrder);
+        } else {
+          console.log(`No orders found for user.`);
+          return null;
+        }
+      })
+      .catch((error) => {
+        console.error(`Error fetching recent order ID: `, error);
+      });
+  };
 
-  //     // if location permission not granted by user, return error
-  //     if (status !== "granted") {
-  //       setErrorMsg("Permission to access location was denied");
-  //       return;
-  //     }
+  useEffect(() => {
+    // trackDelivery returns the current intervalStatus and stores it in a variable
+    const intervalId = trackDelivery(setDeliveryStatus, setDeliveryString);
 
-  //     // Capture current location
-  //     let location = await Location.getCurrentPositionAsync({});
-  //     setLocation(location);
-  //     setMarkerPosition(location.coords);
-  //   })();
-  // }, []);
+    //fetch the most recent order for the user
+    fetchRecentOrder(userSession.id);
 
-  // let text = "Waiting..";
-  // // save either error message or JSON location data (in string format) in 'text' variable
-  // if (errorMsg) {
-  //   text = errorMsg;
-  // } else if (location) {
-  //   text = JSON.stringify(location);
-  // }
+    // Return function to clear the interval when the component is unmounted to prevent memory leak
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
-  // //Set new markerPosition state onPress of map
-  // const handlePress = (event) => {
-  //   setMarkerPosition(event.nativeEvent.coordinate);
-  // };
-
-  // const checkoutConfirmation = function (markerPosition, locationDetails) {
-  //   const input = { markerPosition, locationDetails };
-  //   dispatch(setLocationInfo(input));
-  //   navigation.navigate("Stripe");
-  // };
+  function LineItem({ item }) {
+    return (
+      <View style={styles.lineItemContainer}>
+        <Text
+          style={styles.lineItemName}
+        >{`${item.name} (x${item.default_quantity})`}</Text>
+      </View>
+    );
+  }
 
   return (
     // short circuit triggers re-render of component once location truthy
 
-    // location ? (
-    <View style={styles.container}>
-      <Text style={styles.title}>Thanks for your Order!</Text>
-      <Text style={styles.subtitle}>Let Us Know Exactly Where You'll Be</Text>
-      <MapView
-        style={styles.map}
-        provider="google"
-        googleMapsApiKey={key}
-        loadingFallback={<Text>Loading...</Text>}
-        initialRegion={
-          initialRegion
-        }
-      >
-        <Marker coordinate={initialRegion}/>
-      </MapView>
-      {/* <Text
-          style={styles.infoText}
-        >{`Please provide us with some more details so we can find you`}</Text> */}
-      {/* <TextInput
-          style={styles.locationDetailsInput}
-          placeholder="Location Details"
-          editable
-          multiline
-          onChangeText={(text) => setLocationDetails(text)}
-          value={locationDetails}
-          numberOfLines={5}
-          maxLength={255}
-        /> */}
-      <Pressable
-        style={styles.checkoutButton}
-        onPress={() => navigation.navigate("OrderList")}
-      >
-        <Text style={styles.buttonText}>View Your Orders</Text>
-      </Pressable>
-    </View>
-    // ) : (
-    //   <ActivityIndicator
-    //     size="large"
-    //     color="#00ff00"
-    //     style={styles.activityIndicator}
-    //   />
-    // )
+    recentOrder ? (
+      <View style={styles.container}>
+        <View>
+          <Text style={styles.title}>Thanks For Your Order!</Text>
+          <Text style={styles.subtitle}>Your Basket Is On It's Way</Text>
+        </View>
+        <MapView
+          style={styles.map}
+          provider="google"
+          googleMapsApiKey={key}
+          loadingFallback={<Text>Loading...</Text>}
+          initialRegion={initialRegion}
+        >
+          <Marker coordinate={initialRegion} />
+        </MapView>
+
+        <View style={styles.order}>
+            <Text style={styles.orderId}>Order ID: {formatOrderId(recentOrder.id)}</Text>
+            <FlatList
+              data={cart}
+              renderItem={({ item }) => <LineItem item={item} />}
+              keyExtractor={(item) => item.name}
+            />
+            <Text>Total: {formatPrice(recentOrder.total_price_cents)}</Text>
+          </View>
+            <Text style={styles.orderStatus}>Order Status:</Text>
+          <View style={styles.orderTracker}>
+            <Text style={styles.infoText}>{deliveryString}</Text>
+            {deliveryString !== "Delivered. Enjoy!!" && (
+              <ActivityIndicator
+                size="large"
+                color="#00ff00"
+                style={styles.activityIndicator}
+              />
+            )}
+          </View>
+
+        <Pressable
+          style={styles.checkoutButton}
+          onPress={() => navigation.navigate("OrderList")}
+        >
+          <Text style={styles.buttonText}>View Your Orders</Text>
+        </Pressable>
+      </View>
+    ) : (
+      <ActivityIndicator
+        size="large"
+        color="#00ff00"
+        style={styles.activityIndicator}
+      />
+    )
   );
 }
