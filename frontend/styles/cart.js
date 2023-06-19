@@ -8,6 +8,7 @@ if (device === "web") {
   styles = StyleSheet.create({
     container: {
       display: "flex",
+      flex:1,
       flexDirection: "row",
       alignItems: "space-between",
       width: 950,
@@ -184,7 +185,7 @@ if (device === "web") {
       alignSelf: "center",
       marginBottom: 15,
     },
-
+    
     box: {
       display: "flex",
       alignItems: "center",
@@ -192,7 +193,7 @@ if (device === "web") {
       backgroundColor: "#F5FCFF",
       borderRadius: 15,
     },
-
+    
     item: {
       backgroundColor: "white",
       padding: 20,
@@ -206,7 +207,7 @@ if (device === "web") {
     },
     missingItem: {
       display: "flex",
-      lignItems: "center",
+      alignItems: "center",
       backgroundColor: "white",
       padding: 20,
       marginVertical: 8,
@@ -215,19 +216,21 @@ if (device === "web") {
       shadowColor: "grey",
       shadowOffset: { width: 3, height: 3 },
       shadowRadius: 10,
-      width: "80%",
+      width: 380,
       alignSelf: "center",
       textAlign: "center",
     },
     total: {
       backgroundColor: "white",
       padding: 20,
+      paddingTop: 30,
       marginVertical: 8,
       marginHorizontal: 16,
       borderRadius: 10,
       shadowColor: "grey",
       shadowOffset: { width: 3, height: 3 },
       shadowRadius: 10,
+      width: 380,
       height: 250,
     },
 
@@ -302,6 +305,22 @@ if (device === "web") {
       textDecorationLine: "underline",
       fontWeight: "bold",
       alignSelf: "center",
+    },
+    
+    promptSignIn: {
+      display: "flex",
+      flexDirection: "row",
+      alignSelf: 'center',
+      marginTop: 20
+
+    },
+    promptText: {
+     fontSize: 15 
+    },
+    promptLink: {
+      color: "#ce4216",
+      fontSize: 15,
+      fontWeight: "bold"
     },
   });
 }

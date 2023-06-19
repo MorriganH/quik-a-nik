@@ -32,7 +32,13 @@ export default function Login({ navigation }) {
 
   // axios request to add user to db
   const registerUser = (firstName, lastName, email, hash) => {
+    if (!email.includes("@")) {
+      setLoading(false);
+      return alert("Email must be formatted correctly");
+    }
+
     const userInfo = { firstName, lastName, email: email.toLowerCase(), hash };
+
     for (let key in userInfo) {
       if (userInfo[key] === "") {
         setLoading(false);

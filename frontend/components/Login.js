@@ -26,6 +26,10 @@ export default function Login({ navigation }) {
 
   // axios request to verify user info
   const userAuth = function (email, password) {
+    if (!email.includes("@")) {
+      return alert("Email must be formatted correctly");
+    }
+
     const input = { email: email.toLowerCase(), password };
 
     setLoading(true);
