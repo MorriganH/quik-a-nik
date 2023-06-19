@@ -7,16 +7,23 @@ import {
 import { ActivityIndicator } from "react-native";
 import { Text, View, Button } from "react-native";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import tunnelURL from "../backend_tunnel";
 import styles from "../styles/stripeAndroid";
+import { toggleModal, resetCart } from "../redux/actions";
 import axios from "axios";
 
-export default function StripeMobile() {
+export default function StripeMobile({ navigation }) {
+  // console.log("Navigation from within Stripe", navigation)
+
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const { confirmPayment, loading } = useConfirmPayment();
 
-  const { locationInfo, userSession, cart,  } = useSelector((state) => state.reducer);
+  const { locationInfo, userSession, cart } = useSelector(
+    (state) => state.reducer
+  );
+
+  const dispatch = useDispatch();
 
   const fetchPaymentIntentClientSecret = async () => {
     const response = await fetch(
@@ -34,6 +41,12 @@ export default function StripeMobile() {
     const { clientSecret } = await response.json();
     console.log(clientSecret);
     return clientSecret;
+  };
+
+  const handlePaymentSuccess = () => {
+    navigation.navigate("Confirmation", {cart});
+    dispatch(toggleModal(""));
+    dispatch(resetCart());
   };
 
   const handlePayPress = async () => {
@@ -56,17 +69,31 @@ export default function StripeMobile() {
     if (error) {
       console.log("Payment confirmation error", error);
     } else if (paymentIntent) {
-      console.log("Success from promise", paymentIntent);
-      const order = { locationInfo, userSession, cart, stripe_charge_id: paymentIntent.clientSecret }
 
-      axios.post(`${tunnelURL}/orders`, order)
-        .catch(err => console.log(err))
+      handlePaymentSuccess();
+
+      const order = {
+        locationInfo,
+        userSession,
+        cart,
+        stripe_charge_id: paymentIntent.clientSecret,
+      };
+
+      axios
+        .post(`${tunnelURL}/orders`, order)
+        // .then(handlePaymentSuccess)
+        .catch((err) => console.log(err));
     }
   };
 
-  return (
-    loading?( <ActivityIndicator size="large" color="#00ff00" style={styles.activityIndicator} />) :
-    (<StripeProvider publishableKey="pk_test_51NDgmwLv74N28uF2MxWf6liIv4DqMJcIagTtcT1BAymIJEkX1gaky4i9nLLfmfALffHmN32aiXmRrSiPAcmn0wOP00ONBP6Dfx">
+  return loading ? (
+    <ActivityIndicator
+      size="large"
+      color="#00ff00"
+      style={styles.activityIndicator}
+    />
+  ) : (
+    <StripeProvider publishableKey="pk_test_51NDgmwLv74N28uF2MxWf6liIv4DqMJcIagTtcT1BAymIJEkX1gaky4i9nLLfmfALffHmN32aiXmRrSiPAcmn0wOP00ONBP6Dfx">
       <View style={styles.container}>
         <CardField
           postalCodeEnabled={false}
@@ -85,6 +112,6 @@ export default function StripeMobile() {
         />
         <Button onPress={handlePayPress} title="Pay" disabled={loading} />
       </View>
-    </StripeProvider>)
+    </StripeProvider>
   );
 }

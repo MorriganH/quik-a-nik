@@ -8,6 +8,7 @@ import {
   SET_USER_SESSION,
   SET_LOCATION_INFO,
   ADJUST_CART_QUANTITY,
+  RESET_CART
 } from "./actions";
 
 const initialState = {
@@ -26,7 +27,6 @@ const initialState = {
 const reducer = function (state = initialState, action) {
   switch (action.type) {
     case ADD_TO_CART:
-
       if (!state.cart.some((i) => i.id === action.payload.id)) {
         const cartItem = { ...action.payload };
         const newNotification =
@@ -35,7 +35,7 @@ const reducer = function (state = initialState, action) {
           ...state,
           cart: [...state.cart, cartItem],
           cartNotification: newNotification,
-          modalShow: false
+          modalShow: false,
         };
       } else {
         const index = state.cart.findIndex((i) => i.id === action.payload.id);
@@ -52,7 +52,7 @@ const reducer = function (state = initialState, action) {
           ...state,
           cart: mutableCart,
           cartNotification: notification,
-          modalShow: false
+          modalShow: false,
         };
       }
 
@@ -95,8 +95,6 @@ const reducer = function (state = initialState, action) {
         if (currentModalProduct.default_quantity > 1) {
           currentModalProduct.default_quantity--;
         }
-        
-
       }
 
       return {
@@ -144,6 +142,13 @@ const reducer = function (state = initialState, action) {
       return {
         ...state,
         locationInfo: action.payload,
+      };
+
+    case RESET_CART:
+      return {
+        ...state,
+        cart: [],
+        cartNotification: 0,
       };
 
     default:
