@@ -8,6 +8,7 @@ if (device === "web") {
   styles = StyleSheet.create({
     container: {
       display: "flex",
+      flex:1,
       flexDirection: "row",
       alignItems: "space-between",
       width: 950,
@@ -184,7 +185,7 @@ if (device === "web") {
       alignSelf: "center",
       marginBottom: 15,
     },
-
+    
     box: {
       display: "flex",
       alignItems: "center",
@@ -192,7 +193,7 @@ if (device === "web") {
       backgroundColor: "#F5FCFF",
       borderRadius: 15,
     },
-
+    
     item: {
       backgroundColor: "white",
       padding: 20,
@@ -220,6 +221,7 @@ if (device === "web") {
       textAlign: "center",
     },
     total: {
+      marginBottom: 40,
       backgroundColor: "white",
       padding: 20,
       marginVertical: 8,
