@@ -8,7 +8,7 @@ export default function Footer({ navigation }) {
     return (
       <View>
         <View style={styles.footer}>
-          <Pressable style={styles.footerOptions}>
+          <Pressable onPress={() => navigation.navigate("About")} style={styles.footerOptions}>
             <Text>About us</Text>
           </Pressable>
           <Pressable
@@ -32,7 +32,7 @@ export default function Footer({ navigation }) {
   } else {
     return (
       <View style={styles.footer}>
-        <Pressable style={styles.footerOptions}>
+        <Pressable onPress={() => navigation.navigate("About")} style={styles.footerOptions}>
           <Text>About us</Text>
         </Pressable>
         <Pressable
