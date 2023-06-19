@@ -25,7 +25,7 @@ export const trackDelivery = (setDeliveryStatus, setDeliveryString) => {
             setDeliveryString("Basket out for delivery ...");
             break;
           case 4:
-            setDeliveryString("Your Certified Quik-a-nik Specialist is close ... ");
+            setDeliveryString("Certified Quik-a-nik Specialist arrived ... ");
             break;
           case 5:
             setDeliveryString("Delivered. Enjoy!!");

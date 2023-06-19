@@ -17,9 +17,7 @@ import tunnelURL from "../backend_tunnel";
 import { formatOrderId, formatPrice } from "../helpers/orders";
 
 export default function ConfirmationWeb({ route, navigation }) {
-  const { locationInfo, userSession } = useSelector(
-    (state) => state.reducer
-  );
+  const { locationInfo, userSession } = useSelector((state) => state.reducer);
 
   const cart = route.params.cart;
 
@@ -108,8 +106,9 @@ export default function ConfirmationWeb({ route, navigation }) {
   function LineItem({ item }) {
     return (
       <View style={styles.lineItemContainer}>
-        <Text style={styles.lineItemName}>{`${item.name} (x${item.default_quantity})`}</Text>
-        {/* <Text style={styles.lineItemQuantity}>{item.default_quantity}</Text> */}
+        <Text
+          style={styles.lineItem}
+        >{`${item.name} (x${item.default_quantity})`}</Text>
       </View>
     );
   }
@@ -136,22 +135,24 @@ export default function ConfirmationWeb({ route, navigation }) {
           />
         </GoogleMap>
         <View style={styles.orderSummary}>
-          <View>
+          <View style={styles.header}>
             <Text style={styles.title}>Thanks For Your Order!</Text>
             <Text style={styles.subtitle}>Your Basket Is On It's Way</Text>
           </View>
           <View style={styles.order}>
-            <Text style={styles.orderId}>Order ID: {formatOrderId(recentOrder.id)}</Text>
+            <Text style={styles.orderId}>
+              Order ID: {formatOrderId(recentOrder.id)}
+            </Text>
             <FlatList
               data={cart}
               renderItem={({ item }) => <LineItem item={item} />}
               keyExtractor={(item) => item.name}
             />
-            <Text>Total: {formatPrice(recentOrder.total_price_cents)}</Text>
+            <Text style={styles.orderTotal}>Total: {formatPrice(recentOrder.total_price_cents)}</Text>
           </View>
-            <Text style={styles.orderStatus}>Order Status:</Text>
           <View style={styles.orderTracker}>
-            <Text style={styles.infoText}>{deliveryString}</Text>
+          <Text style={styles.orderStatus}>Order Status:</Text>
+            <Text style={styles.statusString}>{deliveryString}</Text>
             {deliveryString !== "Delivered. Enjoy!!" && (
               <ActivityIndicator
                 size="large"
@@ -162,7 +163,7 @@ export default function ConfirmationWeb({ route, navigation }) {
           </View>
 
           <Pressable
-            style={styles.checkoutButton}
+            style={styles.myOrdersButton}
             onPress={() => navigation.navigate("OrderList")}
           >
             <Text style={styles.buttonText}>View Your Orders</Text>

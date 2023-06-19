@@ -5,6 +5,7 @@ import {
   FlatList,
   Pressable,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import MapView, { Marker } from "react-native-maps";
@@ -81,51 +82,53 @@ export default function ConfirmationMobile({ route, navigation }) {
 
     recentOrder ? (
       <View style={styles.container}>
-        <View style={styles.top}>
-          <Text style={styles.title}>Thanks For Your Order!</Text>
-          <Text style={styles.subtitle}>Your Basket Is On It's Way</Text>
-          <MapView
-            style={styles.map}
-            provider="google"
-            googleMapsApiKey={key}
-            loadingFallback={<Text>Loading...</Text>}
-            initialRegion={initialRegion}
-          >
-            <Marker coordinate={initialRegion} />
-          </MapView>
+        {/* <ScrollView> */}
+          <View style={styles.top}>
+            <Text style={styles.title}>Thanks For Your Order!</Text>
+            <Text style={styles.subtitle}>Your Basket Is On It's Way</Text>
+            <MapView
+              style={styles.map}
+              provider="google"
+              googleMapsApiKey={key}
+              loadingFallback={<Text>Loading...</Text>}
+              initialRegion={initialRegion}
+            >
+              <Marker coordinate={initialRegion} />
+            </MapView>
 
-          <View style={styles.order}>
-            <Text style={styles.orderId}>
-              Order ID: {formatOrderId(recentOrder.id)}
-            </Text>
-            <FlatList
-              data={cart}
-              renderItem={({ item }) => <LineItem item={item} />}
-              keyExtractor={(item) => item.name}
-            />
-            <Text style={styles.total}>
-              Total: {formatPrice(recentOrder.total_price_cents)}
-            </Text>
-          </View>
-
-          <View style={styles.orderTracker}>
-            <Text style={styles.orderStatus}>Order Status:</Text>
-            <Text style={styles.statusText}>{deliveryString}</Text>
-            {deliveryString !== "Delivered. Enjoy!!" && (
-              <ActivityIndicator
-                size="large"
-                color="#00ff00"
-                style={styles.activityIndicator}
+            <View style={styles.order}>
+              <Text style={styles.orderId}>
+                Order ID: {formatOrderId(recentOrder.id)}
+              </Text>
+              <FlatList
+                data={cart}
+                renderItem={({ item }) => <LineItem item={item} />}
+                keyExtractor={(item) => item.name}
               />
-            )}
+              <Text style={styles.total}>
+                Total: {formatPrice(recentOrder.total_price_cents)}
+              </Text>
+            </View>
+
+            <View style={styles.orderTracker}>
+              <Text style={styles.orderStatus}>Order Status:</Text>
+              <Text style={styles.statusString}>{deliveryString}</Text>
+              {deliveryString !== "Delivered. Enjoy!!" && (
+                <ActivityIndicator
+                  size="large"
+                  color="#00ff00"
+                  style={styles.activityIndicator}
+                />
+              )}
+            </View>
           </View>
-        </View>
-        <Pressable
-          style={styles.button}
-          onPress={() => navigation.navigate("OrderList")}
-        >
-          <Text style={styles.buttonText}>View Your Orders</Text>
-        </Pressable>
+          <Pressable
+            style={styles.myOrdersButton}
+            onPress={() => navigation.navigate("OrderList")}
+          >
+            <Text style={styles.buttonText}>View Your Orders</Text>
+          </Pressable>
+        {/* </ScrollView> */}
       </View>
     ) : (
       <ActivityIndicator

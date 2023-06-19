@@ -5,24 +5,13 @@ let styles;
 
 if (device === "web") {
   styles = StyleSheet.create({
-    title: {
-      fontSize: 32,
-      margin: "auto",
-    },
-
-    subtitle: {
-      fontSize: 20,
-      margin: "auto",
-      marginBottom: "25%",
-    },
-
     container: {
       display: "flex",
+      alignItems: "center",
       flex: 1,
       flexDirection: "row",
       margin: "auto",
-      alignItems: "center",
-      justifyContent: "space-around",
+      justifyContent: "space-between",
       backgroundColor: "#F5FCFF",
       width: 950,
       maxHeight: "90%",
@@ -36,19 +25,70 @@ if (device === "web") {
       marginBottom: "2%",
     },
 
-    infoText: {
+    header: {
+      marginBottom: "15%",
+    },
+
+    title: {
+      fontSize: 32,
+      margin: "auto",
+    },
+
+    subtitle: {
+      fontSize: 20,
+      margin: "auto",
+    },
+
+    orderSummary: {
+      display: "flex",
+      flex: 1,
+      padding: 10,
+      justifyContent: "space-between",
+    },
+
+    order: {
+      alignItems: "flex-start",
+    },
+
+    orderId: {
+      fontSize: 14,
+      fontWeight: 800,
+    },
+
+    ineItemContainer: {},
+
+    lineItem: {},
+
+    orderTotal: {},
+
+    orderTracker: {
+      alignItems: "center",
+      marginTop: "10%%",
+      marginBottom: "10%",
+      marginLeft: "10%",
+      marginRight: "10%",
+      borderWidth: 1,
+      borderRadius: 10,
+      shadowColor: "grey",
+      shadowOffset: { width: 3, height: 3 },
+      shadowRadius: 10,
+      minHeight: "22%",
+      maxHeight: "22%",
+      maxWidth: "75%",
+    },
+
+    orderStatus: {
+      fontSize: 14,
+      fontWeight: 800,
+      color: "#ce4216",
+    },
+
+    statusString: {
       fontStyle: "italic",
     },
 
-    locationDetailsInput: {
-      margin: 20,
-      minWidth: "90%",
-      borderWidth: 1,
-      borderRadius: 5,
-      padding: 10,
-    },
-
-    checkoutButton: {
+    myOrdersButton: {
+      alignSelf: "center",
       borderWidth: 1,
       padding: 10,
       borderRadius: 5,
@@ -73,49 +113,11 @@ if (device === "web") {
       alignItems: "center",
       marginTop: 22,
     },
-
-    orderSummary: {
-      display: "flex",
-      justifyContent: "space-between",
-      height: "80%",
-    },
-
-    orderId: {
-      fontSize: 14,
-      fontWeight: 800,
-    },
-
-    order: {
-      margin: "auto",
-    },
-
-    orderStatus: {
-      fontSize: 14,
-      fontWeight: 800,
-      color: "#ce4216",
-    },
-
-    orderTracker: {
-      margin: "auto",
-    },
   });
 }
 
 if (device !== "web") {
   styles = StyleSheet.create({
-    title: {
-      fontSize: 30,
-      marginLeft: "auto",
-      marginRight: "auto",
-      marginTop: "3%",
-    },
-
-    subtitle: {
-      fontSize: 20,
-      marginLeft: "auto",
-      marginRight: "auto",
-    },
-
     container: {
       display: "flex",
       flexDirection: "column",
@@ -131,52 +133,26 @@ if (device !== "web") {
       marginLeft: "auto",
       marginRight: "auto",
       marginTop: "7%",
-      marginBottom: "7%",
+      marginBottom: "4%",
       // marginBottom: "3%",
       // margin: "auto",
     },
 
-    statusText: {
-      fontStyle: "italic",
-      fontSize: 18,
-      fontWeight: 500,
+    header: {
+      // marginBottom: "15%",
+    },
+
+    title: {
+      fontSize: 30,
       marginLeft: "auto",
       marginRight: "auto",
       marginTop: "3%",
     },
 
-    button: {
-      borderWidth: 1,
-      padding: 10,
-      borderRadius: 5,
-      backgroundColor: "#55bb55",
-      maxWidth: "40%",
+    subtitle: {
+      fontSize: 20,
       marginLeft: "auto",
       marginRight: "auto",
-      alignSelf: "flex-end",
-      marginBottom: "10%"
-      // margin: "auto",
-    },
-
-    buttonText: {
-      fontWeight: 500,
-      // margin: "auto",
-    },
-
-    activityIndicator: {
-      flex: 1,
-      justifyContent: "center",
-      flexDirection: "row",
-      justifyContent: "space-around",
-      padding: 10,
-      marginTop: "8%",
-    },
-
-    centeredView: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      // marginTop: 22
     },
 
     orderSummary: {
@@ -186,12 +162,49 @@ if (device !== "web") {
       marginRight: "auto",
     },
 
+    order: {
+      // alignItems: "flex-start",
+    },
+
     orderId: {
       fontSize: 20,
       fontWeight: 800,
       marginLeft: "auto",
       marginRight: "auto",
-      marginBottom: "1%"
+      marginBottom: "1%",
+    },
+
+    ineItemContainer: {},
+
+    lineItem: {},
+
+    orderTotal: {},
+
+    statusString: {
+      fontStyle: "italic",
+      fontSize: 18,
+      fontWeight: 500,
+      marginLeft: "auto",
+      marginRight: "auto",
+      marginTop: "3%",
+    },
+
+    myOrdersButton: {
+      borderWidth: 1,
+      padding: 10,
+      borderRadius: 5,
+      backgroundColor: "#55bb55",
+      maxWidth: "40%",
+      marginLeft: "auto",
+      marginRight: "auto",
+      alignSelf: "flex-end",
+      marginBottom: "10%",
+      // margin: "auto",
+    },
+
+    buttonText: {
+      fontWeight: 500,
+      // margin: "auto",
     },
 
     lineItemName: {
@@ -209,17 +222,26 @@ if (device !== "web") {
       marginTop: "1%",
     },
 
-
     order: {
       marginLeft: "auto",
       marginRight: "auto",
-      // borderWidth: 1,
-      // borderRadius: 10,
       padding: 10,
     },
 
     orderTracker: {
-      minHeight: "20%",
+      marginTop: "4%",
+      marginBottom: "2%",
+      marginLeft: "auto",
+      marginRight: "auto",
+      height: 130,
+      width: "80%",
+      borderWidth: 1,
+      borderRadius: 10,
+      borderBottomWidth: 4,
+      borderRightWidth: 4,
+      borderRadius: 10,
+      borderBottomColor: "#223d1a",
+      borderRightColor: "#223d1a",
     },
 
     orderStatus: {
@@ -231,9 +253,38 @@ if (device !== "web") {
       marginTop: "4%",
     },
 
-    orderTracker: {
+    myOrdersButton: {
+      borderWidth: 1,
+      padding: 10,
+      borderRadius: 5,
+      backgroundColor: "#55bb55",
+      maxWidth: "40%",
       marginLeft: "auto",
       marginRight: "auto",
+      alignSelf: "flex-end",
+      marginBottom: "10%",
+      // margin: "auto",
+    },
+
+    buttonText: {
+      fontWeight: 500,
+      // margin: "auto",
+    },
+
+    activityIndicator: {
+      flex: 1,
+      justifyContent: "center",
+      flexDirection: "row",
+      justifyContent: "space-around",
+      padding: 8,
+      marginTop: "6%",
+    },
+
+    centeredView: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      // marginTop: 22
     },
   });
 }
