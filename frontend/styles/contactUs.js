@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
@@ -9,8 +9,22 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    alignSelf: "center",
-    fontSize: 30,
+    textAlign: "center",
+    fontSize: 33,
+  },
+
+  person: {
+    display: "flex",
+    // flex: 1,
+    alignItems: "center",
+    marginTop: 45,
+    backgroundColor: "#6ab85d",
+    padding: 20,
+    borderRadius: 10,
+    borderBottomWidth: Platform.OS === "web" ? 0 : 4,
+    shadowOffset: { width: 3, height: 3 },
+    shadowRadius: 3,
+    width: 300,
   },
 
   name: {

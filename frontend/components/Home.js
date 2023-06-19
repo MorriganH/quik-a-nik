@@ -49,26 +49,6 @@ export default function Home({ navigation }) {
       });
   };
 
-  const getPotato = function () {
-    axios
-      .get(`${tunnelURL}/products/potato`)
-      .then(prods => {
-        dispatch(setProducts(prods.data.products));
-      })
-      .then(viewSwitcher("ProductList"))
-      .catch(err => console.log(err));
-  };
-
-  const getDrinks = function () {
-    axios
-      .get(`${tunnelURL}/products/drinks`)
-      .then(prods => {
-        dispatch(setProducts(prods.data.products));
-      })
-      .then(viewSwitcher("ProductList"))
-      .catch(err => console.log(err));
-  };
-
   const getOrderCount = function (user_id) {
     axios
       .get(`${tunnelURL}/orders/count/${user_id}`)
@@ -134,7 +114,7 @@ export default function Home({ navigation }) {
               <Text style={styles.iconsLabel}>Add-ons</Text>
             </Pressable>
 
-            <Pressable onPress={() => getDrinks()} style={styles.iconsGroup}>
+            <Pressable onPress={() => filter('drinks', 'ProductList')} style={styles.iconsGroup}>
               <ImageBackground
                 style={styles.icons}
                 source={require("../assets/home_page_test/pexels-antoni-shkraba-5085770.jpg")}
@@ -142,7 +122,7 @@ export default function Home({ navigation }) {
               <Text style={styles.iconsLabel}>Drinks</Text>
             </Pressable>
 
-            <Pressable onPress={() => getPotato()} style={styles.iconsGroup}>
+            <Pressable onPress={() => filter('potato', 'ProductList')} style={styles.iconsGroup}>
               <ImageBackground
                 style={styles.icons}
                 source={require("../assets/home_page_test/potato.jpg")}
