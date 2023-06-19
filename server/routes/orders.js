@@ -70,10 +70,10 @@ router.get("/user/:id", function (req, res) {
     .catch(err => console.log(err));
 });
 
-//GET order by id
-router.get("/:id", function (req, res) {
+//GET most recent order for user by user_id
+router.get("/new/:id", function (req, res) {
   orders
-    .getOrderByOrderId(req.params.id)
+    .getNewOrderByUser(req.params.id)
     .then(data => {
       console.log(data);
       res.json({ orders: data });
@@ -81,10 +81,10 @@ router.get("/:id", function (req, res) {
     .catch(err => console.log(err));
 });
 
-//GET most recent order for user by user_id
-router.get("/new/:id", function (req, res) {
+//GET order by id
+router.get("/:id", function (req, res) {
   orders
-    .getNewOrderByUser(req.params.id)
+    .getOrderByOrderId(req.params.id)
     .then(data => {
       console.log(data);
       res.json({ orders: data });

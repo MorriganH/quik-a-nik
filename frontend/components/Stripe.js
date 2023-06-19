@@ -11,14 +11,14 @@ export default function Stripe({ navigation }) {
   const dispatch = useDispatch();
 
   const { locationInfo, userSession, cart, modalShow } = useSelector(
-    (state) => state.reducer
+    state => state.reducer
   );
   const [processing, setProcessing] = useState(false);
 
   const stripe = useStripe(); // Hook to access Stripe.js API
   const elements = useElements(); // Hook to access Stripe Elements
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault(); // Prevent form from refreshing the page
 
     setProcessing(true);
@@ -38,9 +38,10 @@ export default function Stripe({ navigation }) {
       axios
         .post(`${tunnelURL}/checkout-web`, {
           paymentMethodId: paymentMethod.id,
+          cart,
         })
         // Server response
-        .then((response) => {
+        .then(response => {
           if (response.data) {
             return response.data;
           } else {
@@ -48,7 +49,7 @@ export default function Stripe({ navigation }) {
             throw Error("Payment has failed");
           }
         })
-        .then((stripe_charge_id) => {
+        .then(stripe_charge_id => {
           const order = { locationInfo, userSession, cart, stripe_charge_id };
           console.log("locationInfo web:", locationInfo);
 
@@ -59,7 +60,7 @@ export default function Stripe({ navigation }) {
           dispatch(toggleModal(""));
           dispatch(resetCart());
         })
-        .catch((error) => {
+        .catch(error => {
           setProcessing(false);
           console.error(error);
           alert("Error: " + error.message);

@@ -6,12 +6,19 @@ const stripe = new Stripe(process.env.STRIPE_SECRET);
 
 
 router.post('/', async (req, res) => {
-  const { paymentMethodId, amount } = req.body;
+  const { paymentMethodId, cart } = req.body;
+  const total_price_cents = Math.round(
+    cart.reduce(
+      (sum, current) =>
+        sum + (current.price_cents + 125) * current.default_quantity,
+      0
+    ) * 1.13
+  );
 
   try {
       // Create PaymentIntent with the order amount and currency and send to Stripe
       const paymentIntent = await stripe.paymentIntents.create({
-          amount: 2000,
+          amount: total_price_cents,
           currency: "cad",
           payment_method_types: ['card'],
           payment_method: paymentMethodId,
