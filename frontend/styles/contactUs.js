@@ -17,13 +17,13 @@ const styles = StyleSheet.create({
     display: "flex",
     // flex: 1,
     alignItems: "center",
-    marginTop: 45,
-    backgroundColor: "#6ab85d",
+    marginTop: 20,
+    backgroundColor: "white",
     padding: 20,
     borderRadius: 10,
     borderBottomWidth: Platform.OS === "web" ? 0 : 4,
     shadowOffset: { width: 3, height: 3 },
-    shadowRadius: 3,
+    shadowRadius: 10,
     width: 300,
   },
 
@@ -35,6 +35,10 @@ const styles = StyleSheet.create({
     display: "flex",
     alignContent: "center",
     justifyContent: "center",
+    backgroundColor: "#89cc7e",
+    borderRadius: 5,
+    padding: 8,
+    marginTop: 5,
   },
 
   linkText: {
