@@ -30,7 +30,7 @@ export default function Home({ navigation }) {
   const [menuModalShow, setMenuModalShow] = useState(false);
 
   const { cart, products, modalShow, modalProduct, userSession } = useSelector(
-    state => state.reducer
+    (state) => state.reducer
   );
 
   const [orderCount, setOrderCount] = useState(0);
@@ -40,42 +40,22 @@ export default function Home({ navigation }) {
   const filter = function (path, view) {
     axios
       .get(`${tunnelURL}/products/${path}`)
-      .then(prods => {
+      .then((prods) => {
         dispatch(setProducts(prods.data.products));
       })
       .then(viewSwitcher(view))
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
-  };
-
-  const getPotato = function () {
-    axios
-      .get(`${tunnelURL}/products/potato`)
-      .then(prods => {
-        dispatch(setProducts(prods.data.products));
-      })
-      .then(viewSwitcher("ProductList"))
-      .catch(err => console.log(err));
-  };
-
-  const getDrinks = function () {
-    axios
-      .get(`${tunnelURL}/products/drinks`)
-      .then(prods => {
-        dispatch(setProducts(prods.data.products));
-      })
-      .then(viewSwitcher("ProductList"))
-      .catch(err => console.log(err));
   };
 
   const getOrderCount = function (user_id) {
     axios
       .get(`${tunnelURL}/orders/count/${user_id}`)
-      .then(res => {
+      .then((res) => {
         setOrderCount(res.data);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -135,7 +115,7 @@ export default function Home({ navigation }) {
               <Text style={styles.iconsLabel}>Add-ons</Text>
             </Pressable>
 
-            <Pressable onPress={() => getDrinks()} style={styles.iconsGroup}>
+            <Pressable onPress={() => filter("drinks", "ProductList")}>
               <ImageBackground
                 style={styles.icons}
                 source={require("../assets/home_page_test/pexels-antoni-shkraba-5085770.jpg")}
@@ -143,7 +123,7 @@ export default function Home({ navigation }) {
               <Text style={styles.iconsLabel}>Drinks</Text>
             </Pressable>
 
-            <Pressable onPress={() => getPotato()} style={styles.iconsGroup}>
+            <Pressable onPress={() => filter("potato", "ProductList")}>
               <ImageBackground
                 style={styles.icons}
                 source={require("../assets/home_page_test/potato.jpg")}
@@ -163,9 +143,61 @@ export default function Home({ navigation }) {
           </Pressable>
           <Text style={styles.buttonTitle}>Baskets for two</Text>
 
+          <Pressable
+            style={styles.button}
+            onPress={() => filter("snacks", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-darina-belonogova-8764274.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>Snackies</Text>
 
-          </View>
-          <View style={styles.webColumn}>
+          <Pressable
+            style={styles.button}
+            onPress={() => filter("merch", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-gabriel-peter-1188649.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>Merchandise</Text>
+        </View>
+        <View style={styles.webColumn}>
+          <Pressable
+            style={styles.button}
+            onPress={() => filter("baskets", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-taryn-elliott-4099106.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>All baskets</Text>
+
+          <Pressable
+            style={styles.button}
+            onPress={() => filter("2", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-roman-odintsov-8180728.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>Healthy living</Text>
+
+          <Pressable
+            style={styles.spotlightButton}
+            onPress={() => filter("party", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-rdne-stock-project-8523507.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>Deluxe packages</Text>
 
           <Pressable
             style={styles.button}
@@ -184,28 +216,6 @@ export default function Home({ navigation }) {
           >
             <ImageBackground
               style={styles.logoTest}
-              source={require("../assets/home_page_test/pexels-rdne-stock-project-8523507.jpg")}
-            ></ImageBackground>
-          </Pressable>
-          <Text style={styles.buttonTitle}>Deluxe packages</Text>
-          
-          <Pressable
-            style={styles.button}
-            onPress={() => filter("2", "ProductList")}
-          >
-            <ImageBackground
-              style={styles.logoTest}
-              source={require("../assets/home_page_test/pexels-roman-odintsov-8180728.jpg")}
-            ></ImageBackground>
-          </Pressable>
-          <Text style={styles.buttonTitle}>Healthy living</Text>
-
-          <Pressable
-            style={styles.button}
-            onPress={() => filter("party", "ProductList")}
-          >
-            <ImageBackground
-              style={styles.logoTest}
               source={require("../assets/home_page_test/pexels-askar-abayev-5638732.jpg")}
             ></ImageBackground>
           </Pressable>
@@ -213,7 +223,7 @@ export default function Home({ navigation }) {
 
           <Pressable
             style={styles.button}
-            onPress={() => filter("2", "ProductList")}
+            onPress={() => filter("condiments", "ProductList")}
           >
             <ImageBackground
               style={styles.logoTest}
