@@ -10,7 +10,7 @@ if (device === "web") {
       backgroundColor: "#f2f2f2",
       alignItems: "center",
       justifyContent: "center",
-      marginBottom: 45
+      marginBottom: 30,
     },
 
     iconsHolder: {
@@ -23,6 +23,12 @@ if (device === "web") {
     },
     webColumn: {
       width: 475,
+    },
+    slogan: {
+      fontSize: 25,
+      fontWeight: "bold",
+      margin: 15,
+      color: "#223d1a",
     },
 
     icons: {
@@ -68,7 +74,7 @@ if (device === "web") {
       display: "flex",
       flex: 1,
       flexDirection: "row",
-      paddingTop: 25,
+      // paddingTop: 25,
       // width: 1000
     },
 
@@ -115,7 +121,7 @@ if (device === "web") {
       margin: 5,
       overflow: "hidden",
       shadowColor: "rgba(34, 61, 26, 0.5)",
-      shadowOffset: { width:3, height: 3 },
+      shadowOffset: { width: 3, height: 3 },
       shadowRadius: 3,
     },
 
@@ -126,7 +132,7 @@ if (device === "web") {
       alignItems: "center",
       // backgroundColor: "#55bb55",
       borderRadius: 10,
-      height:350,
+      height: 350,
       shadowColor: "rgba(34, 61, 26, 0.5)",
 
       shadowOffset: { width: 3, height: 3 },
@@ -262,6 +268,12 @@ if (device !== "web") {
       paddingLeft: 20,
       marginBottom: 15,
     },
+    slogan: {
+      fontSize: 25,
+      fontWeight: "bold",
+      margin: 15,
+      color: "#223d1a",
+    },
 
     icons: {
       height: 100,
@@ -302,7 +314,7 @@ if (device !== "web") {
     },
 
     scrollView: {
-      paddingTop: 25,
+      // paddingTop: 25,
       paddingBottom: 45,
     },
 
@@ -315,7 +327,7 @@ if (device !== "web") {
       width: "100%",
       height: "100%",
       borderRadius: 10,
-      elevation: 15
+      elevation: 15,
     },
 
     logoMain: {

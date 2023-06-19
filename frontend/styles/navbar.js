@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     shadowColor: "rgba(34, 61, 26, 0.5)",
     shadowOffset: { width:3, height: 3 },
     shadowRadius: 3,
-    margin: 20,
+    marginTop: 15,
     color: "#1b3e17",
   },
 

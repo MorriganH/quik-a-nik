@@ -8,16 +8,20 @@ import {
   Pressable,
   BlurView,
   ScrollView,
+  Platform,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/cart";
 import WebMap from "./Map";
 import { toggleModal, adjustCartQuantity } from "../redux/actions";
 
-export default function Cart({ navigation }) {
+const device = Platform.OS;
+
+export default function Cart({navigation}) {
   const { cart, modalShow, cartNotification, userSession } = useSelector(
     (state) => state.reducer
   );
+
 
   const dispatch = useDispatch();
 
@@ -27,6 +31,59 @@ export default function Cart({ navigation }) {
     const itemPrice = (item.price_cents / 100) * item.default_quantity;
     subTotal += itemPrice;
   });
+
+  const Footer = function () {
+    return (
+      <View style={styles.total}>
+        <View style={styles.lineItem}>
+          <Text>Items ({cartNotification}):</Text>
+          <Text>${subTotal.toFixed(2)}</Text>
+        </View>
+
+        <View style={styles.lineItem}>
+          <Text>Delivery fee:</Text>
+          <Text>${deliveryFee.toFixed(2)}</Text>
+        </View>
+
+        <View style={styles.divider}>
+          <View style={styles.lineItem}>
+            <Text>Total before tax:</Text>
+            <Text>${beforeTax.toFixed(2)}</Text>
+          </View>
+
+          <View style={styles.lineItem}>
+            <Text>Estimated tax:</Text>
+            <Text>${tax.toFixed(2)}</Text>
+          </View>
+
+          <View style={styles.lineItem}>
+            <Text style={styles.orderTotal}>Order Total:</Text>
+            <Text style={styles.orderTotal}>${total.toFixed(2)}</Text>
+          </View>
+        </View>
+        {userSession !== null && (
+          <Pressable
+            style={styles.submitButton}
+            onPress={() => navigation.navigate("Map")}
+          >
+            <Text>Select Drop-off Location</Text>
+          </Pressable>
+        )}
+        {userSession === null && (
+          <View style={styles.promptSignIn}>
+            <Pressable onPress={() => navigation.navigate("Login")}>
+              <Text style={styles.promptLink}>Log in</Text>
+            </Pressable>
+            <Text style={styles.promptText}> or </Text>
+            <Pressable onPress={() => navigation.navigate("Register")}>
+              <Text style={styles.promptLink}>register</Text>
+            </Pressable>
+            <Text style={styles.promptText}> to continue with this order.</Text>
+          </View>
+        )}
+      </View>
+    );
+  };
 
   const Item = ({ item }) => (
     <View style={styles.item}>
@@ -82,71 +139,34 @@ export default function Cart({ navigation }) {
 
   if (cartNotification > 0) {
     return (
-      <ScrollView
-        contentContainerStyle={styles.container}
+      <View style={styles.container}>
+        {device === "web" && (
+          <>
+          <FlatList
+            style={styles.list}
+            data={cart}
+            renderItem={(item) => <Item item={item.item} />}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            />
+            <Footer/>
+            </>
+        )}
 
-      >
-        <FlatList
-          style={styles.list}
-          data={cart}
-          renderItem={(item) => <Item item={item.item} />}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-        />
-
-        <View style={styles.total}>
-          <View style={styles.lineItem}>
-            <Text>Items ({cartNotification}):</Text>
-            <Text>${subTotal.toFixed(2)}</Text>
-          </View>
-
-          <View style={styles.lineItem}>
-            <Text>Delivery fee:</Text>
-            <Text>${deliveryFee.toFixed(2)}</Text>
-          </View>
-
-          <View style={styles.divider}>
-            <View style={styles.lineItem}>
-              <Text>Total before tax:</Text>
-              <Text>${beforeTax.toFixed(2)}</Text>
-            </View>
-
-            <View style={styles.lineItem}>
-              <Text>Estimated tax:</Text>
-              <Text>${tax.toFixed(2)}</Text>
-            </View>
-
-            <View style={styles.lineItem}>
-              <Text style={styles.orderTotal}>Order Total:</Text>
-              <Text style={styles.orderTotal}>${total.toFixed(2)}</Text>
-            </View>
-          </View>
-          {userSession !== null && (
-            <Pressable
-              style={styles.submitButton}
-              onPress={() => navigation.navigate("Map")}
-            >
-              <Text>Select Drop-off Location</Text>
-            </Pressable>
-          )}
-          {userSession === null && (
-            <View style={styles.promptSignIn}>
-              <Pressable onPress={() => navigation.navigate("register")}>
-                <Text style={styles.promptLink}>Log in</Text>
-              </Pressable>
-              <Text style={styles.promptText}> or </Text>
-              <Pressable onPress={() => navigation.navigate("register")}>
-                <Text style={styles.promptLink}>register</Text>
-              </Pressable>
-              <Text style={styles.promptText}>
-                {" "}
-                to continue with this order.
-              </Text>
-            </View>
-          )}
-        </View>
-      </ScrollView>
+       
+        {device !== "web" && (
+          <FlatList
+            style={styles.list}
+            data={cart}
+            renderItem={(item) => <Item item={item.item} />}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            ListFooterComponent={Footer}
+          />
+        )}
+      </View>
     );
   } else {
     return (
