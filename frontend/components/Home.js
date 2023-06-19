@@ -288,9 +288,7 @@ export default function Home({ navigation }) {
             </View>
           )}
           {/* <View style={{ alignItems: "center" }}> */}
-          <Text style={styles.modalSubOption}>📍 About</Text>
-          <Text style={styles.modalSubOption}>🌭 Work with us</Text>
-          <Text style={styles.modalSubOption}>❓ FAQ</Text>
+          <Text style={styles.modalSubOption}>📍 About us</Text>
           <Pressable
             style={styles.modalButton}
             onPress={() => {
@@ -300,6 +298,8 @@ export default function Home({ navigation }) {
           >
             <Text style={styles.modalSubOption}>📢 Contact us</Text>
           </Pressable>
+          <Text style={styles.modalSubOption}>🌭 Work with us</Text>
+          <Text style={styles.modalSubOption}>❓ FAQ</Text>
           {/* </View> */}
         </View>
       </Modal>

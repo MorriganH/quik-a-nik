@@ -435,20 +435,23 @@ if (device !== "web") {
     modalButton: {
       backgroundColor: "none",
     },
-    
+
     modalOption: {
       display: "flex",
       flexDirection: "row",
       backgroundColor: "#89cc7e",
       borderRadius: 10,
       borderBottomWidth: 4,
+      borderRightWidth: 4,
+      borderBottomColor: "rgba(34, 61, 26, 0.5)",
+      borderRightColor: "rgba(34, 61, 26, 0.5)",
       fontSize: 25,
       marginTop: 15,
       paddingLeft: 15,
       paddingBottom: 12,
       paddingTop: 10,
     },
-    
+
     modalSubOption: {
       display: "flex",
       flexDirection: "row",
@@ -457,6 +460,9 @@ if (device !== "web") {
       alignSelf: "center",
       borderRadius: 10,
       borderBottomWidth: 4,
+      borderRightWidth: 4,
+      borderBottomColor: "rgba(34, 61, 26, 0.5)",
+      borderRightColor: "rgba(34, 61, 26, 0.5)",
       fontSize: 25,
       marginTop: 15,
       paddingLeft: 15,

@@ -11,8 +11,7 @@ if (device === "web") {
       alignItems: "center",
       flex: 1,
       overflow: "hidden",
-      marginBottom: 40
-
+      marginBottom: 40,
     },
 
     item: {
@@ -71,8 +70,7 @@ if (device === "web") {
       alignSelf: "center",
       marginTop: 25,
       borderRadius: 25,
-      overflow: "hidden"
-    
+      overflow: "hidden",
     },
 
     closeModal: {
@@ -102,7 +100,6 @@ if (device === "web") {
       paddingBottom: 10,
       height: 500,
       width: 550,
- 
     },
 
     modalProductName: {
@@ -113,7 +110,7 @@ if (device === "web") {
     },
     description: {
       fontSize: 25,
-      margin: 10
+      margin: 10,
     },
 
     modalOption: {
@@ -158,8 +155,7 @@ if (device === "web") {
       backgroundColor: "#b24213",
       width: 125,
       borderRadius: 25,
-      marginRight: 10
-
+      marginRight: 10,
     },
     modalButton: {
       display: "flex",
@@ -168,8 +164,7 @@ if (device === "web") {
       backgroundColor: "#6ab85d",
       width: 125,
       borderRadius: 25,
-      marginRight: 10
-      
+      marginRight: 10,
     },
     quantityComponent: {
       fontSize: 20,
@@ -188,10 +183,10 @@ if (device !== "web") {
   styles = StyleSheet.create({
     list: {
       display: "flex",
-      alignItems: "center",      
+      alignItems: "center",
       marginBottom: 60,
       marginTop: 15,
-      width: "100%"
+      width: "100%",
     },
 
     item: {
@@ -203,6 +198,9 @@ if (device !== "web") {
       padding: 20,
       marginVertical: 8,
       borderBottomWidth: 4,
+      borderRightWidth: 4,
+      borderBottomColor: "rgba(34, 61, 26, 0.5)",
+      borderRightColor: "rgba(34, 61, 26, 0.5)",
       borderRadius: 10,
     },
 
@@ -279,11 +277,11 @@ if (device !== "web") {
       color: "#1e1f22",
       fontWeight: "bold",
       fontSize: 20,
-      margin: 15
+      margin: 15,
     },
     description: {
-      margin:10,
-      fontSize: 25
+      margin: 10,
+      fontSize: 25,
     },
 
     modalOption: {
@@ -327,8 +325,7 @@ if (device !== "web") {
       justifyContent: "space-evenly",
       backgroundColor: "#b24213",
       width: 125,
-      borderRadius: 25
-
+      borderRadius: 25,
     },
     modalButton: {
       display: "flex",
@@ -336,8 +333,7 @@ if (device !== "web") {
       justifyContent: "space-evenly",
       backgroundColor: "#6ab85d",
       width: 125,
-      borderRadius: 25
-
+      borderRadius: 25,
     },
     quantityComponent: {
       fontSize: 20,
