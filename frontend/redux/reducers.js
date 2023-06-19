@@ -20,13 +20,7 @@ const initialState = {
   modalProduct: {},
   modalShow: false,
   cartNotification: 0,
-  userSession: {
-    id: 11,
-    email: "v",
-    password: "$2a$10$hrXGHDTZH2cVz.wF3XqNDOkHV6MHCKfyX348CGNv9PDMaQejgpBe2",
-    first_name: "Vik",
-    last_name: "R",
-  },
+  userSession: null,
   locationInfo: null,
 };
 
