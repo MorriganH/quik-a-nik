@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Text, Pressable, View, ActivityIndicator, FlatList } from "react-native";
+import {
+  Text,
+  Pressable,
+  View,
+  ActivityIndicator,
+  FlatList,
+} from "react-native";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
@@ -103,8 +109,8 @@ export default function ConfirmationWeb({ navigation }) {
   function LineItem({ item }) {
     return (
       <View style={styles.lineItemContainer}>
-        <Text style={styles.lineItemName}>{item.name}</Text>
-        <Text style={styles.lineItemQuantity}>{item.default_quantity}</Text>
+        <Text style={styles.lineItemName}>{`${item.name} (x${item.default_quantity})`}</Text>
+        {/* <Text style={styles.lineItemQuantity}>{item.default_quantity}</Text> */}
       </View>
     );
   }
@@ -130,25 +136,31 @@ export default function ConfirmationWeb({ navigation }) {
             }}
           />
         </GoogleMap>
-        <View>
-          <Text style={styles.title}>Thanks For Your Order!</Text>
-          <Text style={styles.subtitle}>Your Basket Is On It's Way</Text>
-          <Text>Your Order ID: {formatOrderId(recentOrder.id)}</Text>
-          <Text>Price: {formatPrice(recentOrder.total_price_cents)}</Text>
-          <FlatList
-            data={cart}
-            renderItem={({ item }) => <LineItem item={item} />}
-            keyExtractor={(item) => item.name}
-          />
-          <Text>Order Status:</Text>
-          <Text style={styles.infoText}>{deliveryString}</Text>
-          {deliveryString !== "Delivered. Enjoy!!" && (
-            <ActivityIndicator
-              size="large"
-              color="#00ff00"
-              style={styles.activityIndicator}
+        <View style={styles.orderSummary}>
+          <View>
+            <Text style={styles.title}>Thanks For Your Order!</Text>
+            <Text style={styles.subtitle}>Your Basket Is On It's Way</Text>
+          </View>
+          <View style={styles.order}>
+            <Text style={styles.orderId}>Order ID: {formatOrderId(recentOrder.id)}</Text>
+            <FlatList
+              data={cart}
+              renderItem={({ item }) => <LineItem item={item} />}
+              keyExtractor={(item) => item.name}
             />
-          )}
+            <Text>Total: {formatPrice(recentOrder.total_price_cents)}</Text>
+          </View>
+            <Text style={styles.orderStatus}>Order Status:</Text>
+          <View style={styles.orderTracker}>
+            <Text style={styles.infoText}>{deliveryString}</Text>
+            {deliveryString !== "Delivered. Enjoy!!" && (
+              <ActivityIndicator
+                size="large"
+                color="#00ff00"
+                style={styles.activityIndicator}
+              />
+            )}
+          </View>
 
           <Pressable
             style={styles.checkoutButton}

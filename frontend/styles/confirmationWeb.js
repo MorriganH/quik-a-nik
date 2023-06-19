@@ -70,6 +70,34 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
 
+  orderSummary: {
+    display: "flex",
+    justifyContent: "space-between",
+    height: "80%"
+  },
+
+  orderId: {
+    fontSize: 14,
+    fontWeight: 800,
+  },
+
+  order: {
+    margin: "auto",
+  },
+
+  orderStatus: {
+    fontSize: 14,
+    fontWeight: 800,
+    color: "#ce4216"
+  },
+  
+  orderTracker: {
+    margin: "auto",
+  }
+
+
+
+
 });
 
 export default styles;
