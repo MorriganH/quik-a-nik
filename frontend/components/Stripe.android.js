@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import tunnelURL from "../backend_tunnel";
 import styles from "../styles/stripeAndroid";
+import { toggleModal, resetCart } from "../redux/actions";
 import axios from "axios";
 
 export default function StripeMobile({ navigation }) {
@@ -42,6 +43,13 @@ export default function StripeMobile({ navigation }) {
     return clientSecret;
   };
 
+  const handlePaymentSuccess = () => {
+    console.log("Getting to navigation call");
+    navigation.navigate("Confirmation");
+    dispatch(toggleModal(""));
+    dispatch(resetCart());
+  };
+
   const handlePayPress = async () => {
     // Gather the customer's billing information (for example, email)
     const billingDetails: BillingDetails = {
@@ -62,6 +70,9 @@ export default function StripeMobile({ navigation }) {
     if (error) {
       console.log("Payment confirmation error", error);
     } else if (paymentIntent) {
+
+      handlePaymentSuccess();
+
       const order = {
         locationInfo,
         userSession,
@@ -73,12 +84,7 @@ export default function StripeMobile({ navigation }) {
 
       axios
         .post(`${tunnelURL}/orders`, order)
-        .then(() => {
-          console.log("Getting to navigation call");
-          navigation.navigate("Confirmation");
-          dispatch(toggleModal(""));
-          dispatch(resetCart());
-        })
+        // .then(handlePaymentSuccess)
         .catch((err) => console.log(err));
     }
   };
