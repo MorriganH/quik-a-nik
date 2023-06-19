@@ -19,7 +19,7 @@ const initialState = {
   modalProduct: {},
   modalShow: false,
   cartNotification: 0,
-  userSession: 1, // CHANGE THIS BACK TO NULL
+  userSession: null,
   locationInfo: null,
 };
 
