@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   Text,
   Pressable,
@@ -21,10 +21,6 @@ export default function ConfirmationWeb({ navigation }) {
     (state) => state.reducer
   );
   const order = { locationInfo, userSession, cart };
-
-  console.log("cart: ", cart);
-  console.log("locationInfo: ", locationInfo);
-  console.log("userSession: ", userSession);
 
   const [location, setLocation] = useState({
     coords: { latitude: 0, longitude: 0 },
