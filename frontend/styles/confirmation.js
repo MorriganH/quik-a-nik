@@ -11,17 +11,18 @@ if (device === "web") {
       flex: 1,
       flexDirection: "row",
       margin: "auto",
-      justifyContent: "space-between",
+      justifyContent: "space-around",
       backgroundColor: "#F5FCFF",
       width: 950,
       maxHeight: "90%",
       marginBottom: "2%",
+      padding: 20,
     },
 
     mapWindow: {
       marginTop: "2%",
       width: "50%",
-      height: "80%",
+      height: "75%",
       marginBottom: "2%",
     },
 
@@ -48,22 +49,38 @@ if (device === "web") {
 
     order: {
       alignItems: "flex-start",
+      width: 200,
+      marginLeft: "10%",
+      marginBottom: "8%",
     },
 
     orderId: {
       fontSize: 14,
       fontWeight: 800,
+      marginBottom: "1%",
     },
 
-    ineItemContainer: {},
+    ineItemContainer: {
+      marginLeft: "10%",
+      width: 300,
+    },
 
-    lineItem: {},
+    lineItem: {
+      marginRight: "1%",
+      marginBottom: "1%",
+      marginLeft: "10%",
+      width: 300,
+    },
 
-    orderTotal: {},
+    orderTotal: {
+      marginTop: "1%",
+      fontSize: 12,
+      fontWeight: 600,
+    },
 
     orderTracker: {
       alignItems: "center",
-      marginTop: "10%%",
+      marginTop: "10%",
       marginBottom: "10%",
       marginLeft: "10%",
       marginRight: "10%",
@@ -72,19 +89,20 @@ if (device === "web") {
       shadowColor: "grey",
       shadowOffset: { width: 3, height: 3 },
       shadowRadius: 10,
-      minHeight: "22%",
-      maxHeight: "22%",
-      maxWidth: "75%",
+      height: 115,
     },
 
     orderStatus: {
       fontSize: 14,
       fontWeight: 800,
       color: "#ce4216",
+      marginTop: "1%",
     },
 
     statusString: {
       fontStyle: "italic",
+      marginTop: "1%",
+      marginBottom: "1%",
     },
 
     myOrdersButton: {
