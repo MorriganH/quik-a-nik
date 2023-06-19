@@ -30,6 +30,7 @@ import StripeMobile from "./Stripe";
 import Map from "./Map";
 import ConfirmationMobile from "./ConfirmationMobile";
 import ConfirmationWeb from "./ConfirmationWeb";
+import About from "./About";
 import Footer from "./Footer";
 import ContactUs from "./ContactUs";
 
@@ -86,17 +87,18 @@ export default function QuikanikStack() {
               ),
             })}
           >
-            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Home" component={Home} options={{ title: '    Quik-a-nik', color: "green" }} />
           </Stack.Group>
           <Stack.Screen name="Web" component={Web} />
-          <Stack.Screen name="ProductList" component={ProductList} />
-          <Stack.Screen name="Map" component={Map} />
-          <Stack.Screen name="OrderList" component={OrderList} />
-          <Stack.Screen name="Cart" component={Cart} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="Stripe" component={StripeMobile} />
-          <Stack.Screen name="Confirmation" component={ConfirmationMobile} />
+          <Stack.Screen name="ProductList" component={ProductList} options={{ title: 'Quik-a-nik' }} />
+          <Stack.Screen name="Map" component={Map} options={{ title: 'Quik-a-nik' }} />
+          <Stack.Screen name="OrderList" component={OrderList} options={{ title: 'Quik-a-nik' }} />
+          <Stack.Screen name="Cart" component={Cart} options={{ title: 'Quik-a-nik' }} />
+          <Stack.Screen name="Login" component={Login} options={{ title: 'Quik-a-nik' }} />
+          <Stack.Screen name="Register" component={Register} options={{ title: 'Quik-a-nik' }} />
+          <Stack.Screen name="Stripe" component={StripeMobile} options={{ title: 'Quik-a-nik' }}/>  
+          <Stack.Screen name="About" component={About} options={{ title: 'Quik-a-nik' }}/>  
+          <Stack.Screen name="Confirmation" component={ConfirmationMobile} options={{ title: 'Quik-a-nik' }} />
           <Stack.Screen name="Footer" component={Footer} />
           <Stack.Screen name="ContactUs" component={ContactUs} />
         </Stack.Navigator>
@@ -122,6 +124,7 @@ export default function QuikanikStack() {
           <Stack.Screen name="Confirmation" component={ConfirmationWeb} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="About" component={About} />
           <Stack.Screen name="Footer" component={Footer} />
           <Stack.Screen name="ContactUs" component={ContactUs} />
         </Stack.Navigator>

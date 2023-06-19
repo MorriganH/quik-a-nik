@@ -8,22 +8,22 @@ export default function Footer({ navigation }) {
     return (
       <View>
         <View style={styles.footer}>
+          <Pressable onPress={() => navigation.navigate("About")} style={styles.footerOptions}>
+            <Text>About us</Text>
+          </Pressable>
           <Pressable
             onPress={() => navigation.navigate("ContactUs")}
             style={styles.footerOptions}
           >
             <Text>Contact us</Text>
           </Pressable>
-          <Pressable style={styles.footerOptions}>
-            <Text>About us</Text>
-          </Pressable>
         </View>
         <View style={styles.footer}>
           <Pressable style={styles.footerOptions}>
-            <Text>Find a park</Text>
+            <Text>Work with us</Text>
           </Pressable>
           <Pressable style={styles.footerOptions}>
-            <Text>How we're helping</Text>
+            <Text>FAQ</Text>
           </Pressable>
         </View>
         <Text style={styles.buttonTitle}> TeamTBD™</Text>
@@ -32,6 +32,9 @@ export default function Footer({ navigation }) {
   } else {
     return (
       <View style={styles.footer}>
+        <Pressable onPress={() => navigation.navigate("About")} style={styles.footerOptions}>
+          <Text>About us</Text>
+        </Pressable>
         <Pressable
           onPress={() => navigation.navigate("ContactUs")}
           style={styles.footerOptions}
@@ -39,13 +42,10 @@ export default function Footer({ navigation }) {
           <Text>Contact us</Text>
         </Pressable>
         <Pressable style={styles.footerOptions}>
-          <Text>About us</Text>
+          <Text>Work with us</Text>
         </Pressable>
         <Pressable style={styles.footerOptions}>
-          <Text>Find a park</Text>
-        </Pressable>
-        <Pressable style={styles.footerOptions}>
-          <Text>How we're helping</Text>
+          <Text>FAQ</Text>
         </Pressable>
         <Text style={styles.buttonTitle}> TeamTBD™</Text>
       </View>

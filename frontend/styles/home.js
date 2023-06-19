@@ -10,6 +10,7 @@ if (device === "web") {
       backgroundColor: "#f2f2f2",
       alignItems: "center",
       justifyContent: "center",
+      marginBottom: 45
     },
 
     iconsHolder: {
@@ -94,7 +95,9 @@ if (device === "web") {
     },
 
     buttonTitle: {
-      fontSize: 15,
+      fontSize: 20,
+      // fontWeight: "bold",
+      color: "#1b3e17",
       marginLeft: 10,
       marginBottom: 10,
     },
@@ -111,8 +114,8 @@ if (device === "web") {
       // padding: 5,
       margin: 5,
       overflow: "hidden",
-      shadowColor: "grey",
-      shadowOffset: { width: 3, height: 3 },
+      shadowColor: "rgba(34, 61, 26, 0.5)",
+      shadowOffset: { width:3, height: 3 },
       shadowRadius: 3,
     },
 
@@ -123,8 +126,8 @@ if (device === "web") {
       alignItems: "center",
       // backgroundColor: "#55bb55",
       borderRadius: 10,
-      height: 250,
-      shadowColor: "grey",
+      height:350,
+      shadowColor: "rgba(34, 61, 26, 0.5)",
 
       shadowOffset: { width: 3, height: 3 },
       shadowRadius: 3,
@@ -312,6 +315,7 @@ if (device !== "web") {
       width: "100%",
       height: "100%",
       borderRadius: 10,
+      elevation: 15
     },
 
     logoMain: {
@@ -435,20 +439,23 @@ if (device !== "web") {
     modalButton: {
       backgroundColor: "none",
     },
-    
+
     modalOption: {
       display: "flex",
       flexDirection: "row",
       backgroundColor: "#89cc7e",
       borderRadius: 10,
       borderBottomWidth: 4,
+      borderRightWidth: 4,
+      borderBottomColor: "rgba(34, 61, 26, 0.5)",
+      borderRightColor: "rgba(34, 61, 26, 0.5)",
       fontSize: 25,
       marginTop: 15,
       paddingLeft: 15,
       paddingBottom: 12,
       paddingTop: 10,
     },
-    
+
     modalSubOption: {
       display: "flex",
       flexDirection: "row",
@@ -457,6 +464,9 @@ if (device !== "web") {
       alignSelf: "center",
       borderRadius: 10,
       borderBottomWidth: 4,
+      borderRightWidth: 4,
+      borderBottomColor: "rgba(34, 61, 26, 0.5)",
+      borderRightColor: "rgba(34, 61, 26, 0.5)",
       fontSize: 25,
       marginTop: 15,
       paddingLeft: 15,

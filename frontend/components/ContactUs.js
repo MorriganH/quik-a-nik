@@ -11,7 +11,7 @@ export default function ContactUs() {
           <Text style={styles.linkText}>-> LinkedIn</Text>
         </Pressable>
         <Pressable style={styles.link} onPress={() => Linking.openURL('https://github.com/SirGraybon')}>
-          <Text style={styles.linkText}>-> Github</Text>
+          <Text style={styles.linkText}> -> Github</Text>
         </Pressable>
       </View>
       <View style={styles.person}>

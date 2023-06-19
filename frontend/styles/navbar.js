@@ -9,11 +9,12 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     height: 50,
-    shadowColor: "grey",
     width: 950,
-    shadowOffset: { width: 6, height: 6 },
-    shadowRadius: 10,
+    shadowColor: "rgba(34, 61, 26, 0.5)",
+    shadowOffset: { width:3, height: 3 },
+    shadowRadius: 3,
     margin: 20,
+    color: "#1b3e17",
   },
 
   navSection: {
@@ -21,6 +22,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
     width: "45%",
+    flexDirection: "row",
+  },
+  userActions: {
+    display: "flex",
     flexDirection: "row",
   },
 

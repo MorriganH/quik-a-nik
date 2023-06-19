@@ -8,32 +8,48 @@ if (device === "web") {
     list: {
       display: "flex",
       justifyContent: "space-between",
+      alignSelf: "center",
       alignItems: "center",
       flex: 1,
       overflow: "hidden",
-      marginBottom: 40
-
+      marginBottom: 40,
+    },
+    add: {
+      display: "flex",
+      fontSize: 18,
+      alignItems: "center",
+      justifyContent: "center",
+      color: "white",
+      backgroundColor: "#55bb55",
+      width: 150,
+      height: 30,
+      textAlign: "center",
+      borderRadius: 5,
+      marginTop: 20
     },
 
     item: {
       display: "flex",
       flexDirection: "row",
-      justifyContent: "space-around",
+      justifyContent: "space-between",
       alignItems: "center",
       backgroundColor: "white",
       padding: 20,
       marginVertical: 8,
       marginHorizontal: 16,
       borderRadius: 10,
-      width: "30%",
+      // width: "30%",
       shadowColor: "grey",
       shadowOffset: { width: 3, height: 3 },
       shadowRadius: 10,
+      width: 300,
+      // height: 150
     },
 
     logo: {
       width: 100,
       height: 100,
+      marginRight:20
     },
 
     title: {
@@ -46,13 +62,16 @@ if (device === "web") {
 
     prodInfo: {
       display: "flex",
+      // alignSelf: "flex-end",
+      alignItems: 'space-between',
       flexDirection: "column",
-      padding: 10,
+      // padding: 10,
     },
 
     prodName: {
-      width: 200,
-      fontSize: 24,
+      width: 140,
+      fontSize: 20,
+      height: 50
     },
 
     activityIndicator: {
@@ -71,15 +90,19 @@ if (device === "web") {
       alignSelf: "center",
       marginTop: 25,
       borderRadius: 25,
-      overflow: "hidden"
-    
+      overflow: "hidden",
     },
 
     closeModal: {
-      fontSize: 25,
+      fontSize: 45,
       fontWeight: "bold",
       color: "white",
+      textShadowColor: "black",
+      textShadowOffset: {height: 3, width: 1},
+      borderRadius: 25,
       paddingBottom: 15,
+
+
     },
 
     modalOrderBanner: {
@@ -102,7 +125,6 @@ if (device === "web") {
       paddingBottom: 10,
       height: 500,
       width: 550,
- 
     },
 
     modalProductName: {
@@ -113,7 +135,7 @@ if (device === "web") {
     },
     description: {
       fontSize: 25,
-      margin: 10
+      margin: 10,
     },
 
     modalOption: {
@@ -158,18 +180,16 @@ if (device === "web") {
       backgroundColor: "#b24213",
       width: 125,
       borderRadius: 25,
-      marginRight: 10
-
+      marginRight: 10,
     },
     modalButton: {
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-evenly",
       backgroundColor: "#6ab85d",
-      width: 125,
+      width: 100,
       borderRadius: 25,
-      marginRight: 10
-      
+      marginRight: 10,
     },
     quantityComponent: {
       fontSize: 20,
@@ -188,10 +208,10 @@ if (device !== "web") {
   styles = StyleSheet.create({
     list: {
       display: "flex",
-      alignItems: "center",      
+      alignItems: "center",
       marginBottom: 60,
       marginTop: 15,
-      width: "100%"
+      width: "100%",
     },
 
     item: {
@@ -203,7 +223,24 @@ if (device !== "web") {
       padding: 20,
       marginVertical: 8,
       borderBottomWidth: 4,
+      borderRightWidth: 4,
+      borderBottomColor: "rgba(34, 61, 26, 0.5)",
+      borderRightColor: "rgba(34, 61, 26, 0.5)",
       borderRadius: 10,
+    },
+    add: {
+      display: "flex",
+      fontSize: 18,
+      alignItems: "center",
+      alignSelf: "flex-end",
+      justifyContent: "center",
+      color: "white",
+      backgroundColor: "#55bb55",
+      width: 150,
+      height: 30,
+      textAlign: "center",
+      borderRadius: 5,
+      marginTop: 20
     },
 
     itemPressable: {
@@ -232,6 +269,7 @@ if (device !== "web") {
     prodName: {
       width: 200,
       fontSize: 24,
+      height: 60
     },
 
     activityIndicator: {
@@ -245,13 +283,17 @@ if (device !== "web") {
     modal: {
       backgroundColor: "white",
       height: "100%",
-    },
+    },    
 
     closeModal: {
       fontSize: 25,
       fontWeight: "bold",
       color: "white",
       paddingBottom: 15,
+      elevation: 15,
+      textShadowColor: "black",
+      textShadowOffset: {height: 3, width: 1},
+
     },
 
     modalOrderBanner: {
@@ -279,11 +321,11 @@ if (device !== "web") {
       color: "#1e1f22",
       fontWeight: "bold",
       fontSize: 20,
-      margin: 15
+      margin: 15,
     },
     description: {
-      margin:10,
-      fontSize: 25
+      margin: 10,
+      fontSize: 25,
     },
 
     modalOption: {
@@ -327,8 +369,7 @@ if (device !== "web") {
       justifyContent: "space-evenly",
       backgroundColor: "#b24213",
       width: 125,
-      borderRadius: 25
-
+      borderRadius: 25,
     },
     modalButton: {
       display: "flex",
@@ -336,8 +377,7 @@ if (device !== "web") {
       justifyContent: "space-evenly",
       backgroundColor: "#6ab85d",
       width: 125,
-      borderRadius: 25
-
+      borderRadius: 25,
     },
     quantityComponent: {
       fontSize: 20,

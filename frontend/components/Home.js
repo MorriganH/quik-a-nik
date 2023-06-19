@@ -30,7 +30,7 @@ export default function Home({ navigation }) {
   const [menuModalShow, setMenuModalShow] = useState(false);
 
   const { cart, products, modalShow, modalProduct, userSession } = useSelector(
-    state => state.reducer
+    (state) => state.reducer
   );
 
   const [orderCount, setOrderCount] = useState(0);
@@ -40,11 +40,11 @@ export default function Home({ navigation }) {
   const filter = function (path, view) {
     axios
       .get(`${tunnelURL}/products/${path}`)
-      .then(prods => {
+      .then((prods) => {
         dispatch(setProducts(prods.data.products));
       })
       .then(viewSwitcher(view))
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -52,10 +52,10 @@ export default function Home({ navigation }) {
   const getOrderCount = function (user_id) {
     axios
       .get(`${tunnelURL}/orders/count/${user_id}`)
-      .then(res => {
+      .then((res) => {
         setOrderCount(res.data);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -75,6 +75,7 @@ export default function Home({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Text>- Summer starts here - </Text>
       <ScrollView
         contentContainerStyle={styles.scrollView}
         showsVerticalScrollIndicator={false}
@@ -141,18 +142,40 @@ export default function Home({ navigation }) {
             ></ImageBackground>
           </Pressable>
           <Text style={styles.buttonTitle}>Baskets for two</Text>
+
+          <Pressable
+            style={styles.button}
+            onPress={() => filter("snacks", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-darina-belonogova-8764274.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>Snackies</Text>
+
+          <Pressable
+            style={styles.button}
+            onPress={() => filter("merch", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-gabriel-peter-1188649.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>Merchandise</Text>
         </View>
         <View style={styles.webColumn}>
           <Pressable
             style={styles.button}
-            onPress={() => filter("party", "ProductList")}
+            onPress={() => filter("baskets", "ProductList")}
           >
             <ImageBackground
               style={styles.logoTest}
-              source={require("../assets/home_page_test/pexels-helena-lopes-697244.jpg")}
+              source={require("../assets/home_page_test/pexels-taryn-elliott-4099106.jpg")}
             ></ImageBackground>
           </Pressable>
-          <Text style={styles.buttonTitle}>Party packages</Text>
+          <Text style={styles.buttonTitle}>All baskets</Text>
 
           <Pressable
             style={styles.button}
@@ -164,6 +187,28 @@ export default function Home({ navigation }) {
             ></ImageBackground>
           </Pressable>
           <Text style={styles.buttonTitle}>Healthy living</Text>
+
+          <Pressable
+            style={styles.spotlightButton}
+            onPress={() => filter("party", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-rdne-stock-project-8523507.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>Deluxe packages</Text>
+
+          <Pressable
+            style={styles.button}
+            onPress={() => filter("party", "ProductList")}
+          >
+            <ImageBackground
+              style={styles.logoTest}
+              source={require("../assets/home_page_test/pexels-helena-lopes-697244.jpg")}
+            ></ImageBackground>
+          </Pressable>
+          <Text style={styles.buttonTitle}>Party packages</Text>
 
           <Pressable
             style={styles.button}
@@ -178,7 +223,7 @@ export default function Home({ navigation }) {
 
           <Pressable
             style={styles.button}
-            onPress={() => filter("2", "ProductList")}
+            onPress={() => filter("condiments", "ProductList")}
           >
             <ImageBackground
               style={styles.logoTest}
@@ -288,9 +333,15 @@ export default function Home({ navigation }) {
             </View>
           )}
           {/* <View style={{ alignItems: "center" }}> */}
-          <Text style={styles.modalSubOption}>📍 About</Text>
-          <Text style={styles.modalSubOption}>🌭 Work with us</Text>
-          <Text style={styles.modalSubOption}>❓ FAQ</Text>
+          <Pressable
+            style={styles.modalButton}
+            onPress={() => {
+              viewSwitcher("About");
+              dispatch(toggleModal("", ""));
+            }}
+          >
+          <Text style={styles.modalSubOption}>📍 About us</Text>
+          </Pressable>
           <Pressable
             style={styles.modalButton}
             onPress={() => {
@@ -300,6 +351,8 @@ export default function Home({ navigation }) {
           >
             <Text style={styles.modalSubOption}>📢 Contact us</Text>
           </Pressable>
+          <Text style={styles.modalSubOption}>🌭 Work with us</Text>
+          <Text style={styles.modalSubOption}>❓ FAQ</Text>
           {/* </View> */}
         </View>
       </Modal>
