@@ -333,7 +333,15 @@ export default function Home({ navigation }) {
             </View>
           )}
           {/* <View style={{ alignItems: "center" }}> */}
+          <Pressable
+            style={styles.modalButton}
+            onPress={() => {
+              viewSwitcher("About");
+              dispatch(toggleModal("", ""));
+            }}
+          >
           <Text style={styles.modalSubOption}>📍 About us</Text>
+          </Pressable>
           <Pressable
             style={styles.modalButton}
             onPress={() => {

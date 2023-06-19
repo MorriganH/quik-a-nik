@@ -133,7 +133,7 @@ export default function Map({ navigation }) {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Stripe />
+            <Stripe navigation={navigation}/>
               <View style={styles.closeButtonContainer}>
                 <TouchableOpacity onPress={() => dispatch(toggleModal(""))}>
                   <Text style={styles.closeModal}>⨉</Text>

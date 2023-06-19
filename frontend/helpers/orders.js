@@ -22,7 +22,7 @@ const formatOrderData = (data) => {
   const ordersData = data.orders;
   const ordersById = {};
 
-  for (let i = 0; i < ordersData.length; i++) {
+  for (let i = ordersData.length - 1; i > 0; i--) {
     const order = ordersData[i];
 
     if (!ordersById[order.id]) {
@@ -52,4 +52,4 @@ const formatOrderData = (data) => {
   return Object.values(ordersById);
 };
 
-export { formatOrderData, formatPrice };
+export { formatOrderData, formatPrice, formatOrderId };

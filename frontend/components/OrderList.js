@@ -9,10 +9,15 @@ import { formatOrderData } from "../helpers/orders";
 import { setOrders } from "../redux/actions";
 
 export default function OrderList() {
+
+  const { userSession } = useSelector(
+    (state) => state.reducer
+  );
+
   const fetchOrders = () => {
     //GET request to server to fetch orders data
     axios
-      .get(`${tunnelURL}/orders/user/1`)
+      .get(`${tunnelURL}/orders/user/${userSession.id}`)
       //Format orders data and dispatch to Redux to set state
       .then((res) => {
         const formattedData = formatOrderData(res.data);

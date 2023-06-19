@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
+const device = Platform.OS;
 
 const styles = StyleSheet.create({
   container: {
@@ -13,8 +14,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#F5FCFF",
-    width: "80%",
-    height: "80%",
+    width: device === "web" ? 950 : "80%",
+    height: 550,
     borderRadius: 15,
   },
 
