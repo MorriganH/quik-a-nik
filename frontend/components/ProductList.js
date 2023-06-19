@@ -35,12 +35,14 @@ export default function ProductList() {
         <Image style={styles.logo} source={{ uri: product.image }} />
         <View style={styles.prodInfo}>
           <Text style={styles.prodName}>{product.name}</Text>
-          <Text>${product.price_cents / 100}</Text>
-          <Button
-            color="#55bb55"
-            title="Add to cart"
+          <Text>${(product.price_cents / 100).toFixed(2)}</Text>
+          <Pressable
+          
             onPress={() => dispatch(addItem(product))}
-          />
+            >
+            <Text style={styles.add}>Add to basket + </Text>
+
+          </Pressable>
         </View>
       </Pressable>
     );
