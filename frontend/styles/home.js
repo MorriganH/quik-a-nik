@@ -31,7 +31,7 @@ if (device === "web") {
       borderRadius: 50,
       overflow: "hidden",
       shadowColor: "grey",
-      shadowOffset: { width:3, height: 3 },
+      shadowOffset: { width: 3, height: 3 },
       shadowRadius: 3,
       // backgroundColor: "pink",
     },
@@ -52,7 +52,7 @@ if (device === "web") {
       backgroundColor: "#e9ebec",
       width: "100%",
       height: 25,
-      paddingLeft: "15%"
+      paddingLeft: "15%",
     },
     footerOptions: {
       display: "flex",
@@ -61,7 +61,7 @@ if (device === "web") {
       textAlign: "center",
       justifyContent: "center",
       alignItems: "center",
-      marginLeft: 25
+      marginLeft: 25,
     },
 
     scrollView: {
@@ -129,7 +129,7 @@ if (device === "web") {
       height:350,
       shadowColor: "rgba(34, 61, 26, 0.5)",
 
-      shadowOffset: { width:3, height: 3 },
+      shadowOffset: { width: 3, height: 3 },
       shadowRadius: 3,
       margin: 5,
       overflow: "hidden",
@@ -268,7 +268,7 @@ if (device !== "web") {
       width: 100,
       borderRadius: 50,
       overflow: "hidden",
-      elevation: 15
+      elevation: 15,
 
       // backgroundColor: "pink",
     },
@@ -279,8 +279,7 @@ if (device !== "web") {
     },
     iconsLabel: {
       alignSelf: "center",
-      elevation: 15
-
+      elevation: 15,
     },
 
     footer: {
@@ -348,7 +347,8 @@ if (device !== "web") {
       // padding: 5,
       margin: 5,
       overflow: "hidden",
-      elevation: 15
+
+      elevation: 15,
     },
 
     spotlightButton: {
@@ -363,8 +363,7 @@ if (device !== "web") {
       // padding: 5,
       margin: 5,
       overflow: "hidden",
-      elevation: 15
-
+      elevation: 15,
     },
 
     buttonMain: {
@@ -446,6 +445,10 @@ if (device !== "web") {
       flexDirection: "row",
       backgroundColor: "#89cc7e",
       borderRadius: 10,
+      borderBottomWidth: 4,
+      borderRightWidth: 4,
+      borderBottomColor: "rgba(34, 61, 26, 0.5)",
+      borderRightColor: "rgba(34, 61, 26, 0.5)",
       fontSize: 25,
       marginTop: 15,
       paddingLeft: 15,
@@ -460,6 +463,10 @@ if (device !== "web") {
       width: "95%",
       alignSelf: "center",
       borderRadius: 10,
+      borderBottomWidth: 4,
+      borderRightWidth: 4,
+      borderBottomColor: "rgba(34, 61, 26, 0.5)",
+      borderRightColor: "rgba(34, 61, 26, 0.5)",
       fontSize: 25,
       marginTop: 15,
       paddingLeft: 15,

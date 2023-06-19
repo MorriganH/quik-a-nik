@@ -115,7 +115,7 @@ export default function Home({ navigation }) {
               <Text style={styles.iconsLabel}>Add-ons</Text>
             </Pressable>
 
-            <Pressable onPress={() => filter("drinks", "ProductList")}>
+            <Pressable onPress={() => filter('drinks', 'ProductList')} style={styles.iconsGroup}>
               <ImageBackground
                 style={styles.icons}
                 source={require("../assets/home_page_test/pexels-antoni-shkraba-5085770.jpg")}
@@ -123,7 +123,7 @@ export default function Home({ navigation }) {
               <Text style={styles.iconsLabel}>Drinks</Text>
             </Pressable>
 
-            <Pressable onPress={() => filter("potato", "ProductList")}>
+            <Pressable onPress={() => filter('potato', 'ProductList')} style={styles.iconsGroup}>
               <ImageBackground
                 style={styles.icons}
                 source={require("../assets/home_page_test/potato.jpg")}
@@ -254,7 +254,7 @@ export default function Home({ navigation }) {
 
         {device !== "web" && <Footer navigation={navigation} />}
       </ScrollView>
-      {device === "web" && <Footer />}
+      {device === "web" && <Footer navigation={navigation} />}
 
       <Modal
         visible={modalShow === "homeModal"}
@@ -333,10 +333,18 @@ export default function Home({ navigation }) {
             </View>
           )}
           {/* <View style={{ alignItems: "center" }}> */}
-          <Text style={styles.modalSubOption}>📍 About</Text>
+          <Text style={styles.modalSubOption}>📍 About us</Text>
+          <Pressable
+            style={styles.modalButton}
+            onPress={() => {
+              viewSwitcher("ContactUs");
+              dispatch(toggleModal("", ""));
+            }}
+          >
+            <Text style={styles.modalSubOption}>📢 Contact us</Text>
+          </Pressable>
           <Text style={styles.modalSubOption}>🌭 Work with us</Text>
           <Text style={styles.modalSubOption}>❓ FAQ</Text>
-          <Text style={styles.modalSubOption}>📢 Contact us</Text>
           {/* </View> */}
         </View>
       </Modal>
