@@ -82,12 +82,17 @@ export default function Cart({ navigation }) {
 
   if (cartNotification > 0) {
     return (
-      <View style={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+
+      >
         <FlatList
           style={styles.list}
           data={cart}
           renderItem={(item) => <Item item={item.item} />}
           keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
         />
 
         <View style={styles.total}>
@@ -134,11 +139,14 @@ export default function Cart({ navigation }) {
               <Pressable onPress={() => navigation.navigate("register")}>
                 <Text style={styles.promptLink}>register</Text>
               </Pressable>
-              <Text style={styles.promptText}> to continue with this order.</Text>
+              <Text style={styles.promptText}>
+                {" "}
+                to continue with this order.
+              </Text>
             </View>
           )}
         </View>
-      </View>
+      </ScrollView>
     );
   } else {
     return (
