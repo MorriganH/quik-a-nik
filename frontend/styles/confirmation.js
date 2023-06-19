@@ -74,8 +74,8 @@ if (device === "web") {
 
     orderTotal: {
       marginTop: "1%",
-      fontSize: 12,
-      fontWeight: 600,
+      fontSize: 14,
+      fontWeight: 800,
     },
 
     orderTracker: {
@@ -196,7 +196,10 @@ if (device !== "web") {
 
     lineItem: {},
 
-    orderTotal: {},
+    orderTotal: {
+      fontSize: 20,
+      fontWeight: 800,
+    },
 
     statusString: {
       fontStyle: "italic",
