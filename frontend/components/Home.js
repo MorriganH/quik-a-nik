@@ -11,7 +11,7 @@ import {
   ScrollView,
   ImageBackground,
 } from "react-native";
-import Footer from "./Footer"
+import Footer from "./Footer";
 import { setUserSession } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -30,7 +30,7 @@ export default function Home({ navigation }) {
   const [menuModalShow, setMenuModalShow] = useState(false);
 
   const { cart, products, modalShow, modalProduct, userSession } = useSelector(
-    (state) => state.reducer
+    state => state.reducer
   );
 
   const [orderCount, setOrderCount] = useState(0);
@@ -40,22 +40,42 @@ export default function Home({ navigation }) {
   const filter = function (path, view) {
     axios
       .get(`${tunnelURL}/products/${path}`)
-      .then((prods) => {
+      .then(prods => {
         dispatch(setProducts(prods.data.products));
       })
       .then(viewSwitcher(view))
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
+  };
+
+  const getPotato = function () {
+    axios
+      .get(`${tunnelURL}/products/potato`)
+      .then(prods => {
+        dispatch(setProducts(prods.data.products));
+      })
+      .then(viewSwitcher("ProductList"))
+      .catch(err => console.log(err));
+  };
+
+  const getDrinks = function () {
+    axios
+      .get(`${tunnelURL}/products/drinks`)
+      .then(prods => {
+        dispatch(setProducts(prods.data.products));
+      })
+      .then(viewSwitcher("ProductList"))
+      .catch(err => console.log(err));
   };
 
   const getOrderCount = function (user_id) {
     axios
       .get(`${tunnelURL}/orders/count/${user_id}`)
-      .then((res) => {
+      .then(res => {
         setOrderCount(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
 
   useEffect(() => {
@@ -104,7 +124,10 @@ export default function Home({ navigation }) {
           <Text style={styles.buttonTitle}>Family Packages</Text>
 
           <View style={styles.iconsHolder}>
-            <Pressable onPress={() => filter("addons", "ProductList")} style={styles.iconsGroup}>
+            <Pressable
+              onPress={() => filter("addons", "ProductList")}
+              style={styles.iconsGroup}
+            >
               <ImageBackground
                 style={styles.icons}
                 source={require("../assets/home_page_test/pexels-ron-lach-10398349.jpg")}
@@ -112,7 +135,7 @@ export default function Home({ navigation }) {
               <Text style={styles.iconsLabel}>Add-ons</Text>
             </Pressable>
 
-            <Pressable style={styles.iconsGroup}>
+            <Pressable onPress={() => getDrinks()} style={styles.iconsGroup}>
               <ImageBackground
                 style={styles.icons}
                 source={require("../assets/home_page_test/pexels-antoni-shkraba-5085770.jpg")}
@@ -120,7 +143,7 @@ export default function Home({ navigation }) {
               <Text style={styles.iconsLabel}>Drinks</Text>
             </Pressable>
 
-            <Pressable style={styles.iconsGroup}>
+            <Pressable onPress={() => getPotato()} style={styles.iconsGroup}>
               <ImageBackground
                 style={styles.icons}
                 source={require("../assets/home_page_test/potato.jpg")}
@@ -199,7 +222,7 @@ export default function Home({ navigation }) {
           </Pressable>
           <Text style={styles.buttonTitle}>Fun in the sun</Text>
 
-{/* 
+          {/* 
           <View style={styles.footer}>
             <Pressable style={styles.footerOptions}>
               <Text>All baskets</Text>
@@ -219,10 +242,10 @@ export default function Home({ navigation }) {
           <Text style={styles.buttonTitle}> TeamTBD™</Text> */}
         </View>
 
-        {device !== "web" && <Footer/> }
+        {device !== "web" && <Footer />}
       </ScrollView>
-        {device === "web" && <Footer/> }
-    
+      {device === "web" && <Footer />}
+
       <Modal
         visible={modalShow === "homeModal"}
         transparent={true}
