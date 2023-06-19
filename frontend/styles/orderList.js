@@ -4,7 +4,7 @@ const device = Platform.OS;
 let styles;
 
 if (device === "web") {
-  const styles = StyleSheet.create({
+  styles = StyleSheet.create({
     title: {
       fontSize: 16,
       margin: "2%",
