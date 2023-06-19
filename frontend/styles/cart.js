@@ -207,7 +207,7 @@ if (device === "web") {
     },
     missingItem: {
       display: "flex",
-      lignItems: "center",
+      alignItems: "center",
       backgroundColor: "white",
       padding: 20,
       marginVertical: 8,
@@ -216,20 +216,21 @@ if (device === "web") {
       shadowColor: "grey",
       shadowOffset: { width: 3, height: 3 },
       shadowRadius: 10,
-      width: "80%",
+      width: 380,
       alignSelf: "center",
       textAlign: "center",
     },
     total: {
-      marginBottom: 40,
       backgroundColor: "white",
       padding: 20,
+      paddingTop: 30,
       marginVertical: 8,
       marginHorizontal: 16,
       borderRadius: 10,
       shadowColor: "grey",
       shadowOffset: { width: 3, height: 3 },
       shadowRadius: 10,
+      width: 380,
       height: 250,
     },
 
@@ -304,6 +305,22 @@ if (device === "web") {
       textDecorationLine: "underline",
       fontWeight: "bold",
       alignSelf: "center",
+    },
+    
+    promptSignIn: {
+      display: "flex",
+      flexDirection: "row",
+      alignSelf: 'center',
+      marginTop: 20
+
+    },
+    promptText: {
+     fontSize: 15 
+    },
+    promptLink: {
+      color: "#ce4216",
+      fontSize: 15,
+      fontWeight: "bold"
     },
   });
 }
