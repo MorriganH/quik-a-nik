@@ -30,6 +30,9 @@ import StripeMobile from "./Stripe";
 import Map from "./Map";
 import ConfirmationMobile from "./ConfirmationMobile";
 import ConfirmationWeb from "./ConfirmationWeb";
+import Footer from "./Footer";
+import ContactUs from "./ContactUs";
+
 
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
@@ -94,6 +97,8 @@ export default function QuikanikStack() {
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="Stripe" component={StripeMobile} />
           <Stack.Screen name="Confirmation" component={ConfirmationMobile} />
+          <Stack.Screen name="Footer" component={Footer} />
+          <Stack.Screen name="ContactUs" component={ContactUs} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -117,6 +122,8 @@ export default function QuikanikStack() {
           <Stack.Screen name="Confirmation" component={ConfirmationWeb} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="Footer" component={Footer} />
+          <Stack.Screen name="ContactUs" component={ContactUs} />
         </Stack.Navigator>
       </NavigationContainer>
     );

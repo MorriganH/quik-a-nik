@@ -30,7 +30,7 @@ if (device === "web") {
       borderRadius: 50,
       overflow: "hidden",
       shadowColor: "grey",
-      shadowOffset: { width:3, height: 3 },
+      shadowOffset: { width: 3, height: 3 },
       shadowRadius: 3,
       // backgroundColor: "pink",
     },
@@ -51,7 +51,7 @@ if (device === "web") {
       backgroundColor: "#e9ebec",
       width: "100%",
       height: 25,
-      paddingLeft: "15%"
+      paddingLeft: "15%",
     },
     footerOptions: {
       display: "flex",
@@ -60,7 +60,7 @@ if (device === "web") {
       textAlign: "center",
       justifyContent: "center",
       alignItems: "center",
-      marginLeft: 25
+      marginLeft: 25,
     },
 
     scrollView: {
@@ -112,7 +112,7 @@ if (device === "web") {
       margin: 5,
       overflow: "hidden",
       shadowColor: "grey",
-      shadowOffset: { width:3, height: 3 },
+      shadowOffset: { width: 3, height: 3 },
       shadowRadius: 3,
     },
 
@@ -126,7 +126,7 @@ if (device === "web") {
       height: 250,
       shadowColor: "grey",
 
-      shadowOffset: { width:3, height: 3 },
+      shadowOffset: { width: 3, height: 3 },
       shadowRadius: 3,
       margin: 5,
       overflow: "hidden",
@@ -265,7 +265,7 @@ if (device !== "web") {
       width: 100,
       borderRadius: 50,
       overflow: "hidden",
-      elevation: 15
+      elevation: 15,
 
       // backgroundColor: "pink",
     },
@@ -276,8 +276,7 @@ if (device !== "web") {
     },
     iconsLabel: {
       alignSelf: "center",
-      elevation: 15
-
+      elevation: 15,
     },
 
     footer: {
@@ -345,7 +344,7 @@ if (device !== "web") {
       margin: 5,
       overflow: "hidden",
 
-      elevation: 15
+      elevation: 15,
     },
 
     spotlightButton: {
@@ -360,8 +359,7 @@ if (device !== "web") {
       // padding: 5,
       margin: 5,
       overflow: "hidden",
-      elevation: 15
-
+      elevation: 15,
     },
 
     buttonMain: {
@@ -437,19 +435,20 @@ if (device !== "web") {
     modalButton: {
       backgroundColor: "none",
     },
-
+    
     modalOption: {
       display: "flex",
       flexDirection: "row",
       backgroundColor: "#89cc7e",
       borderRadius: 10,
+      borderBottomWidth: 4,
       fontSize: 25,
       marginTop: 15,
       paddingLeft: 15,
       paddingBottom: 12,
       paddingTop: 10,
     },
-
+    
     modalSubOption: {
       display: "flex",
       flexDirection: "row",
@@ -457,6 +456,7 @@ if (device !== "web") {
       width: "95%",
       alignSelf: "center",
       borderRadius: 10,
+      borderBottomWidth: 4,
       fontSize: 25,
       marginTop: 15,
       paddingLeft: 15,

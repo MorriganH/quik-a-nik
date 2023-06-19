@@ -202,7 +202,7 @@ if (device !== "web") {
       backgroundColor: "white",
       padding: 20,
       marginVertical: 8,
-      // marginHorizontal: 16,
+      borderBottomWidth: 4,
       borderRadius: 10,
     },
 
