@@ -15,7 +15,6 @@ import WebMap from "./Map";
 import { toggleModal, adjustCartQuantity } from "../redux/actions";
 
 export default function Cart({ navigation }) {
-  console.log("props in Cart: ", navigation) //REMOVE THIS 
   const { cart, modalShow, cartNotification } = useSelector(
     (state) => state.reducer
   );

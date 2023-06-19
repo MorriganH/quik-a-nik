@@ -57,7 +57,8 @@ export default function Map({ navigation }) {
   };
 
   const checkoutConfirmation = function (markerPosition, locationDetails) {
-    const input = { markerPosition, locationDetails };
+    const { longitude, latitude } = markerPosition;
+    const input = { longitude, latitude, locationDetails };
     dispatch(setLocationInfo(input));
     setShowStripeMobile(true);
     // navigation.navigate("Stripe");
@@ -116,7 +117,7 @@ export default function Map({ navigation }) {
                   <Text style={styles.closeModal}>⨉</Text>
                 </TouchableOpacity>
               </View>
-              <StripeMobile />
+              <StripeMobile navigation={navigation}/>
             </View>
           </View>
         </Modal>

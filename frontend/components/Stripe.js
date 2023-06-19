@@ -4,7 +4,7 @@ import axios from "axios";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import tunnelURL from "../backend_tunnel";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleModal } from "../redux/actions";
+import { toggleModal, resetCart } from "../redux/actions";
 import styles from "../styles/stripeWeb";
 
 export default function Stripe({ navigation }) {
@@ -44,6 +44,7 @@ export default function Stripe({ navigation }) {
         .then((response) => {
           if (response.data) {
             dispatch(toggleModal(''))
+            dispatch(resetCart())
             return response.data;
           } else {
             alert("Payment failed: " + response.data.message);
@@ -52,6 +53,7 @@ export default function Stripe({ navigation }) {
         })
         .then((stripe_charge_id) => {
           const order = { locationInfo, userSession, cart, stripe_charge_id };
+          console.log("locationInfo web:", locationInfo);
 
           axios.post(`${tunnelURL}/orders`, order);
         })

@@ -58,7 +58,7 @@ export default function ConfirmationMobile({ navigation }) {
 
     location ? (
       <View style={styles.container}>
-      <Text style={styles.title}>Set Location</Text>
+      <Text style={styles.title}>Thanks for your Order!</Text>
       <Text style={styles.subtitle}>Let Us Know Exactly Where You'll Be</Text>
         <MapView
           style={styles.map}
