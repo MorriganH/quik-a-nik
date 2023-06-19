@@ -9,6 +9,7 @@ if (device === "web") {
 styles = StyleSheet.create({
   aboutWrapper: {
     display: "flex",
+    flex: 1,
     flexDirection: "row",
     width: 950,
     height: 850,

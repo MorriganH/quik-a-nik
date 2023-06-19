@@ -17,10 +17,11 @@ import { toggleModal, adjustCartQuantity } from "../redux/actions";
 
 const device = Platform.OS;
 
-export default function Cart({ navigation }) {
+export default function Cart({navigation}) {
   const { cart, modalShow, cartNotification, userSession } = useSelector(
     (state) => state.reducer
   );
+
 
   const dispatch = useDispatch();
 
@@ -70,11 +71,11 @@ export default function Cart({ navigation }) {
         )}
         {userSession === null && (
           <View style={styles.promptSignIn}>
-            <Pressable onPress={() => navigation.navigate("register")}>
+            <Pressable onPress={() => navigation.navigate("Login")}>
               <Text style={styles.promptLink}>Log in</Text>
             </Pressable>
             <Text style={styles.promptText}> or </Text>
-            <Pressable onPress={() => navigation.navigate("register")}>
+            <Pressable onPress={() => navigation.navigate("Register")}>
               <Text style={styles.promptLink}>register</Text>
             </Pressable>
             <Text style={styles.promptText}> to continue with this order.</Text>
