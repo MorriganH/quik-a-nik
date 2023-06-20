@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     marginTop: 15,
     color: "#1b3e17",
+    marginBottom: 10
   },
 
   navSection: {
