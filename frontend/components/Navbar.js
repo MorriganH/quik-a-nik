@@ -59,19 +59,19 @@ export default function Navbar({ navigation }) {
     <Text style={styles.webNavBar}>
       <View style={styles.navSection}>
         <Pressable style={styles.button} onPress={() => viewSwitcher("Home")}>
-          <Text>Quik-a-nik</Text>
+          <Text style={styles.logo}>Quik-a-nik</Text>
         </Pressable>
         <Pressable
           style={styles.button}
           onPress={() => filter("", "ProductList")}
         >
-          <Text>Products</Text>
+          <Text style={styles.navLink}>Products</Text>
         </Pressable>
         <Pressable
           style={styles.button}
           onPress={() => viewSwitcher("About")}
         >
-          <Text>About</Text>
+          <Text style={styles.navLink}>About</Text>
         </Pressable>
       </View>
       <View style={styles.navSection}>
@@ -81,7 +81,7 @@ export default function Navbar({ navigation }) {
               style={styles.button}
               onPress={() => viewSwitcher("Login")}
             >
-              <Text>Login</Text>
+              <Text style={styles.navLink}>Login</Text>
             </Pressable>
 
             <Text> | </Text>
@@ -89,26 +89,26 @@ export default function Navbar({ navigation }) {
               style={styles.button}
               onPress={() => viewSwitcher("Register")}
             >
-              <Text>Register</Text>
+              <Text style={styles.navLink}>Register</Text>
             </Pressable>
           </View>
         )}
 
         {userSession !== null && (
           <View style={styles.userActions}>
-            <Text> Welcome back, {userSession.first_name}</Text>
+            <Text style={styles.navLink}> Welcome back, {userSession.first_name}</Text>
             <Text> | </Text>
 
             <Pressable
               style={styles.button}
               onPress={() => viewSwitcher("OrderList")}
             >
-              <Text>My Orders</Text>
+              <Text style={styles.navLink}>My Orders</Text>
             </Pressable>
             <Text> | </Text>
 
             <Pressable style={styles.button} onPress={() => logout()}>
-              <Text>Logout</Text>
+              <Text style={styles.navLink}>Logout</Text>
             </Pressable>
           </View>
         )}

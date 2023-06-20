@@ -27,6 +27,7 @@ if (device === "web") {
     slogan: {
       fontSize: 25,
       fontWeight: "bold",
+      fontFamily: "Pacifico_400Regular",
       margin: 15,
       color: "#223d1a",
     },
@@ -271,6 +272,7 @@ if (device !== "web") {
     slogan: {
       fontSize: 25,
       fontWeight: "bold",
+      fontFamily: "Pacifico_400Regular",
       margin: 15,
       color: "#223d1a",
     },

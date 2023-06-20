@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, View, Text } from "react-native";
 import axios from "axios";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import tunnelURL from "../backend_tunnel";
@@ -53,9 +53,9 @@ export default function Stripe({ navigation }) {
           const order = { locationInfo, userSession, cart, stripe_charge_id };
           console.log("locationInfo web:", locationInfo);
 
-         axios.post(`${tunnelURL}/orders`, order);
+          axios.post(`${tunnelURL}/orders`, order);
         })
-        .then(() => setTimeout(navigation.navigate("Confirmation", { cart }),1000))
+        .then(() => navigation.navigate("Confirmation", { cart }))
         .then(() => {
           dispatch(toggleModal(""));
           dispatch(resetCart());
@@ -70,6 +70,7 @@ export default function Stripe({ navigation }) {
 
   return (
     <>
+    <Text style={styles.title}>Checkout with Stripe</Text>
       <form
         onSubmit={handleSubmit}
         style={{

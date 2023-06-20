@@ -29,11 +29,22 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
   },
+  logo: {
+    fontFamily: "Pacifico_400Regular",
+    fontSize: 25,
+    color: "#223d1a"
+  },
+  navLink: {
+    fontFamily: 'DMSans_400Regular',
+    fontSize: 15,
+    color: "#223d1a"
+  },
 
   button: {
     // backgroundColor: "white",
     display: "flex",
-    justifyContent: "flexEnd"
+    justifyContent: "flexEnd",
+   
   },
   cartImage: {
     width: 40,

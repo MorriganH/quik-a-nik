@@ -26,8 +26,11 @@ export default function StripeMobile({ navigation }) {
   const dispatch = useDispatch();
 
   const fetchPaymentIntentClientSecret = async () => {
-    const response = await axios.post(`${tunnelURL}/checkout-mobile/create-payment-intent`, {cart})
-    console.log(response.data.clientSecret)
+    const response = await axios.post(
+      `${tunnelURL}/checkout-mobile/create-payment-intent`,
+      { cart }
+    );
+    console.log(response.data.clientSecret);
     // const response = await fetch(
     //   `${tunnelURL}/checkout-mobile/create-payment-intent`,
     //   {
@@ -47,7 +50,7 @@ export default function StripeMobile({ navigation }) {
   };
 
   const handlePaymentSuccess = () => {
-    navigation.navigate("Confirmation", {cart});
+    navigation.navigate("Confirmation", { cart });
     dispatch(toggleModal(""));
     dispatch(resetCart());
   };
@@ -72,20 +75,19 @@ export default function StripeMobile({ navigation }) {
     if (error) {
       console.log("Payment confirmation error", error);
     } else if (paymentIntent) {
-
       const order = {
         locationInfo,
         userSession,
         cart,
         stripe_charge_id: paymentIntent.clientSecret,
       };
-      
+
       axios
-      .post(`${tunnelURL}/orders`, order)
-      // .then(handlePaymentSuccess)
-      .catch((err) => console.log(err));
+        .post(`${tunnelURL}/orders`, order)
+        // .then(handlePaymentSuccess)
+        .catch((err) => console.log(err));
     }
-    
+
     handlePaymentSuccess();
   };
 
@@ -96,25 +98,29 @@ export default function StripeMobile({ navigation }) {
       style={styles.activityIndicator}
     />
   ) : (
-    <StripeProvider publishableKey="pk_test_51NDgmwLv74N28uF2MxWf6liIv4DqMJcIagTtcT1BAymIJEkX1gaky4i9nLLfmfALffHmN32aiXmRrSiPAcmn0wOP00ONBP6Dfx">
-      <View style={styles.container}>
-        <CardField
-          postalCodeEnabled={false}
-          placeholders={{
-            number: "4242 4242 4242 4242",
-          }}
-          cardStyle={{
-            backgroundColor: "#FFFFFF",
-            textColor: "#000000",
-          }}
-          style={{
-            minWidth: "90%",
-            minHeight: 50,
-            marginVertical: 10,
-          }}
-        />
-        <Button onPress={handlePayPress} title="Pay" disabled={loading} />
-      </View>
-    </StripeProvider>
+    <>
+      <Text style={styles.title}>Checkout with Stripe</Text>
+
+      <StripeProvider publishableKey="pk_test_51NDgmwLv74N28uF2MxWf6liIv4DqMJcIagTtcT1BAymIJEkX1gaky4i9nLLfmfALffHmN32aiXmRrSiPAcmn0wOP00ONBP6Dfx">
+        <View style={styles.container}>
+          <CardField
+            postalCodeEnabled={false}
+            placeholders={{
+              number: "4242 4242 4242 4242",
+            }}
+            cardStyle={{
+              backgroundColor: "#FFFFFF",
+              textColor: "#000000",
+            }}
+            style={{
+              minWidth: "90%",
+              minHeight: 50,
+              marginVertical: 10,
+            }}
+          />
+          <Button onPress={handlePayPress} title="Pay" disabled={loading} />
+        </View>
+      </StripeProvider>
+    </>
   );
 }

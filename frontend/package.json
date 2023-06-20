@@ -10,6 +10,9 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/dm-sans": "^0.2.3",
+    "@expo-google-fonts/inter": "^0.2.3",
+    "@expo-google-fonts/pacifico": "^0.2.3",
     "@expo/webpack-config": "^18.0.1",
     "@react-google-maps/api": "^2.18.1",
     "@react-navigation/native": "^6.1.6",
@@ -21,6 +24,7 @@
     "bcryptjs": "^2.4.3",
     "expo": "~48.0.18",
     "expo-device": "~5.2.1",
+    "expo-font": "~11.1.1",
     "expo-location": "~15.1.1",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",

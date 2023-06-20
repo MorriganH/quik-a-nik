@@ -14,7 +14,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 10,
-  }
+  },
+
+title: {
+  fontSize: 20
+}
 });
 
 export default styles;

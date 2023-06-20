@@ -17,6 +17,9 @@ const styles = StyleSheet.create({
 
   cardDetails:{
     borderWidth: 1,
+  },
+  title: {
+    fontSize: 20
   }
 
 });

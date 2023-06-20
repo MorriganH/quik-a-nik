@@ -5,7 +5,6 @@ import {
   TextInput,
   Pressable,
   ActivityIndicator,
-  LogBox,
 } from "react-native";
 import tunnelURL from "../backend_tunnel";
 import axios from "axios";
@@ -22,7 +21,6 @@ export default function Login({ navigation }) {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [loading, setLoading] = useState(false);
 
-  LogBox.ignoreAllLogs();
 
   const dispatch = useDispatch();
 
