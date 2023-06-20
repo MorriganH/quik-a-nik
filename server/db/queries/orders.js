@@ -15,7 +15,7 @@ const getOrdersByUserId = id => {
       JOIN products ON line_items.product_id = products.id
       JOIN users ON users.id = orders.user_id
       WHERE orders.user_id = $1
-      ORDER BY orders.created_at DESC;
+      ORDER BY orders.id DESC;
       `,
       [id]
     )
