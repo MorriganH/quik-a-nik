@@ -89,10 +89,23 @@ export default function QuikanikStack() {
           >
             <Stack.Screen name="Home" component={Home} options={{ title: '    Quik-a-nik', color: "green" }} />
           </Stack.Group>
+          <Stack.Group
+            screenOptions={({ navigation }) => ({
+              headerLeft: () => (
+                <Pressable
+                  onPress={() => navigation.navigate("Home")}
+                >
+                  <Text style={style.menu2}> ⇇ </Text>
+                </Pressable>
+              ),
+            })}
+          >
+            <Stack.Screen name="OrderList" component={OrderList} options={{ title: 'Quik-a-nik' }} />
+          </Stack.Group>
           <Stack.Screen name="Web" component={Web} />
           <Stack.Screen name="ProductList" component={ProductList} options={{ title: 'Quik-a-nik' }} />
           <Stack.Screen name="Map" component={Map} options={{ title: 'Quik-a-nik' }} />
-          <Stack.Screen name="OrderList" component={OrderList} options={{ title: 'Quik-a-nik' }} />
+          
           <Stack.Screen name="Cart" component={Cart} options={{ title: 'Quik-a-nik' }} />
           <Stack.Screen name="Login" component={Login} options={{ title: 'Quik-a-nik' }} />
           <Stack.Screen name="Register" component={Register} options={{ title: 'Quik-a-nik' }} />
@@ -113,20 +126,20 @@ export default function QuikanikStack() {
             header: () => <Navbar navigation={navigation} />,
           })}
         >
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Web" component={Web} />
-          <Stack.Screen name="ProductList" component={ProductList} />
-          <Stack.Screen name="Map" component={Map} />
-          <Stack.Screen name="OrderList" component={OrderList} />
-          <Stack.Screen name="Cart" component={Cart} />
-          <Stack.Screen name="Navbar" component={Navbar} />
-          <Stack.Screen name="Stripe" component={Stripe} />
-          <Stack.Screen name="Confirmation" component={ConfirmationWeb} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="About" component={About} />
-          <Stack.Screen name="Footer" component={Footer} />
-          <Stack.Screen name="ContactUs" component={ContactUs} />
+          <Stack.Screen name="Home" component={Home} options={{ title: 'Quik-a-nik' }} />
+          <Stack.Screen name="Web" component={Web} options={{ title: 'Quik-a-nik' }}/>
+          <Stack.Screen name="ProductList" component={ProductList} options={{ title: 'Quik-a-nik' }} />
+          <Stack.Screen name="Map" component={Map} options={{ title: 'Quik-a-nik' }}/>
+          <Stack.Screen name="OrderList" component={OrderList} options={{ title: 'Quik-a-nik' }}/>
+          <Stack.Screen name="Cart" component={Cart} options={{ title: 'Quik-a-nik' }}/>
+          <Stack.Screen name="Navbar" component={Navbar} options={{ title: 'Quik-a-nik' }}/>
+          <Stack.Screen name="Stripe" component={Stripe} options={{ title: 'Quik-a-nik' }}/>
+          <Stack.Screen name="Confirmation" component={ConfirmationWeb} options={{ title: 'Quik-a-nik' }}/>
+          <Stack.Screen name="Login" component={Login} options={{ title: 'Quik-a-nik' }}/>
+          <Stack.Screen name="Register" component={Register} options={{ title: 'Quik-a-nik' }}/>
+          <Stack.Screen name="About" component={About} options={{ title: 'Quik-a-nik' }}/>
+          <Stack.Screen name="Footer" component={Footer} options={{ title: 'Quik-a-nik' }}/>
+          <Stack.Screen name="ContactUs" component={ContactUs} options={{ title: 'Quik-a-nik' }}/>
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -151,9 +164,13 @@ const style = StyleSheet.create({
     fontSize: 13,
   },
   menu: {
-    fontSize: 25,
     fontWeight: "bold",
-
+    fontSize: 25,
+    
     color: "#ce4216",
+  },
+  menu2: {
+    fontSize: 25,
+
   },
 });
