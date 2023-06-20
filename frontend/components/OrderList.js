@@ -20,7 +20,7 @@ import { setOrders } from "../redux/actions";
 export default function OrderList({ navigation }) {
   const device = Platform.OS;
 
-  const { userSession } = useSelector(state => state.reducer);
+  const { userSession, orders } = useSelector(state => state.reducer);
 
   const fetchOrders = () => {
     //GET request to server to fetch orders data
@@ -28,7 +28,9 @@ export default function OrderList({ navigation }) {
       .get(`${tunnelURL}/orders/user/${userSession.id}`)
       //Format orders data and dispatch to Redux to set state
       .then(res => {
+        console.log("orders response: ", res.data)
         const formattedData = formatOrderData(res.data);
+        console.log("formattedData: ", formattedData)
         dispatch(setOrders(formattedData));
       })
       .catch(err => {
@@ -44,8 +46,6 @@ export default function OrderList({ navigation }) {
   //useDispatch hook dispatches Redux action
   const dispatch = useDispatch();
 
-  //useSelector hook selects orders state from Redux
-  const { orders } = useSelector(state => state.reducer);
   // console.log("orders in OrderList: ", orders.orders);
 
   const Order = ({ order }) => {

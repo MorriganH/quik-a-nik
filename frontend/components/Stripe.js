@@ -53,9 +53,9 @@ export default function Stripe({ navigation }) {
           const order = { locationInfo, userSession, cart, stripe_charge_id };
           console.log("locationInfo web:", locationInfo);
 
-          axios.post(`${tunnelURL}/orders`, order);
+         axios.post(`${tunnelURL}/orders`, order);
         })
-        .then(() => navigation.navigate("Confirmation", { cart }))
+        .then(() => setTimeout(navigation.navigate("Confirmation", { cart }),1000))
         .then(() => {
           dispatch(toggleModal(""));
           dispatch(resetCart());
