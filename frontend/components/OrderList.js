@@ -13,7 +13,7 @@ import {
 import axios from "axios";
 import tunnelURL from "../backend_tunnel";
 import styles from "../styles/orderList";
-import { formatOrderData } from "../helpers/orders";
+import { formatOrderData, formatOrderId } from "../helpers/orders";
 
 import { setOrders } from "../redux/actions";
 
@@ -51,7 +51,7 @@ export default function OrderList({ navigation }) {
   const Order = ({ order }) => {
     return (
       <View style={styles.orderItem}>
-        <Text style={styles.orderId}>{`Order ID:  ${order.id}`}</Text>
+        <Text style={styles.orderId}>{`Order ID:  ${formatOrderId(order.id)}`}</Text>
 
         {order.line_items.map(
           (

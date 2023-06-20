@@ -3,6 +3,7 @@ const formatOrderId = (orderId) => {
   return`bsk000${orderId}`
 }
 
+
 const formatPrice = (priceInCents) => {
   return `$${(priceInCents / 100).toFixed(2)}`;
 };
@@ -19,12 +20,9 @@ const formatDate = (timeStamp) => {
 
 const formatOrderData = (data) => {
   const ordersData = data.orders;
-  console.log("OrdersData pre-sort", ordersData)
-  ordersData.sort((a, b) => b.id - a.id);
-  console.log("OrdersData post-sort", ordersData)
   const ordersById = {};
 
-  for (let i = 0; i < ordersData.length; i++) {
+  for (let i = ordersData.length - 1; i >= 0; i--) {
     const order = ordersData[i];
 
     if (!ordersById[order.id]) {
@@ -50,9 +48,8 @@ const formatOrderData = (data) => {
     });
   }
 
-  console.log(Object.values(ordersById).sort((a, b) => b.id - a.id));
   // Convert the data from an object to an array for FlatList to work
-  return Object.values(ordersById);
+  return Object.values(ordersById).sort((a, b) => b.id - a.id);
 };
 
 export { formatOrderData, formatPrice, formatOrderId };
