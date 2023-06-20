@@ -75,7 +75,7 @@ export default function Home({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text>- Summer starts here - </Text>
+      <Text style={styles.slogan}>- Summer starts here - </Text>
       <ScrollView
         contentContainerStyle={styles.scrollView}
         showsVerticalScrollIndicator={false}

@@ -30,7 +30,7 @@ if (device === "web") {
 
     orderItem: {
       display: "flex",
-      flex: 1,
+      // flex: 1,
       width: 450,
       marginBottom: "8%",
       borderWidth: 3,
@@ -105,6 +105,21 @@ if (device === "web") {
       marginTop: "15%",
       marginLeft: "10%",
     },
+
+    missingImage: {
+      height: 100,
+      width: 100,
+      margin: 5,
+      alignSelf: "center",
+      marginBottom: 15,
+    },
+
+    link: {
+      color: "#ce4216",
+      textDecorationLine: "underline",
+      fontWeight: "bold",
+      alignSelf: "center",
+    },
   });
 }
 
@@ -139,7 +154,7 @@ if (device !== "web") {
 
     orderItem: {
       display: "flex",
-      flex: 1,
+      // flex: 1,
       marginBottom: "8%",
       borderWidth: 3,
       borderRadius: 10,
@@ -202,6 +217,21 @@ if (device !== "web") {
     price: {
       fontWeight: 800,
       color: "black",
+    },
+
+    missingImage: {
+      height: 100,
+      width: 100,
+      margin: 5,
+      alignSelf: "center",
+      marginBottom: 15,
+    },
+
+    link: {
+      color: "#ce4216",
+      textDecorationLine: "underline",
+      fontWeight: "bold",
+      alignSelf: "center",
     },
   });
 }

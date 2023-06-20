@@ -9,16 +9,18 @@ if (device === "web") {
 styles = StyleSheet.create({
   aboutWrapper: {
     display: "flex",
+    flex: 1,
     flexDirection: "row",
     width: 950,
-    height: 850,
+    height: 800,
     alignSelf: "center",
     backgroundColor: "white",
     borderRadius: 20,
     shadowColor: "rgba(34, 61, 26, 0.5)",
     shadowOffset: { width:3, height: 3 },
     shadowRadius: 3,
-    overflow: "hidden"
+    overflow: "hidden",
+    paddingTop: 15
   },
   paragraphWrapper: {
     display: "flex",

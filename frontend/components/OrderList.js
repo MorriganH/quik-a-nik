@@ -8,6 +8,7 @@ import {
   FlatList,
   Platform,
   ScrollView,
+  Pressable,
 } from "react-native";
 import axios from "axios";
 import tunnelURL from "../backend_tunnel";
@@ -16,21 +17,21 @@ import { formatOrderData } from "../helpers/orders";
 
 import { setOrders } from "../redux/actions";
 
-export default function OrderList() {
+export default function OrderList({ navigation }) {
   const device = Platform.OS;
 
-  const { userSession } = useSelector((state) => state.reducer);
+  const { userSession } = useSelector(state => state.reducer);
 
   const fetchOrders = () => {
     //GET request to server to fetch orders data
     axios
       .get(`${tunnelURL}/orders/user/${userSession.id}`)
       //Format orders data and dispatch to Redux to set state
-      .then((res) => {
+      .then(res => {
         const formattedData = formatOrderData(res.data);
         dispatch(setOrders(formattedData));
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -44,7 +45,7 @@ export default function OrderList() {
   const dispatch = useDispatch();
 
   //useSelector hook selects orders state from Redux
-  const { orders } = useSelector((state) => state.reducer);
+  const { orders } = useSelector(state => state.reducer);
   // console.log("orders in OrderList: ", orders.orders);
 
   const Order = ({ order }) => {
@@ -85,20 +86,36 @@ export default function OrderList() {
     <>
       <View style={styles.container}>
         <View style={styles.left}>
-          {orders.length > 0 && (
-            <Text
-              style={styles.title}
-            >{`${orders[0].first_name}'s Orders`}</Text>
+          {orders.length > 0 ? (
+            <>
+              <Text
+                style={styles.title}
+              >{`${orders[0].first_name}'s Orders`}</Text>
+
+              <FlatList
+                showsHorizontalScrollIndicator={false}
+                style={styles.flatList}
+                data={orders} //Pass orders data to FlatList
+                renderItem={({ item }) => <Order order={item} />}
+                keyExtractor={order => order.id.toString()}
+              />
+            </>
+          ) : (
+            <View style={styles.orderItem}>
+              <Text style={styles.orderId}>
+                You haven't had any picnics yet
+              </Text>
+              <Image
+                style={styles.missingImage}
+                source={require("../assets/empty-basket.png")}
+              />
+              <Pressable
+                onPress={() => navigation.navigate("Home")}
+              >
+                <Text style={styles.link}>Get one started now!</Text>
+              </Pressable>
+            </View>
           )}
-          
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              style={styles.flatList}
-              data={orders} //Pass orders data to FlatList
-              renderItem={({ item }) => <Order order={item} />}
-              keyExtractor={(order) => order.id.toString()}
-            />
-          
         </View>
 
         {device === "web" && (
