@@ -8,8 +8,8 @@ For more information on who built Quik-a-nik, scroll down to the bottom of the R
 
 ## Screenshots
 
-![]()
-![]()
+![Quik-a-nik Home (Mobile)](https://github.com/MorriganH/quik-a-nik/blob/master/docs/Quik-a-nik%20Home%20(Mobile).png?raw=true)
+![Quik-a-nik Home (Web)](https://github.com/MorriganH/quik-a-nik/blob/master/docs/Quik-a-nik%20Home%20(Web).png?raw=true)
 ![]()
 ![]()
 ![]()
