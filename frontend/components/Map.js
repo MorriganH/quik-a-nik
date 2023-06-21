@@ -17,7 +17,7 @@ import { setLocationInfo, toggleModal } from "../redux/actions";
 import Stripe from "./Stripe";
 
 export default function Map({ navigation }) {
-  const { locationInfo, modalShow } = useSelector(state => state.reducer);
+  const { locationInfo, modalShow } = useSelector((state) => state.reducer);
   const dispatch = useDispatch();
 
   const [location, setLocation] = useState({
@@ -55,7 +55,7 @@ export default function Map({ navigation }) {
     text = JSON.stringify(location);
   }
 
-  const updateMarker = ev => {
+  const updateMarker = (ev) => {
     const oldMarkerPos = { ...markerPos };
     setMarkerPos(
       oldMarkerPos,
@@ -86,7 +86,7 @@ export default function Map({ navigation }) {
             lng: location.coords.longitude,
           }}
           zoom={13}
-          onClick={ev => {
+          onClick={(ev) => {
             updateMarker(ev);
           }}
         >
@@ -96,7 +96,7 @@ export default function Map({ navigation }) {
               lng: markerPos.coords.longitude,
             }}
             draggable
-            onDragEnd={ev => {
+            onDragEnd={(ev) => {
               updateMarker(ev);
             }}
           />
@@ -114,7 +114,7 @@ export default function Map({ navigation }) {
             placeholder="Location Details"
             editable
             multiline
-            onChangeText={text => setLocationDetails(text)}
+            onChangeText={(text) => setLocationDetails(text)}
             value={locationDetails}
             numberOfLines={5}
             maxLength={255}
@@ -131,13 +131,21 @@ export default function Map({ navigation }) {
           transparent={true}
           visible={modalShow === "stripeWebModal"}
         >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-            <Stripe navigation={navigation}/>
-              <View style={styles.closeButtonContainer}>
-                <TouchableOpacity onPress={() => dispatch(toggleModal(""))}>
-                  <Text style={styles.closeModal}>⨉</Text>
-                </TouchableOpacity>
+          <View
+            style={{
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Stripe navigation={navigation} />
+                <View style={styles.closeButtonContainer}>
+                  <TouchableOpacity onPress={() => dispatch(toggleModal(""))}>
+                    <Text style={styles.closeModal}>⨉</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </View>

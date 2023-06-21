@@ -105,19 +105,28 @@ export default function Map({ navigation }) {
         >
           <Text style={styles.buttonText}>Proceed to Checkout</Text>
         </Pressable>
+
         <Modal
-          animationType="slide"
+          animationType="slide" 
           transparent={true}
           visible={showStripeMobile}
         >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <View style={styles.closeButtonContainer}>
-                <TouchableOpacity onPress={() => setShowStripeMobile(false)}>
-                  <Text style={styles.closeModal}>⨉</Text>
-                </TouchableOpacity>
+          <View
+            style={{
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <View style={styles.closeButtonContainer}>
+                  <TouchableOpacity onPress={() => setShowStripeMobile(false)}>
+                    <Text style={styles.closeModal}>⨉</Text>
+                  </TouchableOpacity>
+                </View>
+                <StripeMobile navigation={navigation} />
               </View>
-              <StripeMobile navigation={navigation}/>
             </View>
           </View>
         </Modal>

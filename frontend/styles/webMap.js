@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
 
   buttonText: {
     fontWeight: 500,
-    margin: "auto"
+    margin: "auto",
   },
 
   activityIndicator: {
