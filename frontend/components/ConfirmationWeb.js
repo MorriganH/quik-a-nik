@@ -1,5 +1,5 @@
+//REACT
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import {
   Text,
   Pressable,
@@ -7,47 +7,51 @@ import {
   ActivityIndicator,
   FlatList,
 } from "react-native";
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
-import key from "../api_key";
+import { useSelector } from "react-redux";
+
+//EXPO
 import * as Location from "expo-location";
-import styles from "../styles/confirmation";
+
+//HELPER FUNCTIONS
 import { trackDelivery } from "../helpers/confirmation";
-import axios from "axios";
-import tunnelURL from "../backend_tunnel";
 import { formatOrderId, formatPrice } from "../helpers/orders";
 
+//APIs
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+import key from "../api_key";
+import styles from "../styles/confirmation";
+
+//NETWORKING
+import axios from "axios";
+import tunnelURL from "../backend_tunnel";
+
 export default function ConfirmationWeb({ route, navigation }) {
+  //STATES
   const { locationInfo, userSession } = useSelector((state) => state.reducer);
-
-  const cart = route.params.cart;
-
-  const order = { locationInfo, userSession, cart };
-
   const [location, setLocation] = useState({
     coords: { latitude: 0, longitude: 0 },
   });
   const [markerPos, setMarkerPos] = useState(location);
   const [errorMsg, setErrorMsg] = useState(null);
-
+  const order = { locationInfo, userSession, cart };
   const [deliveryStatus, setDeliveryStatus] = useState(1);
   const [deliveryString, setDeliveryString] = useState("");
   const [recentOrder, setrecentOrder] = useState(null);
+  const cart = route.params.cart;
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: key,
   });
 
-  //Call to backend to grab new Order ID and price
+  //AXIOS CALL TO SERVER FETCHES ORDER DATA
   const fetchRecentOrder = (userId) => {
     axios
       .get(`${tunnelURL}/orders/new/${userSession.id}`)
       .then((response) => {
         const orderData = response.data.orders;
-        console.log("orderData: ", orderData);
 
         if (orderData) {
-          //set order fetched to recentOrder state
           const mostRecentOrder = orderData[0];
           setrecentOrder(mostRecentOrder);
         } else {
@@ -59,6 +63,8 @@ export default function ConfirmationWeb({ route, navigation }) {
         console.error(`Error fetching recent order ID: `, error);
       });
   };
+
+  //useEffect sets location and user variables after render
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -91,8 +97,8 @@ export default function ConfirmationWeb({ route, navigation }) {
     };
   }, []);
 
+  //Handle map render errors
   let text = "Waiting..";
-  // save either error message or JSON location data (in string format) in 'text' variable
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
@@ -103,6 +109,7 @@ export default function ConfirmationWeb({ route, navigation }) {
     return <Text>Map cannot be loaded</Text>;
   }
 
+  //Build item component for FlatList
   function LineItem({ item }) {
     return (
       <View style={styles.lineItemContainer}>
@@ -113,6 +120,8 @@ export default function ConfirmationWeb({ route, navigation }) {
     );
   }
 
+  //RETURN
+  //Check recentOrder state, returns ActivityIndicator if falsy, view component if truthy
   return recentOrder ? (
     <>
       <View style={styles.container}>
@@ -148,10 +157,12 @@ export default function ConfirmationWeb({ route, navigation }) {
               renderItem={({ item }) => <LineItem item={item} />}
               keyExtractor={(item) => item.name}
             />
-            <Text style={styles.orderTotal}>Total: {formatPrice(recentOrder.total_price_cents)}</Text>
+            <Text style={styles.orderTotal}>
+              Total: {formatPrice(recentOrder.total_price_cents)}
+            </Text>
           </View>
           <View style={styles.orderTracker}>
-          <Text style={styles.orderStatus}>Order Status:</Text>
+            <Text style={styles.orderStatus}>Order Status:</Text>
             <Text style={styles.statusString}>{deliveryString}</Text>
             {deliveryString !== "Delivered. Enjoy!!" && (
               <ActivityIndicator
