@@ -25,9 +25,9 @@ For more information on who built Quik-a-nik, scroll down to the bottom of the R
 
 - `npm install` in both the frontend and server directories.
 
-- Launch PostgreSQL on your computer using `psql` and log in.  Create a new database Quiknik using `CREATE DATABASE quiknik;` command.
+- Launch PostgreSQL on your computer using `psql` and log in.  Create a new database quikanik using `CREATE DATABASE quikanik;` command.
 
-- In server directory, create .env and copy .env.example into it. Ensure `DB_USER` and `DB_PASS` are accurate for your system.  Run `npm run db:reset` command in terminal to fill quiknik database with seed data.  
+- In server directory, create .env and copy .env.example into it. Ensure `DB_USER` and `DB_PASS` are accurate for your system.  Run `npm run db:reset` command in terminal to fill quikanik database with seed data.  
 
 - Sign up for a Stripe Developer account and paste your Stripe secret key into the `STRIPE_SECRET` string value in .env file.
 
