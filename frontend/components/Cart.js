@@ -66,7 +66,7 @@ export default function Cart({navigation}) {
             style={styles.submitButton}
             onPress={() => navigation.navigate("Map")}
           >
-            <Text>Select Drop-off Location</Text>
+            <Text style={styles.submitButtonText}>Select Drop-off Location</Text>
           </Pressable>
         )}
         {userSession === null && (

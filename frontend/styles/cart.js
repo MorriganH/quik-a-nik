@@ -102,6 +102,11 @@ if (device === "web") {
       textAlign: "center",
     },
 
+    submitButtonText: {
+      margin: "auto",
+      fontWeight: 500,
+    },
+
     lineItem: {
       display: "flex",
       flexDirection: "row",
@@ -241,6 +246,12 @@ if (device === "web") {
       borderRadius: 5,
       backgroundColor: "#55bb55",
       width: "auto",
+      textAlign: "center",
+    },
+
+    submitButtonText: {
+      margin: "auto",
+      fontWeight: 500,
       textAlign: "center",
     },
 
