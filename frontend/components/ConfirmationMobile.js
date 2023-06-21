@@ -1,3 +1,4 @@
+//REACT
 import { useState, useEffect } from "react";
 import {
   Text,
@@ -5,27 +6,34 @@ import {
   FlatList,
   Pressable,
   ActivityIndicator,
-  ScrollView,
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+
+//APIs
 import MapView, { Marker } from "react-native-maps";
 import key from "../api_key";
 import styles from "../styles/confirmation";
+
+//COMPONENTS
 import { trackDelivery } from "../helpers/confirmation";
-import axios from "axios";
-import tunnelURL from "../backend_tunnel";
 import { formatOrderId, formatPrice } from "../helpers/orders";
 
+//NETWORKING
+import axios from "axios";
+import tunnelURL from "../backend_tunnel";
+
+//FUNCTION DEFINITION
 export default function ConfirmationMobile({ route, navigation }) {
+  
+  //STATES
   const { locationInfo, userSession } = useSelector((state) => state.reducer);
-
-  const cart = route.params.cart;
-  const order = { locationInfo, userSession, cart };
-
   const [deliveryStatus, setDeliveryStatus] = useState(1);
   const [deliveryString, setDeliveryString] = useState("");
   const [recentOrder, setrecentOrder] = useState(null);
 
+  //VARIABLE DECLARATION
+  const order = { locationInfo, userSession, cart };
+  const cart = route.params.cart;
   const initialRegion = {
     latitude: locationInfo.latitude,
     longitude: locationInfo.longitude,
@@ -33,6 +41,7 @@ export default function ConfirmationMobile({ route, navigation }) {
     longitudeDelta: 0.0055,
   };
 
+  //Axios call to server fetches data for new order
   const fetchRecentOrder = (userId) => {
     axios
       .get(`${tunnelURL}/orders/new/${userId}`)
@@ -54,6 +63,7 @@ export default function ConfirmationMobile({ route, navigation }) {
       });
   };
 
+  //useEffect sets location and user variables after render
   useEffect(() => {
     // trackDelivery returns the current intervalStatus and stores it in a variable
     const intervalId = trackDelivery(setDeliveryStatus, setDeliveryString);
@@ -67,6 +77,7 @@ export default function ConfirmationMobile({ route, navigation }) {
     };
   }, []);
 
+  //Build LineItem component for FlatList
   function LineItem({ item }) {
     return (
       <View style={styles.lineItemContainer}>
@@ -77,12 +88,11 @@ export default function ConfirmationMobile({ route, navigation }) {
     );
   }
 
+  //RETURN
   return (
-    // short circuit triggers re-render of component once location truthy
-
+    //Check recentOrder state, returns ActivityIndicator if falsy, view component if truthy
     recentOrder ? (
       <View style={styles.container}>
-        {/* <ScrollView> */}
           <View style={styles.top}>
             <Text style={styles.title}>Thanks For Your Order!</Text>
             <Text style={styles.subtitle}>Your Basket Is On It's Way</Text>
@@ -128,7 +138,6 @@ export default function ConfirmationMobile({ route, navigation }) {
           >
             <Text style={styles.buttonText}>View Your Orders</Text>
           </Pressable>
-        {/* </ScrollView> */}
       </View>
     ) : (
       <ActivityIndicator

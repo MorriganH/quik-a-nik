@@ -25,6 +25,7 @@ import styles from "../styles/confirmation";
 import axios from "axios";
 import tunnelURL from "../backend_tunnel";
 
+//FUNCTION DEFINITION
 export default function ConfirmationWeb({ route, navigation }) {
   //STATES
   const { locationInfo, userSession } = useSelector((state) => state.reducer);
@@ -44,7 +45,7 @@ export default function ConfirmationWeb({ route, navigation }) {
     googleMapsApiKey: key,
   });
 
-  //AXIOS CALL TO SERVER FETCHES ORDER DATA
+  //Axios call to server fetches data for new order
   const fetchRecentOrder = (userId) => {
     axios
       .get(`${tunnelURL}/orders/new/${userSession.id}`)
@@ -109,7 +110,7 @@ export default function ConfirmationWeb({ route, navigation }) {
     return <Text>Map cannot be loaded</Text>;
   }
 
-  //Build item component for FlatList
+  //Build LineItem component for FlatList
   function LineItem({ item }) {
     return (
       <View style={styles.lineItemContainer}>

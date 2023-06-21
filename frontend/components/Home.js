@@ -1,9 +1,8 @@
+//REACT
 import { React, useState, useEffect } from "react";
 import {
   Text,
   View,
-  Image,
-  Button,
   Pressable,
   Platform,
   TouchableOpacity,
@@ -11,32 +10,33 @@ import {
   ScrollView,
   ImageBackground,
 } from "react-native";
-import Footer from "./Footer";
-import { setUserSession } from "../redux/actions";
+import { toggleModal, setProducts, setUserSession } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import {
-  addItem,
-  toggleModal,
-  adjustQuantity,
-  setProducts,
-} from "../redux/actions";
-import tunnelURL from "../backend_tunnel";
+
+//COMPONENT
+import Footer from "./Footer";
 import styles from "../styles/home";
 
+//NETWORKING
+import axios from "axios";
+import tunnelURL from "../backend_tunnel";
+
+//FUNCTION DECLARATION
 export default function Home({ navigation }) {
-  const device = Platform.OS;
-
+  //STATE
   const [menuModalShow, setMenuModalShow] = useState(false);
-
   const { cart, products, modalShow, modalProduct, userSession } = useSelector(
     (state) => state.reducer
   );
-
   const [orderCount, setOrderCount] = useState(0);
 
+  //Store users platform in variable
+  const device = Platform.OS;
+
+  //VARIABLE DECLARATION
   const dispatch = useDispatch();
 
+  //Sets products to display in product list view
   const filter = function (path, view) {
     axios
       .get(`${tunnelURL}/products/${path}`)
@@ -58,6 +58,7 @@ export default function Home({ navigation }) {
       .catch((err) => console.log(err));
   };
 
+  //Manage user and modal states on render
   useEffect(() => {
     if (userSession) {
       getOrderCount(userSession.id);
@@ -73,6 +74,7 @@ export default function Home({ navigation }) {
     viewSwitcher("Login");
   };
 
+  //RETURN
   return (
     <View style={styles.container}>
       <Text style={styles.slogan}>- Summer starts here - </Text>
@@ -115,7 +117,10 @@ export default function Home({ navigation }) {
               <Text style={styles.iconsLabel}>Add-ons</Text>
             </Pressable>
 
-            <Pressable onPress={() => filter('drinks', 'ProductList')} style={styles.iconsGroup}>
+            <Pressable
+              onPress={() => filter("drinks", "ProductList")}
+              style={styles.iconsGroup}
+            >
               <ImageBackground
                 style={styles.icons}
                 source={require("../assets/home_page_test/pexels-antoni-shkraba-5085770.jpg")}
@@ -123,7 +128,10 @@ export default function Home({ navigation }) {
               <Text style={styles.iconsLabel}>Drinks</Text>
             </Pressable>
 
-            <Pressable onPress={() => filter('potato', 'ProductList')} style={styles.iconsGroup}>
+            <Pressable
+              onPress={() => filter("potato", "ProductList")}
+              style={styles.iconsGroup}
+            >
               <ImageBackground
                 style={styles.icons}
                 source={require("../assets/home_page_test/potato.jpg")}
@@ -231,25 +239,6 @@ export default function Home({ navigation }) {
             ></ImageBackground>
           </Pressable>
           <Text style={styles.buttonTitle}>Fun in the sun</Text>
-
-          {/* 
-          <View style={styles.footer}>
-            <Pressable style={styles.footerOptions}>
-              <Text>All baskets</Text>
-            </Pressable>
-            <Pressable style={styles.footerOptions}>
-              <Text>About us</Text>
-            </Pressable>
-          </View>
-          <View style={styles.footer}>
-            <Pressable style={styles.footerOptions}>
-              <Text>Find a park</Text>
-            </Pressable>
-            <Pressable style={styles.footerOptions}>
-              <Text>How we're helping</Text>
-            </Pressable>
-          </View>
-          <Text style={styles.buttonTitle}> TeamTBD™</Text> */}
         </View>
 
         {device !== "web" && <Footer navigation={navigation} />}
@@ -332,7 +321,6 @@ export default function Home({ navigation }) {
               </Pressable>
             </View>
           )}
-          {/* <View style={{ alignItems: "center" }}> */}
           <Pressable
             style={styles.modalButton}
             onPress={() => {
@@ -340,7 +328,7 @@ export default function Home({ navigation }) {
               dispatch(toggleModal("", ""));
             }}
           >
-          <Text style={styles.modalSubOption}>📍 About us</Text>
+            <Text style={styles.modalSubOption}>📍 About us</Text>
           </Pressable>
           <Pressable
             style={styles.modalButton}
@@ -353,7 +341,6 @@ export default function Home({ navigation }) {
           </Pressable>
           <Text style={styles.modalSubOption}>🌭 Work with us</Text>
           <Text style={styles.modalSubOption}>❓ FAQ</Text>
-          {/* </View> */}
         </View>
       </Modal>
     </View>

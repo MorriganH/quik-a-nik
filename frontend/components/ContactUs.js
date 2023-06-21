@@ -1,6 +1,10 @@
-import { Linking, Pressable, Text, View, Image } from "react-native";
+//REACT
+import { Linking, Pressable, Text, View } from "react-native";
+
+//STYLES
 import styles from "../styles/contactUs";
 
+//FUNCTION DEFINITION
 export default function ContactUs() {
   return (
     <View style={styles.container}>
@@ -11,7 +15,7 @@ export default function ContactUs() {
           <Text style={styles.linkText}>-> LinkedIn</Text>
         </Pressable>
         <Pressable style={styles.link} onPress={() => Linking.openURL('https://github.com/SirGraybon')}>
-          <Text style={styles.linkText}> -> Github</Text>
+          <Text style={styles.linkText}>-> Github</Text>
         </Pressable>
       </View>
       <View style={styles.person}>

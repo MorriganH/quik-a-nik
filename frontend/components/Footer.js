@@ -1,9 +1,13 @@
+//REACT
 import { Platform, View, Text, Pressable } from "react-native";
 import styles from "../styles/home";
 
+//Store user platform in variable
 const device = Platform.OS;
 
+//FUNCTION DEFINITION
 export default function Footer({ navigation }) {
+  //WEB
   if (device !== "web") {
     return (
       <View>
@@ -29,6 +33,7 @@ export default function Footer({ navigation }) {
         <Text style={styles.buttonTitle}> TeamTBD™</Text>
       </View>
     );
+    //ANDROID
   } else {
     return (
       <View style={styles.footer}>

@@ -20,7 +20,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import Home from "./Home";
 import Cart from "./Cart";
 import ProductList from "./ProductList";
-import Web from "./Web";
 import OrderList from "./OrderList";
 import Navbar from "./Navbar";
 import Stripe from "./Stripe";
@@ -102,10 +101,8 @@ export default function QuikanikStack() {
           >
             <Stack.Screen name="OrderList" component={OrderList} options={{ title: 'Quik-a-nik' }} />
           </Stack.Group>
-          <Stack.Screen name="Web" component={Web} />
           <Stack.Screen name="ProductList" component={ProductList} options={{ title: 'Quik-a-nik' }} />
           <Stack.Screen name="Map" component={Map} options={{ title: 'Quik-a-nik' }} />
-          
           <Stack.Screen name="Cart" component={Cart} options={{ title: 'Quik-a-nik' }} />
           <Stack.Screen name="Login" component={Login} options={{ title: 'Quik-a-nik' }} />
           <Stack.Screen name="Register" component={Register} options={{ title: 'Quik-a-nik' }} />
@@ -127,7 +124,6 @@ export default function QuikanikStack() {
           })}
         >
           <Stack.Screen name="Home" component={Home} options={{ title: 'Quik-a-nik' }} />
-          <Stack.Screen name="Web" component={Web} options={{ title: 'Quik-a-nik' }}/>
           <Stack.Screen name="ProductList" component={ProductList} options={{ title: 'Quik-a-nik' }} />
           <Stack.Screen name="Map" component={Map} options={{ title: 'Quik-a-nik' }}/>
           <Stack.Screen name="OrderList" component={OrderList} options={{ title: 'Quik-a-nik' }}/>

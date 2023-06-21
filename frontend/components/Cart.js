@@ -1,37 +1,40 @@
+//REACT
 import {
   Text,
   View,
   Image,
-  Button,
   FlatList,
-  Modal,
   Pressable,
-  BlurView,
-  ScrollView,
   Platform,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "../styles/cart";
-import WebMap from "./Map";
-import { toggleModal, adjustCartQuantity } from "../redux/actions";
+import { adjustCartQuantity } from "../redux/actions";
 
+//COMPONENTS
+import styles from "../styles/cart";
+
+//Store users platform in variable
 const device = Platform.OS;
 
+//FUNCTION DECLARATION
 export default function Cart({navigation}) {
-  const { cart, modalShow, cartNotification, userSession } = useSelector(
+
+  //STATES
+  const { cart, cartNotification, userSession } = useSelector(
     (state) => state.reducer
   );
 
-
+  //VARIABLE DECLARATION
   const dispatch = useDispatch();
-
   let subTotal = 0;
 
+  //Sum the price of the cart
   cart.forEach((item) => {
     const itemPrice = (item.price_cents / 100) * item.default_quantity;
     subTotal += itemPrice;
   });
 
+  //Build Footer component for FlatList
   const Footer = function () {
     return (
       <View style={styles.total}>
@@ -85,6 +88,7 @@ export default function Cart({navigation}) {
     );
   };
 
+  //Build Item component for FlatList
   const Item = ({ item }) => (
     <View style={styles.item}>
       <View style={styles.containerFlow}>
@@ -130,13 +134,15 @@ export default function Cart({navigation}) {
       </View>
     </View>
   );
-
+  
+  //Add tax and delivery charges to total
   const taxRate = 1.13;
   const deliveryFee = cartNotification * 1.25;
   const beforeTax = subTotal + deliveryFee;
   const tax = beforeTax * taxRate - beforeTax;
   const total = beforeTax + tax;
-
+  
+  //If cart not empty
   if (cartNotification > 0) {
     return (
       <View style={styles.container}>
@@ -168,6 +174,7 @@ export default function Cart({navigation}) {
         )}
       </View>
     );
+    //If cart empty
   } else {
     return (
       <View style={styles.missingItem}>
