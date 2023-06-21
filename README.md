@@ -8,17 +8,17 @@ For more information on who built Quik-a-nik, scroll down to the bottom of the R
 
 ## Screenshots
 
-![Quik-a-nik Home (Mobile)]()
-![Quik-a-nik Home (Web)]()
-![]()
-![]()
-![]()
-![]()
-![]()
-![]()
-![]()
-![]()
-![]()
+![Home (Mobile)](https://github.com/MorriganH/quik-a-nik/blob/readme/docs/Quik-a-nik%20Home%20(Mobile).png?raw=true)
+![Home (Web)](https://github.com/MorriganH/quik-a-nik/blob/readme/docs/Quik-a-nik%20Home%20(Web).png?raw=true)
+![Products List (Web)](https://github.com/MorriganH/quik-a-nik/blob/readme/docs/Quik-a-nik%20Products%20(Web).png?raw=true)
+![Cart (Mobile)](https://github.com/MorriganH/quik-a-nik/blob/readme/docs/Quik-a-nik%20Cart%20(Mobile).png?raw=true)
+![Cart (Web)](https://github.com/MorriganH/quik-a-nik/blob/readme/docs/Quik-a-nik%20Cart%20(Web).png?raw=true)
+![Set Location (Mobile)](https://github.com/MorriganH/quik-a-nik/blob/readme/docs/Quik-a-nik%20Set%20Location%20(Mobile).png?raw=true)
+![Set Location (Web)](https://github.com/MorriganH/quik-a-nik/blob/readme/docs/Quik-a-nik%20Set%20Location%20(Web).png?raw=true)
+![Order Confirmation (Mobile)](https://github.com/MorriganH/quik-a-nik/blob/readme/docs/Quik-a-nik%20Order%20Confirmation%20(Mobile).png?raw=true)
+![Order Confirmation (Web)](https://github.com/MorriganH/quik-a-nik/blob/readme/docs/Quik-a-nik%20Order%20Confirmation%20(Web).png?raw=true)
+![My Orders (Web)](https://github.com/MorriganH/quik-a-nik/blob/readme/docs/Quik-a-nik%20My%20Orders%20(Web).png?raw=true)
+
 
 
 
