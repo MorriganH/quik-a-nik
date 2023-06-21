@@ -9,7 +9,7 @@ import {
   Platform,
   ScrollView,
   Pressable,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import axios from "axios";
 import tunnelURL from "../backend_tunnel";
@@ -21,10 +21,10 @@ import { setOrders } from "../redux/actions";
 export default function OrderList({ navigation }) {
   const device = Platform.OS;
 
-    //useDispatch hook dispatches Redux action
-    const dispatch = useDispatch();
+  //useDispatch hook dispatches Redux action
+  const dispatch = useDispatch();
 
-  const { userSession, orders } = useSelector(state => state.reducer);
+  const { userSession, orders } = useSelector((state) => state.reducer);
   const [loading, setLoading] = useState(false);
 
   const fetchOrders = () => {
@@ -33,14 +33,14 @@ export default function OrderList({ navigation }) {
     axios
       .get(`${tunnelURL}/orders/user/${userSession.id}`)
       //Format orders data and dispatch to Redux to set state
-      .then(res => {
-        console.log("orders response: ", res.data)
+      .then((res) => {
+        console.log("orders response: ", res.data);
         const formattedData = formatOrderData(res.data);
-        console.log("formattedData: ", formattedData)
+        console.log("formattedData: ", formattedData);
         dispatch(setOrders(formattedData));
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -50,11 +50,12 @@ export default function OrderList({ navigation }) {
     fetchOrders();
   }, []);
 
-
   const Order = ({ order }) => {
     return (
       <View style={styles.orderItem}>
-        <Text style={styles.orderId}>{`Order ID:  ${formatOrderId(order.id)}`}</Text>
+        <Text style={styles.orderId}>{`Order ID:  ${formatOrderId(
+          order.id
+        )}`}</Text>
 
         {order.line_items.map(
           (
@@ -89,24 +90,29 @@ export default function OrderList({ navigation }) {
     <View style={styles.container}>
       <View style={styles.left}>
         {loading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" color="#00ff00" />
         ) : orders.length === 0 ? (
           <View style={styles.orderItem}>
             <Text style={styles.orderId}>You haven't had any picnics yet</Text>
-            <Image style={styles.missingImage} source={require("../assets/empty-basket.png")} />
+            <Image
+              style={styles.missingImage}
+              source={require("../assets/empty-basket.png")}
+            />
             <Pressable onPress={() => navigation.navigate("Home")}>
               <Text style={styles.link}>Get one started now!</Text>
             </Pressable>
           </View>
         ) : (
           <>
-            <Text style={styles.title}>{`${orders[0].first_name}'s Orders`}</Text>
+            <Text
+              style={styles.title}
+            >{`${orders[0].first_name}'s Orders`}</Text>
             <FlatList
               showsHorizontalScrollIndicator={false}
               style={styles.flatList}
               data={orders}
               renderItem={({ item }) => <Order order={item} />}
-              keyExtractor={order => order.id.toString()}
+              keyExtractor={(order) => order.id.toString()}
             />
           </>
         )}
