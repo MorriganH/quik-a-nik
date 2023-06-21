@@ -1,12 +1,8 @@
 //REACT / REACT NATIVE
-import { StatusBar } from "expo-status-bar";
 import {
   Text,
-  Image,
-  Button,
   Platform,
   Pressable,
-  AnimateHamburger,
   StyleSheet,
   View,
   ImageBackground,
@@ -20,7 +16,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import Home from "./Home";
 import Cart from "./Cart";
 import ProductList from "./ProductList";
-import Web from "./Web";
 import OrderList from "./OrderList";
 import Navbar from "./Navbar";
 import Stripe from "./Stripe";
@@ -37,11 +32,11 @@ import ContactUs from "./ContactUs";
 
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
-import { addItem, toggleModal, adjustQuantity } from "../redux/actions";
+import { toggleModal} from "../redux/actions";
 
 export default function QuikanikStack() {
   //REDUX FUNCTIONS
-  const { cart, products, modalShow, modalProduct, cartNotification } =
+  const { cartNotification } =
     useSelector((state) => state.reducer);
   const dispatch = useDispatch();
 
@@ -102,10 +97,8 @@ export default function QuikanikStack() {
           >
             <Stack.Screen name="OrderList" component={OrderList} options={{ title: 'Quik-a-nik' }} />
           </Stack.Group>
-          <Stack.Screen name="Web" component={Web} />
           <Stack.Screen name="ProductList" component={ProductList} options={{ title: 'Quik-a-nik' }} />
-          <Stack.Screen name="Map" component={Map} options={{ title: 'Quik-a-nik' }} />
-          
+          <Stack.Screen name="Map" component={Map} options={{ title: 'Quik-a-nik' }} />          
           <Stack.Screen name="Cart" component={Cart} options={{ title: 'Quik-a-nik' }} />
           <Stack.Screen name="Login" component={Login} options={{ title: 'Quik-a-nik' }} />
           <Stack.Screen name="Register" component={Register} options={{ title: 'Quik-a-nik' }} />
@@ -127,7 +120,6 @@ export default function QuikanikStack() {
           })}
         >
           <Stack.Screen name="Home" component={Home} options={{ title: 'Quik-a-nik' }} />
-          <Stack.Screen name="Web" component={Web} options={{ title: 'Quik-a-nik' }}/>
           <Stack.Screen name="ProductList" component={ProductList} options={{ title: 'Quik-a-nik' }} />
           <Stack.Screen name="Map" component={Map} options={{ title: 'Quik-a-nik' }}/>
           <Stack.Screen name="OrderList" component={OrderList} options={{ title: 'Quik-a-nik' }}/>
@@ -146,6 +138,8 @@ export default function QuikanikStack() {
   }
 }
 
+
+//STYLES
 const style = StyleSheet.create({
   modal: {
     position: "absolute",

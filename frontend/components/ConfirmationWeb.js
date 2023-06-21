@@ -25,6 +25,7 @@ import styles from "../styles/confirmation";
 import axios from "axios";
 import tunnelURL from "../backend_tunnel";
 
+//FUNCTION DEFINITION
 export default function ConfirmationWeb({ route, navigation }) {
   //STATES
   const { locationInfo, userSession } = useSelector((state) => state.reducer);

@@ -1,51 +1,38 @@
+//REACT
 import {
   StripeProvider,
   CardField,
   useStripe,
   useConfirmPayment,
 } from "@stripe/stripe-react-native";
-import { ActivityIndicator } from "react-native";
-import { Text, View, Button } from "react-native";
-import { useState } from "react";
+import { ActivityIndicator, Text, View, Button } from "react-native";
+
+//STATE
 import { useSelector, useDispatch } from "react-redux";
 import tunnelURL from "../backend_tunnel";
 import styles from "../styles/stripeAndroid";
 import { toggleModal, resetCart } from "../redux/actions";
 import axios from "axios";
 
+//FUNCTION DEFINITION
 export default function StripeMobile({ navigation }) {
-  // console.log("Navigation from within Stripe", navigation)
-
+  //STATEs
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const { confirmPayment, loading } = useConfirmPayment();
-
   const { locationInfo, userSession, cart } = useSelector(
     (state) => state.reducer
   );
 
   const dispatch = useDispatch();
 
+  //Fetches payment intent
   const fetchPaymentIntentClientSecret = async () => {
     const response = await axios.post(
       `${tunnelURL}/checkout-mobile/create-payment-intent`,
       { cart }
     );
-    console.log(response.data.clientSecret);
-    // const response = await fetch(
-    //   `${tunnelURL}/checkout-mobile/create-payment-intent`,
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       currency: "cad",
-    //       cart
-    //     }),
-    //   }
-    // );
+
     const clientSecret = response.data.clientSecret;
-    console.log(clientSecret);
     return clientSecret;
   };
 
@@ -90,7 +77,7 @@ export default function StripeMobile({ navigation }) {
 
     handlePaymentSuccess();
   };
-
+  //RETURN
   return loading ? (
     <ActivityIndicator
       size="large"

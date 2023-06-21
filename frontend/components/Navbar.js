@@ -1,39 +1,27 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  Button,
-  Pressable,
-  useWindowDimensions,
-  ScrollView,
-  Modal,
-  ImageBackground,
-} from "react-native";
-//APP
+//REACT
+import { View, Text, Pressable, ImageBackground } from "react-native";
+
+//NETWORKING
 import tunnelURL from "../backend_tunnel";
 import axios from "axios";
+
+//COMPONENTs
 import styles from "../styles/navbar";
 
-//NAVIGATOR
-import {
-  addItem,
-  toggleModal,
-  adjustQuantity,
-  setProducts,
-} from "../redux/actions";
-
-//REDUX
+//STATE
+import { setProducts } from "../redux/actions";
 import { setUserSession } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 
+//FUNCTION DEFINITION
 export default function Navbar({ navigation }) {
+  //STATEs
   const { cart, userSession, cartNotification } = useSelector(
     (state) => state.reducer
   );
   const dispatch = useDispatch();
-  const test = false;
 
+  //SETS PRODUCTS TO DISPLAY IN PRODUCT LIST VIEW
   const filter = function (path, view) {
     axios
       .get(`${tunnelURL}/products/${path}`)
@@ -46,15 +34,17 @@ export default function Navbar({ navigation }) {
       });
   };
 
+  //CHANGES TO NEW VIEW
   const viewSwitcher = function (newView) {
     navigation.navigate(newView);
   };
 
+  //LOGS THE USER OUT
   const logout = () => {
     dispatch(setUserSession(null));
     viewSwitcher("Login");
   };
-
+  //RETURN
   return (
     <Text style={styles.webNavBar}>
       <View style={styles.navSection}>
@@ -67,10 +57,7 @@ export default function Navbar({ navigation }) {
         >
           <Text style={styles.navLink}>Products</Text>
         </Pressable>
-        <Pressable
-          style={styles.button}
-          onPress={() => viewSwitcher("About")}
-        >
+        <Pressable style={styles.button} onPress={() => viewSwitcher("About")}>
           <Text style={styles.navLink}>About</Text>
         </Pressable>
       </View>
@@ -96,7 +83,10 @@ export default function Navbar({ navigation }) {
 
         {userSession !== null && (
           <View style={styles.userActions}>
-            <Text style={styles.navLink}> Welcome back, {userSession.first_name}</Text>
+            <Text style={styles.navLink}>
+              {" "}
+              Welcome back, {userSession.first_name}
+            </Text>
             <Text> | </Text>
 
             <Pressable
@@ -118,7 +108,6 @@ export default function Navbar({ navigation }) {
             style={styles.cartImage}
           >
             <Text style={styles.cartNotification}>{cartNotification} </Text>
-            {/* <Text>Cart </Text> */}
           </ImageBackground>
         </Pressable>
       </View>

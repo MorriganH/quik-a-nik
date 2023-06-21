@@ -1,3 +1,4 @@
+//REACT
 import { useState } from "react";
 import {
   View,
@@ -6,24 +7,31 @@ import {
   Pressable,
   ActivityIndicator,
 } from "react-native";
+import bcrypt from "react-native-bcrypt";
+
+//NETWORKING
 import tunnelURL from "../backend_tunnel";
 import axios from "axios";
+
+//STATE
 import { setUserSession } from "../redux/actions";
 import { useDispatch } from "react-redux";
-import bcrypt from "react-native-bcrypt";
+
+//COMPONENTS
 import styles from "../styles/register";
 
+//FUNCTION DECLARATION
 export default function Login({ navigation }) {
+  //STATEs
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [loading, setLoading] = useState(false);
-
-
   const dispatch = useDispatch();
 
+  //Redirects to new page
   const viewSwitcher = function (newView) {
     navigation.navigate(newView);
   };
@@ -44,7 +52,7 @@ export default function Login({ navigation }) {
       }
     }
 
-    axios.post(`${tunnelURL}/users/register`, userInfo).then(res => {
+    axios.post(`${tunnelURL}/users/register`, userInfo).then((res) => {
       if (!res.data) {
         alert("User with this email already exists");
         setLoading(false);
@@ -54,7 +62,7 @@ export default function Login({ navigation }) {
       }
     });
   };
-
+  //ensures user password matched password confirmation feild before creating user
   const checkPasswords = (password, passwordConfirm) => {
     setLoading(true);
     if (!password || password !== passwordConfirm) {
@@ -66,6 +74,7 @@ export default function Login({ navigation }) {
     registerUser(firstName, lastName, email, hash);
   };
 
+  //RETURN
   return (
     <View style={styles.container}>
       <View style={styles.box}>
@@ -74,14 +83,14 @@ export default function Login({ navigation }) {
         <TextInput
           style={styles.textInput}
           placeholder="first name"
-          onChangeText={newText => setFirstName(newText)}
+          onChangeText={(newText) => setFirstName(newText)}
           onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
         />
         <Text>Last Name</Text>
         <TextInput
           style={styles.textInput}
           placeholder="last name"
-          onChangeText={newText => setLastName(newText)}
+          onChangeText={(newText) => setLastName(newText)}
           onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
         />
         <Text>Email</Text>
@@ -89,14 +98,14 @@ export default function Login({ navigation }) {
           style={styles.textInput}
           placeholder="email"
           inputMode="email"
-          onChangeText={newText => setEmail(newText)}
+          onChangeText={(newText) => setEmail(newText)}
           onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
         />
         <Text>Password</Text>
         <TextInput
           style={styles.textInput}
           placeholder="password"
-          onChangeText={newText => setPassword(newText)}
+          onChangeText={(newText) => setPassword(newText)}
           onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
           secureTextEntry={true}
         />
@@ -104,7 +113,7 @@ export default function Login({ navigation }) {
         <TextInput
           style={styles.textInput}
           placeholder="confirm password"
-          onChangeText={newText => setPasswordConfirm(newText)}
+          onChangeText={(newText) => setPasswordConfirm(newText)}
           onSubmitEditing={() => checkPasswords(password, passwordConfirm)}
           secureTextEntry={true}
         />
