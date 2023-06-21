@@ -20,9 +20,6 @@ For more information on who built Quik-a-nik, scroll down to the bottom of the R
 ![My Orders (Web)](https://github.com/MorriganH/quik-a-nik/blob/readme/docs/Quik-a-nik%20My%20Orders%20(Web).png?raw=true)
 
 
-
-
-
 ## Getting Started
 
 - `npm install` in both the frontend and server directories.
@@ -69,6 +66,11 @@ Once the app has launched you can do the following:
 - Press 'Quik-a-nik' in top right corner to be redirected to the home page
 - When ready to checkout, press the basket icon in the nav bar to start checkout process.
 - Press My Orders to view your past orders made.
+
+### Tech Stack
+- React Native
+- Express
+- PostgreSQL
 
 
 ### Dependencies 

@@ -57,7 +57,7 @@ if (device === "web") {
     orderId: {
       fontSize: 14,
       fontWeight: 800,
-      marginBottom: "1%",
+      marginBottom: "2%",
     },
 
     ineItemContainer: {
@@ -68,12 +68,12 @@ if (device === "web") {
     lineItem: {
       marginRight: "1%",
       marginBottom: "1%",
-      marginLeft: "10%",
+      marginLeft: "5%",
       width: 300,
     },
 
     orderTotal: {
-      marginTop: "1%",
+      marginTop: "2%",
       fontSize: 14,
       fontWeight: 800,
     },
@@ -100,9 +100,9 @@ if (device === "web") {
     },
 
     statusString: {
-      fontStyle: "italic",
       marginTop: "1%",
       marginBottom: "1%",
+      fontWeight: 600,
     },
 
     myOrdersButton: {
@@ -194,7 +194,8 @@ if (device !== "web") {
 
     ineItemContainer: {},
 
-    lineItem: {},
+    lineItem: {
+    },
 
     orderTotal: {
       fontSize: 20,
@@ -202,9 +203,8 @@ if (device !== "web") {
     },
 
     statusString: {
-      fontStyle: "italic",
       fontSize: 18,
-      fontWeight: 500,
+      fontWeight: 600,
       marginLeft: "auto",
       marginRight: "auto",
       marginTop: "3%",
