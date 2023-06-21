@@ -21,8 +21,6 @@ For more information on who built Quik-a-nik, scroll down to the bottom of the R
 
 
 
-
-
 ## Getting Started
 
 - `npm install` in both the frontend and server directories.
