@@ -1,3 +1,4 @@
+//REACT
 import { useState, useCallback, useEffect } from "react";
 import {
   Text,
@@ -8,7 +9,11 @@ import {
   Modal,
   TouchableOpacity,
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+
+//STATE
+import { useDispatch } from "react-redux";
+
+//API
 import MapView, { Marker } from "react-native-maps";
 import key from "../api_key";
 import * as Location from "expo-location";
@@ -16,10 +21,11 @@ import styles from "../styles/map";
 import { setLocationInfo } from "../redux/actions";
 import StripeMobile from "./Stripe.android";
 
+//FUNCTION DEFINITION
 export default function Map({ navigation }) {
+  //STATEs
   const dispatch = useDispatch();
   const [showStripeMobile, setShowStripeMobile] = useState(false);
-
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [markerPosition, setMarkerPosition] = useState(null);
@@ -64,6 +70,7 @@ export default function Map({ navigation }) {
     // navigation.navigate("Stripe");
   };
 
+  //RETURN
   return (
     // short circuit triggers re-render of component once location truthy
 
@@ -107,7 +114,7 @@ export default function Map({ navigation }) {
         </Pressable>
 
         <Modal
-          animationType="slide" 
+          animationType="slide"
           transparent={true}
           visible={showStripeMobile}
         >

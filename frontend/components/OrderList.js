@@ -1,3 +1,4 @@
+//REACT
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -11,13 +12,21 @@ import {
   Pressable,
   ActivityIndicator,
 } from "react-native";
+
+//NETWORKING
 import axios from "axios";
 import tunnelURL from "../backend_tunnel";
+
+//COMPONENTS
 import styles from "../styles/orderList";
+
+//HELPERS
 import { formatOrderData, formatOrderId } from "../helpers/orders";
 
+//STATE
 import { setOrders } from "../redux/actions";
 
+//FUNCTION DEFINITION
 export default function OrderList({ navigation }) {
   const device = Platform.OS;
 
@@ -86,6 +95,7 @@ export default function OrderList({ navigation }) {
     );
   };
 
+  //RETURN
   return (
     <View style={styles.container}>
       <View style={styles.left}>

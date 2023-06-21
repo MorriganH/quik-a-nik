@@ -1,3 +1,4 @@
+//REACT
 import { useState } from "react";
 import {
   View,
@@ -6,20 +7,33 @@ import {
   Pressable,
   ActivityIndicator,
 } from "react-native";
+
+//NETWORKING
 import tunnelURL from "../backend_tunnel";
 import axios from "axios";
+
+//STATE
 import { setUserSession } from "../redux/actions";
 import { useDispatch } from "react-redux";
+
+//COMPONENTS
 import bcrypt from "bcryptjs";
+
+//SECURITY
 import styles from "../styles/login";
 
+
+//FUNCTION DEFINITION
 export default function Login({ navigation }) {
+
+//STATE
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
   const dispatch = useDispatch();
 
+
+  //CHANGES VIEW
   const viewSwitcher = function (newView) {
     navigation.navigate(newView);
   };
@@ -58,6 +72,7 @@ export default function Login({ navigation }) {
       });
   };
 
+  //RETURN
   return (
     <View style={styles.container}>
       <View style={styles.box}>

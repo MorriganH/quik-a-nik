@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+//REACT
+import React, { useState, useEffect } from "react";
 import {
   Text,
   TextInput,
@@ -9,13 +9,19 @@ import {
   Modal,
   TouchableOpacity,
 } from "react-native";
+
+//STATE
+import { useDispatch, useSelector } from "react-redux";
+import { setLocationInfo, toggleModal } from "../redux/actions";
+
+//APIs
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import key from "../api_key";
 import * as Location from "expo-location";
 import styles from "../styles/webMap";
-import { setLocationInfo, toggleModal } from "../redux/actions";
 import Stripe from "./Stripe";
 
+//FUNCTION DEFINITION
 export default function Map({ navigation }) {
   const { locationInfo, modalShow } = useSelector((state) => state.reducer);
   const dispatch = useDispatch();
@@ -55,6 +61,7 @@ export default function Map({ navigation }) {
     text = JSON.stringify(location);
   }
 
+  //FUNCTION
   const updateMarker = (ev) => {
     const oldMarkerPos = { ...markerPos };
     setMarkerPos(
@@ -76,6 +83,7 @@ export default function Map({ navigation }) {
     return <Text>Map cannot be loaded</Text>;
   }
 
+  //RETURN
   return isLoaded ? (
     <>
       <View style={styles.container}>
