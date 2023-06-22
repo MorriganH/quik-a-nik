@@ -254,7 +254,7 @@ if (device !== "web") {
       marginBottom: "2%",
       marginLeft: "auto",
       marginRight: "auto",
-      height: 130,
+      height: 175,
       width: "80%",
       borderWidth: 1,
       borderRadius: 10,
@@ -267,7 +267,7 @@ if (device !== "web") {
 
     orderStatus: {
       fontSize: 20,
-      fontWeight: 800,
+      // fontWeight: 800,
       color: "#ce4216",
       marginLeft: "auto",
       marginRight: "auto",
