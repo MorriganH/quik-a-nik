@@ -13,6 +13,7 @@ import tunnelURL from "../backend_tunnel";
 import styles from "../styles/stripeAndroid";
 import { toggleModal, resetCart } from "../redux/actions";
 import axios from "axios";
+import stripePublishableKey from "../stripe_publishable";
 
 //FUNCTION DEFINITION
 export default function StripeMobile({ navigation }) {
@@ -88,7 +89,7 @@ export default function StripeMobile({ navigation }) {
     <>
       <Text style={styles.title}>Checkout with Stripe</Text>
 
-      <StripeProvider publishableKey="pk_test_51NDgmwLv74N28uF2MxWf6liIv4DqMJcIagTtcT1BAymIJEkX1gaky4i9nLLfmfALffHmN32aiXmRrSiPAcmn0wOP00ONBP6Dfx">
+      <StripeProvider publishableKey={stripePublishableKey}>
         <View style={styles.container}>
           <CardField
             postalCodeEnabled={false}
